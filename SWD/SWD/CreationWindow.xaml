@@ -13,16 +13,29 @@
                 <GradientStop Color="#FF65ACE2" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="lblFillTheData" Content="Fill with data" Margin="0,50,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
             </Grid.ColumnDefinitions>
-            
-            <Label Grid.Column="0" Content="Label" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert project title" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.ColumnSpan="2" x:Name="lblFillTheData" Content="Fill with data" Margin="0,0,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert project title" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
+
+            <Label Grid.Column="0" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert author's name" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
+            <Button x:Name="btnSubmit" Grid.Column="1" Content="Submit" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="5" Padding="5" Width="200" VerticalAlignment="Center"/>
+
         </Grid>
     </Grid>
 </Window>
