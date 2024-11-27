@@ -1,0 +1,28 @@
+﻿<Window x:Class="SWD.CreationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWD"
+        mc:Ignorable="d"
+        Title="CreationWindow" Height="400" Width="400">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF97C9EF"/>
+                <GradientStop Color="#FF65ACE2" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="lblFillTheData" Content="Fill with data" Margin="0,50,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Label Grid.Column="0" Content="Label" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert project title" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
+        </Grid>
+    </Grid>
+</Window>

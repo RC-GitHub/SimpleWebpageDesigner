@@ -1,0 +1,22 @@
+﻿<Window x:Class="SWD.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWD"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid x:Name="mainBg">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF97C9EF"/>
+                <GradientStop Color="#FF65ACE2" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" Margin="0,118,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Margin="0,200,0,0" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" Margin="0,241,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" Margin="0,282,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

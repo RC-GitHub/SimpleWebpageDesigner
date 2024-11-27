@@ -1,0 +1,15 @@
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe.config
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.pdb
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.AssemblyReference.cache
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.g.cs
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.g.cs
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.cache
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.lref
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.baml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.g.resources
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.Properties.Resources.resources
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.GenerateResource.cache
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.CoreCompileInputs.cache
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.pdb
