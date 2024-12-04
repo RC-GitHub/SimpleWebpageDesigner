@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
-        Title="CreationWindow" Height="400" Width="400">
+        Title="CreationWindow" Height="550" Width="500">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,28 +13,51 @@
                 <GradientStop Color="#FF65ACE2" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Grid>
+        <Grid Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2.5*" />
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
             </Grid.RowDefinitions>
 
             <Label Grid.ColumnSpan="2" x:Name="lblFillTheData" Content="Fill with data" Margin="0,0,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Label Grid.Column="0" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert project title" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
 
             <Label Grid.Column="0" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
             <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Insert author's name" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2"/>
-            <Button x:Name="btnSubmit" Grid.Column="1" Content="Submit" HorizontalAlignment="Center" Margin="0,0,0,0" Grid.Row="5" Padding="5" Width="200" VerticalAlignment="Center"/>
+
+            <Label Grid.Column="0" Grid.Row="3" x:Name="lblKeywords" Content="Keywords" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <Grid x:Name="Griddy" Grid.Column="1" Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Column="0" Grid.Row="0" x:Name="tbKeyword" Padding="5" Margin="20,5,60,5" TextWrapping="Wrap" Width="220" Text="Insert a keyword" VerticalAlignment="Center" AcceptsReturn="True"/>
+                <Button x:Name="btnAdd" Content="+" Grid.Column="0" Grid.Row="0" Padding="5" Width="30" Margin="230,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAdd_Click"/>
+
+                <ListBox x:Name="lsbKeywords" Grid.Column="0" Grid.Row="1" Padding="5" Margin="20,5,60,5" Width="220">
+                </ListBox>
+                <Button x:Name="btnRemove" Content="-" Grid.Column="0" Grid.Row="1" Padding="5" Width="30" Margin="230,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnRemove_Click"/>
+            </Grid>
+
+
+            <Label Grid.Column="0" Grid.Row="4" x:Name="lblDescription" Content="Description" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbDescription" Padding="5" HorizontalAlignment="Center" Margin="0,10,0,10" TextWrapping="Wrap" Text="Insert description" VerticalAlignment="Stretch" Width="260" Grid.ColumnSpan="2" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
+
+            <Button x:Name="btnSubmit" Grid.Row="5" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Width="200" VerticalAlignment="Center" Click="btnSubmit_Click"/>
 
         </Grid>
     </Grid>
