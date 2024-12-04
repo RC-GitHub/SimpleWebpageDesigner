@@ -81,6 +81,9 @@ namespace SWD
             {
                 Debug.WriteLine(result);
             }
+
+            CreationWindow fillTheData = new CreationWindow(Environment.CurrentDirectory);
+            fillTheData.ShowDialog();
         }
     }
 }
