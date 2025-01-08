@@ -8,9 +8,10 @@ namespace SWD
 {
     internal class Head
     {
+        public string ProjectName { get; set; }
         public string Author {  get; set; }
-        public string Copyright { get; set; }
         public string[] Keywords { get; set; }
         public string Description { get; set; }
+
     }
 }
