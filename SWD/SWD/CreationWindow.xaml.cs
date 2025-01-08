@@ -27,16 +27,43 @@ namespace SWD
     /// </summary>
     public partial class CreationWindow : Window
     {
-        public string dir;
-        public CreationWindow(string directory)
+        public string dir = Environment.CurrentDirectory;
+        public string tempForProjectTitle = "Insert project title";
+        public string tempForAuthor = "Insert author's name";
+        public string tempForKeyword = "Insert a keyword";
+        public string tempForDescription = "Insert description";
+
+        public CreationWindow()
         {
             InitializeComponent();
-            dir = directory;
+            InitializeEmptyText();
+
+            Debug.WriteLine("Udało się!");
+
+        }
+
+        public void InitializeEmptyText()
+        {
+            if (string.IsNullOrWhiteSpace(tbProjectTitle.Text))
+            {
+                tbProjectTitle.Text = "Insert project title";
+                tbProjectTitle.Foreground = Brushes.Gray;
+            }
             if (string.IsNullOrWhiteSpace(tbAuthor.Text))
             {
                 tbAuthor.Text = "Insert author's name";
+                tbAuthor.Foreground = Brushes.Gray;
+            }            
+            if (string.IsNullOrWhiteSpace(tbKeyword.Text))
+            {
+                tbKeyword.Text = "Insert a keyword";
+                tbKeyword.Foreground = Brushes.Gray;
             }
-            Debug.WriteLine("Udało się!");
+            if (string.IsNullOrWhiteSpace(tbDescription.Text))
+            {
+                tbDescription.Text = "Insert description";
+                tbDescription.Foreground = Brushes.Gray;
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -52,22 +79,130 @@ namespace SWD
             lsbKeywords.Items.RemoveAt(lsbKeywords.SelectedIndex);
         }
 
+        public MessageBoxResult DisplayErrorMessage()
+        {
+            string messageBoxText = "A project with the same name already exists";
+            string caption = "Error!";
+            MessageBoxButton button = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Error;
+            MessageBoxResult result;
+
+            result = MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            return result;
+        }
+
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            List<Head> _data = new List<Head>();
-            _data.Add(new Head()
-            {
-                Author = tbAuthor.Text,
-                Copyright = "XXX",
-                Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
-                Description = tbDescription.Text,
-            });
 
-            string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
-            //string json = JsonSerializer.Serialize(_data);
-            Debug.WriteLine(dir);
-            Debug.WriteLine(json);
-            File.WriteAllText($"{dir}/path.json", json);
+            dir = System.IO.Path.Combine(dir, $"SWD-{tbProjectTitle.Text}");
+
+            if (Directory.Exists(dir))
+            {
+                DisplayErrorMessage(); // Folder w folderze się robi! Błąd!
+            } 
+            else
+            {
+
+                if (tbProjectTitle.Text != string.Empty && tbProjectTitle.Text != tempForProjectTitle)
+                {
+                    //Konwertuję wprowadzone dane na plik JSON, z którego wczytywane będą dane do tagów meta w HTML.
+                    List<Head> _data = new List<Head>();
+                    _data.Add(new Head()
+                    {
+                        ProjectName = tbProjectTitle.Text,
+                        Author = tbAuthor.Text,
+                        Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
+                        Description = tbDescription.Text,
+                    });
+
+                    string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
+
+
+                    try
+                    {
+                        if (!Directory.Exists(dir))
+                        {
+                            Directory.CreateDirectory(dir);
+                        }
+                        Debug.WriteLine(json);
+                        File.WriteAllText($"{dir}\\metadata.json", json);
+                    }
+                    catch (Exception err)
+                    {
+                        Console.WriteLine("The process failed: {0}", err.ToString());
+                    }
+                    finally { }
+                }
+
+                this.Close();
+            }
+        }
+
+        private void tbProjectTitle_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbProjectTitle.Text == tempForProjectTitle)
+            { tbProjectTitle.Text = ""; }
+            tbProjectTitle.Foreground = Brushes.Black;
+        }
+
+        private void tbProjectTitle_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbProjectTitle.Text == string.Empty)
+            { 
+                tbProjectTitle.Text = tempForProjectTitle;
+                tbProjectTitle.Foreground = Brushes.Gray;
+            }
+        }
+
+        private void tbAuthor_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbAuthor.Text == tempForAuthor)
+            { tbAuthor.Text = ""; }
+            tbAuthor.Foreground = Brushes.Black;
+        }
+
+        private void tbAuthor_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbAuthor.Text == string.Empty) 
+            { 
+                tbAuthor.Text = tempForAuthor;
+                tbAuthor.Foreground = Brushes.Gray;
+            }
+
+        }
+
+        private void tbKeyword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbKeyword.Text == tempForKeyword)
+            { tbKeyword.Text = ""; }
+            tbKeyword.Foreground = Brushes.Black;
+        }
+
+        private void tbKeyword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbKeyword.Text == string.Empty)
+            { 
+                tbKeyword.Text = tempForKeyword;
+                tbKeyword.Foreground = Brushes.Gray;
+            }
+
+        }
+
+        private void tbDescription_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbDescription.Text == tempForDescription)
+            { tbDescription.Text = ""; }
+            tbDescription.Foreground = Brushes.Black;
+        }
+
+        private void tbDescription_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbDescription.Text == string.Empty)
+            { 
+                tbDescription.Text = tempForDescription;
+                tbDescription.Foreground = Brushes.Gray;
+            }
+
         }
     }
 }

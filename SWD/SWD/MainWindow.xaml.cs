@@ -39,29 +39,6 @@ namespace SWD
             return result;
         }
 
-        public void CreateAProject(string projectName, string path)
-        {
-            path = path + "\\" + projectName;
-            try
-            {
-                // Sprawdzam, czy ścieżka istnieje
-                if (Directory.Exists(path))
-                {
-                    Console.WriteLine("That path exists already.");
-                    return;
-                }
-
-                // Tworzę folder z projektem.
-                DirectoryInfo di = Directory.CreateDirectory(path);
-                Console.WriteLine($"The directory was created successfully at {path}.", Directory.GetCreationTime(path));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"The process failed: {path}", e.ToString());
-            }
-            finally { }
-        }
-
         private void btnNewProject_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = DisplayNewProjectMessage();
@@ -70,20 +47,17 @@ namespace SWD
                 Debug.WriteLine(result);
             }
             else if (result == MessageBoxResult.No) {
-                var rootPath = Environment.CurrentDirectory;
+                Debug.WriteLine(Environment.CurrentDirectory);
 
-                string projectName = "SWD-Hello";
+                CreationWindow fillTheData = new CreationWindow();
+                fillTheData.ShowDialog();
 
-                CreateAProject(projectName, rootPath);
 
-                Debug.WriteLine(rootPath);
             } else
             {
                 Debug.WriteLine(result);
             }
 
-            CreationWindow fillTheData = new CreationWindow(Environment.CurrentDirectory);
-            fillTheData.ShowDialog();
         }
     }
 }
