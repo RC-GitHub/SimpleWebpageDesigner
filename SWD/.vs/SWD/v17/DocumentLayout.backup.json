@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\gridwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\gridwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\gridwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -38,24 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GridWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\GridWindow.xaml.cs",
               "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml.cs",
               "RelativeToolTip": "SWD\\GridWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAjAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAowCMAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-15T08:03:21.115Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -71,7 +71,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CreationWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\CreationWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\CreationWindow.xaml.cs",
