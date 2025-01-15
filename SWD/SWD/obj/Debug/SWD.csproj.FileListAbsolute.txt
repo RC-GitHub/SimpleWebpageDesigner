@@ -38,3 +38,9 @@ C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Valu
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Newtonsoft.Json.dll
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Newtonsoft.Json.xml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GridWindow.g.cs
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GridWindow.baml
