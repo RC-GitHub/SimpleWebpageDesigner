@@ -7,16 +7,24 @@
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\gridwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\gridwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\r_cupal\\desktop\\swd\\simplewebpagedesigner\\swd\\swd\\gridwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\gridwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\swd\\head.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -30,23 +38,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GridWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\GridWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml.cs",
+              "RelativeToolTip": "SWD\\GridWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-15T08:03:21.115Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "SWD\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml.cs",
-              "RelativeToolTip": "SWD\\MainWindow.xaml.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAADwvzoAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-27T06:51:20.706Z",
+              "DocumentIndex": 2,
+              "Title": "GridWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml",
+              "RelativeDocumentMoniker": "SWD\\GridWindow.xaml",
+              "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\GridWindow.xaml",
+              "RelativeToolTip": "SWD\\GridWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-15T07:41:36.707Z",
               "EditorCaption": ""
             },
             {
@@ -57,14 +77,27 @@
               "RelativeDocumentMoniker": "SWD\\CreationWindow.xaml.cs",
               "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\CreationWindow.xaml.cs",
               "RelativeToolTip": "SWD\\CreationWindow.xaml.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAowIMAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAIcAAAAAAAAAAAD4v44AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-04T06:49:54.041Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml.cs",
+              "RelativeToolTip": "SWD\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAowHEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-27T06:51:20.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Head.cs",
               "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\Head.cs",
               "RelativeDocumentMoniker": "SWD\\Head.cs",
@@ -77,7 +110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SWD\\MainWindow.xaml",
@@ -89,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "CreationWindow.xaml",
               "DocumentMoniker": "C:\\Users\\r_cupal\\Desktop\\swd\\SimpleWebpageDesigner\\SWD\\SWD\\CreationWindow.xaml",
               "RelativeDocumentMoniker": "SWD\\CreationWindow.xaml",

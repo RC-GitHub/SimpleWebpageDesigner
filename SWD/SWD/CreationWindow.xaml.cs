@@ -37,9 +37,13 @@ namespace SWD
         {
             InitializeComponent();
             InitializeEmptyText();
+        }
 
-            Debug.WriteLine("Udało się!");
-
+        public CreationWindow(string d)
+        {
+            InitializeComponent();
+            InitializeEmptyText();
+            dir = d;
         }
 
         public void InitializeEmptyText()
@@ -95,28 +99,37 @@ namespace SWD
         {
 
             dir = System.IO.Path.Combine(dir, $"SWD-{tbProjectTitle.Text}");
+            Debug.WriteLine(dir);
 
             if (Directory.Exists(dir))
             {
                 DisplayErrorMessage(); // Folder w folderze się robi! Błąd!
+                dir = "";
             } 
             else
             {
 
                 if (tbProjectTitle.Text != string.Empty && tbProjectTitle.Text != tempForProjectTitle)
                 {
+                    string author;
+                    string description;
+                    if (tbAuthor.Text == tempForAuthor) { 
+                        author = ""; 
+                    }  else { author = tbAuthor.Text; }                 if (tbDescription.Text == tempForDescription) { 
+                        description = ""; 
+                    } else { description = tbDescription.Text; }
+
                     //Konwertuję wprowadzone dane na plik JSON, z którego wczytywane będą dane do tagów meta w HTML.
                     List<Head> _data = new List<Head>();
                     _data.Add(new Head()
                     {
                         ProjectName = tbProjectTitle.Text,
-                        Author = tbAuthor.Text,
+                        Author = author,
                         Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
-                        Description = tbDescription.Text,
+                        Description = description,
                     });
 
                     string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
-
 
                     try
                     {
@@ -136,6 +149,8 @@ namespace SWD
 
                 this.Close();
             }
+            GridWindow gd = new GridWindow(dir);
+            gd.ShowDialog();
         }
 
         private void tbProjectTitle_GotFocus(object sender, RoutedEventArgs e)

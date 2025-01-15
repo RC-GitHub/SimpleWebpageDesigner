@@ -16,7 +16,7 @@
         <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" Margin="0,118,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Margin="0,200,0,0" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" Margin="0,241,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" Margin="0,282,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" Margin="0,282,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDeleteExisting_Click"/>
 
     </Grid>
 </Window>
