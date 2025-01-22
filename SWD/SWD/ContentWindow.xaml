@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
-        Title="ContentWindow" Height="1000" Width="1000">
+        Title="ContentWindow"
+        Height="1000" 
+        Width="1000" 
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
     <Grid x:Name="gdContent">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -69,9 +74,9 @@
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lblCol" Grid.Column="0" Content="Columns:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Name="btn_Col_Increase" Foreground="Gray" Content="▲" Width="30" Height="30" Click="Increase_Click" />
-                            <TextBox Name="tbColAmount" Width="100" Height="30" Text="1" TextAlignment="Center" />
-                            <Button Name="btn_Col_Decrease" Foreground="Gray" Content="▼" Width="30" Height="30" Click="Decrease_Click"/>
+                            <Button x:Name="btn_Col_Increase" Foreground="Gray" Content="▲" Width="30" Height="30" Click="Increase_Click" />
+                            <TextBox x:Name="tbColAmount" Width="100" Height="30" Text="1" TextAlignment="Center" />
+                            <Button x:Name="btn_Col_Decrease" Foreground="Gray" Content="▼" Width="30" Height="30" Click="Decrease_Click"/>
                         </StackPanel>
                     </Grid>
 
@@ -82,22 +87,79 @@
                         </Grid.ColumnDefinitions>
                         <Label x:Name="lblRow" Grid.Column="0" Content="Rows:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Button Name="btn_Row_Increase" Foreground="Gray" Content="▲" Width="30" Height="30" Click="Increase_Click" />
-                            <TextBox Name="tbRowAmount" Width="100" Height="30" Text="1" TextAlignment="Center" />
-                            <Button Name="btn_Row_Decrease" Foreground="Gray" Content="▼" Width="30" Height="30" Click="Decrease_Click"/>
+                            <Button x:Name="btn_Row_Increase" Foreground="Gray" Content="▲" Width="30" Height="30" Click="Increase_Click" />
+                            <TextBox x:Name="tbRowAmount" Width="100" Height="30" Text="1" TextAlignment="Center" />
+                            <Button x:Name="btn_Row_Decrease" Foreground="Gray" Content="▼" Width="30" Height="30" Click="Decrease_Click"/>
                         </StackPanel>
                     </Grid>
 
                 </Grid>
 
-                <DataGrid Name="dgContent" Grid.Column="2" Grid.Row="2" Margin="20,20,20,20" HeadersVisibility="All">
+                <DataGrid x:Name="dgContent" 
+                    RowHeaderWidth="30"
+                    Grid.Column="2" 
+                    Grid.Row="2" 
+                    Margin="20" 
+                    HeadersVisibility="All"
+                    CanUserAddRows="False"
+                    CanUserSortColumns="False"
+                    AutoGenerateColumns="False">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Height" Value="{x:Static sys:Double.NaN}"/>
+                        </Style>
+                    </DataGrid.RowStyle>
                     <DataGrid.RowHeaderStyle>
-                        <Style TargetType="DataGridRowHeader">
+                        <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="White" Offset="0.0" />
+                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
                             <Setter Property="Content" Value="{Binding Title}" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridRowHeader">
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </DataGrid.RowHeaderStyle>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Height" Value="30" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader" >
+                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="White" Offset="0.0" />
+                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
                 </DataGrid>
-                <DataGrid Name="dgPages" Grid.Row="2" Margin="20,20,20,20"/>
+                <DataGrid x:Name="dgPages" Grid.Row="2" Margin="20,20,20,20"/>
             </Grid>
         </Grid>
     </Grid>

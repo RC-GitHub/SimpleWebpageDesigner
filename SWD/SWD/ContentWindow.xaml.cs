@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -24,8 +25,9 @@ namespace SWD
     /// </summary>
     public partial class ContentWindow : Window
     {
-        DataView dv;
-        DataTable dt = new DataTable();
+        ObservableCollection<Row> data = new ObservableCollection<Row>();
+        //DataView dv;
+        //DataTable dt = new DataTable();
         public ContentWindow(string path)
         {
 
@@ -38,10 +40,35 @@ namespace SWD
                 }
             }
             Debug.WriteLine(files);
+            Row obj = new Row()
+            {
+                Title = "1",
+                Content = new List<string> { "1_1" }
+            };
+            data.Add(obj);
+            dgContent.ItemsSource = data;
+            dgContent.Columns.Clear();
+            BuildDataGrid();
+        }
 
-            dt.Columns.Add(new DataColumn("1", typeof(Int32)));
-            dv = new DataView(dt);
-            dgContent.ItemsSource = dv;
+        private void BuildDataGrid()
+        {
+            int cols = data[0].Content.Count;
+
+            for (int i = 0; i < cols; i++)
+            {
+                DataGridTextColumn column = new DataGridTextColumn
+                {
+                    Header = (i+1).ToString(),
+                    Binding = new System.Windows.Data.Binding($"Content[{i}]")
+                };
+                dgContent.Columns.Add(column);
+                /*                double totalWidth = dgContent.ActualWidth - 50;
+                                dgContent.Columns[i].Width = Math.Floor(totalWidth / cols);*/
+                dgContent.Columns[i].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
+/*                if (data.Count <= 12) dgContent.RowHeight = (dgContent.ActualHeight / data.Count;
+                else dgContent.RowHeight = dgContent.RenderSize.Height / 12;*/
+            }
         }
 
         private void Increase_Click(object sender, RoutedEventArgs e)
@@ -55,20 +82,42 @@ namespace SWD
 
             try
             {
-                int amount = Math.Min(Math.Max(Int32.Parse(tb.Text) + 1, 1), 12);
-                tb.Text = amount.ToString();
                 if (information[1] == "Col")
                 {
-                    dt.Columns.Add(new DataColumn($"{amount}", typeof(Int32)));
-                    dv = new DataView(dt);
-                    dgContent.ItemsSource = dv;
+                    int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
+                    amount = Math.Min(amount, 12);
+                    tb.Text = amount.ToString();
+
+                    if (data[0].Content.Count < 12)
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            data[i].Content.Add($"{i + 1}_{amount}");
+                        }
+                        dgContent.Columns.Clear();
+                        BuildDataGrid();
+                    }
                 }
                 else
                 {
-                    DataRow dr = dt.NewRow();
-                    dt.Rows.Add(dr);
-                    dv = new DataView(dt);
-                    dgContent.ItemsSource = dv;
+                    int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
+                    tb.Text = amount.ToString();
+
+                    int cols = data[0].Content.Count;
+                    List<string> l = new List<string>();
+                    for (int i = 0; i < cols; i++)
+                    {
+                        l.Add($"{amount}_{i+1}");
+                    }
+                    Row r = new Row()
+                    {
+                        Title = amount.ToString(),
+                        Content = l
+                    };
+                    data.Add(r);
+
+                    dgContent.Columns.Clear();
+                    BuildDataGrid();
                 }
             }
             catch (Exception err)
@@ -88,26 +137,37 @@ namespace SWD
 
             try
             {
-                int amount = Math.Min(Math.Max(Int32.Parse(tb.Text) - 1, 1), 12);
-                tb.Text = amount.ToString();
+                if (information[1] == "Col")
+                {
+                    int amount = Math.Max(Int32.Parse(tb.Text) - 1, 1);
+                    amount = Math.Min(amount, 12);
+                    tb.Text = amount.ToString();
+
+                    if (data[0].Content.Count != 1)
+                    {
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            Debug.WriteLine(data[i].Content.Count);
+                            data[i].Content.RemoveAt(data[i].Content.Count-1);
+                        }
+                        dgContent.Columns.Clear();
+                        BuildDataGrid();
+                    }
+                }
+                else
+                {
+                    int amount = Math.Max(Int32.Parse(tb.Text) - 1, 1);
+                    tb.Text = amount.ToString();
+
+                    Debug.WriteLine(data.Count);
+                    if (data.Count != 1) data.RemoveAt(data.Count-1);
+                    dgContent.Columns.Clear();
+                    BuildDataGrid();
+                }
             }
             catch (Exception err)
             {
                 Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n{err}");
-            }
-        }
-
-        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            // Iterate through each DataGridRow and assign a header (e.g., row index)
-            for (int i = 0; i < dgContent.Items.Count; i++)
-            {
-                var row = (DataGridRow)dgContent.ItemContainerGenerator.ContainerFromIndex(i);
-                if (row != null)
-                {
-                    // Assign the row header (e.g., row index or custom string)
-                    row.Header = "Row " + (i + 1);  // Or any custom header value
-                }
             }
         }
     }

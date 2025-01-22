@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        Height="450" 
+        Width="800"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
     <Grid x:Name="gdMain">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -13,10 +17,22 @@
                 <GradientStop Color="#FF65ACE2" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" Margin="0,118,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Margin="0,200,0,0" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" Margin="0,241,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" Margin="0,282,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDeleteExisting_Click"/>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="0,10,0,0"/>
+                </Style>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="Margin" Value="0,0,0,10"/>
+                </Style>
+            </StackPanel.Resources>
+            <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDeleteExisting_Click"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>

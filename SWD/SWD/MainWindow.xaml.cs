@@ -60,7 +60,7 @@ namespace SWD
             else if (result == MessageBoxResult.No) {
                 Debug.WriteLine(Environment.CurrentDirectory);
 
-                CreationWindow fillTheData = new CreationWindow();
+                CreationWindow fillTheData = new CreationWindow(this);
                 fillTheData.ShowDialog();
 
 
@@ -73,12 +73,11 @@ namespace SWD
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     string filePath = dialog.FileName;
-                    CreationWindow fillTheData = new CreationWindow(filePath);
+                    CreationWindow fillTheData = new CreationWindow(filePath, this);
                     fillTheData.ShowDialog();
                 }
 
             }
-
         }
 
         private void btnDeleteExisting_Click(object sender, RoutedEventArgs e)

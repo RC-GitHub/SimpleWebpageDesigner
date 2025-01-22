@@ -27,6 +27,7 @@ namespace SWD
     /// </summary>
     public partial class CreationWindow : Window
     {
+        MainWindow mw;
         public string dir = Environment.CurrentDirectory;
         private string tempForProjectTitle = "Insert project title";
         private string tempForAuthor = "Insert author's name";
@@ -34,15 +35,17 @@ namespace SWD
         private string tempForDescription = "Insert description";
         public Dictionary<string, string> tempMessages = new Dictionary<string, string>();
 
-        public CreationWindow()
+        public CreationWindow(MainWindow mw)
         {
+            this.mw = mw;
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
         }
 
-        public CreationWindow(string d)
+        public CreationWindow(string d, MainWindow mw)
         {
+            this.mw = mw;
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
@@ -151,6 +154,7 @@ namespace SWD
                     this.Close();
                     ContentWindow gd = new ContentWindow(dir);
                     gd.ShowDialog();
+                    mw.Close();
                 }
             }
             
