@@ -100,7 +100,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GridWindow.xaml">
+    <Page Include="ContentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,9 +115,10 @@
     <Compile Include="CreationWindow.xaml.cs">
       <DependentUpon>CreationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GridWindow.xaml.cs">
-      <DependentUpon>GridWindow.xaml</DependentUpon>
+    <Compile Include="ContentWindow.xaml.cs">
+      <DependentUpon>ContentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Errors.cs" />
     <Compile Include="Head.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -150,6 +151,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\new-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\open-file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\save-file.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

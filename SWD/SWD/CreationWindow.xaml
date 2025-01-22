@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
-        Title="CreationWindow" Height="550" Width="500">
-    <Grid>
+        Title="CreationWindow" MinHeight="600" Height="650" MinWidth="500" Width="500">
+    <Grid x:Name="gdCreation">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF97C9EF"/>
@@ -15,25 +15,25 @@
         </Grid.Background>
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="2.5*" />
                 <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="3.5*" />
+                <RowDefinition Height="3*" />
                 <RowDefinition Height="1.5*" />
             </Grid.RowDefinitions>
 
             <Label Grid.ColumnSpan="2" x:Name="lblFillTheData" Content="Fill with data" Margin="0,0,0,0" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Label Grid.Column="0" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2" GotFocus="tbProjectTitle_GotFocus" LostFocus="tbProjectTitle_LostFocus"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" Height="35" Grid.ColumnSpan="2" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus"/>
 
             <Label Grid.Column="0" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" Grid.ColumnSpan="2" GotFocus="tbAuthor_GotFocus" LostFocus="tbAuthor_LostFocus"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" Height="35" Grid.ColumnSpan="2" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus"/>
 
             <Label Grid.Column="0" Grid.Row="3" x:Name="lblKeywords" Content="Keywords" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
             <Grid x:Name="Griddy" Grid.Column="1" Grid.Row="3">
@@ -45,17 +45,17 @@
                     <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Column="0" Grid.Row="0" x:Name="tbKeyword" Padding="5" Margin="20,5,60,5" TextWrapping="Wrap" Width="220" VerticalAlignment="Center" AcceptsReturn="True" LostFocus="tbKeyword_LostFocus" GotFocus="tbKeyword_GotFocus"/>
-                <Button x:Name="btnAdd" Content="+" Grid.Column="0" Grid.Row="0" Padding="5" Width="30" Margin="230,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAdd_Click"/>
+                <TextBox Grid.Column="0" Grid.Row="0" x:Name="tbKeyword" Padding="5" Margin="20,5,60,5" TextWrapping="Wrap" Width="220" VerticalAlignment="Center" AcceptsReturn="True" LostFocus="tb_LostFocus" GotFocus="tb_GotFocus"/>
+                <Button x:Name="btnAdd" Content="+" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30" Height="30" Margin="230,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAdd_Click"/>
 
                 <ListBox x:Name="lsbKeywords" Grid.Column="0" Grid.Row="1" Padding="5" Margin="20,5,60,5" Width="220">
                 </ListBox>
-                <Button x:Name="btnRemove" Content="-" Grid.Column="0" Grid.Row="1" Padding="5" Width="30" Margin="230,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnRemove_Click"/>
+                <Button x:Name="btnRemove" Content="-" Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="30" Height="30" Margin="230,5,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnRemove_Click"/>
             </Grid>
 
 
             <Label Grid.Column="0" Grid.Row="4" x:Name="lblDescription" Content="Description" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbDescription" Padding="5" HorizontalAlignment="Center" Margin="0,10,0,10" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="260" Grid.ColumnSpan="2" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" GotFocus="tbDescription_GotFocus" LostFocus="tbDescription_LostFocus"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbDescription" Padding="5" HorizontalAlignment="Center" Margin="0,10,0,10" TextWrapping="Wrap" VerticalAlignment="Stretch" Width="260" Grid.ColumnSpan="2" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus"/>
 
             <Button x:Name="btnSubmit" Grid.Row="5" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Margin="0,0,0,0" Padding="5" Width="200" VerticalAlignment="Center" Click="btnSubmit_Click"/>
 
