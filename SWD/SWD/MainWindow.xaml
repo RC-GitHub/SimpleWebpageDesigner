@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450" 
+        MinHeight="350" 
+        MinWidth="500"
+        Height="450"
         Width="800"
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow">
