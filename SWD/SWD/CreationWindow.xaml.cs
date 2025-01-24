@@ -27,7 +27,7 @@ namespace SWD
     /// </summary>
     public partial class CreationWindow : Window
     {
-        MainWindow mw;
+        private MainWindow _mainWindow;
         public string dir = Environment.CurrentDirectory;
         private string tempForProjectTitle = "Insert project title";
         private string tempForAuthor = "Insert author's name";
@@ -37,19 +37,21 @@ namespace SWD
 
         public CreationWindow(MainWindow mw)
         {
-            this.mw = mw;
+            _mainWindow = mw;
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
+            Debug.WriteLine("MAINWINDOW", _mainWindow);
         }
 
         public CreationWindow(string d, MainWindow mw)
         {
-            this.mw = mw;
+            _mainWindow = mw;
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
             dir = d;
+            Debug.WriteLine("MAINWINDOW", _mainWindow);
         }
 
         public void InitializeMessagesArray()
@@ -149,12 +151,12 @@ namespace SWD
                         Console.WriteLine("The process failed: {0}", err.ToString());
                     }
                     finally { }
-              
 
-                    this.Close();
-                    ContentWindow gd = new ContentWindow(dir);
+                    _mainWindow.Close();
+
+                    ContentWindow gd = new ContentWindow(dir, this);
                     gd.ShowDialog();
-                    mw.Close();
+
                 }
             }
             

@@ -29,10 +29,14 @@ namespace SWD
     /// </summary>
     public partial class ContentWindow : Window
     {
+        private readonly CreationWindow _creationWindow;
         ObservableCollection<Row> data = new ObservableCollection<Row>();
-        public ContentWindow(string path)
+        public ContentWindow(string path, CreationWindow cw)
         {
             InitializeComponent();
+            _creationWindow = cw;
+            _creationWindow.Close();
+
             string[] files = Directory.GetFiles(path);
             foreach (string file in files) {
                 if (File.Exists(file))
@@ -48,7 +52,7 @@ namespace SWD
             };
             data.Add(obj);
             dgContent.ItemsSource = data;
-            dgContent.Columns.Clear();
+            
             BuildDataGrid();
         }
         private void dgContent_Loaded(object sender, RoutedEventArgs e)
@@ -73,6 +77,7 @@ namespace SWD
         }
         private void BuildDataGrid()
         {
+            dgContent.Columns.Clear();
             int cols = data[0].Content.Count;
 
             for (int i = 0; i < cols; i++)
@@ -112,8 +117,6 @@ namespace SWD
                         {
                             data[i].Content.Add($"{i + 1}_{amount}");
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
                     }
                 }
                 else
@@ -133,15 +136,14 @@ namespace SWD
                         Content = l
                     };
                     data.Add(r);
-
-                    dgContent.Columns.Clear();
-                    BuildDataGrid();
                 }
+                BuildDataGrid();
                 ButtonHandling();
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n{err}");
+                tb.Text = "1";
+                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -169,8 +171,6 @@ namespace SWD
                             Debug.WriteLine(data[i].Content.Count);
                             data[i].Content.RemoveAt(data[i].Content.Count-1);
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
                     }
                 }
                 else
@@ -180,14 +180,14 @@ namespace SWD
 
                     Debug.WriteLine(data.Count);
                     if (data.Count != 1) data.RemoveAt(data.Count-1);
-                    dgContent.Columns.Clear();
-                    BuildDataGrid();
                 }
+                BuildDataGrid();
                 ButtonHandling();
             }
-            catch (Exception err)
+            catch (Exception ex)
             {
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n{err}");
+                tb.Text = "1";
+                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -221,8 +221,6 @@ namespace SWD
                                 data[i].Content.Add($"{i + 1}_{j + 1}");
                             }
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
                     }
                     else
                     {
@@ -233,17 +231,16 @@ namespace SWD
                                 data[i].Content.RemoveAt(j);
                             }
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
                     }
+                    BuildDataGrid();
                     ButtonHandling();
                 }
-                catch (Exception err)
+                catch (Exception ex)
                 {
-                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n{err}");
+                    tb.Text = "1";
+                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
-            
         }
 
         private void tbRowAmount_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -278,8 +275,6 @@ namespace SWD
                             };
                             data.Add(r);
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
                     }
                     else
                     {
@@ -287,76 +282,255 @@ namespace SWD
                         {
                             data.RemoveAt(i);
                         }
-                        dgContent.Columns.Clear();
-                        BuildDataGrid();
+                    }
+                    BuildDataGrid();
+                    ButtonHandling();
+                }
+                catch (Exception ex)
+                {
+                    tb.Text = "1";
+                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                }
+            }
+        }
+
+        private void Insert_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
+            string[] information = btn.Name.Split('_');
+
+            System.Windows.Controls.TextBox tb;
+            if (information[1] == "Col") tb = tbColModify;
+            else tb = tbRowModify;
+
+            try
+            {
+                if (information[1] == "Col")
+                {
+                    int column = Int32.Parse(tb.Text);
+                    if (column > data[0].Content.Count)
+                    {
+                        tb.Text = data[0].Content.Count.ToString(); return;
+                    } 
+                    else if (column < 1)
+                    {
+                        tb.Text = "1"; return;
+                    }
+                    else if (column >= 12)
+                    {
+                        tb.Text = "12"; return;
+                    } 
+                    else if (column == data[0].Content.Count)
+                    {
+                        Increase_Click(btn_Col_Increase, null);
+                        return;
+                    }
+                    else
+                    {
+                        tbColAmount.Text = (Int32.Parse(tbColAmount.Text) + 1).ToString();
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            data[i].Content.Insert(column, $"NEW COL");
+                        }
+                    }
+                }
+                else
+                {
+                    int row = Int32.Parse(tb.Text);
+                    if (row > data.Count)
+                    {
+                        tb.Text = data.Count.ToString(); return;
+                    }
+                    else if (row < 1)
+                    {
+                        tb.Text = "1"; return;
+                    }
+                    else if (row == data.Count)
+                    {
+                        Increase_Click(btn_Row_Increase, null);
+                        return;
+                    }
+                    else
+                    {
+                        tbRowAmount.Text = (Int32.Parse(tbRowAmount.Text) + 1).ToString();
+                        List<string> l = new List<string>();
+                        for (int j = 0; j < data[0].Content.Count; j++)
+                        {
+                            l.Add($"NEW ROW");
+                        }
+                        Row r = new Row()
+                        {
+                            Title = (row+1).ToString(),
+                            Content = l
+                        };
+                        data.Insert(row, r);
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            data[i].Title = (i+1).ToString();
+                        }
+                        dgContent.ItemsSource = null;
+                        dgContent.ItemsSource = data;
+                    }
+                }
+                BuildDataGrid();
+                ButtonHandling();
+            }
+            catch (Exception ex)
+            {
+                tb.Text = "1";
+                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+            }
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
+            string[] information = btn.Name.Split('_');
+
+            System.Windows.Controls.TextBox tb;
+            if (information[1] == "Col") tb = tbColModify;
+            else tb = tbRowModify;
+
+            try
+            {
+                if (information[1] == "Col")
+                {
+                    int column = Int32.Parse(tb.Text);
+                    if (column > data[0].Content.Count)
+                    {
+                        tb.Text = data[0].Content.Count.ToString(); return;
+                    }
+                    else if (column < 1)
+                    {
+                        tb.Text = "1"; return;
+                    }
+                    else
+                    {
+                        tbColAmount.Text = (Int32.Parse(tbColAmount.Text) - 1).ToString();
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            data[i].Content.RemoveAt(column-1);
+                        }
+                    }
+                }
+                else
+                {
+                    int row = Int32.Parse(tb.Text);
+                    if (row > data.Count)
+                    {
+                        tb.Text = data.Count.ToString(); return;
+                    }
+                    else if (row < 1)
+                    {
+                        tb.Text = "1"; return;
+                    }
+                    else
+                    {
+                        data.RemoveAt(row-1);
+                        for (int i = 0; i < data.Count; i++)
+                        {
+                            data[i].Title = (i + 1).ToString();
+                        }
+                        dgContent.ItemsSource = null;
+                        dgContent.ItemsSource = data;
+                    }
+                }
+                BuildDataGrid();
+                ButtonHandling();
+            }
+            catch (Exception ex)
+            {
+                tb.Text = "1";
+                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+            }
+        }
+
+        private void tbModify_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;
+                try
+                {
+                    int position = Int32.Parse(tb.Text);
+                    if (position < 1)
+                    {
+                        tb.Text = "1";
+                        position = 1;
+                    }
+
+                    if (tb.Name == "tbColModify")
+                    {
+                        if (position >= 12)
+                        {
+                            tb.Text = "12";
+                            position = 12;
+                        }
+                        if (position > data[0].Content.Count) 
+                        {
+                            tb.Text = data[0].Content.Count.ToString();
+                            position = data[0].Content.Count;
+                        };
+                    } 
+                    else
+                    {
+                        if (position > data.Count)
+                        {
+                            tb.Text = data.Count.ToString();
+                            position = data.Count;
+                        };
                     }
                     ButtonHandling();
                 }
-                catch (Exception err)
+                catch (Exception ex)
                 {
-                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n{err}");
+                    tb.Text = "1";
+                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
-        }
-
-        private void PopupOpen(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;
-            if (tb.Name == "tbColAmount") 
-            { 
-                popCol.IsOpen = true; 
-            } 
-            else if (tb.Name == "tbColModify")
-            {
-                popColModify.IsOpen = true;
-            } 
-            else if (tb.Name == "tbRowAmount")
-            {
-                popRow.IsOpen = true;
-            }
-            else { popRowModify.IsOpen = true; }
-        }
-
-        private void PopupClose(object sender, RoutedEventArgs e)
-        {
-            System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;
-            if (tb.Name == "tbColAmount")
-            {
-                popCol.IsOpen = false;
-            }
-            else if (tb.Name == "tbColModify")
-            {
-                popColModify.IsOpen = false;
-            }
-            else if (tb.Name == "tbRowAmount")
-            {
-                popRow.IsOpen = false;
-            }
-            else { popRowModify.IsOpen = false; }
         }
 
         private void ButtonHandling()
         {
-            int cols = Int32.Parse(tbColAmount.Text);
-            int rows = Int32.Parse(tbRowAmount.Text);            
-            int colsModify = Int32.Parse(tbColModify.Text);
-            int rowsModify = Int32.Parse(tbRowModify.Text);
+            int cols, rows, colsModify, rowsModify;
 
-            if (cols == 1) btn_Col_Decrease.IsEnabled = false;
-            else btn_Col_Decrease.IsEnabled = true;
-            if (cols == 12) btn_Col_Increase.IsEnabled = false;
-            else btn_Col_Increase.IsEnabled = true;
+            try {  cols = Int32.Parse(tbColAmount.Text); }
+            catch { cols = data[0].Content.Count; tbColAmount.Text = data[0].Content.Count.ToString(); }
 
-            if (rows == 1) btn_Row_Decrease.IsEnabled = false;
-            else btn_Row_Decrease.IsEnabled = true;
+                if (cols == 1) btn_Col_Decrease.IsEnabled = false;
+                else btn_Col_Decrease.IsEnabled = true;
+                if (cols == 12) btn_Col_Increase.IsEnabled = false;
+                else btn_Col_Increase.IsEnabled = true;
 
-            if (colsModify == 1) btn_Col_DeleteAt.IsEnabled = false;
-            else btn_Col_DeleteAt.IsEnabled = true;
-            if (colsModify == 12) btn_Col_InsertAt.IsEnabled = false;
-            else btn_Col_InsertAt.IsEnabled = true;
+            try { rows = Int32.Parse(tbRowAmount.Text); }
+            catch { rows = data.Count; tbRowAmount.Text = data.Count.ToString(); }
 
-            if (rowsModify == 1) btn_Row_DeleteAt.IsEnabled = false;
-            else btn_Row_DeleteAt.IsEnabled = true;
+                if (rows == 1) btn_Row_Decrease.IsEnabled = false;
+                else btn_Row_Decrease.IsEnabled = true;
+
+            try { colsModify = Int32.Parse(tbColModify.Text); }
+            catch { colsModify = 1; tbColModify.Text = "1"; }
+
+                if (colsModify == 1) btn_Col_DeleteAt.IsEnabled = false;
+                else btn_Col_DeleteAt.IsEnabled = true;
+                if (colsModify == 12) btn_Col_InsertAt.IsEnabled = false;
+                else btn_Col_InsertAt.IsEnabled = true;
+
+            try { rowsModify = Int32.Parse(tbRowModify.Text); }
+            catch { rowsModify = 1; tbRowModify.Text = "1";  }
+
+                if (rowsModify == 1) btn_Row_DeleteAt.IsEnabled = false;
+                else btn_Row_DeleteAt.IsEnabled = true;
+        }
+
+
+        private void PopupChange(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;
+            if (tb.Name == "tbColAmount") popCol.IsOpen = !popCol.IsOpen;
+            else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
+            else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;       
+            else  popRowModify.IsOpen = !popRowModify.IsOpen; 
         }
     }
 }
