@@ -120,5 +120,10 @@ namespace SWD
                 }
             }
         }
+
+        public void CloseMainWindow()
+        {
+            this.Close();
+        }
     }
 }
