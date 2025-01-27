@@ -11,6 +11,7 @@
         MinWidth="800" 
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow">
+
     <Grid x:Name="gdContentAndBar">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -150,8 +151,23 @@
                     VerticalGridLinesBrush="Gray"
                     Width="Auto"
                     Height="Auto"
-                    SelectionUnit="Cell"
+                    SelectionUnit="CellOrRowHeader"
                     Loaded="dgContent_Loaded">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="{Binding Title}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Content}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu x:Name="cellContextMenu">
+                            <MenuItem x:Name="text" Header="Text" Click="AddComponent"/>
+                            <MenuItem x:Name="image" Header="Image" Click="AddComponent"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Style.Resources>
