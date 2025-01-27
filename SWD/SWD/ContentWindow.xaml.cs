@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -20,6 +21,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Image = System.Windows.Controls.Image;
+using Path = System.IO.Path;
 using Window = System.Windows.Window;
 
 namespace SWD
@@ -30,7 +33,8 @@ namespace SWD
     public partial class ContentWindow : Window
     {
         private readonly CreationWindow _creationWindow;
-        ObservableCollection<Row> data = new ObservableCollection<Row>();
+        List<Row> data = new List<Row>();
+        //List<FuckYou> dt = new List<FuckYou>();
         public ContentWindow(string path, CreationWindow cw)
         {
             InitializeComponent();
@@ -48,13 +52,27 @@ namespace SWD
             Row obj = new Row()
             {
                 Title = "1",
-                Content = new List<string> { "1_1" }
+                Content = new List<Cell> { new Cell() { Title = "1", ImageSource = NewIcon() } }
             };
             data.Add(obj);
             dgContent.ItemsSource = data;
-            
             BuildDataGrid();
         }
+
+        public BitmapImage NewIcon(string icon = "add.png")
+        {
+            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            string imagePath = Path.Combine(projectDirectory, "Icons", icon);
+            if (!File.Exists(imagePath))
+            {
+                Debug.WriteLine($"Image not found: {imagePath}");
+            }
+            Uri uri = new Uri(imagePath);
+            BitmapImage bt = new BitmapImage(uri);
+
+            return bt;
+        }
+
         private void dgContent_Loaded(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.DataGrid dg = (System.Windows.Controls.DataGrid)sender;
@@ -82,16 +100,31 @@ namespace SWD
 
             for (int i = 0; i < cols; i++)
             {
-                DataGridTextColumn column = new DataGridTextColumn
+                DataGridTemplateColumn column = new DataGridTemplateColumn()
                 {
-                    Header = (i+1).ToString(),
-                    Binding = new System.Windows.Data.Binding($"Content[{i}]")
+                    Header = (i + 1).ToString(),
                 };
+
+                DataTemplate cellTemplate = new DataTemplate();
+                FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
+                imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding($"Content[{i}].ImageSource"));
+                imageFactory.SetValue(Image.OpacityProperty, 0.25);
+
+                cellTemplate.VisualTree = imageFactory;
+                column.CellTemplate = cellTemplate;
+
                 dgContent.Columns.Add(column);
                 dgContent.Columns[i].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
+
             dgContent_Loaded(dgContent, null);
             ButtonHandling();
+
+            dgContent.ItemsSource = null;
+            dgContent.ItemsSource = data;
+
+            dgContent.SelectedItem = null;
+            dgContent.SelectedIndex = -1;
         }
 
         private void Increase_Click(object sender, RoutedEventArgs e)
@@ -105,38 +138,38 @@ namespace SWD
 
             try
             {
+                int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
                 if (information[1] == "Col")
                 {
-                    int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
-                    amount = Math.Min(amount, 12);
-                    tb.Text = amount.ToString();                 
-
-                    if (data[0].Content.Count < 12)
+                    // Add a new column to each existing row in `data`
+                    foreach (var row in data)
                     {
-                        for (int i = 0; i < data.Count; i++)
-                        {
-                            data[i].Content.Add($"{i + 1}_{amount}");
-                        }
+                        row.Content.Add(new Cell() { Title = $"{row.Content.Count}_{amount}", ImageSource = NewIcon() });
                     }
                 }
                 else
                 {
-                    int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
-                    tb.Text = amount.ToString();
-
+                    // Add a new row with the same number of columns as the existing ones
                     int cols = data[0].Content.Count;
-                    List<string> l = new List<string>();
+                    List<Cell> newRowContent = new List<Cell>();
+
+                    // Add a cell for each column
                     for (int i = 0; i < cols; i++)
                     {
-                        l.Add($"{amount}_{i+1}");
+                        newRowContent.Add(new Cell() { Title = $"{amount}_{i}", ImageSource = NewIcon() });
                     }
-                    Row r = new Row()
+
+                    // Add the new row to `data`
+                    Row newRow = new Row()
                     {
                         Title = amount.ToString(),
-                        Content = l
+                        Content = newRowContent
                     };
-                    data.Add(r);
+
+                    data.Add(newRow);
                 }
+
+                tb.Text = amount.ToString();
                 BuildDataGrid();
                 ButtonHandling();
             }
@@ -218,7 +251,7 @@ namespace SWD
                         {
                             for (int j = data[i].Content.Count; j < columns; j++)
                             {
-                                data[i].Content.Add($"{i + 1}_{j + 1}");
+                                data[i].Content.Add(new Cell() { Title = $"{i}_{j}", ImageSource = NewIcon() });
                             }
                         }
                     }
@@ -263,10 +296,10 @@ namespace SWD
                     {
                         for (int i = data.Count; i < rows; i++)
                         {
-                            List<string> l = new List<string>();
+                            List<Cell> l = new List<Cell>();
                             for (int j = 0; j < data[0].Content.Count; j++)
                             {
-                                l.Add($"{i + 1}_{j + 1}");
+                                l.Add(new Cell() { Title = $"{i}_{j}", ImageSource = NewIcon() });
                             }
                             Row r = new Row()
                             {
@@ -330,7 +363,7 @@ namespace SWD
                         tbColAmount.Text = (Int32.Parse(tbColAmount.Text) + 1).ToString();
                         for (int i = 0; i < data.Count; i++)
                         {
-                            data[i].Content.Insert(column, $"NEW COL");
+                            data[i].Content.Insert(column, new Cell() { Title = $"{i}_{column}", ImageSource = NewIcon() });
                         }
                     }
                 }
@@ -353,10 +386,10 @@ namespace SWD
                     else
                     {
                         tbRowAmount.Text = (Int32.Parse(tbRowAmount.Text) + 1).ToString();
-                        List<string> l = new List<string>();
+                        List<Cell> l = new List<Cell>();
                         for (int j = 0; j < data[0].Content.Count; j++)
                         {
-                            l.Add($"NEW ROW");
+                            l.Add(new Cell() { Title = $"{row}_{j}", ImageSource = NewIcon() });
                         }
                         Row r = new Row()
                         {
@@ -494,20 +527,6 @@ namespace SWD
         {
             int cols, rows, colsModify, rowsModify;
 
-            try {  cols = Int32.Parse(tbColAmount.Text); }
-            catch { cols = data[0].Content.Count; tbColAmount.Text = data[0].Content.Count.ToString(); }
-
-                if (cols == 1) btn_Col_Decrease.IsEnabled = false;
-                else btn_Col_Decrease.IsEnabled = true;
-                if (cols == 12) btn_Col_Increase.IsEnabled = false;
-                else btn_Col_Increase.IsEnabled = true;
-
-            try { rows = Int32.Parse(tbRowAmount.Text); }
-            catch { rows = data.Count; tbRowAmount.Text = data.Count.ToString(); }
-
-                if (rows == 1) btn_Row_Decrease.IsEnabled = false;
-                else btn_Row_Decrease.IsEnabled = true;
-
             try { colsModify = Int32.Parse(tbColModify.Text); }
             catch { colsModify = 1; tbColModify.Text = "1"; }
 
@@ -521,6 +540,20 @@ namespace SWD
 
                 if (rowsModify == 1) btn_Row_DeleteAt.IsEnabled = false;
                 else btn_Row_DeleteAt.IsEnabled = true;
+
+            try { cols = Int32.Parse(tbColAmount.Text); }
+            catch { cols = data[0].Content.Count; tbColAmount.Text = data[0].Content.Count.ToString(); }
+
+                if (cols == 1) { btn_Col_Decrease.IsEnabled = false; btn_Col_DeleteAt.IsEnabled = false; }
+                else { btn_Col_Decrease.IsEnabled = true; btn_Col_DeleteAt.IsEnabled = true; }
+                if (cols == 12) { btn_Col_Increase.IsEnabled = false; btn_Col_InsertAt.IsEnabled = false; }
+                else { btn_Col_Increase.IsEnabled = true; btn_Col_InsertAt.IsEnabled = true; }
+
+            try { rows = Int32.Parse(tbRowAmount.Text); }
+            catch { rows = data.Count; tbRowAmount.Text = data.Count.ToString(); }
+
+                if (rows == 1) { btn_Row_Decrease.IsEnabled = false; btn_Row_DeleteAt.IsEnabled = false; }
+                else { btn_Row_Decrease.IsEnabled = true; btn_Row_DeleteAt.IsEnabled = true; }
         }
 
 
@@ -531,6 +564,24 @@ namespace SWD
             else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
             else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;       
             else  popRowModify.IsOpen = !popRowModify.IsOpen; 
+        }
+
+        private void AddComponent(object sender, RoutedEventArgs e)
+        {
+            if (dgContent.SelectedCells.Count > 0)
+            {
+                System.Windows.Controls.MenuItem cm = (System.Windows.Controls.MenuItem)sender;
+
+                foreach (var cell in dgContent.SelectedCells)
+                {
+                    var row = cell.Item;
+                    int rowIndex = dgContent.Items.IndexOf(row);
+                    int columnIndex = dgContent.Columns.IndexOf(cell.Column);
+                    data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{cm.Name}.png");
+                }
+                BuildDataGrid();
+            }
+            return;
         }
     }
 }

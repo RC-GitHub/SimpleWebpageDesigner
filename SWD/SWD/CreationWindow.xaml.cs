@@ -159,7 +159,6 @@ namespace SWD
 
                 }
             }
-            
         }
 
         private void tb_GotFocus(object sender, RoutedEventArgs e)
