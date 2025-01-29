@@ -55,7 +55,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
-                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="4*" />
                     <RowDefinition Height="11*" />
                 </Grid.RowDefinitions>
 
@@ -153,6 +153,15 @@
                     Height="Auto"
                     SelectionUnit="CellOrRowHeader"
                     Loaded="dgContent_Loaded">
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridCell" x:Key="TransparentCellStyle">
+                            <Style.Setters>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Style.Setters>
+                        </Style>
+                    </DataGrid.Resources>
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="{Binding Title}">
                             <DataGridTemplateColumn.CellTemplate>

@@ -563,7 +563,7 @@ namespace SWD
             if (tb.Name == "tbColAmount") popCol.IsOpen = !popCol.IsOpen;
             else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
             else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;       
-            else  popRowModify.IsOpen = !popRowModify.IsOpen; 
+            else popRowModify.IsOpen = !popRowModify.IsOpen; 
         }
 
         private void AddComponent(object sender, RoutedEventArgs e)
@@ -577,7 +577,9 @@ namespace SWD
                     var row = cell.Item;
                     int rowIndex = dgContent.Items.IndexOf(row);
                     int columnIndex = dgContent.Columns.IndexOf(cell.Column);
-                    data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{cm.Name}.png");
+                    data[rowIndex].Content[columnIndex].Title = string.Empty;
+                    data[rowIndex].Content[columnIndex].ImageSource = null;
+                    //data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{cm.Name}.png");
                 }
                 BuildDataGrid();
             }
