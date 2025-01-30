@@ -55,13 +55,13 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="4*"/>
                     <RowDefinition Height="11*" />
                 </Grid.RowDefinitions>
 
                 <Label x:Name="lblGridTitle" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="Hit the griddy" Margin="0,0,0,0" FontFamily="Century Gothic" FontSize="36" Height="70" Width="500" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-                <Grid x:Name="gdColRow" Grid.Row="1" Grid.Column="1" Margin="20,0" >
+                <Grid x:Name="gdColRow" Grid.Row="1" Grid.Column="1" Margin="20,0" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -151,22 +151,13 @@
                     VerticalGridLinesBrush="Gray"
                     Width="Auto"
                     Height="Auto"
-                    SelectionUnit="CellOrRowHeader"
-                    Loaded="dgContent_Loaded">
-                    <DataGrid.Resources>
-                        <Style TargetType="DataGridCell" x:Key="TransparentCellStyle">
-                            <Style.Setters>
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <Setter Property="Background" Value="LightGray"/>
-                            </Style.Setters>
-                        </Style>
-                    </DataGrid.Resources>
+                    SelectionUnit="Cell"
+                    Loaded="dgContent_Loaded" SelectedCellsChanged="dgContent_SelectedCellsChanged" PreviewMouseLeftButtonDown="dgContent_PreviewMouseLeftButtonDown" PreviewKeyDown="dgContent_PreviewKeyDown">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="{Binding Title}">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding Content}" />
+                                    <Image Source="{Binding Content}" Stretch="Uniform" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -193,11 +184,12 @@
                                 </Trigger>
                             </Style.Triggers>
                             <Setter Property="BorderBrush" Value="#c2dfedF0"></Setter>
+                            <Setter Property="Background" Value="{Binding Color}"></Setter>
                             <Setter Property="BorderThickness" Value="10"></Setter>
                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
                             <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
-                            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
-                            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
                         </Style>
                     </DataGrid.CellStyle>
                     <DataGrid.RowStyle>
