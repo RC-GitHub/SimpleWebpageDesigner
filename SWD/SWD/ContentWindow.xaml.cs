@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Brush = System.Drawing.Brush;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Windows.Media.Color;
+using DataGridCell = System.Windows.Controls.DataGridCell;
 using Image = System.Windows.Controls.Image;
 using Path = System.IO.Path;
 using Window = System.Windows.Window;
@@ -34,7 +39,8 @@ namespace SWD
     {
         private readonly CreationWindow _creationWindow;
         List<Row> data = new List<Row>();
-        //List<FuckYou> dt = new List<FuckYou>();
+        Dictionary<string, Component> components = new Dictionary<string, Component>();
+
         public ContentWindow(string path, CreationWindow cw)
         {
             InitializeComponent();
@@ -106,12 +112,47 @@ namespace SWD
                 };
 
                 DataTemplate cellTemplate = new DataTemplate();
+
+                FrameworkElementFactory gridFactory = new FrameworkElementFactory(typeof(Grid));
+                FrameworkElementFactory rowDef = new FrameworkElementFactory(typeof(RowDefinition));
+                gridFactory.AppendChild(rowDef);  
+                FrameworkElementFactory colDef = new FrameworkElementFactory(typeof(ColumnDefinition));
+                gridFactory.AppendChild(colDef);  
+
                 FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
                 imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding($"Content[{i}].ImageSource"));
+                imageFactory.SetValue(Image.HorizontalAlignmentProperty, System.Windows.HorizontalAlignment.Stretch);
+                imageFactory.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Stretch);
                 imageFactory.SetValue(Image.OpacityProperty, 0.25);
 
-                cellTemplate.VisualTree = imageFactory;
+
+                gridFactory.AppendChild(imageFactory);
+                gridFactory.SetValue(Grid.BackgroundProperty, new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent));
+
+                cellTemplate.VisualTree = gridFactory;
                 column.CellTemplate = cellTemplate;
+
+                Style cellStyle = new Style(typeof(DataGridCell));
+
+                Trigger trigger = new Trigger
+                {
+                    Property = DataGridCell.IsSelectedProperty,
+                    Value = true
+                };
+
+                trigger.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new System.Windows.Data.Binding($"Content[{i}].SelectedBorderColor")));
+                trigger.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new System.Windows.Data.Binding($"Content[{i}].SelectedBackgroundColor")));
+
+                cellStyle.Triggers.Add(trigger);
+                cellStyle.Setters.Add(new Setter(DataGridCell.BorderBrushProperty, new System.Windows.Data.Binding($"Content[{i}].BorderColor")));
+                cellStyle.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new System.Windows.Data.Binding($"Content[{i}].BackgroundColor")));
+                cellStyle.Setters.Add(new Setter(DataGridCell.BorderThicknessProperty, new Thickness(10)));
+                cellStyle.Setters.Add(new Setter(DataGridCell.HorizontalContentAlignmentProperty, System.Windows.HorizontalAlignment.Stretch));
+                cellStyle.Setters.Add(new Setter(DataGridCell.VerticalContentAlignmentProperty, System.Windows.VerticalAlignment.Stretch));                
+                cellStyle.Setters.Add(new Setter(DataGridCell.HorizontalAlignmentProperty, System.Windows.HorizontalAlignment.Stretch));
+                cellStyle.Setters.Add(new Setter(DataGridCell.VerticalAlignmentProperty, System.Windows.VerticalAlignment.Stretch));
+
+                column.CellStyle = cellStyle;
 
                 dgContent.Columns.Add(column);
                 dgContent.Columns[i].Width = new DataGridLength(1, DataGridLengthUnitType.Star);
@@ -141,7 +182,6 @@ namespace SWD
                 int amount = Math.Max(Int32.Parse(tb.Text) + 1, 1);
                 if (information[1] == "Col")
                 {
-                    // Add a new column to each existing row in `data`
                     foreach (var row in data)
                     {
                         row.Content.Add(new Cell() { Title = $"{row.Content.Count}_{amount}", ImageSource = NewIcon() });
@@ -149,17 +189,14 @@ namespace SWD
                 }
                 else
                 {
-                    // Add a new row with the same number of columns as the existing ones
                     int cols = data[0].Content.Count;
                     List<Cell> newRowContent = new List<Cell>();
 
-                    // Add a cell for each column
                     for (int i = 0; i < cols; i++)
                     {
                         newRowContent.Add(new Cell() { Title = $"{amount}_{i}", ImageSource = NewIcon() });
                     }
 
-                    // Add the new row to `data`
                     Row newRow = new Row()
                     {
                         Title = amount.ToString(),
@@ -563,25 +600,120 @@ namespace SWD
             if (tb.Name == "tbColAmount") popCol.IsOpen = !popCol.IsOpen;
             else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
             else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;       
-            else  popRowModify.IsOpen = !popRowModify.IsOpen; 
+            else popRowModify.IsOpen = !popRowModify.IsOpen; 
         }
 
         private void AddComponent(object sender, RoutedEventArgs e)
         {
-            if (dgContent.SelectedCells.Count > 0)
+            InputDialog inputDialog = new InputDialog();
+            if (inputDialog.ShowDialog() == true)
             {
-                System.Windows.Controls.MenuItem cm = (System.Windows.Controls.MenuItem)sender;
+                string componentName = inputDialog.InputValue;
+                Debug.WriteLine(componentName);
 
+                SolidColorBrush brush = Colors.ShowColorPicker();
+                if (brush != null)
+                {
+                    if (dgContent.SelectedCells.Count > 0)
+                    {
+                        System.Windows.Controls.MenuItem cm = (System.Windows.Controls.MenuItem)sender;
+                        SolidColorBrush translucentBrush = brush.Clone();
+                        translucentBrush.Opacity = 0.75;
+
+                        Component component = new Component()
+                        {
+                            Name = componentName,
+                            Type = cm.Name,
+                            BorderColor = brush,
+                            BackgroundColor = translucentBrush,
+                            SelectedBorderColor = Colors.CreateASelectedColor(brush, (SolidColorBrush)new BrushConverter().ConvertFrom("#a7c4dd"), 0.5),
+                            SelectedBackgroundColor = Colors.CreateASelectedColor(translucentBrush, (SolidColorBrush)new BrushConverter().ConvertFrom("AliceBlue"), 0.5),
+                            Positions = new List<Position>()
+                        };
+
+                        foreach (var cell in dgContent.SelectedCells)
+                        {
+                            int rowIndex = dgContent.Items.IndexOf(cell.Item);
+                            int columnIndex = dgContent.Columns.IndexOf(cell.Column);
+                            component.Positions.Add(new Position() { Row = rowIndex, Column = columnIndex });
+
+                            data[rowIndex].Content[columnIndex].Title = component.Name;
+                            data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{component.Type}.png");
+                            data[rowIndex].Content[columnIndex].BorderColor = component.BorderColor;
+                            data[rowIndex].Content[columnIndex].BackgroundColor = component.BackgroundColor;
+                            data[rowIndex].Content[columnIndex].SelectedBorderColor = component.SelectedBorderColor;
+                            data[rowIndex].Content[columnIndex].SelectedBackgroundColor = component.SelectedBackgroundColor;
+                        }
+                        component.Spanning();
+                        components.Add(componentName, component);
+                        BuildDataGrid();
+                    }
+                }
+            }
+        }
+
+        private void dgContent_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            if (dgContent.SelectedCells.Count == 1)
+            {
                 foreach (var cell in dgContent.SelectedCells)
                 {
-                    var row = cell.Item;
-                    int rowIndex = dgContent.Items.IndexOf(row);
-                    int columnIndex = dgContent.Columns.IndexOf(cell.Column);
-                    data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{cm.Name}.png");
+                    int rowIndex = dgContent.Items.IndexOf(dgContent.SelectedCells[0].Item);
+                    int columnIndex = dgContent.Columns.IndexOf(dgContent.SelectedCells[0].Column);
+                    if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                    {
+                        Component component = components[data[rowIndex].Content[columnIndex].Title];
+                        //foreach (var position in component.Positions)
+                        //{
+                        //    DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
+                        //    if (!IsCellSelected(position.Row, position.Column))
+                        //    {
+                        //        dgContent.SelectedCells.Add(newCell);
+                        //    }
+                        //}
+                        for (int i = component.StartRow; i < component.StartRow + component.Rowspan + 1; i++)
+                        {
+                            for (int j = component.StartColumn; j < component.StartColumn + component.Colspan + 1; j++)
+                            {
+                                DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[i], dgContent.Columns[j]);
+                                if (!IsCellSelected(i, j))
+                                {
+                                    dgContent.SelectedCells.Add(newCell);
+                                }
+                            }
+                        }
+                    }
                 }
-                BuildDataGrid();
+            }  
+
+        }
+
+        private bool IsCellSelected(int rowIndex, int columnIndex)
+        {
+            foreach (var cell in dgContent.SelectedCells)
+            {
+                int selectedRowIndex = dgContent.Items.IndexOf(cell.Item);
+                int selectedColumnIndex = dgContent.Columns.IndexOf(cell.Column);
+
+                if (selectedRowIndex == rowIndex && selectedColumnIndex == columnIndex)
+                {
+                    return true; 
+                }
             }
-            return;
+            return false; 
+        }
+
+        private void dgContent_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void dgContent_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt)) != 0)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

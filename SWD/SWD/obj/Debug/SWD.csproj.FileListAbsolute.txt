@@ -90,3 +90,5 @@ C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SW
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.g.cs
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.baml
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml
