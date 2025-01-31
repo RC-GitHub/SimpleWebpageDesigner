@@ -58,25 +58,11 @@ namespace SWD
             Row obj = new Row()
             {
                 Title = "1",
-                Content = new List<Cell> { new Cell() { Title = "1", ImageSource = NewIcon() } }
+                Content = new List<Cell> { new Cell() { Title = "1" } }
             };
             data.Add(obj);
             dgContent.ItemsSource = data;
             BuildDataGrid();
-        }
-
-        public BitmapImage NewIcon(string icon = "add.png")
-        {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
-            string imagePath = Path.Combine(projectDirectory, "Icons", icon);
-            if (!File.Exists(imagePath))
-            {
-                Debug.WriteLine($"Image not found: {imagePath}");
-            }
-            Uri uri = new Uri(imagePath);
-            BitmapImage bt = new BitmapImage(uri);
-
-            return bt;
         }
 
         private void dgContent_Loaded(object sender, RoutedEventArgs e)
@@ -184,7 +170,7 @@ namespace SWD
                 {
                     foreach (var row in data)
                     {
-                        row.Content.Add(new Cell() { Title = $"{row.Content.Count}_{amount}", ImageSource = NewIcon() });
+                        row.Content.Add(new Cell() { Title = $"{row.Content.Count}_{amount}" });
                     }
                 }
                 else
@@ -194,7 +180,7 @@ namespace SWD
 
                     for (int i = 0; i < cols; i++)
                     {
-                        newRowContent.Add(new Cell() { Title = $"{amount}_{i}", ImageSource = NewIcon() });
+                        newRowContent.Add(new Cell() { Title = $"{amount}_{i}" });
                     }
 
                     Row newRow = new Row()
@@ -207,12 +193,20 @@ namespace SWD
                 }
 
                 tb.Text = amount.ToString();
+                AddedComponentHandling(information[1], "add", amount);
                 BuildDataGrid();
                 ButtonHandling();
             }
             catch (Exception ex)
             {
-                tb.Text = "1";
+                if (information[1] == "Col")
+                {
+                    tb.Text = data[0].Content.Count.ToString();
+                }
+                else
+                {
+                    tb.Text = data.Count.ToString();
+                }
                 Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
@@ -251,12 +245,20 @@ namespace SWD
                     Debug.WriteLine(data.Count);
                     if (data.Count != 1) data.RemoveAt(data.Count-1);
                 }
+                DeletedComponentHandling();
                 BuildDataGrid();
                 ButtonHandling();
             }
             catch (Exception ex)
             {
-                tb.Text = "1";
+                if (information[1] == "Col")
+                {
+                    tb.Text = data[0].Content.Count.ToString();
+                }
+                else
+                {
+                    tb.Text = data.Count.ToString();
+                }
                 Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
@@ -288,7 +290,7 @@ namespace SWD
                         {
                             for (int j = data[i].Content.Count; j < columns; j++)
                             {
-                                data[i].Content.Add(new Cell() { Title = $"{i}_{j}", ImageSource = NewIcon() });
+                                data[i].Content.Add(new Cell() { Title = $"{i}_{j}" });
                             }
                         }
                     }
@@ -299,15 +301,18 @@ namespace SWD
                             for (int j = data[i].Content.Count-1; j >= columns; j--)
                             {
                                 data[i].Content.RemoveAt(j);
+                                AddedComponentHandling("Col", "remove", j);
                             }
                         }
+
                     }
+                    DeletedComponentHandling();
                     BuildDataGrid();
                     ButtonHandling();
                 }
                 catch (Exception ex)
                 {
-                    tb.Text = "1";
+                    tb.Text = data[0].Content.Count.ToString();
                     Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
@@ -336,7 +341,7 @@ namespace SWD
                             List<Cell> l = new List<Cell>();
                             for (int j = 0; j < data[0].Content.Count; j++)
                             {
-                                l.Add(new Cell() { Title = $"{i}_{j}", ImageSource = NewIcon() });
+                                l.Add(new Cell() { Title = $"{i}_{j}" });
                             }
                             Row r = new Row()
                             {
@@ -351,14 +356,17 @@ namespace SWD
                         for (int i = data.Count-1; i >= rows; i--)
                         {
                             data.RemoveAt(i);
+                            AddedComponentHandling("Row", "remove", i);
                         }
+
                     }
+                    DeletedComponentHandling();
                     BuildDataGrid();
                     ButtonHandling();
                 }
                 catch (Exception ex)
                 {
-                    tb.Text = "1";
+                    tb.Text = data.Count.ToString();
                     Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
@@ -400,9 +408,17 @@ namespace SWD
                         tbColAmount.Text = (Int32.Parse(tbColAmount.Text) + 1).ToString();
                         for (int i = 0; i < data.Count; i++)
                         {
-                            data[i].Content.Insert(column, new Cell() { Title = $"{i}_{column}", ImageSource = NewIcon() });
+                            bool once = true;
+                            Cell newCell = new Cell() { Title = $"{i}_{column}" };
+                            //Debug.WriteLine($"INFO: {column}, {data[i].Content[column].Title}");
+                            if (components.ContainsKey(data[i].Content[column].Title) && data[i].Content[column].ImageSource != Images.NewIcon())
+                            {
+                                newCell.SetCell(components[data[i].Content[column].Title]);
+                            }
+                            data[i].Content.Insert(column, newCell);
                         }
                     }
+                    AddedComponentHandling(information[1], "add", column);
                 }
                 else
                 {
@@ -426,7 +442,13 @@ namespace SWD
                         List<Cell> l = new List<Cell>();
                         for (int j = 0; j < data[0].Content.Count; j++)
                         {
-                            l.Add(new Cell() { Title = $"{row}_{j}", ImageSource = NewIcon() });
+                            Cell newCell = new Cell() { Title = $"{row}_{j}" };
+
+                            if (components.ContainsKey(data[row].Content[j].Title) && data[row].Content[j].ImageSource != Images.NewIcon())
+                            {
+                                newCell.SetCell(components[data[row].Content[j].Title]);
+                            }
+                            l.Add(newCell);
                         }
                         Row r = new Row()
                         {
@@ -438,6 +460,7 @@ namespace SWD
                         {
                             data[i].Title = (i+1).ToString();
                         }
+                        AddedComponentHandling(information[1], "add", row);
                         dgContent.ItemsSource = null;
                         dgContent.ItemsSource = data;
                     }
@@ -482,6 +505,7 @@ namespace SWD
                             data[i].Content.RemoveAt(column-1);
                         }
                     }
+                    AddedComponentHandling(information[1], "remove", column);
                 }
                 else
                 {
@@ -504,7 +528,9 @@ namespace SWD
                         dgContent.ItemsSource = null;
                         dgContent.ItemsSource = data;
                     }
+                    AddedComponentHandling(information[1], "remove", row);
                 }
+                DeletedComponentHandling();
                 BuildDataGrid();
                 ButtonHandling();
             }
@@ -550,6 +576,7 @@ namespace SWD
                             position = data.Count;
                         };
                     }
+                    DeletedComponentHandling();
                     ButtonHandling();
                 }
                 catch (Exception ex)
@@ -609,6 +636,16 @@ namespace SWD
             if (inputDialog.ShowDialog() == true)
             {
                 string componentName = inputDialog.InputValue;
+                if (components.ContainsKey(componentName))
+                {
+                    int i = 1;
+                    while (components.ContainsKey(componentName))
+                    {
+                        componentName = $"{componentName}_{i}";
+                        i++;
+                    }
+                }
+
                 Debug.WriteLine(componentName);
 
                 SolidColorBrush brush = Colors.ShowColorPicker();
@@ -638,7 +675,7 @@ namespace SWD
                             component.Positions.Add(new Position() { Row = rowIndex, Column = columnIndex });
 
                             data[rowIndex].Content[columnIndex].Title = component.Name;
-                            data[rowIndex].Content[columnIndex].ImageSource = NewIcon($"{component.Type}.png");
+                            data[rowIndex].Content[columnIndex].ImageSource = Images.NewIcon($"{component.Type}.png");
                             data[rowIndex].Content[columnIndex].BorderColor = component.BorderColor;
                             data[rowIndex].Content[columnIndex].BackgroundColor = component.BackgroundColor;
                             data[rowIndex].Content[columnIndex].SelectedBorderColor = component.SelectedBorderColor;
@@ -663,23 +700,21 @@ namespace SWD
                     if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
                     {
                         Component component = components[data[rowIndex].Content[columnIndex].Title];
-                        //foreach (var position in component.Positions)
-                        //{
-                        //    DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
-                        //    if (!IsCellSelected(position.Row, position.Column))
-                        //    {
-                        //        dgContent.SelectedCells.Add(newCell);
-                        //    }
-                        //}
-                        for (int i = component.StartRow; i < component.StartRow + component.Rowspan + 1; i++)
+                        component.Spanning();
+                        foreach (Position position in component.Positions)
                         {
-                            for (int j = component.StartColumn; j < component.StartColumn + component.Colspan + 1; j++)
+                            try
                             {
-                                DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[i], dgContent.Columns[j]);
-                                if (!IsCellSelected(i, j))
+                                DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
+                                if (!IsCellSelected(position.Row, position.Column))
                                 {
                                     dgContent.SelectedCells.Add(newCell);
                                 }
+                            }
+                            catch (Exception ex)
+                            {
+                                EmptyComponentHandling(component);
+                                continue;
                             }
                         }
                     }
@@ -710,9 +745,89 @@ namespace SWD
 
         private void dgContent_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift | ModifierKeys.Alt)) != 0)
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
-                e.Handled = true;
+                dgContent.SelectedCells.Clear();
+                e.Handled = true; 
+            }
+        }
+
+        private void DeletedComponentHandling()
+        {
+            List<string> itemsToRemove = new List<string>();
+
+            foreach (var item in components.Values.ToList())
+            {
+                if (EmptyComponentHandling(item)) { continue; }
+
+                if (item.MaxRow() >= data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
+                {
+                    while (item.MaxRow() >= data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
+                    {
+                        item.Rowspan--;
+                        item.Repopulate();
+                    }
+                }
+
+                if (item.MaxColumn() >= data[0].Content.Count || item.MaxColumn() > item.StartColumn + item.Colspan + 1)
+                {
+                    while (item.MaxColumn() >= data[0].Content.Count || item.MaxColumn() > item.StartColumn + item.Colspan + 1)
+                    {
+                        item.Colspan--;
+                        item.Repopulate();
+                    }
+                }
+
+                if (EmptyComponentHandling(item))
+                {
+                    itemsToRemove.Add(item.Name); 
+                }
+            }
+
+            foreach (var name in itemsToRemove)
+            {
+                components.Remove(name);
+            }
+        }
+
+        private bool EmptyComponentHandling(Component component)
+        {
+            if (component.Rowspan < 0 || component.Colspan < 0 || component.Positions.Count == 0)
+            {
+                components.Remove(component.Name);
+                component.ClearData();
+                return true;
+            }
+            else
+            {
+                component.DisplayPositions();
+                return true;
+            }
+        }
+
+        private void AddedComponentHandling(string celltype, string mode, int position)
+        {
+            if (celltype == "Col")
+            {
+                foreach (Component component in components.Values)
+                {
+                    if (component.ContainsColumn(position))
+                    {
+                        if (mode == "add") { component.Colspan++; } else { component.Colspan--; }
+                        component.Repopulate();
+                    }
+                }
+            }
+            else
+            {
+                foreach (Component component in components.Values)
+                {
+                    if (component.ContainsRow(position))
+                    {
+                        if (mode == "add") { component.Rowspan++; } else { component.Rowspan--; }
+                        component.Repopulate();
+                    }
+                }
             }
         }
     }
