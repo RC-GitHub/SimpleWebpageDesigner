@@ -36,8 +36,15 @@ namespace SWD
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             InputValue = InputTextBox.Text;
-            DialogResult = true;
-            Close();
+            if (InputValue == string.Empty)
+            {
+                Errors.DisplayErrorMessage("Component's name cannot be empty");
+            }
+            else
+            {
+                DialogResult = true;
+                Close();
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

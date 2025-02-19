@@ -42,8 +42,6 @@ C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.W
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.xml
 C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GridWindow.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GridWindow.baml
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe.config
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.pdb
@@ -92,3 +90,7 @@ C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SW
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.g.cs
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.baml
+C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml

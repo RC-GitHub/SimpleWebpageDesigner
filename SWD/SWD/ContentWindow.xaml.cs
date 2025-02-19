@@ -234,6 +234,7 @@ namespace SWD
                         {
                             Debug.WriteLine(data[i].Content.Count);
                             data[i].Content.RemoveAt(data[i].Content.Count-1);
+                            AddedComponentHandling(information[1], "remove", i);
                         }
                     }
                 }
@@ -243,7 +244,11 @@ namespace SWD
                     tb.Text = amount.ToString();
 
                     Debug.WriteLine(data.Count);
-                    if (data.Count != 1) data.RemoveAt(data.Count-1);
+                    if (data.Count != 1)
+                    {
+                        AddedComponentHandling(information[1], "remove", data.Count - 1);
+                        data.RemoveAt(data.Count - 1);
+                    }
                 }
                 DeletedComponentHandling();
                 BuildDataGrid();
@@ -670,9 +675,12 @@ namespace SWD
 
                         foreach (var cell in dgContent.SelectedCells)
                         {
+
                             int rowIndex = dgContent.Items.IndexOf(cell.Item);
                             int columnIndex = dgContent.Columns.IndexOf(cell.Column);
                             component.Positions.Add(new Position() { Row = rowIndex, Column = columnIndex });
+
+                            if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title) && components[data[rowIndex].Content[columnIndex].Title].DeleteAPosition(new Position() { Row = rowIndex, Column = columnIndex }) == true) { components.Remove(data[rowIndex].Content[columnIndex].Title); }
 
                             data[rowIndex].Content[columnIndex].Title = component.Name;
                             data[rowIndex].Content[columnIndex].ImageSource = Images.NewIcon($"{component.Type}.png");
@@ -691,12 +699,14 @@ namespace SWD
 
         private void dgContent_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            DeletedComponentHandling();
             if (dgContent.SelectedCells.Count == 1)
             {
-                foreach (var cell in dgContent.SelectedCells)
-                {
+                //foreach (var cell in dgContent.SelectedCells)
+                //{
                     int rowIndex = dgContent.Items.IndexOf(dgContent.SelectedCells[0].Item);
                     int columnIndex = dgContent.Columns.IndexOf(dgContent.SelectedCells[0].Column);
+                    Debug.WriteLine($"The key is {data[rowIndex].Content[columnIndex].Title}");
                     if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
                     {
                         Component component = components[data[rowIndex].Content[columnIndex].Title];
@@ -706,6 +716,8 @@ namespace SWD
                             try
                             {
                                 DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
+                                Debug.WriteLine("ALLLLLLLLL");
+                                component.DisplayPositions();
                                 if (!IsCellSelected(position.Row, position.Column))
                                 {
                                     dgContent.SelectedCells.Add(newCell);
@@ -713,12 +725,13 @@ namespace SWD
                             }
                             catch (Exception ex)
                             {
-                                EmptyComponentHandling(component);
+                                Errors.DisplayErrorMessage($"{ex}");
+                                //EmptyComponentHandling(component);
                                 continue;
                             }
                         }
                     }
-                }
+                //}
             }  
 
         }
@@ -759,10 +772,12 @@ namespace SWD
             foreach (var item in components.Values.ToList())
             {
                 if (EmptyComponentHandling(item)) { continue; }
+                Debug.WriteLine($"Essential info: MAxRow{item.MaxRow()}, Count: {data.Count}, Sum: {item.StartRow+item.Rowspan+1}");
 
-                if (item.MaxRow() >= data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
+                if (item.MaxRow() > data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
                 {
-                    while (item.MaxRow() >= data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
+
+                    while (item.MaxRow() > data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
                     {
                         item.Rowspan--;
                         item.Repopulate();
@@ -822,6 +837,7 @@ namespace SWD
             {
                 foreach (Component component in components.Values)
                 {
+                    Debug.WriteLine(component.ContainsRow(position));
                     if (component.ContainsRow(position))
                     {
                         if (mode == "add") { component.Rowspan++; } else { component.Rowspan--; }

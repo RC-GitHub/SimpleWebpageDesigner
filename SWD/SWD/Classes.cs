@@ -137,6 +137,13 @@ namespace SWD
         {
             Positions.Clear();
         }
+
+        public bool DeleteAPosition(Position position)
+        {
+            Positions.RemoveAll(x => (x.Row == position.Row && x.Column == position.Column));
+            if (Positions.Count == 0) { return true; }
+            else return false;
+        }
     }
 
     internal class Position
