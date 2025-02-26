@@ -152,7 +152,7 @@
                     Width="Auto"
                     Height="Auto"
                     SelectionUnit="Cell"
-                    Loaded="dgContent_Loaded" SelectedCellsChanged="dgContent_SelectedCellsChanged" PreviewMouseLeftButtonDown="dgContent_PreviewMouseLeftButtonDown" PreviewKeyDown="dgContent_PreviewKeyDown">
+                    Loaded="dgContent_Loaded" SelectedCellsChanged="dgContent_SelectedCellsChanged" PreviewKeyDown="dgContent_PreviewKeyDown">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="{Binding Title}">
                             <DataGridTemplateColumn.CellTemplate>
