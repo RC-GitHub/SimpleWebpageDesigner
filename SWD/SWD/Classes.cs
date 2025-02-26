@@ -91,6 +91,17 @@ namespace SWD
             Colspan = MaxColumn() - StartColumn;
         }
 
+        public void Decrease(string rowOrColumn) 
+        {
+            if (rowOrColumn == "column")
+            {
+                StartColumn--;
+            } else
+            {
+                StartRow--;
+            }
+        }
+
         public int MinRow() { return Positions.Min(p => p.Row); }
         public int MaxRow() { return Positions.Max(p => p.Row); }
         public int MinColumn() { return Positions.Min(p => p.Column); }
