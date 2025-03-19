@@ -19,6 +19,38 @@ namespace SWD
 
     }
 
+    public class DataItem
+    {
+        public string Column { get; set; }
+    }
+
+    internal class ContentStructure
+    {
+        public Dictionary<string, LimitedComponent> Components { get; set; }
+        public int RowAmount { get; set; }
+        public int ColAmount { get; set; }
+    }
+
+    internal class LimitedComponent
+    {
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public int Rowspan { get; set; }
+        public int Colspan { get; set; }
+        public int StartRow { get; set; }
+        public int StartColumn { get; set; }
+
+        public LimitedComponent(Component comp)
+        {
+            Name = comp.Name;
+            Type = comp.Type;
+            Rowspan = comp.Rowspan;
+            Colspan = comp.Colspan;
+            StartRow = comp.StartRow;
+            StartColumn = comp.StartColumn;
+        }
+    }
+
     internal class Row
     {
         public string Title { get; set; }

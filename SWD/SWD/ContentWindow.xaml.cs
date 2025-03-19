@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -40,21 +42,18 @@ namespace SWD
         private readonly CreationWindow _creationWindow;
         List<Row> data = new List<Row>();
         Dictionary<string, Component> components = new Dictionary<string, Component>();
+        string path = string.Empty;
+        string pageName = string.Empty;
 
-        public ContentWindow(string path, CreationWindow cw)
+        public ContentWindow(string directory, CreationWindow cw, string pagename = "index")
         {
             InitializeComponent();
             _creationWindow = cw;
             _creationWindow.Close();
 
-            string[] files = Directory.GetFiles(path);
-            foreach (string file in files) {
-                if (File.Exists(file))
-                {
-                    Debug.WriteLine(file);
-                }
-            }
-            Debug.WriteLine(files);
+            path = directory;
+            pageName = pagename;
+
             Row obj = new Row()
             {
                 Title = "1",
@@ -230,11 +229,11 @@ namespace SWD
 
                     if (data[0].Content.Count != 1)
                     {
+                        ChangingComponentHandling(information[1], "remove", amount);
                         for (int i = 0; i < data.Count; i++)
                         {
                             Debug.WriteLine(data[i].Content.Count);
                             data[i].Content.RemoveAt(data[i].Content.Count-1);
-                            ChangingComponentHandling(information[1], "remove", i);
                         }
                     }
                 }
@@ -518,7 +517,7 @@ namespace SWD
                         {
                             data[i].Content.RemoveAt(column-1);
                         }
-
+                        Debug.WriteLine($"DELETE AT {column - 1}");
                         ChangingComponentHandling(information[1], "remove", column - 1); 
 
                     }
@@ -859,6 +858,62 @@ namespace SWD
                     }
                 }
             }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<string, LimitedComponent> _limited = new Dictionary<string, LimitedComponent>();
+            foreach (KeyValuePair<string, Component> entry in components) {
+                _limited.Add(entry.Key, new LimitedComponent(entry.Value));
+            } 
+
+
+            List<ContentStructure> _data = new List<ContentStructure>
+            {
+                new ContentStructure()
+                {
+                    Components = _limited,
+                    RowAmount = data.Count,
+                    ColAmount = data[0].Content.Count
+                }
+            };
+
+            string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
+
+            try
+            {
+                string newPath = System.IO.Path.Combine(path, $"json");
+                if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+                Debug.WriteLine(json);
+                File.WriteAllText($"{newPath}\\{pageName}.json", json);
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("The process failed: {0}", err.ToString());
+            }
+            finally { }
+        }
+
+        private void btnNew_Click(object sender, RoutedEventArgs e)
+        {
+
+            dgPages.Items.Clear();
+
+
+            string newPath = System.IO.Path.Combine(path, $"json");
+            Debug.WriteLine($"{newPath} is JSONS");
+
+            DirectoryInfo place = new DirectoryInfo(newPath);
+            FileInfo[] Files = place.GetFiles();
+            List<string> listOfStrings = new List<string>();
+            foreach (FileInfo file in Files)
+            {
+                Debug.WriteLine(file);
+                dgPages.Items.Add(new DataItem { Column = file.Name } );
+            }
+
+            //Debug.WriteLine($"{filePaths.ToString()} is JSONS");
+
         }
     }
 }
