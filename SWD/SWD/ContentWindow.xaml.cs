@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Brush = System.Drawing.Brush;
 using Brushes = System.Windows.Media.Brushes;
@@ -505,12 +507,9 @@ namespace SWD
                         tbColAmount.Text = (Int32.Parse(tbColAmount.Text) - 1).ToString();
                         foreach (Component comp in components.Values)
                         {
-                            Debug.WriteLine($"{comp.StartColumn} ALHAM1lilah {column}");
-                            if (comp.StartColumn >= column)
+                            if (comp.StartColumn > column-1)
                             {
                                 comp.Decrease("column");
-                                comp.Spanning();
-                                Debug.WriteLine($"{comp.StartColumn}, IM BEGGING1");
                             }
                         }
                         for (int i = 0; i < data.Count; i++)
@@ -539,12 +538,9 @@ namespace SWD
                         tbRowAmount.Text = (Int32.Parse(tbRowAmount.Text) - 1).ToString();
                         foreach (Component comp in components.Values)
                         {
-                            Debug.WriteLine($"{comp.StartRow} ALHAM2lilah {row}");
-                            if (comp.StartRow >= row)
+                            if (comp.StartRow > row-1)
                             {
                                 comp.Decrease("row");
-                                comp.Spanning();
-                                Debug.WriteLine($"{comp.StartRow}, IM BEGGING2");
                             }
                         }
                         data.RemoveAt(row-1);
@@ -556,10 +552,7 @@ namespace SWD
                         dgContent.ItemsSource = data;
 
                         ChangingComponentHandling(information[1], "remove", row - 1);
-
-
                     }
-
                 }
                 DeletedComponentHandling();
                 BuildDataGrid();
@@ -878,7 +871,7 @@ namespace SWD
                 }
             };
 
-            string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
 
             try
             {
@@ -894,26 +887,90 @@ namespace SWD
             finally { }
         }
 
+        public static DataTable MakeDataTable()
+        {
+            DataTable dataTable = new DataTable("Files");
+
+            DataColumn idColumn = new DataColumn();
+            idColumn.DataType = System.Type.GetType("System.Int32");
+            idColumn.ColumnName = "id";
+            idColumn.AutoIncrement = true;
+            dataTable.Columns.Add(idColumn);
+
+            DataColumn folderStructureColumn = new DataColumn();
+            folderStructureColumn.DataType = System.Type.GetType("System.String");
+            folderStructureColumn.ColumnName = "Folder structure";
+            folderStructureColumn.DefaultValue = "Folder structure";
+            dataTable.Columns.Add(folderStructureColumn);
+
+            DataColumn fileNameColumn = new DataColumn();
+            fileNameColumn.DataType = System.Type.GetType("System.String");
+            fileNameColumn.ColumnName = "Filename";
+            fileNameColumn.DefaultValue = "Filename";
+            dataTable.Columns.Add(fileNameColumn);
+
+            DataColumn[] keys = new DataColumn[1];
+            keys[0] = idColumn;
+            dataTable.PrimaryKey = keys;
+
+            return dataTable;
+        }
+
+        public DataTable dataTable = MakeDataTable();
+
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
 
-            dgPages.Items.Clear();
-
+            dataTable = MakeDataTable();
 
             string newPath = System.IO.Path.Combine(path, $"json");
             Debug.WriteLine($"{newPath} is JSONS");
 
-            DirectoryInfo place = new DirectoryInfo(newPath);
-            FileInfo[] Files = place.GetFiles();
-            List<string> listOfStrings = new List<string>();
-            foreach (FileInfo file in Files)
+            try
             {
-                Debug.WriteLine(file);
-                dgPages.Items.Add(new DataItem { Column = file.Name } );
+                DirectoryInfo place = new DirectoryInfo(newPath);
+                FileInfo[] Files = place.GetFiles();
+
+                foreach (string file in System.IO.Directory.GetFiles(newPath, "*", SearchOption.AllDirectories))
+                {
+                    Debug.WriteLine(file, "What even is that");
+                    DataRow newRow;
+                    newRow = dataTable.NewRow();
+
+                    //newRow["Filename"] = file.Name.Split('.')[0];
+                    string fileAndFolder = file.Split(new string[] { path }, StringSplitOptions.None)[1];
+                    string[] split = fileAndFolder.Split('\\');
+                    string filename = split[split.Length - 1].Split('.')[0];
+                    string folderStructure = "";
+                    Debug.WriteLine(String.Join(", ", split));
+                    
+                    for (int i = 0; i <= split.Length-2; i++)
+                    {
+                        if (split[i] != String.Empty) folderStructure += split[i] + " \\ "; 
+                    }
+
+                    newRow["Folder structure"] = folderStructure;
+                    newRow["Filename"] = filename;
+                    dataTable.Rows.Add(newRow);
+                }
+
+                //foreach (FileInfo file in Files)
+                //{
+                //    Debug.WriteLine(file);
+                //    DataRow newRow;
+                //    newRow = dataTable.NewRow();
+
+                //    newRow["Filename"] = file.Name.Split('.')[0];
+                //    newRow["Folder structure"] = file.Directory.ToString().Split(new string[] { path }, StringSplitOptions.None)[1];
+                //    dataTable.Rows.Add(newRow);
+
+                //}
+                dgPages.ItemsSource = dataTable.AsDataView();
             }
-
-            //Debug.WriteLine($"{filePaths.ToString()} is JSONS");
-
+            catch (Exception ex)
+            {
+                Errors.DisplayErrorMessage($"Components haven't been saved.\n\n{ex}");
+            }
         }
     }
 }
