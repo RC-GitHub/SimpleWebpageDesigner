@@ -127,11 +127,12 @@ namespace SWD
         {
             if (rowOrColumn == "column")
             {
-                StartColumn--;
+                this.StartColumn--;
             } else
             {
-                StartRow--;
+                this.StartRow--;
             }
+            Repopulate();
         }
 
         public int MinRow() { return Positions.Min(p => p.Row); }

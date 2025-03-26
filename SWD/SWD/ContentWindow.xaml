@@ -247,7 +247,12 @@
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
                 </DataGrid>
-                <DataGrid x:Name="dgPages" Grid.Row="2" Margin="20,20,20,20"/>
+                <DataGrid x:Name="dgPages" Grid.Row="2" Margin="20,20,20,20"                     
+                    CanUserAddRows="False"
+
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    SelectionUnit="Cell"/>
             </Grid>
         </Grid>
     </Grid>
