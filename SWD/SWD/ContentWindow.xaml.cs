@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -102,9 +103,9 @@ namespace SWD
 
                 FrameworkElementFactory gridFactory = new FrameworkElementFactory(typeof(Grid));
                 FrameworkElementFactory rowDef = new FrameworkElementFactory(typeof(RowDefinition));
-                gridFactory.AppendChild(rowDef);  
+                gridFactory.AppendChild(rowDef);
                 FrameworkElementFactory colDef = new FrameworkElementFactory(typeof(ColumnDefinition));
-                gridFactory.AppendChild(colDef);  
+                gridFactory.AppendChild(colDef);
 
                 FrameworkElementFactory imageFactory = new FrameworkElementFactory(typeof(Image));
                 imageFactory.SetBinding(Image.SourceProperty, new System.Windows.Data.Binding($"Content[{i}].ImageSource"));
@@ -135,7 +136,7 @@ namespace SWD
                 cellStyle.Setters.Add(new Setter(DataGridCell.BackgroundProperty, new System.Windows.Data.Binding($"Content[{i}].BackgroundColor")));
                 cellStyle.Setters.Add(new Setter(DataGridCell.BorderThicknessProperty, new Thickness(10)));
                 cellStyle.Setters.Add(new Setter(DataGridCell.HorizontalContentAlignmentProperty, System.Windows.HorizontalAlignment.Stretch));
-                cellStyle.Setters.Add(new Setter(DataGridCell.VerticalContentAlignmentProperty, System.Windows.VerticalAlignment.Stretch));                
+                cellStyle.Setters.Add(new Setter(DataGridCell.VerticalContentAlignmentProperty, System.Windows.VerticalAlignment.Stretch));
                 cellStyle.Setters.Add(new Setter(DataGridCell.HorizontalAlignmentProperty, System.Windows.HorizontalAlignment.Stretch));
                 cellStyle.Setters.Add(new Setter(DataGridCell.VerticalAlignmentProperty, System.Windows.VerticalAlignment.Stretch));
 
@@ -235,7 +236,7 @@ namespace SWD
                         for (int i = 0; i < data.Count; i++)
                         {
                             Debug.WriteLine(data[i].Content.Count);
-                            data[i].Content.RemoveAt(data[i].Content.Count-1);
+                            data[i].Content.RemoveAt(data[i].Content.Count - 1);
                         }
                     }
                 }
@@ -304,7 +305,7 @@ namespace SWD
                     {
                         for (int i = 0; i < data.Count; i++)
                         {
-                            for (int j = data[i].Content.Count-1; j >= columns; j--)
+                            for (int j = data[i].Content.Count - 1; j >= columns; j--)
                             {
                                 data[i].Content.RemoveAt(j);
                                 ChangingComponentHandling("Col", "remove", j);
@@ -351,7 +352,7 @@ namespace SWD
                             }
                             Row r = new Row()
                             {
-                                Title = (i+1).ToString(),
+                                Title = (i + 1).ToString(),
                                 Content = l
                             };
                             data.Add(r);
@@ -359,7 +360,7 @@ namespace SWD
                     }
                     else
                     {
-                        for (int i = data.Count-1; i >= rows; i--)
+                        for (int i = data.Count - 1; i >= rows; i--)
                         {
                             data.RemoveAt(i);
                             ChangingComponentHandling("Row", "remove", i);
@@ -395,7 +396,7 @@ namespace SWD
                     if (column > data[0].Content.Count)
                     {
                         tb.Text = data[0].Content.Count.ToString(); return;
-                    } 
+                    }
                     else if (column < 1)
                     {
                         tb.Text = "1"; return;
@@ -403,7 +404,7 @@ namespace SWD
                     else if (column >= 12)
                     {
                         tb.Text = "12"; return;
-                    } 
+                    }
                     else if (column == data[0].Content.Count)
                     {
                         Increase_Click(btn_Col_Increase, null);
@@ -457,13 +458,13 @@ namespace SWD
                         }
                         Row r = new Row()
                         {
-                            Title = (row+1).ToString(),
+                            Title = (row + 1).ToString(),
                             Content = l
                         };
                         data.Insert(row, r);
                         for (int i = 0; i < data.Count; i++)
                         {
-                            data[i].Title = (i+1).ToString();
+                            data[i].Title = (i + 1).ToString();
                         }
                         ChangingComponentHandling(information[1], "add", row);
                         dgContent.ItemsSource = null;
@@ -507,17 +508,22 @@ namespace SWD
                         tbColAmount.Text = (Int32.Parse(tbColAmount.Text) - 1).ToString();
                         foreach (Component comp in components.Values)
                         {
-                            if (comp.StartColumn > column-1)
+                            if (column < comp.StartColumn + 1)
                             {
                                 comp.Decrease("column");
+                            }
+                            else if (column >= comp.StartColumn && comp.ContainsColumn(column - 1))
+                            {
+                                comp.Colspan--;
+                                comp.Repopulate();
                             }
                         }
                         for (int i = 0; i < data.Count; i++)
                         {
-                            data[i].Content.RemoveAt(column-1);
+                            data[i].Content.RemoveAt(column - 1);
                         }
                         Debug.WriteLine($"DELETE AT {column - 1}");
-                        ChangingComponentHandling(information[1], "remove", column - 1); 
+                        //ChangingComponentHandling(information[1], "remove", column - 1); 
 
                     }
 
@@ -538,12 +544,18 @@ namespace SWD
                         tbRowAmount.Text = (Int32.Parse(tbRowAmount.Text) - 1).ToString();
                         foreach (Component comp in components.Values)
                         {
-                            if (comp.StartRow > row-1)
+                            Debug.WriteLine($"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA {comp.StartRow + 1} and {row}");
+                            if (row < comp.StartRow + 1)
                             {
                                 comp.Decrease("row");
                             }
+                            else if (row >= comp.StartRow + 1 && comp.ContainsRow(row - 1))
+                            {
+                                comp.Rowspan--;
+                                comp.Repopulate();
+                            }
                         }
-                        data.RemoveAt(row-1);
+                        data.RemoveAt(row - 1);
                         for (int i = 0; i < data.Count; i++)
                         {
                             data[i].Title = (i + 1).ToString();
@@ -551,7 +563,7 @@ namespace SWD
                         dgContent.ItemsSource = null;
                         dgContent.ItemsSource = data;
 
-                        ChangingComponentHandling(information[1], "remove", row - 1);
+                        //ChangingComponentHandling(information[1], "remove", row - 2);
                     }
                 }
                 DeletedComponentHandling();
@@ -586,12 +598,12 @@ namespace SWD
                             tb.Text = "12";
                             position = 12;
                         }
-                        if (position > data[0].Content.Count) 
+                        if (position > data[0].Content.Count)
                         {
                             tb.Text = data[0].Content.Count.ToString();
                             position = data[0].Content.Count;
                         };
-                    } 
+                    }
                     else
                     {
                         if (position > data.Count)
@@ -618,30 +630,30 @@ namespace SWD
             try { colsModify = Int32.Parse(tbColModify.Text); }
             catch { colsModify = 1; tbColModify.Text = "1"; }
 
-                if (colsModify == 1) btn_Col_DeleteAt.IsEnabled = false;
-                else btn_Col_DeleteAt.IsEnabled = true;
-                if (colsModify == 12) btn_Col_InsertAt.IsEnabled = false;
-                else btn_Col_InsertAt.IsEnabled = true;
+            if (colsModify == 1) btn_Col_DeleteAt.IsEnabled = false;
+            else btn_Col_DeleteAt.IsEnabled = true;
+            if (colsModify == 12) btn_Col_InsertAt.IsEnabled = false;
+            else btn_Col_InsertAt.IsEnabled = true;
 
             try { rowsModify = Int32.Parse(tbRowModify.Text); }
-            catch { rowsModify = 1; tbRowModify.Text = "1";  }
+            catch { rowsModify = 1; tbRowModify.Text = "1"; }
 
-                if (rowsModify == 1) btn_Row_DeleteAt.IsEnabled = false;
-                else btn_Row_DeleteAt.IsEnabled = true;
+            if (rowsModify == 1) btn_Row_DeleteAt.IsEnabled = false;
+            else btn_Row_DeleteAt.IsEnabled = true;
 
             try { cols = Int32.Parse(tbColAmount.Text); }
             catch { cols = data[0].Content.Count; tbColAmount.Text = data[0].Content.Count.ToString(); }
 
-                if (cols == 1) { btn_Col_Decrease.IsEnabled = false; btn_Col_DeleteAt.IsEnabled = false; }
-                else { btn_Col_Decrease.IsEnabled = true; btn_Col_DeleteAt.IsEnabled = true; }
-                if (cols == 12) { btn_Col_Increase.IsEnabled = false; btn_Col_InsertAt.IsEnabled = false; }
-                else { btn_Col_Increase.IsEnabled = true; btn_Col_InsertAt.IsEnabled = true; }
+            if (cols == 1) { btn_Col_Decrease.IsEnabled = false; btn_Col_DeleteAt.IsEnabled = false; }
+            else { btn_Col_Decrease.IsEnabled = true; btn_Col_DeleteAt.IsEnabled = true; }
+            if (cols == 12) { btn_Col_Increase.IsEnabled = false; btn_Col_InsertAt.IsEnabled = false; }
+            else { btn_Col_Increase.IsEnabled = true; btn_Col_InsertAt.IsEnabled = true; }
 
             try { rows = Int32.Parse(tbRowAmount.Text); }
             catch { rows = data.Count; tbRowAmount.Text = data.Count.ToString(); }
 
-                if (rows == 1) { btn_Row_Decrease.IsEnabled = false; btn_Row_DeleteAt.IsEnabled = false; }
-                else { btn_Row_Decrease.IsEnabled = true; btn_Row_DeleteAt.IsEnabled = true; }
+            if (rows == 1) { btn_Row_Decrease.IsEnabled = false; btn_Row_DeleteAt.IsEnabled = false; }
+            else { btn_Row_Decrease.IsEnabled = true; btn_Row_DeleteAt.IsEnabled = true; }
         }
 
 
@@ -650,8 +662,8 @@ namespace SWD
             System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;
             if (tb.Name == "tbColAmount") popCol.IsOpen = !popCol.IsOpen;
             else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
-            else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;       
-            else popRowModify.IsOpen = !popRowModify.IsOpen; 
+            else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;
+            else popRowModify.IsOpen = !popRowModify.IsOpen;
         }
 
         private void AddComponent(object sender, RoutedEventArgs e)
@@ -723,42 +735,42 @@ namespace SWD
             {
                 //foreach (var cell in dgContent.SelectedCells)
                 //{
-                    int rowIndex = dgContent.Items.IndexOf(dgContent.SelectedCells[0].Item);
-                    int columnIndex = dgContent.Columns.IndexOf(dgContent.SelectedCells[0].Column);
-                    Debug.WriteLine($"The key is {data[rowIndex].Content[columnIndex].Title}");
-                    if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                int rowIndex = dgContent.Items.IndexOf(dgContent.SelectedCells[0].Item);
+                int columnIndex = dgContent.Columns.IndexOf(dgContent.SelectedCells[0].Column);
+                Debug.WriteLine($"The key is {data[rowIndex].Content[columnIndex].Title}");
+                if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                {
+                    DataGridCellInfo firstCell = new DataGridCellInfo(dgContent.Items[rowIndex], dgContent.Columns[columnIndex]);
+                    Component component = components[data[rowIndex].Content[columnIndex].Title];
+                    component.Spanning();
+
+                    try
                     {
-                        DataGridCellInfo firstCell = new DataGridCellInfo(dgContent.Items[rowIndex], dgContent.Columns[columnIndex]);
-                        Component component = components[data[rowIndex].Content[columnIndex].Title];
-                        component.Spanning();
-
-                        try
+                        IList<DataGridCellInfo> cells = new List<DataGridCellInfo>();
+                        foreach (Position position in component.Positions)
                         {
-                            IList<DataGridCellInfo> cells = new List<DataGridCellInfo>();
-                            foreach (Position position in component.Positions)
-                                {
-                                    DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
-                                    //component.DisplayPositions();
-                                    if (newCell != firstCell)
-                                    {
-                                        dgContent.SelectedCells.Add(newCell);
-                                    }
-                                }
-
+                            DataGridCellInfo newCell = new DataGridCellInfo(dgContent.Items[position.Row], dgContent.Columns[position.Column]);
+                            //component.DisplayPositions();
+                            if (newCell != firstCell)
+                            {
+                                dgContent.SelectedCells.Add(newCell);
                             }
-
-                        catch (Exception ex)
-                        {
-                            Errors.DisplayErrorMessage($"{ex}");
-                            //EmptyComponentHandling(component);
                         }
-                        
-                    } else
-                    {
-                        return;
+
                     }
+
+                    catch (Exception ex)
+                    {
+                        Errors.DisplayErrorMessage($"{ex}");
+                        //EmptyComponentHandling(component);
+                    }
+
+                } else
+                {
+                    return;
+                }
                 //}
-            }  
+            }
 
         }
 
@@ -767,7 +779,7 @@ namespace SWD
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
             {
                 dgContent.SelectedCells.Clear();
-                e.Handled = true; 
+                e.Handled = true;
             }
         }
 
@@ -778,7 +790,7 @@ namespace SWD
             foreach (var item in components.Values.ToList())
             {
                 if (EmptyComponentHandling(item)) { continue; }
-                Debug.WriteLine($"Essential info: MAxRow{item.MaxRow()}, Count: {data.Count}, Sum: {item.StartRow+item.Rowspan+1}");
+                Debug.WriteLine($"Essential info: MAxRow{item.MaxRow()}, Count: {data.Count}, Sum: {item.StartRow + item.Rowspan + 1}");
 
                 if (item.MaxRow() >= data.Count || item.MaxRow() > item.StartRow + item.Rowspan + 1)
                 {
@@ -801,7 +813,7 @@ namespace SWD
 
                 if (EmptyComponentHandling(item))
                 {
-                    itemsToRemove.Add(item.Name); 
+                    itemsToRemove.Add(item.Name);
                 }
             }
 
@@ -858,7 +870,7 @@ namespace SWD
             Dictionary<string, LimitedComponent> _limited = new Dictionary<string, LimitedComponent>();
             foreach (KeyValuePair<string, Component> entry in components) {
                 _limited.Add(entry.Key, new LimitedComponent(entry.Value));
-            } 
+            }
 
 
             List<ContentStructure> _data = new List<ContentStructure>
@@ -879,6 +891,10 @@ namespace SWD
                 if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
                 Debug.WriteLine(json);
                 File.WriteAllText($"{newPath}\\{pageName}.json", json);
+
+                Infos.DisplayErrorMessage($"The {pageName} was saved!");
+                RefreshFileData();
+                
             }
             catch (Exception err)
             {
@@ -920,6 +936,35 @@ namespace SWD
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
+            InputDialog inputDialog = new InputDialog();
+            if (inputDialog.ShowDialog() == true)
+            {
+                string newFileName = inputDialog.InputValue;
+                List<ContentStructure> _data = new List<ContentStructure>
+                {
+                    new ContentStructure()
+                    {
+                        Components = {},
+                        RowAmount = 1,
+                        ColAmount = 1
+                    }
+                };
+
+                string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
+                string newPath = System.IO.Path.Combine(path, $"json");
+                if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+                Debug.WriteLine(json);
+                File.WriteAllText($"{newPath}\\{newFileName}.json", json);
+                Infos.DisplayErrorMessage($"The {newFileName} was created!");
+
+                RefreshFileData();
+
+            }
+          
+        }
+
+        public void RefreshFileData()
+        {
 
             dataTable = MakeDataTable();
 
@@ -943,28 +988,16 @@ namespace SWD
                     string filename = split[split.Length - 1].Split('.')[0];
                     string folderStructure = "";
                     Debug.WriteLine(String.Join(", ", split));
-                    
-                    for (int i = 0; i <= split.Length-2; i++)
+
+                    for (int i = 0; i <= split.Length - 2; i++)
                     {
-                        if (split[i] != String.Empty) folderStructure += split[i] + " \\ "; 
+                        if (split[i] != String.Empty) folderStructure += split[i] + " \\ ";
                     }
 
                     newRow["Folder structure"] = folderStructure;
                     newRow["Filename"] = filename;
                     dataTable.Rows.Add(newRow);
                 }
-
-                //foreach (FileInfo file in Files)
-                //{
-                //    Debug.WriteLine(file);
-                //    DataRow newRow;
-                //    newRow = dataTable.NewRow();
-
-                //    newRow["Filename"] = file.Name.Split('.')[0];
-                //    newRow["Folder structure"] = file.Directory.ToString().Split(new string[] { path }, StringSplitOptions.None)[1];
-                //    dataTable.Rows.Add(newRow);
-
-                //}
                 dgPages.ItemsSource = dataTable.AsDataView();
             }
             catch (Exception ex)
@@ -973,4 +1006,4 @@ namespace SWD
             }
         }
     }
-}
+} 
