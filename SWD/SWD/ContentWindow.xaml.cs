@@ -925,6 +925,12 @@ namespace SWD
             fileNameColumn.DefaultValue = "Filename";
             dataTable.Columns.Add(fileNameColumn);
 
+            DataColumn filePathColumn = new DataColumn();
+            filePathColumn.DataType = System.Type.GetType("System.String");
+            filePathColumn.ColumnName = "Path";
+            filePathColumn.DefaultValue = "Path";
+            dataTable.Columns.Add(filePathColumn);
+
             DataColumn[] keys = new DataColumn[1];
             keys[0] = idColumn;
             dataTable.PrimaryKey = keys;
@@ -996,6 +1002,7 @@ namespace SWD
 
                     newRow["Folder structure"] = folderStructure;
                     newRow["Filename"] = filename;
+                    newRow["Path"] = file;
                     dataTable.Rows.Add(newRow);
                 }
                 dgPages.ItemsSource = dataTable.AsDataView();
@@ -1004,6 +1011,32 @@ namespace SWD
             {
                 Errors.DisplayErrorMessage($"Components haven't been saved.\n\n{ex}");
             }
+        }
+
+        private void dgPages_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            DataGridRow row = e.Row;
+            if (e.Row.GetType() != typeof(DataGridRowHeader))
+            {
+                DataGridRowHeader header = new DataGridRowHeader();
+
+                var image = new Image
+                {
+                    Source = Images.NewIcon(),
+                };
+
+                header.Content = image;
+                header.Click += System.Windows.RoutedEventHandler(LoadingRow(sender, e, row.GetIndex()));
+
+                row.Header = header;
+                ;
+            }
+            //base.LoadingRow(e);
+        }
+
+        private void LoadingRow(object sender, DataGridRowEventArgs e, int v)
+        {
+            Debug.WriteLine($"{v} KNICK");
         }
     }
 } 
