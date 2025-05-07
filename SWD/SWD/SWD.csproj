@@ -97,6 +97,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Content\ContentWindow.DGBuilding.cs" />
+    <Compile Include="Content\ContentWindow.CompHandling.cs" />
+    <Compile Include="Content\ContentWindow.DGModifying.cs" />
+    <Compile Include="Content\ContentWindow.DGSizing.cs" />
+    <Compile Include="Content\ContentWindow.FSBuilding.cs" />
+    <Compile Include="Content\ContentWindow.FSManaging.cs" />
     <Compile Include="InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
@@ -104,7 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ContentWindow.xaml">
+    <Page Include="Content\ContentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,11 +129,12 @@
     <Compile Include="CreationWindow.xaml.cs">
       <DependentUpon>CreationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ContentWindow.xaml.cs">
+    <Compile Include="Content\ContentWindow.xaml.cs">
       <DependentUpon>ContentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherClasses.cs" />
     <Compile Include="OtherDialogs.cs" />
-    <Compile Include="Classes.cs" />
+    <Compile Include="ComponentClasses.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -174,5 +181,9 @@
     <Resource Include="Icons\image.png" />
     <Resource Include="Icons\text.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\edit.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

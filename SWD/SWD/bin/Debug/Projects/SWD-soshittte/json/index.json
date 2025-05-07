@@ -1,0 +1,38 @@
+[
+  {
+    "Components": {
+      "ss": {
+        "Name": "ss",
+        "Type": "text",
+        "Rowspan": 1,
+        "Colspan": 1,
+        "StartRow": 0,
+        "StartColumn": 1,
+        "BorderColor": "#FFFF8040",
+        "BackgroundColor": "#FFFF8040",
+        "SelectedBorderColor": "#FFD3A28E",
+        "SelectedBackgroundColor": "#FFF7BC9F",
+        "Positions": [
+          {
+            "Row": 0,
+            "Column": 1
+          },
+          {
+            "Row": 0,
+            "Column": 2
+          },
+          {
+            "Row": 1,
+            "Column": 1
+          },
+          {
+            "Row": 1,
+            "Column": 2
+          }
+        ]
+      }
+    },
+    "RowAmount": 4,
+    "ColAmount": 4
+  }
+]

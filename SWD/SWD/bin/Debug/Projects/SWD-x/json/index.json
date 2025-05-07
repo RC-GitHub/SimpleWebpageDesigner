@@ -1,6 +1,15 @@
 [
   {
-    "Components": {},
+    "Components": {
+      "i": {
+        "Name": "i",
+        "Type": "text",
+        "Rowspan": 0,
+        "Colspan": 0,
+        "StartRow": 0,
+        "StartColumn": 0
+      }
+    },
     "RowAmount": 1,
     "ColAmount": 1
   }
