@@ -61,7 +61,6 @@ namespace SWD.Content
         }
         public void BuildDataGrid()
         {
-
             if (components != null)
             {
                 foreach (var component in components.Values)
