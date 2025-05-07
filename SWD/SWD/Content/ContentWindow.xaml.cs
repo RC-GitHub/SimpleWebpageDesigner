@@ -52,6 +52,7 @@ namespace SWD.Content
         Dictionary<string, Component> components = new Dictionary<string, Component>();
 
         // Variables concerning the folder structure displayed on the left
+        string readyPath = "";
         public DataTable dataTable = MakeDataTable();
 
         public ContentWindow(string directory, CreationWindow cw, string pagename = "index")
@@ -89,12 +90,19 @@ namespace SWD.Content
 
             try
             {
-                string newPath = System.IO.Path.Combine(path, $"json");
-                if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
-                Debug.WriteLine(json);
-                File.WriteAllText($"{newPath}\\{pageName}.json", json);
+                if (readyPath != "")
+                {
+                    File.WriteAllText(readyPath, json);
+                }
+                else
+                {
+                    string newPath = System.IO.Path.Combine(path, $"json");
+                    if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+                    //Debug.WriteLine(json);
+                    File.WriteAllText($"{newPath}\\{pageName}.json", json);
+                }
 
-                Infos.DisplayErrorMessage($"The {pageName} was saved!");
+                Infos.DisplayErrorMessage($"{pageName}.html was saved!");
                 RefreshFileData();
                 
             }

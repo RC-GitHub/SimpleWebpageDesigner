@@ -15,6 +15,8 @@ namespace SWD.Content
     {
         private void dgContent_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            if (components == null) return;
+
             if (dgContent.SelectedCells.Count == 1)
             {
 

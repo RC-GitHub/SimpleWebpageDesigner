@@ -15,6 +15,7 @@ namespace SWD.Content
     {
         private bool EmptyComponentHandling(Component component)
         {
+            if (component == null) return false;
             if (component.Rowspan < 0 || component.Colspan < 0 || component.Positions.Count == 0)
             {
                 components.Remove(component.Name);
@@ -34,7 +35,7 @@ namespace SWD.Content
             if (inputDialog.ShowDialog() == true)
             {
                 string componentName = inputDialog.InputValue;
-                if (components.ContainsKey(componentName))
+                if (components != null && components.ContainsKey(componentName))
                 {
                     int i = 1;
                     while (components.ContainsKey(componentName))
@@ -73,7 +74,10 @@ namespace SWD.Content
                             int columnIndex = dgContent.Columns.IndexOf(cell.Column);
                             component.Positions.Add(new Position() { Row = rowIndex, Column = columnIndex });
 
-                            if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title) && components[data[rowIndex].Content[columnIndex].Title].DeleteAPosition(new Position() { Row = rowIndex, Column = columnIndex }) == true) { components.Remove(data[rowIndex].Content[columnIndex].Title); }
+                            if (components != null && 
+                                components.ContainsKey(data[rowIndex].Content[columnIndex].Title) && 
+                                components[data[rowIndex].Content[columnIndex].Title].DeleteAPosition(new Position() { Row = rowIndex, Column = columnIndex }) == true) 
+                            { components.Remove(data[rowIndex].Content[columnIndex].Title); }
 
                             data[rowIndex].Content[columnIndex].Title = component.Name;
                             data[rowIndex].Content[columnIndex].ImageSource = Images.NewIcon($"{component.Type}.png");
@@ -83,7 +87,16 @@ namespace SWD.Content
                             data[rowIndex].Content[columnIndex].SelectedBackgroundColor = component.SelectedBackgroundColor;
                         }
                         component.Spanning();
-                        components.Add(componentName, component);
+                        if (components != null)
+                        {
+                            components.Add(componentName, component);
+                        }
+                        else
+                        {
+                            components = new Dictionary<string, Component>();
+                            components.Add(componentName, component);
+                        }
+
                         BuildDataGrid();
                     }
                 }
@@ -120,6 +133,8 @@ namespace SWD.Content
 
         private void DeletedComponentHandling()
         {
+            if (components == null) return;
+
             List<string> itemsToRemove = new List<string>();
 
             foreach (var item in components.Values.ToList())

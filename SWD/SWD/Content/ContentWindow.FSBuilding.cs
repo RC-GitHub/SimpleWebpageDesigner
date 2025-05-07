@@ -52,8 +52,10 @@ namespace SWD.Content
             var row = dgPages.Items[v] as DataRowView;
             if (row != null)
             {
-                string filePath = row["Path"].ToString();
-                LoadJsonPage(filePath);
+                pageName = row["Filename"].ToString();
+                lblGridTitle.Content = $"{row["Filename"]}.html";
+                readyPath = row["Path"].ToString();
+                LoadJsonPage(readyPath);
             }
         }
     }
