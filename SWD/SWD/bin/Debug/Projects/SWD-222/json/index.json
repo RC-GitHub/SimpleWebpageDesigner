@@ -1,0 +1,92 @@
+[
+  {
+    "Components": {
+      "sss": {
+        "Name": "sss",
+        "Type": "text",
+        "Rowspan": 0,
+        "Colspan": 3,
+        "StartRow": 1,
+        "StartColumn": 1,
+        "BorderColor": "#FF804000",
+        "BackgroundColor": "#FF804000",
+        "SelectedBorderColor": "#FF93826E",
+        "SelectedBackgroundColor": "#FFB89C7F",
+        "Positions": [
+          {
+            "Row": 1,
+            "Column": 1
+          },
+          {
+            "Row": 1,
+            "Column": 2
+          },
+          {
+            "Row": 1,
+            "Column": 3
+          },
+          {
+            "Row": 1,
+            "Column": 4
+          }
+        ]
+      },
+      "ccc": {
+        "Name": "ccc",
+        "Type": "text",
+        "Rowspan": 1,
+        "Colspan": 4,
+        "StartRow": 6,
+        "StartColumn": 2,
+        "BorderColor": "#FF004040",
+        "BackgroundColor": "#FF004040",
+        "SelectedBorderColor": "#FF53828E",
+        "SelectedBackgroundColor": "#FF789C9F",
+        "Positions": [
+          {
+            "Row": 6,
+            "Column": 2
+          },
+          {
+            "Row": 6,
+            "Column": 3
+          },
+          {
+            "Row": 6,
+            "Column": 4
+          },
+          {
+            "Row": 6,
+            "Column": 5
+          },
+          {
+            "Row": 6,
+            "Column": 6
+          },
+          {
+            "Row": 7,
+            "Column": 2
+          },
+          {
+            "Row": 7,
+            "Column": 3
+          },
+          {
+            "Row": 7,
+            "Column": 4
+          },
+          {
+            "Row": 7,
+            "Column": 5
+          },
+          {
+            "Row": 7,
+            "Column": 6
+          }
+        ]
+      }
+    },
+    "RowAmount": 10,
+    "ColAmount": 10
+  }
+]

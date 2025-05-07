@@ -14,7 +14,6 @@ namespace SWD
     internal class Errors
     {
         public Errors() {}
-
         static public MessageBoxResult DisplayErrorMessage(string msgBoxText)
         {
             string caption = "Error!";
@@ -30,7 +29,6 @@ namespace SWD
     internal class Infos
     {
         public Infos() { }
-
         static public MessageBoxResult DisplayErrorMessage(string msgBoxText)
         {
             string caption = "Error!";

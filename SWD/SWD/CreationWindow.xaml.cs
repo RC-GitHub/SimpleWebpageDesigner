@@ -154,7 +154,7 @@ namespace SWD
 
                     _mainWindow.Close();
 
-                    ContentWindow gd = new ContentWindow(dir, this);
+                    Content.ContentWindow gd = new Content.ContentWindow(dir, this);
                     gd.ShowDialog();
 
                 }
