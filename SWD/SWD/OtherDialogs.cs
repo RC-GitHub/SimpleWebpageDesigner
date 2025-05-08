@@ -31,7 +31,7 @@ namespace SWD
         public Infos() { }
         static public MessageBoxResult DisplayErrorMessage(string msgBoxText)
         {
-            string caption = "Error!";
+            string caption = "Result";
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBoxResult result;

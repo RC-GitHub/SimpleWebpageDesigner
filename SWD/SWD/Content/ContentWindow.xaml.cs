@@ -44,6 +44,7 @@ namespace SWD.Content
     {
         // Previous window to be closed
         private readonly CreationWindow _creationWindow;
+        private readonly MainWindow _mainWindow;
 
         // Variables concerning the main DataGrid
         string path = string.Empty;
@@ -72,6 +73,46 @@ namespace SWD.Content
             data.Add(obj);
             dgContent.ItemsSource = data;
             BuildDataGrid();
+        }
+
+        public ContentWindow(string directory, MainWindow mw)
+        {
+            InitializeComponent();
+            _mainWindow = mw;
+            _mainWindow.Close();
+
+
+            path = directory;
+            string jsonPath = MakeJsonPath(path);
+            string indexPath = Path.Combine(jsonPath, "index.json");
+            if (File.Exists(indexPath))
+            {
+                pageName = "index";
+                LoadJsonPage(indexPath);
+            }
+            else
+            {
+                bool hasFiles = Directory.EnumerateFiles(jsonPath, "*.json", SearchOption.AllDirectories).Any();
+                if (hasFiles)
+                {
+                    string defaultPath = Directory.EnumerateFiles(jsonPath, "*.json", SearchOption.AllDirectories).FirstOrDefault();
+                    string pageName = Path.GetFileNameWithoutExtension(defaultPath);
+                    LoadJsonPage(defaultPath);
+                }
+                else
+                {
+                    pageName = "index";
+                    Row obj = new Row()
+                    {
+                        Title = "1",
+                        Content = new List<Cell> { new Cell() { Title = "1" } }
+                    };
+                    data.Add(obj);
+                    dgContent.ItemsSource = data;
+                    BuildDataGrid();
+                }
+            }
+
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -113,6 +154,13 @@ namespace SWD.Content
             finally { }
         }
 
+        private string MakeJsonPath(string path)
+        {
+            string newPath = System.IO.Path.Combine(path, $"json");
+            if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+            return newPath;
+        }
+
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             InputDialog inputDialog = new InputDialog();
@@ -130,10 +178,9 @@ namespace SWD.Content
                 };
 
                 string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
-                string newPath = System.IO.Path.Combine(path, $"json");
-                if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
+
                 Debug.WriteLine(json);
-                File.WriteAllText($"{newPath}\\{newFileName}.json", json);
+                File.WriteAllText($"{MakeJsonPath(path)}\\{newFileName}.json", json);
                 Infos.DisplayErrorMessage($"The {newFileName} was created!");
 
                 RefreshFileData();
@@ -187,10 +234,13 @@ namespace SWD.Content
                     data.Add(newRow);
                 }
 
+                dgContent.ItemsSource = data;
+
                 tbRowAmount.Text = rows.ToString();
                 tbColAmount.Text = cols.ToString();
 
                 BuildDataGrid();
+                RefreshFileData();
             }
             catch (Exception ex)
             {

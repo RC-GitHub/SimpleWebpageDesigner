@@ -18,7 +18,6 @@ namespace SWD.Content
         {
             DataGridRow row = e.Row;
 
-
             if (e.Row.GetType() != typeof(DataGridRowHeader))
             {
 
@@ -56,6 +55,14 @@ namespace SWD.Content
                 lblGridTitle.Content = $"{row["Filename"]}.html";
                 readyPath = row["Path"].ToString();
                 LoadJsonPage(readyPath);
+            }
+        }
+
+        private void dgPages_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "Path")
+            {
+                e.Cancel = true;
             }
         }
     }

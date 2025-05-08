@@ -28,6 +28,7 @@ namespace SWD
     public partial class CreationWindow : Window
     {
         private MainWindow _mainWindow;
+        public bool projectsFolder = true;
         public string dir = Environment.CurrentDirectory;
         private string tempForProjectTitle = "Insert project title";
         private string tempForAuthor = "Insert author's name";
@@ -46,11 +47,12 @@ namespace SWD
 
         public CreationWindow(string d, MainWindow mw)
         {
+            dir = d;
             _mainWindow = mw;
+            projectsFolder = false;
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
-            dir = d;
             Debug.WriteLine("MAINWINDOW", _mainWindow);
         }
 
@@ -60,6 +62,7 @@ namespace SWD
             tempMessages.Add("tbAuthor", tempForAuthor);
             tempMessages.Add("tbKeyword", tempForKeyword);
             tempMessages.Add("tbDescription", tempForDescription);
+
             foreach (KeyValuePair<string, string> kvp in tempMessages) {
                 Debug.WriteLine(kvp.Value);
             }
@@ -91,14 +94,14 @@ namespace SWD
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            //Dodaje słowo kluczowe do listy.
+            // Adding a keyword to the List.
             lsbKeywords.Items.Add(tbKeyword.Text);   
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine(lsbKeywords.SelectedIndex.ToString());
-            //Usuwam słowo kluczowe z listy.
+            // Deleting a keyword from the List.
             lsbKeywords.Items.RemoveAt(lsbKeywords.SelectedIndex);
         }
 
@@ -107,13 +110,13 @@ namespace SWD
             if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty) Errors.DisplayErrorMessage("Project title is required!");
             else
             {
-                dir = System.IO.Path.Combine(dir, $"Projects");
+                if (projectsFolder == true) dir = System.IO.Path.Combine(dir, $"Projects");
                 dir = System.IO.Path.Combine(dir, $"SWD-{tbProjectTitle.Text}");
                 Debug.WriteLine(dir);
 
                 if (Directory.Exists(dir))
                 {
-                    Errors.DisplayErrorMessage("A project with the same name already exists!"); // Folder w folderze się robi! Błąd!
+                    Errors.DisplayErrorMessage("A project with the same name already exists!"); 
                     dir = "";
                 }
                 else
@@ -126,7 +129,6 @@ namespace SWD
                     if (tbDescription.Text == tempMessages[tbDescription.Name]) description = ""; 
                     else description = tbDescription.Text; 
 
-                    //Konwertuję wprowadzone dane na plik JSON, z którego wczytywane będą dane do tagów meta w HTML.
                     List<Head> _data = new List<Head>
                     {
                         new Head()

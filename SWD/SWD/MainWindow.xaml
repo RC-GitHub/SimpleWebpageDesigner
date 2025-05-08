@@ -31,7 +31,7 @@
             </StackPanel.Resources>
             <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnOpenExisting_Click"/>
             <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDeleteExisting_Click"/>
         </StackPanel>
 
