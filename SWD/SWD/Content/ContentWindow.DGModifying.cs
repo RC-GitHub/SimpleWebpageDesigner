@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,12 @@ namespace SWD.Content
                     Component component = components[data[rowIndex].Content[columnIndex].Title];
                     component.Spanning();
 
+                    lblComps.Content = $"Component: {component.Name}";
+                    tbCompRow.Text = (component.StartRow+1).ToString();
+                    tbCompCol.Text = (component.StartColumn+1).ToString();
+                    tbCompWidth.Text = (component.Colspan+1).ToString(); 
+                    tbCompHeight.Text = (component.Rowspan+1).ToString();
+
                     try
                     {
                         IList<DataGridCellInfo> cells = new List<DataGridCellInfo>();
@@ -43,7 +50,15 @@ namespace SWD.Content
                     }
                     catch (Exception ex) { Errors.DisplayErrorMessage($"{ex}"); }
                 }
-                else return;
+                else
+                {
+                    lblComps.Content = "Component: -";
+                    tbCompRow.Text = "-";
+                    tbCompCol.Text = "-";
+                    tbCompWidth.Text = "-";
+                    tbCompHeight.Text = "-";
+                    return;
+                }
             }
         }
         private void dgContent_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
