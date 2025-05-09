@@ -30,11 +30,8 @@ namespace SWD.Content
                     Component component = components[data[rowIndex].Content[columnIndex].Title];
                     component.Spanning();
 
-                    lblComps.Content = $"Component: {component.Name}";
-                    tbCompRow.Text = (component.StartRow+1).ToString();
-                    tbCompCol.Text = (component.StartColumn+1).ToString();
-                    tbCompWidth.Text = (component.Colspan+1).ToString(); 
-                    tbCompHeight.Text = (component.Rowspan+1).ToString();
+                    currentComponent = component;
+                    SelectComponent();
 
                     try
                     {
@@ -52,15 +49,12 @@ namespace SWD.Content
                 }
                 else
                 {
-                    lblComps.Content = "Component: -";
-                    tbCompRow.Text = "-";
-                    tbCompCol.Text = "-";
-                    tbCompWidth.Text = "-";
-                    tbCompHeight.Text = "-";
+                    DeselectComponent();
                     return;
                 }
             }
         }
+
         private void dgContent_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -75,7 +69,11 @@ namespace SWD.Content
             if (tb.Name == "tbColAmount") popCol.IsOpen = !popCol.IsOpen;
             else if (tb.Name == "tbColModify") popColModify.IsOpen = !popColModify.IsOpen;
             else if (tb.Name == "tbRowAmount") popRow.IsOpen = !popRow.IsOpen;
-            else popRowModify.IsOpen = !popRowModify.IsOpen;
+            else if (tb.Name == "tbRowModify") popRowModify.IsOpen = !popRowModify.IsOpen;
+            else if (tb.Name == "tbCompRow") popCompRow.IsOpen = !popCompRow.IsOpen;
+            else if (tb.Name == "tbCompCol") popCompCol.IsOpen = !popCompCol.IsOpen;
+            else if (tb.Name == "tbCompWidth") popCompWidth.IsOpen = !popCompWidth.IsOpen;
+            else if (tb.Name == "tbCompHeight") popCompHeight.IsOpen = !popCompHeight.IsOpen;
         }
     }
 }

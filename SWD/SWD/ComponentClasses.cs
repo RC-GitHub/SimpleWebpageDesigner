@@ -10,6 +10,7 @@ using System.IO;
 using System.Drawing;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using Color = System.Windows.Media.Color;
+using System.ComponentModel;
 
 namespace SWD
 {
@@ -34,10 +35,7 @@ namespace SWD
         public SolidColorBrush SelectedBackgroundColor { get; set; }
         public Cell()
         {
-            ImageSource = Images.NewIcon();
-            BorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c2dfedF0"));
-            SelectedBorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a7c4dd"));
-            SelectedBackgroundColor = System.Windows.Media.Brushes.AliceBlue;
+            Clear();
         }
 
         public void SetCell(Component component)
@@ -51,6 +49,16 @@ namespace SWD
             BackgroundColor = translucentBrush;
             SelectedBorderColor = component.SelectedBorderColor;
             SelectedBackgroundColor = component.SelectedBackgroundColor;
+        }
+
+        public void Clear()
+        {
+            Title = "";
+            ImageSource = Images.NewIcon();
+            BorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c2dfedF0"));
+            BackgroundColor = System.Windows.Media.Brushes.Transparent;
+            SelectedBorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a7c4dd"));
+            SelectedBackgroundColor = System.Windows.Media.Brushes.AliceBlue;
         }
     }
 
@@ -126,6 +134,7 @@ namespace SWD
 
         public void DisplayPositions()
         {
+            Debug.WriteLine($"Positions of Component {Name}.");
             foreach(var position in Positions)
             {
                 Debug.WriteLine($"Row: {position.Row+1}, Column: {position.Column+1}");

@@ -51,11 +51,13 @@ namespace SWD.Content
         string pageName = string.Empty;
         List<Row> data = new List<Row>();
         Dictionary<string, Component> components = new Dictionary<string, Component>();
+        Component currentComponent = null;
 
         // Variables concerning the folder structure displayed on the left
         string readyPath = "";
         public DataTable dataTable = MakeDataTable();
 
+        // Constructor used when a new project is created.
         public ContentWindow(string directory, CreationWindow cw, string pagename = "index")
         {
             InitializeComponent();
@@ -73,8 +75,10 @@ namespace SWD.Content
             data.Add(obj);
             dgContent.ItemsSource = data;
             BuildDataGrid();
+            SaveFile(true);
         }
 
+        // Constructor used when an existing project is opened.
         public ContentWindow(string directory, MainWindow mw)
         {
             InitializeComponent();
@@ -115,7 +119,7 @@ namespace SWD.Content
 
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
+        private void SaveFile(bool noMessage = false)
         {
             List<ContentStructure> _data = new List<ContentStructure>
             {
@@ -137,15 +141,12 @@ namespace SWD.Content
                 }
                 else
                 {
-                    string newPath = System.IO.Path.Combine(path, $"json");
-                    if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
-                    //Debug.WriteLine(json);
-                    File.WriteAllText($"{newPath}\\{pageName}.json", json);
+                    File.WriteAllText($"{MakeJsonPath(path)}\\{pageName}.json", json);
                 }
 
-                Infos.DisplayErrorMessage($"{pageName}.html was saved!");
+                if (!noMessage) Infos.DisplayErrorMessage($"{pageName}.html was saved!");
                 RefreshFileData();
-                
+
             }
             catch (Exception err)
             {
@@ -159,6 +160,10 @@ namespace SWD.Content
             string newPath = System.IO.Path.Combine(path, $"json");
             if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
             return newPath;
+        }
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFile();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -241,11 +246,24 @@ namespace SWD.Content
 
                 BuildDataGrid();
                 RefreshFileData();
+                RevertModifyButtons();
+
             }
             catch (Exception ex)
             {
                 Errors.DisplayErrorMessage($"Failed to load JSON page.\n\n{ex}");
             }
         }
+
+        public void RevertModifyButtons()
+        {
+            tbColModify.Text = "1";
+            tbRowModify.Text = "1";
+            tbCompWidth.Text = "-";
+            tbCompHeight.Text = "-";
+            tbCompRow.Text = "-";
+            tbCompCol.Text = "-";
+        }
+
     }
 } 

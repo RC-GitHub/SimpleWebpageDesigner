@@ -97,6 +97,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Content\ContentWindow.CompModifying.cs" />
     <Compile Include="Content\ContentWindow.DGBuilding.cs" />
     <Compile Include="Content\ContentWindow.CompHandling.cs" />
     <Compile Include="Content\ContentWindow.DGModifying.cs" />

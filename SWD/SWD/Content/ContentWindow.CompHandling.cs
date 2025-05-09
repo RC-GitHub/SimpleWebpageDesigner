@@ -8,6 +8,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows;
 using Window = System.Windows.Window;
+using System.ComponentModel;
 
 namespace SWD.Content
 {
@@ -103,6 +104,28 @@ namespace SWD.Content
             }
         }
 
+        private void SelectComponent()
+        {
+            if (currentComponent == null) return;
+            lblComps.Content = $"Component: {currentComponent.Name}";
+            tbCompRow.Text = (currentComponent.StartRow + 1).ToString();
+            tbCompCol.Text = (currentComponent.StartColumn + 1).ToString();
+            tbCompWidth.Text = (currentComponent.Colspan + 1).ToString();
+            tbCompHeight.Text = (currentComponent.Rowspan + 1).ToString();
+        }
+
+        private void DeselectComponent()
+        {
+            currentComponent = null;
+            dgContent.SelectedIndex = -1;
+
+            lblComps.Content = "Component: -";
+            tbCompRow.Text = "-";
+            tbCompCol.Text = "-";
+            tbCompWidth.Text = "-";
+            tbCompHeight.Text = "-";
+        }
+
         private void ChangingComponentHandling(string celltype, string mode, int position)
         {
             if (components == null) return;
@@ -112,9 +135,18 @@ namespace SWD.Content
                 {
                     if (component.ContainsColumn(position))
                     {
-                        if (mode == "add") { component.Colspan++; } else { component.Colspan--; }
+                        if (mode == "add") component.Colspan++; 
+                        else component.Colspan--;
                         component.Repopulate();
                     }
+                    else
+                    {
+                        if (mode=="add" && component.StartColumn > position)
+                        {
+                            component.StartColumn++;
+                        }
+                    }
+                    component.Repopulate();
                 }
             }
             else
@@ -124,9 +156,18 @@ namespace SWD.Content
                     Debug.WriteLine(component.ContainsRow(position));
                     if (component.ContainsRow(position))
                     {
-                        if (mode == "add") { component.Rowspan++; } else { component.Rowspan--; }
+                        if (mode == "add") component.Rowspan++; 
+                        else component.Rowspan--;
                         component.Repopulate();
                     }
+                    else
+                    {
+                        if (mode == "add" && component.StartRow > position)
+                        {
+                            component.StartRow++;
+                        }
+                    }
+                    component.Repopulate();
                 }
             }
         }

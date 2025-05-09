@@ -22,6 +22,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
@@ -59,10 +60,20 @@ namespace SWD.Content
                 }
             }), System.Windows.Threading.DispatcherPriority.Loaded);
         }
-        public void BuildDataGrid()
+        public void BuildDataGrid(bool changeAll = false)
         {
             if (components != null)
             {
+                if (changeAll)
+                {
+                    foreach (var row in data)
+                    {
+                        foreach (var cell in row.Content)
+                        {
+                            cell.Clear();
+                        }
+                    }
+                }
                 foreach (var component in components.Values)
                 {
                     foreach (var pos in component.Positions)
@@ -102,7 +113,6 @@ namespace SWD.Content
                 imageFactory.SetValue(Image.VerticalAlignmentProperty, VerticalAlignment.Stretch);
                 imageFactory.SetValue(Image.OpacityProperty, 0.25);
 
-
                 gridFactory.AppendChild(imageFactory);
                 gridFactory.SetValue(Grid.BackgroundProperty, new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Transparent));
 
@@ -139,7 +149,7 @@ namespace SWD.Content
             ButtonHandling();
 
             dgContent.ItemsSource = null;
-            dgContent.ItemsSource = data;
+            dgContent.ItemsSource = new List<Row>(data);
 
             dgContent.SelectedItem = null;
             dgContent.SelectedIndex = -1;
