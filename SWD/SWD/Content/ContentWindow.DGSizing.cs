@@ -248,20 +248,20 @@ namespace SWD.Content
             {
                 if (information[1] == "Col")
                 {
-                    int column = Int32.Parse(tb.Text);
-                    if (column > data[0].Content.Count)
+                    int column = Int32.Parse(tb.Text)-1;
+                    if (column+1 > data[0].Content.Count)
                     {
                         tb.Text = data[0].Content.Count.ToString(); return;
                     }
-                    else if (column < 1)
+                    else if (column < 0)
                     {
                         tb.Text = "1"; return;
                     }
-                    else if (column >= 12)
+                    else if (column+1 >= 12)
                     {
                         tb.Text = "12"; return;
                     }
-                    else if (column == data[0].Content.Count)
+                    else if (column+1 == data[0].Content.Count)
                     {
                         Increase_Click(btn_Col_Increase, null);
                         return;
@@ -271,29 +271,30 @@ namespace SWD.Content
                         tbColAmount.Text = (Int32.Parse(tbColAmount.Text) + 1).ToString();
                         for (int i = 0; i < data.Count; i++)
                         {
-                            Cell newCell = new Cell() { Title = $"{i}_{column}" };
-                            //Debug.WriteLine($"INFO: {column}, {data[i].Content[column].Title}");
+                            Cell newCell = new Cell();
+                            newCell.Title = $"{i}_{column + 1}";
+                            Debug.WriteLine($"INFO: {column}, {data[i].Content[column].Title}");
                             if (components.ContainsKey(data[i].Content[column].Title) && data[i].Content[column].ImageSource != Images.NewIcon())
                             {
                                 newCell.SetCell(components[data[i].Content[column].Title]);
-                            }
-                            data[i].Content.Insert(column, newCell);
+                            } 
+                            data[i].Content.Insert(column+1, newCell);
                         }
                     }
                     ChangingComponentHandling(information[1], "add", column);
                 }
                 else
                 {
-                    int row = Int32.Parse(tb.Text);
-                    if (row > data.Count)
+                    int row = Int32.Parse(tb.Text)-1;
+                    if (row+1 > data.Count)
                     {
                         tb.Text = data.Count.ToString(); return;
                     }
-                    else if (row < 1)
+                    else if (row < 0)
                     {
                         tb.Text = "1"; return;
                     }
-                    else if (row == data.Count)
+                    else if (row+1 == data.Count)
                     {
                         Increase_Click(btn_Row_Increase, null);
                         return;
@@ -304,10 +305,13 @@ namespace SWD.Content
                         List<Cell> l = new List<Cell>();
                         for (int j = 0; j < data[0].Content.Count; j++)
                         {
-                            Cell newCell = new Cell() { Title = $"{row}_{j}" };
+                            Cell newCell = new Cell();
+                            newCell.Title = $"{row + 1}_{j}";
 
+                            //Debug.WriteLine($"INFO: {row}, {data[row].Content[j].Title}");
                             if (components.ContainsKey(data[row].Content[j].Title) && data[row].Content[j].ImageSource != Images.NewIcon())
                             {
+                                Debug.WriteLine("contains");
                                 newCell.SetCell(components[data[row].Content[j].Title]);
                             }
                             l.Add(newCell);
@@ -317,17 +321,16 @@ namespace SWD.Content
                             Title = (row + 1).ToString(),
                             Content = l
                         };
-                        data.Insert(row, r);
+                        data.Insert(row+1, r);
                         for (int i = 0; i < data.Count; i++)
                         {
                             data[i].Title = (i + 1).ToString();
                         }
                         ChangingComponentHandling(information[1], "add", row);
-                        dgContent.ItemsSource = null;
-                        dgContent.ItemsSource = data;
                     }
                 }
-                BuildDataGrid();
+                SelectComponent();
+                BuildDataGrid(true);
                 ButtonHandling();
             }
             catch (Exception ex)
