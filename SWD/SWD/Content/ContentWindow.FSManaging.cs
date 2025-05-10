@@ -84,7 +84,7 @@ namespace SWD.Content
             }
             catch (Exception ex)
             {
-                Errors.DisplayErrorMessage($"Components haven't been saved.\n\n{ex}");
+                Errors.DisplayMessage($"Components haven't been saved.\n\n{ex}");
             }
         }
     }

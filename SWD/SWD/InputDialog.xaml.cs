@@ -38,7 +38,11 @@ namespace SWD
             InputValue = InputTextBox.Text;
             if (InputValue == string.Empty)
             {
-                Errors.DisplayErrorMessage("Component's name cannot be empty");
+                Errors.DisplayMessage("Component's name cannot be empty!");
+            }
+            else if (InputValue.Length > 26)
+            {
+                Errors.DisplayMessage("Component's name cannot be longer than 26 characters!");
             }
             else
             {

@@ -14,7 +14,7 @@ namespace SWD
     internal class Errors
     {
         public Errors() {}
-        static public MessageBoxResult DisplayErrorMessage(string msgBoxText)
+        static public MessageBoxResult DisplayMessage(string msgBoxText)
         {
             string caption = "Error!";
             MessageBoxButton button = MessageBoxButton.OK;
@@ -29,7 +29,7 @@ namespace SWD
     internal class Infos
     {
         public Infos() { }
-        static public MessageBoxResult DisplayErrorMessage(string msgBoxText)
+        static public MessageBoxResult DisplayMessage(string msgBoxText)
         {
             string caption = "Result";
             MessageBoxButton button = MessageBoxButton.OK;
@@ -44,7 +44,7 @@ namespace SWD
     internal class Colors
     {
         public Colors() {}
-        static public SolidColorBrush ShowColorPicker()
+        static public SolidColorBrush BrushColorPicker()
         {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowHelp = true;
@@ -53,6 +53,20 @@ namespace SWD
             {
                 Color selectedColor = Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);
                 SolidColorBrush brush = new SolidColorBrush(selectedColor);
+                return brush;
+            }
+            return null;
+        }
+
+        static public string StringColorPicker()
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.ShowHelp = true;
+
+            if (colorDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Color selectedColor = Color.FromArgb(colorDialog.Color.A, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);
+                string brush = selectedColor.ToString();
                 return brush;
             }
             return null;

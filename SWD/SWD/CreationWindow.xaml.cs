@@ -107,7 +107,7 @@ namespace SWD
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty) Errors.DisplayErrorMessage("Project title is required!");
+            if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty) Errors.DisplayMessage("Project title is required!");
             else
             {
                 if (projectsFolder == true) dir = System.IO.Path.Combine(dir, $"Projects");
@@ -116,7 +116,7 @@ namespace SWD
 
                 if (Directory.Exists(dir))
                 {
-                    Errors.DisplayErrorMessage("A project with the same name already exists!"); 
+                    Errors.DisplayMessage("A project with the same name already exists!"); 
                     dir = "";
                 }
                 else

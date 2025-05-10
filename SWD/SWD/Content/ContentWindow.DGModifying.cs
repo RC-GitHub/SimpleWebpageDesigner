@@ -45,7 +45,7 @@ namespace SWD.Content
                             }
                         }
                     }
-                    catch (Exception ex) { Errors.DisplayErrorMessage($"{ex}"); }
+                    catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
                 }
                 else
                 {
