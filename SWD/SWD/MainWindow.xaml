@@ -11,12 +11,13 @@
         Height="450"
         Width="800"
         WindowState="Maximized"
-        WindowStyle="SingleBorderWindow">
+        WindowStyle="SingleBorderWindow"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
     <Grid x:Name="gdMain">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF97C9EF"/>
-                <GradientStop Color="#FF65ACE2" Offset="1"/>
+                <GradientStop Color="AliceBlue" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -24,17 +25,25 @@
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="0,10,0,0"/>
+                    <Setter Property="Width" Value="350"/>
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Background" Value="White" />
+                    <Setter Property="BorderBrush" Value="#FF458BC0" />
+                    <Setter Property="BorderThickness" Value="4" />
+                    <Setter Property="VerticalAlignment" Value="Top"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
                 </Style>
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Margin" Value="0,0,0,10"/>
                 </Style>
             </StackPanel.Resources>
-            <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button x:Name="btnNewProject" Width="200" Padding="5" Content="New project" Click="btnNewProject_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <Button x:Name="btnOpenExisting" Width="200" Padding="5" Content="Open existing" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnOpenExisting_Click"/>
-            <Button x:Name="btnDeleteExisting" Width="200" Padding="5" Content="Delete existing" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnDeleteExisting_Click"/>
+            <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="SemiBold"/>
+            <Button x:Name="btnNewProject" Content="New project" Click="btnNewProject_Click" />
+            <Button x:Name="btnOpenExisting" Content="Open existing" HorizontalAlignment="Center"/>
+            <Button x:Name="btnDeleteExisting" Content="Delete existing" Click="btnDeleteExisting_Click"/>
+            <Button x:Name="btnThemeSettings" Content="Theme settings" Click="btnThemeSettings_Click"/>
+            
         </StackPanel>
-
-
     </Grid>
 </Window>

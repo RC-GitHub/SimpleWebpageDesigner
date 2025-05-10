@@ -18,6 +18,8 @@ using Microsoft.Win32;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Window = System.Windows.Window;
 
 namespace SWD
 {
@@ -83,7 +85,6 @@ namespace SWD
             dialog.IsFolderPicker = true;
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-
                 string filePath = dialog.FileName;
                 string fileName = Path.GetFileNameWithoutExtension(filePath);
                 Debug.WriteLine(filePath);
@@ -95,7 +96,7 @@ namespace SWD
                 }
                 else
                 {
-                    Errors.DisplayErrorMessage("The project does not adhere to the naming convention (SWD-[Project name])");
+                    Errors.DisplayMessage("The project does not adhere to the naming convention (SWD-[Project name])");
                 }
 
             }
@@ -112,6 +113,7 @@ namespace SWD
             {
 
                 string dir = Environment.CurrentDirectory;
+                dir = System.IO.Path.Combine(dir, "Projects");
                 DeleteDirectory(dir);
 
             }
@@ -128,18 +130,50 @@ namespace SWD
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.InitialDirectory = path; 
             dialog.IsFolderPicker = true;
+            dialog.Multiselect = true;
+
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
-                string filePath = dialog.FileName;
-                Debug.WriteLine(filePath);
-                if (Directory.Exists(filePath))
+                string errors = "";
+                foreach (string filePath in dialog.FileNames)
                 {
-                    Directory.Delete(filePath, true);
-                } else
-                {
-                    Debug.WriteLine("Something went wrong!");
+                    string fileName = Path.GetFileName(filePath);
+                    string swdCode = fileName.Substring(0, 4);
+
+                    if (Directory.Exists(filePath) && swdCode == "SWD-")
+                    {
+                        try
+                        {
+                            Directory.Delete(filePath, true); 
+                            Debug.WriteLine($"Successfully deleted: {fileName}");
+                        }
+                        catch (Exception ex)
+                        {
+                            errors += $"Error deleting {fileName}\n";
+                            Debug.WriteLine($"Error deleting {fileName}: {ex.Message}");
+                        }
+                    }
+                    else if (Directory.Exists(filePath) && swdCode != "SWD-")
+                    {
+                        errors += $"Selected item is not a valid SWD Project: {fileName}\n";
+                        Debug.WriteLine($"Selected item is not a valid SWD Project: {fileName}");
+                    }
+                    else
+                    {
+                        errors += $"Selected item is not a directory: {fileName}\n";
+                        Debug.WriteLine($"Selected item is not a directory: {fileName}");
+                    }
                 }
+                if (errors == "")
+                    Infos.DisplayMessage("Project(s) deleted successfully.");
+                else
+                    Errors.DisplayMessage(errors);
             }
+        }
+        private void btnThemeSettings_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeWindow themeWindow = new ThemeWindow();
+            themeWindow.ShowDialog();
         }
 
         public void CloseMainWindow()

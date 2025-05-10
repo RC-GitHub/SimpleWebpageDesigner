@@ -63,6 +63,7 @@ namespace SWD.Content
             InitializeComponent();
             _creationWindow = cw;
             _creationWindow.Close();
+            wdContent.Title = GetProjectName(directory);
 
             path = directory;
             pageName = pagename;
@@ -84,7 +85,7 @@ namespace SWD.Content
             InitializeComponent();
             _mainWindow = mw;
             _mainWindow.Close();
-
+            wdContent.Title = GetProjectName(directory);
 
             path = directory;
             string jsonPath = MakeJsonPath(path);
@@ -119,6 +120,12 @@ namespace SWD.Content
 
         }
 
+        private string GetProjectName(string directory)
+        {
+            string lastFolderName = Path.GetFileName(directory.TrimEnd(Path.DirectorySeparatorChar));
+            return $"SWD Project: {lastFolderName.Substring(4)}";
+        }
+
         private void SaveFile(bool noMessage = false)
         {
             List<ContentStructure> _data = new List<ContentStructure>
@@ -144,7 +151,7 @@ namespace SWD.Content
                     File.WriteAllText($"{MakeJsonPath(path)}\\{pageName}.json", json);
                 }
 
-                if (!noMessage) Infos.DisplayErrorMessage($"{pageName}.html was saved!");
+                if (!noMessage) Infos.DisplayMessage($"{pageName}.html was saved!");
                 RefreshFileData();
 
             }
@@ -186,7 +193,7 @@ namespace SWD.Content
 
                 Debug.WriteLine(json);
                 File.WriteAllText($"{MakeJsonPath(path)}\\{newFileName}.json", json);
-                Infos.DisplayErrorMessage($"The {newFileName} was created!");
+                Infos.DisplayMessage($"The {newFileName} was created!");
 
                 RefreshFileData();
 
@@ -197,7 +204,7 @@ namespace SWD.Content
         {
             if (!File.Exists(jsonPath))
             {
-                Errors.DisplayErrorMessage("JSON file not found.");
+                Errors.DisplayMessage("JSON file not found.");
                 return;
             }
 
@@ -208,7 +215,7 @@ namespace SWD.Content
 
                 if (pages == null || pages.Count == 0)
                 {
-                    Errors.DisplayErrorMessage("JSON is empty or invalid.");
+                    Errors.DisplayMessage("JSON is empty or invalid.");
                     return;
                 }
 
@@ -251,7 +258,7 @@ namespace SWD.Content
             }
             catch (Exception ex)
             {
-                Errors.DisplayErrorMessage($"Failed to load JSON page.\n\n{ex}");
+                Errors.DisplayMessage($"Failed to load JSON page.\n\n{ex}");
             }
         }
 
@@ -264,6 +271,5 @@ namespace SWD.Content
             tbCompRow.Text = "-";
             tbCompCol.Text = "-";
         }
-
     }
 } 

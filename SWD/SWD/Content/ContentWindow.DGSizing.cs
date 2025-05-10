@@ -65,7 +65,7 @@ namespace SWD.Content
                 {
                     tb.Text = data.Count.ToString();
                 }
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -122,7 +122,7 @@ namespace SWD.Content
                 {
                     tb.Text = data.Count.ToString();
                 }
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -176,7 +176,7 @@ namespace SWD.Content
                 catch (Exception ex)
                 {
                     tb.Text = data[0].Content.Count.ToString();
-                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                    Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
         }
@@ -230,7 +230,7 @@ namespace SWD.Content
                 catch (Exception ex)
                 {
                     tb.Text = data.Count.ToString();
-                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                    Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
         }
@@ -336,7 +336,7 @@ namespace SWD.Content
             catch (Exception ex)
             {
                 tb.Text = "1";
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -429,7 +429,7 @@ namespace SWD.Content
             catch (Exception ex)
             {
                 tb.Text = "1";
-                Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
             }
         }
 
@@ -474,7 +474,7 @@ namespace SWD.Content
                 catch (Exception ex)
                 {
                     tb.Text = "1";
-                    Errors.DisplayErrorMessage($"Rows and columns should be numeric.\n\n{ex}");
+                    Errors.DisplayMessage($"Rows and columns should be numeric.\n\n{ex}");
                 }
             }
         }

@@ -30,8 +30,26 @@ namespace SWD.Content
             }
         }
 
+        private bool CanComponentBeInserted()
+        {
+            foreach (var cell in dgContent.SelectedCells)
+            {
+                int rowIndex = dgContent.Items.IndexOf(cell.Item);
+                int columnIndex = dgContent.Columns.IndexOf(cell.Column);
+                if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                    return false;
+            }
+            return true;
+        }
+
         private void AddComponent(object sender, RoutedEventArgs e)
         {
+            if (!CanComponentBeInserted())
+            {
+                Errors.DisplayMessage("Before creating a component clear out the space occupied by other ones.");
+                return;
+            }
+
             InputDialog inputDialog = new InputDialog();
             if (inputDialog.ShowDialog() == true)
             {
@@ -48,7 +66,7 @@ namespace SWD.Content
 
                 Debug.WriteLine(componentName);
 
-                SolidColorBrush brush = Colors.ShowColorPicker();
+                SolidColorBrush brush = Colors.BrushColorPicker();
                 if (brush != null)
                 {
                     if (dgContent.SelectedCells.Count > 0)
@@ -60,7 +78,7 @@ namespace SWD.Content
                         Component component = new Component()
                         {
                             Name = componentName,
-                            Type = cm.Name,
+                            Type = cm.Name.Substring(2).ToLower(),
                             BorderColor = brush,
                             BackgroundColor = translucentBrush,
                             SelectedBorderColor = Colors.CreateASelectedColor(brush, (SolidColorBrush)new BrushConverter().ConvertFrom("#a7c4dd"), 0.5),
@@ -89,9 +107,7 @@ namespace SWD.Content
                         }
                         component.Spanning();
                         if (components != null)
-                        {
                             components.Add(componentName, component);
-                        }
                         else
                         {
                             components = new Dictionary<string, Component>();
@@ -102,6 +118,43 @@ namespace SWD.Content
                     }
                 }
             }
+        }
+
+        private void cellContextMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            foreach (var cell in dgContent.SelectedCells)
+            {
+                int rowIndex = dgContent.Items.IndexOf(cell.Item);
+                int columnIndex = dgContent.Columns.IndexOf(cell.Column);
+                if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                {
+                    miDelete.Visibility = Visibility.Visible;
+                    cmActionSeparator.Visibility = Visibility.Visible;
+                    return;
+                }
+            }
+            miDelete.Visibility = Visibility.Collapsed;
+            cmActionSeparator.Visibility = Visibility.Collapsed;
+        }
+
+        private void DeleteComponent(object sender, RoutedEventArgs e)
+        {
+            List<string> componentNames = new List<string>();
+            foreach (var cell in dgContent.SelectedCells)
+            {
+                int rowIndex = dgContent.Items.IndexOf(cell.Item);
+                int columnIndex = dgContent.Columns.IndexOf(cell.Column);
+                string key = data[rowIndex].Content[columnIndex].Title;
+                if (components.ContainsKey(key) && !componentNames.Contains(key))
+                {
+                    componentNames.Add(key);
+                }
+            }
+            foreach (string name in componentNames)
+            {
+                components.Remove(name);
+            }
+            BuildDataGrid(true);
         }
 
         private void SelectComponent()

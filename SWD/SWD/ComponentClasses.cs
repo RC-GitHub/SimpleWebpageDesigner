@@ -141,6 +141,24 @@ namespace SWD
             }
         }
 
+        public Component DeepCopy()
+        {
+            return new Component()
+            {
+                Name = Name,
+                Type = Type,
+                Rowspan = Rowspan,
+                Colspan = Colspan,
+                StartRow = StartRow,
+                StartColumn = StartColumn,
+                Positions = Positions,
+                BorderColor = BorderColor,
+                BackgroundColor = BackgroundColor,
+                SelectedBorderColor = SelectedBorderColor,
+                SelectedBackgroundColor = SelectedBackgroundColor
+            };
+        }
+
         public void ClearData()
         {
             Positions.Clear();

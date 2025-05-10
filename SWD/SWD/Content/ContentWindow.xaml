@@ -16,7 +16,7 @@
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF97C9EF"/>
-                <GradientStop Color="#FF65ACE2" Offset="1"/>
+                <GradientStop Color="AliceBlue" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid>
@@ -68,7 +68,7 @@
                     <Rectangle.Fill>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                             <GradientStop Color="#10000000" Offset="0.5" />
-                            <GradientStop Color="#40000000" Offset="1" />
+                            <GradientStop Color="#40004488" Offset="1" />
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
@@ -256,7 +256,7 @@
                            Margin="10,0,0,0"
                         />
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                            <TextBox x:Name="tbCompCol" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" />
+                            <TextBox x:Name="tbCompCol" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompCol_PreviewKeyDown" />
                             <Popup x:Name="popCompCol" Placement="Bottom" PlacementTarget="{Binding ElementName=tbCompCol}" IsOpen="False">
                                 <TextBlock x:Name="tbPopCompCol" Background="AliceBlue" Padding="5">Insert value from 1 to 12 and hit enter.</TextBlock>
                             </Popup>
@@ -269,7 +269,7 @@
                                Margin="10,0,0,0"
                         />
                         <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                            <TextBox x:Name="tbCompRow" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" />
+                            <TextBox x:Name="tbCompRow" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompRow_PreviewKeyDown" />
                             <Popup x:Name="popCompRow" Placement="Top" PlacementTarget="{Binding ElementName=tbCompRow}" IsOpen="False">
                                 <TextBlock x:Name="tbPopCompRow" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
                             </Popup>
@@ -296,6 +296,8 @@
                     Loaded="dgContent_Loaded"
                     SelectedCellsChanged="dgContent_SelectedCellsChanged"
                     PreviewKeyDown="dgContent_PreviewKeyDown"
+                    BorderBrush="#FF458BC0"
+                    BorderThickness="4"
                     
                     EnableRowVirtualization="True" 
                     EnableColumnVirtualization="True"
@@ -312,12 +314,17 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
+                    
                     <DataGrid.ContextMenu>
-                        <ContextMenu x:Name="cellContextMenu">
-                            <MenuItem x:Name="text" Header="Text" Click="AddComponent"/>
-                            <MenuItem x:Name="image" Header="Image" Click="AddComponent"/>
+                        <ContextMenu x:Name="cellContextMenu" Opened="cellContextMenu_Opened">
+                            <MenuItem x:Name="miText" Header="Text (simple)" Click="AddComponent"/>
+                            <MenuItem x:Name="miImage" Header="Image" Click="AddComponent"/>
+                            <MenuItem x:Name="miCode" Header="Code" Click="AddComponent"/>
+                            <Separator x:Name="cmActionSeparator" Visibility="Collapsed" />
+                            <MenuItem x:Name="miDelete" Header="Delete" Click="DeleteComponent" Visibility="Collapsed"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
+                    
                     <DataGrid.CellStyle>
                         <Style TargetType="DataGridCell">
                             <Style.Resources>
@@ -408,7 +415,11 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     SelectionUnit="Cell" 
-                    LoadingRow="dgPages_LoadingRow" AutoGeneratingColumn="dgPages_AutoGeneratingColumn"
+                    LoadingRow="dgPages_LoadingRow"
+                    AutoGeneratingColumn="dgPages_AutoGeneratingColumn"
+                    BorderBrush="#FF458BC0"
+                    BorderThickness="4"
+                    Background="#88FFFFFF"
                           >
                     <DataGrid.RowHeaderStyle>
                         <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">

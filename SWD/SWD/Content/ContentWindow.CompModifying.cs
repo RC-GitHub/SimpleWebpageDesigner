@@ -36,6 +36,16 @@ namespace SWD.Content
             return takenPositions;
         }
 
+        private bool PositionContainedByList(List<Position> positions, Position position)
+        {
+            foreach (Position pos in positions)
+            {
+                if (pos.Row == position.Row && pos.Column == position.Column)
+                    return true;
+            }
+            return false;
+        }
+
         private void tbCompWidth_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (currentComponent == null) return;
@@ -47,7 +57,7 @@ namespace SWD.Content
                     List<Position> takenPositions = GetTakenPositions(currentComponent.Name);
                     Debug.WriteLine(takenPositions.Count.ToString());
 
-                    Component modifiedComponent = currentComponent;
+                    Component modifiedComponent = currentComponent.DeepCopy();
 
                     int dgWidth = Int32.Parse(tbColAmount.Text);
                     int compStart = currentComponent.StartColumn;
@@ -56,11 +66,11 @@ namespace SWD.Content
 
                     if (desiredWidth < 0)
                     {
-                        Errors.DisplayErrorMessage("The width value is incorrect!");
+                        Errors.DisplayMessage("The width value is incorrect!");
                     }
                     else if (lastIndex > dgWidth - 1)
                     {
-                        Errors.DisplayErrorMessage("The component would go out of bounds!");
+                        Errors.DisplayMessage("The component would go out of bounds!");
                     }
                     else
                     {
@@ -72,22 +82,23 @@ namespace SWD.Content
                         bool modifyComponent = true;
                         foreach (Position pos in modifiedComponent.Positions)
                         {
-                            if (takenPositions.Contains(pos))
+                            if (PositionContainedByList(takenPositions, pos))
                             {
                                 modifyComponent = false;
-                                Errors.DisplayErrorMessage("Before changing the size of a component clear out the space occupied by other ones.");
+                                Errors.DisplayMessage("Before changing the size of a component clear out the space occupied by other ones.");
                                 break;
                             }
                         }
-                        if (modifyComponent)
-                        {
-                            Debug.WriteLine("I have come that far!");
-                            components[currentComponent.Name] = modifiedComponent;
-                            BuildDataGrid(true);
-                        }
+                        if (!modifyComponent) return;
+                        
+                        Debug.WriteLine("I have come that far!");
+                        components[currentComponent.Name] = modifiedComponent;
+                        currentComponent = modifiedComponent;
+                        SelectComponent();
+                        BuildDataGrid(true);
                     }
                 }
-                catch (Exception ex) { Errors.DisplayErrorMessage(ex.Message); }
+                catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
             }
         }
 
@@ -102,7 +113,7 @@ namespace SWD.Content
                     List<Position> takenPositions = GetTakenPositions(currentComponent.Name);
                     Debug.WriteLine(takenPositions.Count.ToString());
 
-                    Component modifiedComponent = currentComponent;
+                    Component modifiedComponent = currentComponent.DeepCopy();
 
                     int dgHeight = Int32.Parse(tbRowAmount.Text);
                     int compStart = currentComponent.StartRow;
@@ -111,11 +122,11 @@ namespace SWD.Content
 
                     if (desiredHeight < 0)
                     {
-                        Errors.DisplayErrorMessage("The width value is incorrect!");
+                        Errors.DisplayMessage("The width value is incorrect!");
                     }
                     else if (lastIndex > dgHeight - 1)
                     {
-                        Errors.DisplayErrorMessage("The component would go out of bounds!");
+                        Errors.DisplayMessage("The component would go out of bounds!");
                     }
                     else
                     {
@@ -127,22 +138,135 @@ namespace SWD.Content
                         bool modifyComponent = true;
                         foreach (Position pos in modifiedComponent.Positions)
                         {
-                            if (takenPositions.Contains(pos))
+                            if (PositionContainedByList(takenPositions, pos))
                             {
                                 modifyComponent = false;
-                                Errors.DisplayErrorMessage("Before changing the size of a component clear out the space occupied by other ones.");
+                                Errors.DisplayMessage("Before changing the size of a component clear out the space occupied by other ones.");
                                 break;
                             }
                         }
-                        if (modifyComponent)
-                        {
-                            Debug.WriteLine("I have come that far!");
-                            components[currentComponent.Name] = modifiedComponent;
-                            BuildDataGrid(true);
-                        }
+                        if (!modifyComponent) return;
+
+                        Debug.WriteLine("I have come that far!");
+                        components[currentComponent.Name] = modifiedComponent;
+                        currentComponent = modifiedComponent;
+                        SelectComponent();
+                        BuildDataGrid(true);
                     }
                 }
-                catch (Exception ex) { Errors.DisplayErrorMessage(ex.Message); }
+                catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
+            }
+        }
+
+        private void tbCompCol_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (currentComponent == null) return;
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    // List of taken positions
+                    List<Position> takenPositions = GetTakenPositions(currentComponent.Name);
+                    Debug.WriteLine(takenPositions.Count.ToString());
+
+                    Component modifiedComponent = currentComponent.DeepCopy();
+
+                    int dgWidth = Int32.Parse(tbColAmount.Text);
+                    int compWidth = currentComponent.Colspan;
+                    int desiredStartCol = Int32.Parse(tbCompCol.Text);
+                    int lastIndex = desiredStartCol + compWidth - 1;
+
+                    if (desiredStartCol < 1)
+                    {
+                        Errors.DisplayMessage("The start column value is incorrect!");
+                    }
+                    else if (lastIndex > dgWidth - 1)
+                    {
+                        Errors.DisplayMessage("The component would go out of bounds!");
+                    }
+                    else
+                    {
+                        currentComponent.DisplayPositions();
+                        modifiedComponent.StartColumn = desiredStartCol - 1;
+                        modifiedComponent.Repopulate();
+                        modifiedComponent.DisplayPositions();
+
+                        bool modifyComponent = true;
+                        foreach (Position pos in modifiedComponent.Positions)
+                        {
+                            if (PositionContainedByList(takenPositions, pos))
+                            {
+                                modifyComponent = false;
+                                Errors.DisplayMessage("Before changing the size of a component clear out the space occupied by other ones.");
+                                break;
+                            }
+                        }
+                        if (!modifyComponent) return;
+
+                        Debug.WriteLine("I have come that far!");
+                        components[currentComponent.Name] = modifiedComponent;
+                        currentComponent = modifiedComponent;
+                        SelectComponent();
+                        BuildDataGrid(true);
+                    }
+                }
+                catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
+            }
+        }
+
+        private void tbCompRow_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (currentComponent == null) return;
+            if (e.Key == Key.Enter)
+            {
+                try
+                {
+                    // List of taken positions
+                    List<Position> takenPositions = GetTakenPositions(currentComponent.Name);
+                    Debug.WriteLine(takenPositions.Count.ToString());
+
+                    Component modifiedComponent = currentComponent.DeepCopy();
+
+                    int dgHeight = Int32.Parse(tbRowAmount.Text);
+                    int compHeight = currentComponent.Rowspan;
+                    int desiredStartRow = Int32.Parse(tbCompRow.Text);
+                    int lastIndex = desiredStartRow + compHeight - 1;
+
+                    if (desiredStartRow < 1)
+                    {
+                        Errors.DisplayMessage("The start column value is incorrect!");
+                    }
+                    else if (lastIndex > dgHeight - 1)
+                    {
+                        Errors.DisplayMessage("The component would go out of bounds!");
+                    }
+                    else
+                    {
+                        currentComponent.DisplayPositions();
+                        modifiedComponent.StartRow = desiredStartRow - 1;
+                        modifiedComponent.Repopulate();
+                        modifiedComponent.DisplayPositions();
+
+                        bool modifyComponent = true;
+                        foreach (Position pos in modifiedComponent.Positions)
+                        {
+                            if (PositionContainedByList(takenPositions, pos))
+                            {
+                                modifyComponent = false;
+                                Errors.DisplayMessage("Before changing the size of a component clear out the space occupied by other ones.");
+                                break;
+                            }
+                        }
+                        if (!modifyComponent) return;
+
+                        Debug.WriteLine("I have come that far!");
+                        components[currentComponent.Name] = modifiedComponent;
+                        currentComponent = modifiedComponent;
+                        SelectComponent();
+                        BuildDataGrid(true);
+                    }
+                }
+                catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
             }
         }
     }
