@@ -69,34 +69,37 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
-            <ColumnDefinition Width="4*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="50" />
         </Grid.ColumnDefinitions>
 
-
-        <Button x:Name="btnSet" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Click="btnSet_Click" VerticalAlignment="Stretch" Height="100" Margin="20" FontWeight="SemiBold">
-            <Label FontSize="28" Foreground="#FF458BC0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Change your theme</Label>
-        </Button>
-
-        <Label Grid.Column="2" Grid.RowSpan="2">Name</Label>
-        <TextBox x:Name="tbName" Grid.Column="3" Grid.RowSpan="2"
+        <Label Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+               VerticalAlignment="Bottom" Margin="10"
+               Height="40" VerticalContentAlignment="Center">Theme Name</Label>
+        <TextBox x:Name="tbName" Grid.Column="2" 
             VerticalContentAlignment="Center" 
+            VerticalAlignment="Bottom" 
             HorizontalAlignment="Stretch" 
             BorderBrush="#FF458BC0" 
             BorderThickness="2"
-            Height="40">
+            Height="40"
+            >
         </TextBox>
 
-        <Label Grid.Row="0" Grid.Column="4" Grid.RowSpan="2">Choose</Label>
-        <ComboBox x:Name="cbThemes" Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" ItemsSource="{Binding Theme}" 
+        <Label Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="10" HorizontalContentAlignment="Left" VerticalAlignment="Top" Height="40" VerticalContentAlignment="Center">Choose Theme</Label>
+        <ComboBox x:Name="cbThemes" Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Theme}" 
+          VerticalAlignment="Top"
           VerticalContentAlignment="Center"        
           SelectionChanged="cbThemes_SelectionChanged" Height="40"></ComboBox>
 
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5" BorderBrush="#FF458BC0" BorderThickness="5" Background="#14003366" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="32" FontWeight="Bold">
+            Choose Your Theme
+        </Label>
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="#FF458BC0" BorderThickness="5" Background="#14003366" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20" >
                 <Grid Margin="20">
                     <Grid.ColumnDefinitions>
@@ -111,11 +114,11 @@
                     <!-- Expander for Fonts -->
                     <Expander Header="Font color" IsExpanded="True">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="150" />
+                                    <ColumnDefinition Width="175" />
                                     <ColumnDefinition Width="50" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
@@ -166,7 +169,7 @@
                     <!-- Expander for Background -->
                     <Expander Header="Background" IsExpanded="True" Grid.Column="1">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid x:Name="gdBackground" Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
@@ -174,17 +177,22 @@
                                     <ColumnDefinition Width="50" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition x:Name="rdType" Height="Auto" />
+                                    <RowDefinition x:Name="rdFlat" Height="Auto" />
+                                    <RowDefinition x:Name="rdGradStart" Height="Auto" />
+                                    <RowDefinition x:Name="rdGradEnd" Height="Auto" />
+                                    <RowDefinition x:Name="rdImage" Height="Auto" />
+                                    <RowDefinition x:Name="rdImageAlignX" Height="Auto" />
+                                    <RowDefinition x:Name="rdImageAlignY" Height="Auto" />
+                                    <RowDefinition x:Name="rdImageStretch" Height="Auto" />
+                                    <RowDefinition x:Name="rdImageOpacity" Height="Auto" />
+                                    <RowDefinition x:Name="rdImageUnderlay" Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <!-- Background Type -->
                                 <TextBlock x:Name="tbBackgroundType" Grid.Row="0" Grid.Column="0" Text="Type" VerticalAlignment="Center" Margin="5"/>
                                 <ComboBox x:Name="cbBackgroundType" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BackgroundType}"
                                           SelectedValue="{Binding BackgroundType}" SelectedValuePath="Content"
-                                          Margin="5" Width="200" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundType}" SelectionChanged="cbBackgroundType_SelectionChanged">
+                                          Margin="5" Width="207" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundType}" SelectionChanged="cbBackgroundType_SelectionChanged">
                                     <ComboBox.Items>
                                         <ComboBoxItem Content="Flat" />
                                         <ComboBoxItem Content="Gradient" />
@@ -219,12 +227,63 @@
                                     <Image Source="Icons/edit.png" />
                                 </Button>
 
-                                <!-- Image Background -->
-                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Image" VerticalAlignment="Center" Margin="5"/>
-                                <TextBox x:Name="tbBackgroundImage" Grid.Row="4" Grid.Column="2" Text="{Binding BackgroundImage}" Margin="5" Width="150"/>
-                                <Button x:Name="btnBackgroundImage" Click="SetColor" Grid.Row="4" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
+                                <!-- Background Image  -->
+                                <TextBlock Grid.Row="4" Grid.Column="0" Text="Name" VerticalAlignment="Center" Margin="5"/>
+                                <TextBox x:Name="tbBackgroundImage" Grid.Row="4" Grid.Column="2" Text="{Binding BackgroundImage}" Margin="5" Width="150" />
+                                <Button x:Name="btnBackgroundImage" Click="SetImage" Grid.Row="4" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
+
+                                <!-- Background Image Align -->
+                                <TextBlock x:Name="tbBackgroundImageAlign" Grid.Row="5" Grid.Column="0" Text="Align" VerticalAlignment="Center" Margin="5" Grid.RowSpan="2"/>
+
+                                <Label Grid.Row="5" Grid.Column="1">X:</Label>
+                                    <ComboBox x:Name="cbBackgroundImageAlignX" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="5" Text="{Binding BackgroundImageAlignX}"
+                                          SelectedValue="{Binding BackgroundImageAlignX}" SelectedValuePath="Content"
+                                          Margin="5" Width="207" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundImageAlignX}">
+                                        <ComboBox.Items>
+                                            <ComboBoxItem Content="Center" />
+                                            <ComboBoxItem Content="Left" />
+                                            <ComboBoxItem Content="Right" />
+                                        </ComboBox.Items>
+                                    </ComboBox>
+
+                                <Label Grid.Row="6" Grid.Column="1">Y:</Label>
+                                <ComboBox x:Name="cbBackgroundImageAlignY" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BackgroundImageAlignY}"
+                                          SelectedValue="{Binding BackgroundImageAlignY}" SelectedValuePath="Content"
+                                          Margin="5" Width="207" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundImageAlignY}">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="Center" />
+                                        <ComboBoxItem Content="Left" />
+                                        <ComboBoxItem Content="Right" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+
+                                <TextBlock Grid.Row="7" Grid.Column="0" Text="Stretch" VerticalAlignment="Center" Margin="5"/>
+                                <ComboBox x:Name="cbBackgroundImageStretch" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BackgroundImageStretch}"
+                                          SelectedValue="{Binding BackgroundImageStretch}" SelectedValuePath="Content"
+                                          Margin="5" Width="207" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundImageStretch}">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="None" />
+                                        <ComboBoxItem Content="Fill" />
+                                        <ComboBoxItem Content="Uniform" />
+                                        <ComboBoxItem Content="UniformToFill" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+
+                                <TextBlock Grid.Row="8" Grid.Column="0" Text="Underlay" VerticalAlignment="Center" Margin="5"/>
+                                <ComboBox x:Name="cbBackgroundImageUnderlay" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BackgroundImageUnderlay}"
+                                          SelectedValue="{Binding BackgroundImageUnderlay}" SelectedValuePath="Content"
+                                          Margin="5" Width="207" HorizontalAlignment="Right" SelectedItem="{Binding BackgroundImageUnderlay}">
+                                    <ComboBox.Items>
+                                        <ComboBoxItem Content="None" />
+                                        <ComboBoxItem Content="Flat" />
+                                        <ComboBoxItem Content="Gradient" />
+                                    </ComboBox.Items>
+                                </ComboBox>
+
+                                <TextBlock Grid.Row="9" Grid.Column="0" Text="Opacity" VerticalAlignment="Center" Margin="5"/>
+                                <Slider VerticalAlignment="Center" HorizontalAlignment="Right" Width="217" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Minimum="0" Maximum="1" Value="{Binding BackgroundImageOpacity}" TickFrequency="0.01" IsSnapToTickEnabled="True" />
                             </Grid>
                         </GroupBox>
                     </Expander>
@@ -232,7 +291,7 @@
                     <!-- Expander for Buttons -->
                     <Expander Header="Button color" IsExpanded="True" Grid.Row="1">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
@@ -267,7 +326,7 @@
                     <!-- Expander for Cells -->
                     <Expander Header="Cell color" IsExpanded="True" Grid.Row="1" Grid.Column="1">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
@@ -322,7 +381,7 @@
                     <!-- Expander for Header -->
                     <Expander Header="Header color" IsExpanded="True" Grid.Row="2">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
@@ -357,7 +416,7 @@
                     <!-- Expander for Build -->
                     <Expander Header="Decoration color" IsExpanded="True" Grid.Row="2" Grid.Column="1">
                         <GroupBox Margin="10">
-                            <Grid Margin="10" ShowGridLines="False">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="50" />
@@ -402,8 +461,9 @@
             </ScrollViewer>
         </Border>
 
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5">
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -412,6 +472,7 @@
             <Button x:Name="btnNew" Grid.Column="0" Margin="10" Background="#66458BC0" Foreground="White" BorderBrush="White" Click="btnNew_Click">Make new theme</Button>
             <Button x:Name="btnDelete" Grid.Column="1" Margin="10" Background="#66458BC0" Foreground="White" BorderBrush="White" Click="btnDelete_Click">Delete theme</Button>
             <Button x:Name="btnSave" Grid.Column="2" Margin="10" Click="btnSave_Click">Save changes</Button>
+            <Button x:Name="btnSet" Grid.Column="3" Grid.RowSpan="2" Click="btnSet_Click" VerticalAlignment="Stretch" Margin="10" FontWeight="SemiBold" Foreground="#FF458BC0">Set and save</Button>
         </Grid>
     </Grid>
 </Window>
