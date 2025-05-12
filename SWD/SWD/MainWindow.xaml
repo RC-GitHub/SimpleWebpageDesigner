@@ -16,8 +16,8 @@
     <Grid x:Name="gdMain">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF97C9EF"/>
-                <GradientStop Color="AliceBlue" Offset="1"/>
+                <GradientStop Color="{Binding BackgroundGradStart}"/>
+                <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -28,8 +28,9 @@
                     <Setter Property="Width" Value="350"/>
                     <Setter Property="Height" Value="50"/>
                     <Setter Property="Padding" Value="5"/>
-                    <Setter Property="Background" Value="White" />
-                    <Setter Property="BorderBrush" Value="#FF458BC0" />
+                    <Setter Property="Foreground" Value="{Binding ButtonFont}" />
+                    <Setter Property="Background" Value="{Binding ButtonPrimary}" />
+                    <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}" />
                     <Setter Property="BorderThickness" Value="4" />
                     <Setter Property="VerticalAlignment" Value="Top"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,7 +26,7 @@ namespace SWD
     /// </summary>
     public partial class ThemeWindow : Window
     {
-        private List<Theme> themes = new List<Theme>();
+        private Dictionary<string, Theme> themes = new Dictionary<string, Theme>();
         public ThemeWindow()
         {
             InitializeComponent();
@@ -33,46 +35,20 @@ namespace SWD
 
         private void LoadThemes()
         {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
-            string configPath = Path.Combine(projectDirectory, "Config", "themes.json");
-            if (!File.Exists(configPath))
-            {
-                Errors.DisplayMessage("Config file not found.");
-                return;
-            }
+            themes = App.themeData.Themes;
 
-            try
-            {
-                string json = File.ReadAllText(configPath);
-                themes = JsonConvert.DeserializeObject<List<Theme>>(json);
-            }
-            catch (Exception ex)
-            {
-                Errors.DisplayMessage($"Failed to load JSON page.\n\n{ex}");
-            }
-
-            if (!themes.Any(t => t.Name == "Light"))
-            {
-                themes.Insert(0, new Theme
-                {
-                    Name = "Light",
-                });
-            }
-            if (!themes.Any(t => t.Name == "Dark"))
-            {
-                themes.Insert(0, new Theme
-                {
-                    Name = "Dark",
-                });
-            }
-
-            cbThemes.ItemsSource = themes;
+            cbThemes.ItemsSource = themes.Values;
             cbThemes.DisplayMemberPath = "Name";
-            cbThemes.SelectedIndex = 0;
+            if (App.themeData.CurrentKey != null)
+                cbThemes.SelectedItem = themes[App.themeData.CurrentKey];
+            else
+                cbThemes.SelectedIndex = 0;
 
-            tbName.Text = cbThemes.SelectedItem.ToString();
-            string type = themes[0].BackgroundType;
-            this.DataContext = themes[cbThemes.SelectedIndex];
+            if (cbThemes.SelectedItem != null)
+            {
+                tbName.Text = ((Theme)cbThemes.SelectedItem).Name;
+                this.DataContext = cbThemes.SelectedItem;
+            }
 
             BackgroundTypeSelection();
             GetThemesNames();
@@ -81,7 +57,7 @@ namespace SWD
         private List<string> GetThemesNames()
         {
             List<string> list = new List<string>();
-            foreach (Theme theme in themes)
+            foreach (Theme theme in themes.Values)
             {
                 list.Add(theme.Name);
             }
@@ -115,32 +91,71 @@ namespace SWD
             binding?.UpdateSource();
         }
 
+        private void SetImage(object sender, RoutedEventArgs e)
+        {
+            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            string configPath = Path.Combine(projectDirectory, "Config");
+
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp, *.gif)|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+                Title = "Select an image",
+                InitialDirectory = configPath
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedPath = openFileDialog.FileName;
+                string fileName = System.IO.Path.GetFileName(selectedPath);
+                string savePath = Path.Combine (configPath, fileName);
+
+                File.Copy(selectedPath, savePath, true);
+
+                tbBackgroundImage.Text = fileName;
+                BindingExpression binding = tbBackgroundImage.GetBindingExpression(TextBox.TextProperty);
+                binding?.UpdateSource();
+            }
+        }
+
         private void BackgroundTypeSelection()
         {
-            Theme theme = this.DataContext as Theme;
-            Debug.WriteLine(theme.BackgroundType);
-            if (theme == null || theme.BackgroundType == null) return;
+            if (!(DataContext is Theme theme) || theme.BackgroundType == null) return;
 
-            if (theme.BackgroundType == "Flat")
+            switch (theme.BackgroundType)
             {
-                tbBackgroundFlat.IsEnabled = true;
-                tbBackgroundGradStart.IsEnabled = false;
-                tbBackgroundGradEnd.IsEnabled = false;
-                tbBackgroundImage.IsEnabled = false;
-            }
-            else if (theme.BackgroundType == "Gradient")
-            {
-                tbBackgroundGradStart.IsEnabled = true;
-                tbBackgroundGradEnd.IsEnabled = true;
-                tbBackgroundFlat.IsEnabled = false;
-                tbBackgroundImage.IsEnabled = false;
-            }
-            else if (theme.BackgroundType == "Image")
-            {
-                tbBackgroundImage.IsEnabled = true;
-                tbBackgroundFlat.IsEnabled = false;
-                tbBackgroundGradStart.IsEnabled = false;
-                tbBackgroundGradEnd.IsEnabled = false;
+                case "Flat":
+                    rdFlat.Height = new GridLength(1, GridUnitType.Auto);
+                    rdGradStart.Height = new GridLength(0);
+                    rdGradEnd.Height = new GridLength(0);
+                    rdImage.Height = new GridLength(0);
+                    rdImageAlignX.Height = new GridLength(0);
+                    rdImageAlignY.Height = new GridLength(0);
+                    rdImageStretch.Height = new GridLength(0);
+                    rdImageOpacity.Height = new GridLength(0);
+                    rdImageUnderlay.Height = new GridLength(0);
+                    break;
+                case "Gradient":
+                    rdFlat.Height = new GridLength(0);
+                    rdGradStart.Height = new GridLength(1, GridUnitType.Auto);
+                    rdGradEnd.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImage.Height = new GridLength(0);
+                    rdImageAlignX.Height = new GridLength(0);
+                    rdImageAlignY.Height = new GridLength(0);
+                    rdImageStretch.Height = new GridLength(0);
+                    rdImageOpacity.Height = new GridLength(0);
+                    rdImageUnderlay.Height = new GridLength(0);
+                    break;
+                case "Image":
+                    rdFlat.Height = new GridLength(0);
+                    rdGradStart.Height = new GridLength(0);
+                    rdGradEnd.Height = new GridLength(0);
+                    rdImage.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImageAlignX.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImageAlignY.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImageStretch.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImageOpacity.Height = new GridLength(1, GridUnitType.Auto);
+                    rdImageUnderlay.Height = new GridLength(1, GridUnitType.Auto);
+                    break;
             }
         }
 
@@ -149,41 +164,20 @@ namespace SWD
             BackgroundTypeSelection();
         }
 
-        private void btnSet_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            Theme theme = this.DataContext as Theme;
-            theme.Name = tbName.Text;
-            if (cbThemes.SelectedIndex >= 0)
-                themes[cbThemes.SelectedIndex] = theme;
-            else
-                themes.Add(theme);
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
-            string configPath = Path.Combine(projectDirectory, "Config", "themes.json");
-            string json = JsonConvert.SerializeObject(themes, Newtonsoft.Json.Formatting.Indented);
-
-            try
-            {
-                File.WriteAllText(configPath, json);
-                Infos.DisplayMessage($"Themes have been saved.");
-            }
-            catch (Exception err)
-            {
-                Console.WriteLine("The process failed: {0}", err.ToString());
-            }
-            finally { }
-        }
-
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             Theme newTheme = (Theme)(this.DataContext as Theme).Clone();
-            newTheme.Name = GetUniqueThemeName(tbName.Text, themes.Select(t => t.Name));
-            themes.Add(newTheme);
-            btnSave_Click(sender, e);
+            newTheme.Name = GetUniqueThemeName(tbName.Text, themes.Values.Select(t => t.Name));
+
+            themes[newTheme.Name] = newTheme;
+
+            cbThemes.ItemsSource = null;
+            cbThemes.ItemsSource = themes.Values;
+
+            this.DataContext = newTheme;
+            cbThemes.SelectedItem = newTheme;
+
+            SaveTheme();
         }
 
         public static string GetUniqueThemeName(string desiredName, IEnumerable<string> existingNames)
@@ -202,7 +196,8 @@ namespace SWD
             {
                 newName = $"{desiredName}_{counter}";
                 counter++;
-            } while (nameSet.Contains(newName));
+            } 
+            while (nameSet.Contains(newName));
 
             return newName;
         }
@@ -211,7 +206,7 @@ namespace SWD
         {
             int index = cbThemes.SelectedIndex;
             Theme theme = this.DataContext as Theme;
-            themes.Remove(theme);
+            themes.Remove(theme.Name);
             cbThemes.Items.Refresh();
             if (cbThemes.Items.Count-1 >= index)
             {
@@ -222,6 +217,92 @@ namespace SWD
                 cbThemes.SelectedIndex = 0;
             }
             Infos.DisplayMessage("Theme deleted successfully.");
+        }
+
+        public void SaveTheme(bool currentTheme = false)
+        {
+            Theme theme = this.DataContext as Theme;
+            string oldName = theme.Name;
+            string newName = tbName.Text;
+
+            if (cbThemes.SelectedIndex >= 0)
+            {
+                if (oldName != newName)
+                {
+                    if (themes.ContainsKey(oldName))
+                    {
+                        theme.Name = newName;
+                        themes[newName] = theme;
+                        themes.Remove(oldName);
+                        theme = themes[newName];
+                    }
+                }
+                else themes[oldName] = theme;
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(newName))
+                {
+                    theme.Name = newName;
+                    themes[newName] = theme;
+                }
+                else
+                {
+                    Errors.DisplayMessage("Theme name cannot be empty!");
+                    return;
+                }
+            }
+
+            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            string configDirectory = Path.Combine(projectDirectory, "Config");
+
+
+            if (theme.BackgroundType == "Image")
+            {
+                string backgroundImageDirectory = Path.Combine(configDirectory, theme.BackgroundImage);
+                if (theme.BackgroundImage == null)
+                {
+                    Errors.DisplayMessage("No background image selected!");
+                    return;
+                }
+                else if (theme.BackgroundImage != null && !File.Exists(backgroundImageDirectory))
+                {
+                    Errors.DisplayMessage("Background image does not exist in the config folder!");
+                    return;
+                }
+            }
+
+            if (themes != App.themeData.Themes) App.themeData.Themes = themes;
+            if (currentTheme && tbName.Text != App.themeData.CurrentKey) App.themeData.CurrentKey = tbName.Text;
+            if (currentTheme && themes[tbName.Text] != App.themeData.CurrentTheme) App.themeData.CurrentTheme = themes[tbName.Text];
+
+            string themeDirectory = Path.Combine(configDirectory, "themes.json");
+            string json = JsonConvert.SerializeObject(App.themeData, Newtonsoft.Json.Formatting.Indented);
+
+            try
+            {
+                File.WriteAllText(themeDirectory, json);
+                cbThemes.ItemsSource = null;
+                cbThemes.ItemsSource = themes.Values;
+                cbThemes.SelectedItem = theme;
+                Infos.DisplayMessage($"Themes have been saved.");
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine("The process failed: {0}", err.ToString());
+            }
+            finally { }
+        }
+
+        private void btnSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveTheme();
+        }
+
+        private void btnSet_Click(object sender, RoutedEventArgs e)
+        {
+            SaveTheme(true);
+            this.Close();
         }
     }
 }

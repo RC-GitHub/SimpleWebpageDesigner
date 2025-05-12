@@ -31,6 +31,16 @@ namespace SWD
         public MainWindow()
         {
             InitializeComponent();
+
+            App.themeData.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+                {
+                    this.DataContext = App.themeData.CurrentTheme;
+                }
+            };
+
+            this.DataContext = App.themeData.CurrentTheme;
         }
 
         public MessageBoxResult DisplayPathMessage(bool action)
