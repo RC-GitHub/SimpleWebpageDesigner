@@ -35,6 +35,8 @@ namespace SWD
         public string ButtonFont { get; set; } = "#FF000000";
         public string ButtonPrimary { get; set; } = "#FFFFFFFF";
         public string ButtonSecondary { get; set; } = "#FF458BC0";
+        public string SelectedButtonPrimary { get; set; } = "#FFC2DBFC";
+        public string SelectedButtonSecondary { get; set; } = "#FF458BC0";
 
         public string CellPrimary { get; set; } = "#00000000";
         public string CellSecondary { get; set; } = "#C2DFEDF0";
@@ -72,21 +74,27 @@ namespace SWD
         public void Dark()
         {
             Name = "Dark";
-            Font = "#FFFFFFFF"; 
+
+            Font = "#FFFFFFFF";
+            ButtonFont = "#FFFFFFFF";
+            HeaderFont = "#FF000000";
+            FSFont = "#FFFFFFFF";
+
             BackgroundFlat = "#FF1E1E1E";
             BackgroundGradStart = "#FF2D2D2D";
             BackgroundGradEnd = "#FF454545";
 
-            ButtonFont = "#FFFFFFFF";
-            ButtonPrimary = "#FF3A3A3A";
-            ButtonSecondary = "#FFFFFFFF";
+
+            ButtonPrimary = "#44AAAAAA";
+            ButtonSecondary = "#FFFFFFFF";            
+            SelectedButtonPrimary = "#55e3e3e3";
+            SelectedButtonSecondary = "#FFFFFFFF";
 
             CellPrimary = "#FF2D2D2D";
             CellSecondary = "#FF3A3A3A";
             SelectedCellPrimary = "#FF5C9EFF";
             SelectedCellSecondary = "#FF303030";
 
-            HeaderFont = "#FFFFFFFF";
             HeaderPrimary = "#FF1E1E1E";
             HeaderSecondary = "#FFAAAAAA";
 
@@ -94,7 +102,6 @@ namespace SWD
             DecorationPrimary = "#FF2D2D2D";
             DecorationSecondary = "#FF3A3A3A";
 
-            FSFont = "#FFFFFFFF";
             FSBackground = "#FF1E1E1E";
         }
 
@@ -128,7 +135,7 @@ namespace SWD
         }
     }
 
-    public class ThemeData : INotifyPropertyChanged
+    public class ThemeData : INotifyPropertyChanged, ICloneable
     {
         private string currentKey;
         private Theme currentTheme;
@@ -162,6 +169,16 @@ namespace SWD
 
         public ThemeData()
         {
+        }
+
+        public object Clone()
+        {
+            return new ThemeData()
+            {
+                CurrentKey = this.CurrentKey,
+                CurrentTheme = this.CurrentTheme,
+                Themes = this.Themes
+            };
         }
 
         public static ThemeData LoadData()

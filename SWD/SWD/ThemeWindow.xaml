@@ -7,29 +7,18 @@
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
                 Title="ThemeWindow" 
-        MinHeight="700" 
-        Height="700" 
-        MinWidth="1200" 
-        Width="1200">
+        MinHeight="800" 
+        Height="800" 
+        MinWidth="1300" 
+        Width="1300">
     <Grid x:Name="gdTheme">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="AliceBlue"/>
-                <GradientStop Color="#FF97C9EF" Offset="1"/>
+                <GradientStop Color="{Binding BackgroundGradEnd}"/>
+                <GradientStop Color="{Binding BackgroundGradStart}" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Margin" Value="0,10,0,0"/>
-                <Setter Property="MaxWidth" Value="350"/>
-                <Setter Property="Height" Value="50"/>
-                <Setter Property="Padding" Value="5"/>
-                <Setter Property="Background" Value="White" />
-                <Setter Property="BorderBrush" Value="#FF458BC0" />
-                <Setter Property="BorderThickness" Value="4" />
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="Padding" Value="5"/>
@@ -38,6 +27,30 @@
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="VerticalContentAlignment" Value="Top" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border x:Name="tbContent"
+    BorderBrush="{Binding ButtonSecondary}"
+    BorderThickness="2"
+    Background="White"
+                                    VerticalAlignment="Center">
+                                <ScrollViewer x:Name="PART_ContentHost" VerticalContentAlignment="Center"
+                                Margin="0" />
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="tbContent" Property="BorderBrush" Value="{Binding SelectedButtonSecondary}" />
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter TargetName="tbContent" Property="BorderBrush" Value="{Binding SelectedButtonSecondary}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
             <Style TargetType="{x:Type ComboBox}">
                 <Setter Property="Margin" Value="10"/>
@@ -51,11 +64,13 @@
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{Binding Font}" />
             </Style>
             <Style TargetType="{x:Type Rectangle}">
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="Height" Value="35" />
-                <Setter Property="Stroke" Value="#FF458BC0" />
+                <Setter Property="Stroke" Value="{Binding ButtonSecondary}" />
                 <Setter Property="StrokeThickness" Value="2" />
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -65,7 +80,7 @@
             <RowDefinition Height="75" />
             <RowDefinition Height="75" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="75" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50" />
@@ -83,7 +98,7 @@
             VerticalContentAlignment="Center" 
             VerticalAlignment="Bottom" 
             HorizontalAlignment="Stretch" 
-            BorderBrush="#FF458BC0" 
+            BorderBrush="{Binding ButtonSecondary}" 
             BorderThickness="2"
             Height="40"
             >
@@ -99,7 +114,7 @@
             Choose Your Theme
         </Label>
 
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="#FF458BC0" BorderThickness="5" Background="#14003366" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="{Binding ButtonSecondary}" BorderThickness="5" Background="#14003366" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20" >
                 <Grid Margin="20">
                     <Grid.ColumnDefinitions>
@@ -112,8 +127,12 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
                     <!-- Expander for Fonts -->
-                    <Expander Header="Font color" IsExpanded="True">
+                    <Expander IsExpanded="True">
+                        <Expander.Header>
+                            <TextBlock Text="Font color" FontWeight="Bold" Foreground="{Binding Font}"/>
+                        </Expander.Header>
                         <GroupBox Margin="10">
+
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -127,9 +146,22 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+
                                 <!-- Font -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="0" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="0" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding Font}" />
                                 <TextBox x:Name="tbFont" Grid.Row="0" Grid.Column="2" Text="{Binding Font}" Margin="5" Width="150"/>
                                 <Button x:Name="btnFont" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2" Click="SetColor" VerticalAlignment="Stretch">
@@ -138,7 +170,7 @@
 
                                 <!-- Button Font -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Button" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding ButtonFont}" />
                                 <TextBox x:Name="tbButtonFont" Grid.Row="1" Grid.Column="2" Text="{Binding ButtonFont}" Margin="5" Width="150"/>
                                 <Button x:Name="btnButtonFont" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -147,7 +179,7 @@
 
                                 <!-- Header Font -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Header" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="2" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="2" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding HeaderFont}" />
                                 <TextBox x:Name="tbHeaderFont" Grid.Row="2" Grid.Column="2" Text="{Binding HeaderFont}" Margin="5" Width="150"/>
                                 <Button x:Name="btnHeaderFont" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -156,7 +188,7 @@
 
                                 <!-- Fullscreen Font -->
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Folder Structure" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="3" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="3" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="3" Grid.Column="1" Fill="{Binding FSFont}" />
                                 <TextBox x:Name="tbFSFont" Grid.Row="3" Grid.Column="2" Text="{Binding FSFont}" Margin="5" Width="150"/>
                                 <Button x:Name="btnFSFont" Click="SetColor" Grid.Row="3" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -167,7 +199,10 @@
                     </Expander>
 
                     <!-- Expander for Background -->
-                    <Expander Header="Background" IsExpanded="True" Grid.Column="1">
+                    <Expander IsExpanded="True" Grid.Column="1">
+                        <Expander.Header>
+                            <TextBlock Text="Background" FontWeight="Bold" Foreground="{Binding Font}"/>
+                        </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid x:Name="gdBackground" Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -188,6 +223,19 @@
                                     <RowDefinition x:Name="rdImageOpacity" Height="Auto" />
                                     <RowDefinition x:Name="rdImageUnderlay" Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                
                                 <!-- Background Type -->
                                 <TextBlock x:Name="tbBackgroundType" Grid.Row="0" Grid.Column="0" Text="Type" VerticalAlignment="Center" Margin="5"/>
                                 <ComboBox x:Name="cbBackgroundType" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding BackgroundType}"
@@ -202,7 +250,7 @@
 
                                 <!-- Flat Background Color -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Flat Color" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding BackgroundFlat}" />
                                 <TextBox x:Name="tbBackgroundFlat" Grid.Row="1" Grid.Column="2" Text="{Binding BackgroundFlat}" Margin="5" Width="150"/>
                                 <Button x:Name="btnBackgroundFlat" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -211,7 +259,7 @@
 
                                 <!-- Gradient Start -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Gradient Start" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="2" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="2" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding BackgroundGradStart}" />
                                 <TextBox x:Name="tbBackgroundGradStart" Grid.Row="2" Grid.Column="2" Text="{Binding BackgroundGradStart}" Margin="5" Width="150"/>
                                 <Button x:Name="btnBackgroundGradStart" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -220,7 +268,7 @@
 
                                 <!-- Gradient End -->
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Gradient End" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="3" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="3" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="3" Grid.Column="1" Fill="{Binding BackgroundGradEnd}" />
                                 <TextBox x:Name="tbBackgroundGradEnd" Grid.Row="3" Grid.Column="2" Text="{Binding BackgroundGradEnd}" Margin="5" Width="150"/>
                                 <Button x:Name="btnBackgroundGradEnd" Click="SetColor" Grid.Row="3" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -289,7 +337,10 @@
                     </Expander>
 
                     <!-- Expander for Buttons -->
-                    <Expander Header="Button color" IsExpanded="True" Grid.Row="1">
+                    <Expander IsExpanded="True" Grid.Row="1">
+                        <Expander.Header>
+                            <TextBlock Text="Button color" FontWeight="Bold" Foreground="{Binding Font}" />
+                        </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -300,11 +351,26 @@
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />                                    
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                
                                 <!-- Button Primary -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Primary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="0" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="0" Grid.Column="1">X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding ButtonPrimary}" />
                                 <TextBox x:Name="tbButtonPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding ButtonPrimary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnButtonPrimary" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -313,10 +379,28 @@
 
                                 <!-- Button Secondary -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Secondary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1">X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding ButtonSecondary}" />
                                 <TextBox x:Name="tbButtonSecondary" Grid.Row="1" Grid.Column="2" Text="{Binding ButtonSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnButtonSecondary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
+                                    <Image Source="Icons/edit.png" />
+                                </Button>
+
+                                <!-- Button Primary -->
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="Selected Primary" VerticalAlignment="Center" Margin="5"/>
+                                <Label Grid.Row="2" Grid.Column="1" FontWeight="Bold">X</Label>
+                                <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding SelectedButtonPrimary}" />
+                                <TextBox x:Name="tbSelectedButtonPrimary" Grid.Row="2" Grid.Column="2" Text="{Binding SelectedButtonPrimary}" Margin="5" Width="150"/>
+                                <Button x:Name="btnSelectedButtonPrimary" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
+                                    <Image Source="Icons/edit.png" />
+                                </Button>
+
+                                <!-- Button Secondary -->
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Selected Secondary" VerticalAlignment="Center" Margin="5"/>
+                                <Label Grid.Row="3" Grid.Column="1" >X</Label>
+                                <Rectangle Grid.Row="3" Grid.Column="1" Fill="{Binding SelectedButtonSecondary}" />
+                                <TextBox x:Name="tbSelectedButtonSecondary" Grid.Row="3" Grid.Column="2" Text="{Binding SelectedButtonSecondary}" Margin="5" Width="150"/>
+                                <Button x:Name="btnSelectedButtonSecondary" Click="SetColor" Grid.Row="3" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
                             </Grid>
@@ -324,7 +408,10 @@
                     </Expander>
 
                     <!-- Expander for Cells -->
-                    <Expander Header="Cell color" IsExpanded="True" Grid.Row="1" Grid.Column="1">
+                    <Expander IsExpanded="True" Grid.Row="1" Grid.Column="1">
+                        <Expander.Header>
+                            <TextBlock Text="Cell color" FontWeight="Bold" Foreground="{Binding Font}" />
+                        </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -339,9 +426,22 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                
                                 <!-- Cell Primary -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Primary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="0" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="0" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding CellPrimary}" />
                                 <TextBox x:Name="tbCellPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding CellPrimary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnCellPrimary" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -350,7 +450,7 @@
 
                                 <!-- Cell Secondary -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Secondary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding CellSecondary}"></Rectangle>
                                 <TextBox x:Name="tbCellSecondary" Grid.Row="1" Grid.Column="2" Text="{Binding CellSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnCellSecondary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -359,7 +459,7 @@
 
                                 <!-- Selected Cell Primary -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Selected Primary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="2" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="2" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding SelectedCellPrimary}"></Rectangle>
                                 <TextBox x:Name="tbSelectedCellPrimary" Grid.Row="2" Grid.Column="2" Text="{Binding SelectedCellPrimary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnSelectedCellPrimary" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -368,7 +468,7 @@
 
                                 <!-- Selected Cell Secondary -->
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Selected Secondary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="3" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="3" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="3" Grid.Column="1" Fill="{Binding SelectedCellSecondary}"></Rectangle>
                                 <TextBox x:Name="tbSelectedCellSecondary" Grid.Row="3" Grid.Column="2" Text="{Binding SelectedCellSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnSelectedCellSecondary" Click="SetColor" Grid.Row="3" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -379,7 +479,10 @@
                     </Expander>
 
                     <!-- Expander for Header -->
-                    <Expander Header="Header color" IsExpanded="True" Grid.Row="2">
+                    <Expander IsExpanded="True" Grid.Row="2">
+                        <Expander.Header>
+                            <TextBlock Text="Header color" FontWeight="Bold" Foreground="{Binding Font}" />
+                        </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -392,9 +495,22 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                
                                 <!-- Header Primary -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Primary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="0" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="0" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding HeaderPrimary}"></Rectangle>
                                 <TextBox x:Name="tbHeaderPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding HeaderPrimary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnHeaderPrimary" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -403,7 +519,7 @@
 
                                 <!-- Header Secondary -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Secondary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding HeaderSecondary}"></Rectangle>
                                 <TextBox x:Name="tbHeaderSecondary" Grid.Row="1" Grid.Column="2" Text="{Binding HeaderSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnHeaderSecondary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -414,7 +530,10 @@
                     </Expander>
 
                     <!-- Expander for Build -->
-                    <Expander Header="Decoration color" IsExpanded="True" Grid.Row="2" Grid.Column="1">
+                    <Expander IsExpanded="True" Grid.Row="2" Grid.Column="1">
+                        <Expander.Header>
+                            <TextBlock Text="Decoration color" FontWeight="Bold" Foreground="{Binding Font}" />
+                        </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -428,9 +547,22 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+                                
                                 <!-- Accent -->
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Accent" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="0" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="0" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding AccentColor}"></Rectangle>
                                 <TextBox x:Name="tbAccentColor" Grid.Row="0" Grid.Column="2" Text="{Binding AccentColor}" Margin="5" Width="150"/>
                                 <Button x:Name="btnAccentColor" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -439,7 +571,7 @@
 
                                 <!-- Decoration Primary -->
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Primary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="1" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding DecorationPrimary}"></Rectangle>
                                 <TextBox x:Name="tbDecorationPrimary" Grid.Row="1" Grid.Column="2" Text="{Binding DecorationPrimary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnDecorationPrimary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -448,7 +580,7 @@
 
                                 <!-- Decoration Secondary -->
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Secondary" VerticalAlignment="Center" Margin="5"/>
-                                <Label Grid.Row="2" Grid.Column="1" Foreground="#FF458BC0" FontWeight="Bold">X</Label>
+                                <Label Grid.Row="2" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding DecorationSecondary}"></Rectangle>
                                 <TextBox x:Name="tbDecorationSecondary" Grid.Row="2" Grid.Column="2" Text="{Binding DecorationSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnDecorationSecondary" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
@@ -469,10 +601,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btnNew" Grid.Column="0" Margin="10" Background="#66458BC0" Foreground="White" BorderBrush="White" Click="btnNew_Click">Make new theme</Button>
-            <Button x:Name="btnDelete" Grid.Column="1" Margin="10" Background="#66458BC0" Foreground="White" BorderBrush="White" Click="btnDelete_Click">Delete theme</Button>
-            <Button x:Name="btnSave" Grid.Column="2" Margin="10" Click="btnSave_Click">Save changes</Button>
-            <Button x:Name="btnSet" Grid.Column="3" Grid.RowSpan="2" Click="btnSet_Click" VerticalAlignment="Stretch" Margin="10" FontWeight="SemiBold" Foreground="#FF458BC0">Set and save</Button>
+            <Button x:Name="btnNew" Grid.Column="0" Margin="10" Background="#66458BC0" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="btnNew_Click">Make new theme</Button>
+            <Button x:Name="btnDelete" Grid.Column="1" Margin="10" Background="#66458BC0" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="btnDelete_Click">Delete theme</Button>
+            <Button x:Name="btnSave" Grid.Column="2" Margin="10" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center" Click="btnSave_Click">Save changes</Button>
+            <Button x:Name="btnSet" Grid.Column="3" Grid.RowSpan="2" Click="btnSet_Click" Margin="10" FontWeight="Bold" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="{Binding ButtonSecondary}">Set and save</Button>
         </Grid>
     </Grid>
 </Window>

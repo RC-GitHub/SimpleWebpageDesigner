@@ -39,10 +39,14 @@ namespace SWD
         public CreationWindow(MainWindow mw)
         {
             _mainWindow = mw;
+
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
+
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
-            Debug.WriteLine("MAINWINDOW", _mainWindow);
+
         }
 
         public CreationWindow(string d, MainWindow mw)
@@ -50,10 +54,19 @@ namespace SWD
             dir = d;
             _mainWindow = mw;
             projectsFolder = false;
+
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
+
             InitializeComponent();
             InitializeEmptyText();
             InitializeMessagesArray();
-            Debug.WriteLine("MAINWINDOW", _mainWindow);
+        }
+
+        private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+                this.DataContext = App.themeData.CurrentTheme;
         }
 
         public void InitializeMessagesArray()
@@ -95,14 +108,28 @@ namespace SWD
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             // Adding a keyword to the List.
-            lsbKeywords.Items.Add(tbKeyword.Text);   
+            if (tbKeyword.Text != tempForKeyword)
+            {
+                lsbKeywords.Items.Add(tbKeyword.Text);
+                tbKeyword.Text = "";
+                tbKeyword.Focus();
+            }
         }
 
         private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(lsbKeywords.SelectedIndex.ToString());
             // Deleting a keyword from the List.
-            lsbKeywords.Items.RemoveAt(lsbKeywords.SelectedIndex);
+            if (lsbKeywords.SelectedItem != null)
+            {
+                int index = lsbKeywords.SelectedIndex;
+                lsbKeywords.Items.RemoveAt(index);
+                lsbKeywords.Items.Refresh();
+                if (lsbKeywords.Items.Count - 1 >= index)
+                    lsbKeywords.SelectedIndex = index;
+                else
+                    lsbKeywords.SelectedIndex = lsbKeywords.Items.Count-1;
+            }
+
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -176,6 +203,17 @@ namespace SWD
             if (tb.Text == string.Empty) { 
                 tb.Text = tempMessages[tb.Name];
                 tb.Foreground = Brushes.Gray;
+            }
+        }
+
+        private void tbKeyword_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (!string.IsNullOrEmpty(tbKeyword.Text))
+                {
+                    btnAdd_Click(sender, e);
+                }
             }
         }
     }
