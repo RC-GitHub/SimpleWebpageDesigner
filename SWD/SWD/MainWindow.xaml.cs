@@ -20,6 +20,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Path = System.IO.Path;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Window = System.Windows.Window;
+using Application = System.Windows.Application;
 
 namespace SWD
 {
@@ -31,16 +32,14 @@ namespace SWD
         public MainWindow()
         {
             InitializeComponent();
-
-            App.themeData.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(ThemeData.CurrentTheme))
-                {
-                    this.DataContext = App.themeData.CurrentTheme;
-                }
-            };
-
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
             this.DataContext = App.themeData.CurrentTheme;
+        }
+
+        private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+                this.DataContext = App.themeData.CurrentTheme;  
         }
 
         public MessageBoxResult DisplayPathMessage(bool action)
@@ -69,7 +68,7 @@ namespace SWD
                 Debug.WriteLine(Environment.CurrentDirectory);
 
                 CreationWindow fillTheData = new CreationWindow(this);
-                fillTheData.ShowDialog();
+                fillTheData.Show();
 
             } 
             else
@@ -82,7 +81,7 @@ namespace SWD
                 {
                     string filePath = dialog.FileName;
                     CreationWindow fillTheData = new CreationWindow(filePath, this);
-                    fillTheData.ShowDialog();
+                    fillTheData.Show();
                 }
 
             }
@@ -183,7 +182,7 @@ namespace SWD
         private void btnThemeSettings_Click(object sender, RoutedEventArgs e)
         {
             ThemeWindow themeWindow = new ThemeWindow();
-            themeWindow.ShowDialog();
+            themeWindow.Show();
         }
 
         public void CloseMainWindow()

@@ -96,3 +96,4 @@ C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SW
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Content\ContentWindow.baml
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.g.cs
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.baml

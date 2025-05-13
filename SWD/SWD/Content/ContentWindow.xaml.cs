@@ -65,6 +65,9 @@ namespace SWD.Content
             _creationWindow.Close();
             wdContent.Title = GetProjectName(directory);
 
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
+
             path = directory;
             pageName = pagename;
 
@@ -86,6 +89,9 @@ namespace SWD.Content
             _mainWindow = mw;
             _mainWindow.Close();
             wdContent.Title = GetProjectName(directory);
+
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
 
             path = directory;
             string jsonPath = MakeJsonPath(path);
@@ -117,7 +123,12 @@ namespace SWD.Content
                     BuildDataGrid();
                 }
             }
+        }
 
+        private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+                this.DataContext = App.themeData.CurrentTheme;
         }
 
         private string GetProjectName(string directory)

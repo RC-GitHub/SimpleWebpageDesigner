@@ -35,7 +35,7 @@ namespace SWD
 
         private void LoadThemes()
         {
-            themes = App.themeData.Themes;
+            themes = ((ThemeData)App.themeData.Clone()).Themes;
 
             cbThemes.ItemsSource = themes.Values;
             cbThemes.DisplayMemberPath = "Name";
