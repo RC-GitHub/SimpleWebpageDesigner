@@ -40,8 +40,8 @@ namespace SWD
 
         public string CellPrimary { get; set; } = "#00000000";
         public string CellSecondary { get; set; } = "#C2DFEDF0";
-        public string SelectedCellPrimary { get; set; } = "#FFA7C4DD";
-        public string SelectedCellSecondary { get; set; } = "#FFF0F8FF"; 
+        public string SelectedCellPrimary { get; set; } = "#FFF0F8FF";
+        public string SelectedCellSecondary { get; set; } = "#FFA7C4DD";
 
         public string HeaderFont { get; set; } = "#FF000000";
         public string HeaderPrimary { get; set; } = "#FFFFFFFF";
@@ -52,7 +52,8 @@ namespace SWD
         public string DecorationSecondary { get; set; } = "#FFD3D3D3";
 
         public string FSFont { get; set; } = "#FF000000";
-        public string FSBackground { get; set; } = "#FFFFFFFF";
+        public string UnderlayPrimary { get; set; } = "#44DDDDDD";
+        public string UnderlaySecondary { get; set; } = "#44444444";
 
         public string this[string propertyName]
         {
@@ -90,19 +91,20 @@ namespace SWD
             SelectedButtonPrimary = "#55e3e3e3";
             SelectedButtonSecondary = "#FFFFFFFF";
 
-            CellPrimary = "#FF2D2D2D";
-            CellSecondary = "#FF3A3A3A";
-            SelectedCellPrimary = "#FF5C9EFF";
-            SelectedCellSecondary = "#FF303030";
+            CellPrimary = "#FFBBBBBB";
+            CellSecondary = "#FF777777";
+            SelectedCellPrimary = "#FFDDDDDD";
+            SelectedCellSecondary = "#FF999999";
 
-            HeaderPrimary = "#FF1E1E1E";
-            HeaderSecondary = "#FFAAAAAA";
+            HeaderPrimary = "#FFF0F0F0";
+            HeaderSecondary = "#FF999999";
 
             AccentColor = "#FF5C9EFF";
-            DecorationPrimary = "#FF2D2D2D";
-            DecorationSecondary = "#FF3A3A3A";
+            DecorationPrimary = "#FFC8C8C8";
+            DecorationSecondary = "#FFA0A0A0";
 
-            FSBackground = "#FF1E1E1E";
+            UnderlayPrimary = "#22DDDDDD";
+            UnderlaySecondary = "#99222222";
         }
 
         public object Clone()
@@ -130,7 +132,8 @@ namespace SWD
                 DecorationPrimary = this.DecorationPrimary,
                 DecorationSecondary = this.DecorationSecondary,
                 FSFont = this.FSFont,
-                FSBackground = this.FSBackground
+                UnderlayPrimary = this.UnderlayPrimary,
+                UnderlaySecondary = this.UnderlaySecondary
             };
         }
     }
@@ -139,6 +142,7 @@ namespace SWD
     {
         private string currentKey;
         private Theme currentTheme;
+        public Dictionary<string, Theme> Themes { get; set; } = new Dictionary<string, Theme>();
 
         public string CurrentKey
         {
@@ -165,7 +169,6 @@ namespace SWD
                 }
             }
         }
-        public Dictionary<string, Theme> Themes { get; set; } = new Dictionary<string, Theme>();
 
         public ThemeData()
         {

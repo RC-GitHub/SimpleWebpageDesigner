@@ -127,8 +127,9 @@ namespace SWD.Content
 
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ThemeData.CurrentTheme))
-                this.DataContext = App.themeData.CurrentTheme;
+            Debug.WriteLine("it changed");
+            this.DataContext = App.themeData.CurrentTheme;
+            BuildDataGrid(true);
         }
 
         private string GetProjectName(string directory)
@@ -182,6 +183,12 @@ namespace SWD.Content
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFile();
+        }
+
+        private void btnTheme_Click(object sender, RoutedEventArgs e)
+        {
+            ThemeWindow tw = new ThemeWindow(this);
+            tw.Show();
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

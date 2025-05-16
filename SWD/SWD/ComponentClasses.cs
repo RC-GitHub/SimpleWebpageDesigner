@@ -53,12 +53,15 @@ namespace SWD
 
         public void Clear()
         {
+            Theme currentTheme = App.themeData.Themes[App.themeData.CurrentKey];
+            Debug.WriteLine(currentTheme.CellPrimary);
+
             Title = "";
             ImageSource = Images.NewIcon();
-            BorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#c2dfedF0"));
-            BackgroundColor = System.Windows.Media.Brushes.Transparent;
-            SelectedBorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#a7c4dd"));
-            SelectedBackgroundColor = System.Windows.Media.Brushes.AliceBlue;
+            BorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(currentTheme.CellSecondary));
+            BackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(currentTheme.CellPrimary));
+            SelectedBorderColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(currentTheme.SelectedCellSecondary));
+            SelectedBackgroundColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(currentTheme.SelectedCellPrimary));
         }
     }
 

@@ -36,7 +36,7 @@
     BorderThickness="2"
     Background="White"
                                     VerticalAlignment="Center">
-                                <ScrollViewer x:Name="PART_ContentHost" VerticalContentAlignment="Center"
+                                <ScrollViewer VerticalScrollBarVisibility="Disabled" x:Name="PART_ContentHost" VerticalContentAlignment="Center"
                                 Margin="0" />
                             </Border>
 
@@ -110,11 +110,21 @@
           VerticalContentAlignment="Center"        
           SelectionChanged="cbThemes_SelectionChanged" Height="40"></ComboBox>
 
-        <Label Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="32" FontWeight="Bold">
+        <Label x:Name="lblTitle" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="32" FontWeight="Bold"  MouseEnter="lblTitle_MouseEnter" MouseLeave="lblTitle_MouseLeave">
             Choose Your Theme
         </Label>
+        <Popup x:Name="popTrivia"
+           Placement="Bottom"
+           StaysOpen="True"
+           AllowsTransparency="True"
+           PlacementTarget="{Binding ElementName=lblTitle}">
+            <Border Background="{Binding HeaderPrimary}" Padding="5" CornerRadius="4" BorderBrush="{Binding HeaderSecondary}"  BorderThickness="1">
+                <TextBlock Text="Changes done to the current theme will take effect immediately, although they will not be saved until 'Save changes' or 'Set and save' buttons are clicked." Width="400" TextWrapping="Wrap" Foreground="{Binding HeaderFont}" />
+            </Border>
+        </Popup>
 
-        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="{Binding ButtonSecondary}" BorderThickness="5" Background="#14003366" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+        <Border Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="{Binding ButtonSecondary}" BorderThickness="5" Background="{Binding UnderlayPrimary}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="20" >
                 <Grid Margin="20">
                     <Grid.ColumnDefinitions>
@@ -122,6 +132,7 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
                         <RowDefinition Height="1*" />
@@ -410,7 +421,27 @@
                     <!-- Expander for Cells -->
                     <Expander IsExpanded="True" Grid.Row="1" Grid.Column="1">
                         <Expander.Header>
-                            <TextBlock Text="Cell color" FontWeight="Bold" Foreground="{Binding Font}" />
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel x:Name="spStar" Orientation="Horizontal">
+                                    <TextBlock Text="Cell color" FontWeight="Bold" Foreground="{Binding Font}" />
+                                    <TextBlock x:Name="tbStar" Text="✱"
+                                       Foreground="Red"
+                                       Margin="5,0,0,0"
+                                       FontSize="11"
+                                       VerticalAlignment="Top"
+                                       MouseEnter="tbStar_MouseEnter"
+                                       MouseLeave="tbStar_MouseLeave" />
+                                </StackPanel>
+                                <Popup x:Name="popStar"
+                                   Placement="Right"
+                                   StaysOpen="True"
+                                   AllowsTransparency="True"
+                                   PlacementTarget="{Binding ElementName=spStar}">       
+                                    <Border Background="{Binding HeaderPrimary}" Padding="5" CornerRadius="4" BorderBrush="{Binding HeaderSecondary}"  BorderThickness="1">
+                                        <TextBlock Text="Changes in cell colors cannot be previewed." Width="200" TextWrapping="Wrap" Foreground="{Binding HeaderFont}" />
+                                    </Border>
+                                </Popup>
+                            </StackPanel>
                         </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
@@ -443,7 +474,7 @@
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="Primary" VerticalAlignment="Center" Margin="5"/>
                                 <Label Grid.Row="0" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding CellPrimary}" />
-                                <TextBox x:Name="tbCellPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding CellPrimary}" Margin="5" Width="150"/>
+                                <TextBox x:Name="tbCellPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding CellPrimary}" Margin="5" Width="150" />
                                 <Button x:Name="btnCellPrimary" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
@@ -452,7 +483,7 @@
                                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Secondary" VerticalAlignment="Center" Margin="5"/>
                                 <Label Grid.Row="1" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding CellSecondary}"></Rectangle>
-                                <TextBox x:Name="tbCellSecondary" Grid.Row="1" Grid.Column="2" Text="{Binding CellSecondary}" Margin="5" Width="150"/>
+                                <TextBox x:Name="tbCellSecondary" Grid.Row="1" Grid.Column="2" Text="{Binding CellSecondary}" Margin="5" Width="150" />
                                 <Button x:Name="btnCellSecondary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
@@ -461,7 +492,7 @@
                                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Selected Primary" VerticalAlignment="Center" Margin="5"/>
                                 <Label Grid.Row="2" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding SelectedCellPrimary}"></Rectangle>
-                                <TextBox x:Name="tbSelectedCellPrimary" Grid.Row="2" Grid.Column="2" Text="{Binding SelectedCellPrimary}" Margin="5" Width="150"/>
+                                <TextBox x:Name="tbSelectedCellPrimary" Grid.Row="2" Grid.Column="2" Text="{Binding SelectedCellPrimary}" Margin="5" Width="150" />
                                 <Button x:Name="btnSelectedCellPrimary" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
@@ -470,7 +501,7 @@
                                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Selected Secondary" VerticalAlignment="Center" Margin="5"/>
                                 <Label Grid.Row="3" Grid.Column="1" >X</Label>
                                 <Rectangle Grid.Row="3" Grid.Column="1" Fill="{Binding SelectedCellSecondary}"></Rectangle>
-                                <TextBox x:Name="tbSelectedCellSecondary" Grid.Row="3" Grid.Column="2" Text="{Binding SelectedCellSecondary}" Margin="5" Width="150"/>
+                                <TextBox x:Name="tbSelectedCellSecondary" Grid.Row="3" Grid.Column="2" Text="{Binding SelectedCellSecondary}" Margin="5" Width="150" />
                                 <Button x:Name="btnSelectedCellSecondary" Click="SetColor" Grid.Row="3" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
@@ -481,7 +512,7 @@
                     <!-- Expander for Header -->
                     <Expander IsExpanded="True" Grid.Row="2">
                         <Expander.Header>
-                            <TextBlock Text="Header color" FontWeight="Bold" Foreground="{Binding Font}" />
+                            <TextBlock Text="Header and tooltip color" FontWeight="Bold" Foreground="{Binding Font}" />
                         </Expander.Header>
                         <GroupBox Margin="10">
                             <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
@@ -584,6 +615,57 @@
                                 <Rectangle Grid.Row="2" Grid.Column="1" Fill="{Binding DecorationSecondary}"></Rectangle>
                                 <TextBox x:Name="tbDecorationSecondary" Grid.Row="2" Grid.Column="2" Text="{Binding DecorationSecondary}" Margin="5" Width="150"/>
                                 <Button x:Name="btnDecorationSecondary" Click="SetColor" Grid.Row="2" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
+                                    <Image Source="Icons/edit.png" />
+                                </Button>
+                            </Grid>
+                        </GroupBox>
+                    </Expander>
+
+                    <!-- Expander for Header -->
+                    <Expander IsExpanded="True" Grid.Row="3">
+                        <Expander.Header>
+                            <TextBlock Text="Miscellaneous colors" FontWeight="Bold" Foreground="{Binding Font}" />
+                        </Expander.Header>
+                        <GroupBox Margin="10">
+                            <Grid Margin="10" ShowGridLines="False" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="175" />
+                                    <ColumnDefinition Width="50" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="FontStyle" Value="Italic" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                    </Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="Foreground" Value="{Binding Font}" />
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                        <Setter Property="VerticalAlignment" Value="Center" />
+                                    </Style>
+                                </Grid.Resources>
+
+                                <!-- Header Primary -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Underlay Primary" VerticalAlignment="Center" Margin="5"/>
+                                <Label Grid.Row="0" Grid.Column="1">X</Label>
+                                <Rectangle Grid.Row="0" Grid.Column="1" Fill="{Binding UnderlayPrimary}"></Rectangle>
+                                <TextBox x:Name="tbUnderlayPrimary" Grid.Row="0" Grid.Column="2" Text="{Binding UnderlayPrimary}" Margin="5" Width="150"/>
+                                <Button x:Name="btnUnderlayPrimary" Click="SetColor" Grid.Row="0" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
+                                    <Image Source="Icons/edit.png" />
+                                </Button>
+
+                                <!-- Header Primary -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Underlay Secondary" VerticalAlignment="Center" Margin="5"/>
+                                <Label Grid.Row="1" Grid.Column="1">X</Label>
+                                <Rectangle Grid.Row="1" Grid.Column="1" Fill="{Binding UnderlaySecondary}"></Rectangle>
+                                <TextBox x:Name="tbUnderlaySecondary" Grid.Row="1" Grid.Column="2" Text="{Binding UnderlaySecondary}" Margin="5" Width="150"/>
+                                <Button x:Name="btnUnderlaySecondary" Click="SetColor" Grid.Row="1" Grid.Column="3" Margin="5" Height="35" BorderThickness="2">
                                     <Image Source="Icons/edit.png" />
                                 </Button>
                             </Grid>

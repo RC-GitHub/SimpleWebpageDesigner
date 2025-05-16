@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
+using SWD.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,9 +27,17 @@ namespace SWD
     /// </summary>
     public partial class ThemeWindow : Window
     {
+        private ContentWindow contentWindow = null;
         private Dictionary<string, Theme> themes = new Dictionary<string, Theme>();
         public ThemeWindow()
         {
+            InitializeComponent();
+            LoadThemes();
+        }
+
+        public ThemeWindow(ContentWindow cw)
+        {
+            contentWindow = cw;
             InitializeComponent();
             LoadThemes();
         }
@@ -164,6 +173,26 @@ namespace SWD
             BackgroundTypeSelection();
         }
 
+        private void lblTitle_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popTrivia.IsOpen = true;
+        }
+
+        private void lblTitle_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popTrivia.IsOpen = false;
+        }
+
+        private void tbStar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popStar.IsOpen = true;
+        }
+
+        private void tbStar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            popStar.IsOpen = false;
+        }
+
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             Theme newTheme = (Theme)(this.DataContext as Theme).Clone();
@@ -292,6 +321,12 @@ namespace SWD
                 Console.WriteLine("The process failed: {0}", err.ToString());
             }
             finally { }
+
+            if (contentWindow == null) return;
+
+            Debug.WriteLine("Modify DataGrid");
+            contentWindow.DataContext = App.themeData.CurrentTheme;
+            contentWindow.BuildDataGrid(true);
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)

@@ -23,10 +23,12 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border x:Name="btnContent" BorderBrush="{Binding ButtonSecondary}" BorderThickness="4" Background="{Binding ButtonPrimary}">
                             <ContentPresenter x:Name="cpButton" 
-                                Focusable="False" 
+                                Focusable="False"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"  
                                 RecognizesAccessKey="True" 
+                                Margin="0"
+                                              
                             />
                         </Border>
                         <ControlTemplate.Triggers>
