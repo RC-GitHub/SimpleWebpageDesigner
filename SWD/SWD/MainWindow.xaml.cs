@@ -182,7 +182,7 @@ namespace SWD
         private void btnThemeSettings_Click(object sender, RoutedEventArgs e)
         {
             ThemeWindow themeWindow = new ThemeWindow();
-            themeWindow.Show();
+            themeWindow.ShowDialog();
         }
 
         public void CloseMainWindow()

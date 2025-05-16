@@ -14,6 +14,7 @@
     <Window.Resources>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{Binding HeaderFont}" />
+            <Setter Property="FontWeight" Value="Normal" />
         </Style>
     </Window.Resources>
 
@@ -44,6 +45,12 @@
                             <TextBlock>Open</TextBlock>
                         </StackPanel>
                     </Button>
+                    <Button x:Name="btnTheme" ToolTip="Change a theme." Margin="0,0,10,0" Click="btnTheme_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Icons/edit.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Edit</TextBlock>
+                        </StackPanel>
+                    </Button>
                     <Button x:Name="btnSave" ToolTip="Make a new file." Margin="0,0,10,0" Click="btnSave_Click" >
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Icons/save-file.png" Width="20" Height="20" Margin="0,0,5,0"/>
@@ -72,8 +79,8 @@
                 >
                     <Rectangle.Fill>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#10000000" Offset="0.5" />
-                            <GradientStop Color="#40004488" Offset="1" />
+                            <GradientStop Color="{Binding UnderlayPrimary}" Offset="0.5" />
+                            <GradientStop Color="{Binding UnderlaySecondary}" Offset="1" />
                         </LinearGradientBrush>
                     </Rectangle.Fill>
                 </Rectangle>
@@ -84,6 +91,7 @@
                        Margin="0,0,0,0" 
                        FontFamily="Century Gothic" 
                        FontSize="22" 
+                       FontWeight="DemiBold"
                        Foreground="{Binding HeaderFont}"
                        HorizontalAlignment="Stretch" 
                        VerticalAlignment="Center" 
@@ -91,8 +99,8 @@
                        HorizontalContentAlignment="Center">
                     <Label.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="White" Offset="0" />
-                            <GradientStop Color="{Binding HeaderSecondary}" Offset="1" />
+                            <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                            <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
                         </LinearGradientBrush>
                     </Label.Background>
                 </Label>
@@ -116,8 +124,8 @@
                         </Grid.RowDefinitions>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="White" Offset="0" />
-                                <GradientStop Color="LightGray" Offset="1" />
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
                             </LinearGradientBrush>
                         </Grid.Background>
 
@@ -129,28 +137,32 @@
                                VerticalAlignment="Center"
                                BorderThickness="2"
                                Foreground="{Binding HeaderFont}"
-                               BorderBrush="LightSlateGray"
-                               Background="White"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
                                Margin="10"
                         />
 
                         <Label x:Name="lblColsAmount" Grid.Column="0" Grid.Row="1" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Center"                                Margin="10,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                            <Button x:Name="btn_Col_Increase" Foreground="Gray" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" Margin="0" />
+                            <Button x:Name="btn_Col_Increase" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" Margin="0" />
                             <TextBox x:Name="tbColAmount" Width="60" Height="30" Text="1" TextAlignment="Center" VerticalAlignment="Center" PreviewKeyDown="tbColAmount_PreviewKeyDown" GotFocus="PopupChange" LostFocus="PopupChange" />
                             <Popup x:Name="popCol" Placement="Top" PlacementTarget="{Binding ElementName=tbColAmount}" IsOpen="False">
                                 <TextBlock x:Name="tbColPop" Background="AliceBlue" Padding="5">Insert value from 1 to 12 and hit enter.</TextBlock>
                             </Popup>
-                            <Button x:Name="btn_Col_Decrease" Foreground="Gray" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" Margin="0"/>
+                            <Button x:Name="btn_Col_Decrease" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" Margin="0"/>
                         </StackPanel>
                         <Label x:Name="lblColsModify" Grid.Column="0" Grid.Row="2" Content="Modify at:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                            <Button x:Name="btn_Col_InsertAt" Foreground="Gray" FontSize="20" Content="+" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0"/>
+                            <Button x:Name="btn_Col_InsertAt" FontSize="20" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
                             <TextBox x:Name="tbColModify" Width="60" Height="30" Text="1" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbModify_PreviewKeyDown" />
                             <Popup x:Name="popColModify" Placement="Bottom" PlacementTarget="{Binding ElementName=tbColModify}" IsOpen="False">
                                 <TextBlock x:Name="tbPopColModify" Background="AliceBlue" Padding="5">Insert value from 1 to 12.</TextBlock>
                             </Popup>
-                            <Button x:Name="btn_Col_DeleteAt" Foreground="Gray" FontSize="20" Content="-" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0"/>
+                            <Button x:Name="btn_Col_DeleteAt" FontSize="20" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
                         </StackPanel>
                     </Grid>
 
@@ -166,8 +178,8 @@
                         </Grid.RowDefinitions>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="White" Offset="0" />
-                                <GradientStop Color="LightGray" Offset="1" />
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
                             </LinearGradientBrush>
                         </Grid.Background>
 
@@ -179,29 +191,33 @@
                                VerticalAlignment="Center"
                                BorderThickness="2"
                                Foreground="{Binding HeaderFont}"
-                               BorderBrush="LightSlateGray"
-                               Background="White"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
                                Margin="10"></Label>
 
                         <Label x:Name="lblRowAmount" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="10,0,0,0"></Label>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="Auto" Margin="0,0,10,0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                <Button x:Name="btn_Row_Increase" Foreground="Gray" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" HorizontalAlignment="Right" Margin="0"/>
+                                <Button x:Name="btn_Row_Increase" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" HorizontalAlignment="Right" Margin="0"/>
                                 <TextBox x:Name="tbRowAmount" Width="60" Height="30" Text="1" TextAlignment="Center" LostFocus="PopupChange" GotFocus="PopupChange" PreviewKeyDown="tbRowAmount_PreviewKeyDown" HorizontalAlignment="Right"/>
                                 <Popup x:Name="popRow" Placement="Top" PlacementTarget="{Binding ElementName=tbRowAmount}" IsOpen="False">
                                     <TextBlock x:Name="tbRowPop" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
                                 </Popup>
-                                <Button x:Name="btn_Row_Decrease" Foreground="Gray" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" HorizontalAlignment="Right" Margin="0"/>
+                                <Button x:Name="btn_Row_Decrease" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" HorizontalAlignment="Right" Margin="0"/>
                             </StackPanel>
                         </StackPanel>
                         <Label x:Name="lblRowsModify" Content="Modify at:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
                         <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                            <Button x:Name="btn_Row_InsertAt" Foreground="Gray" FontSize="20" Content="+" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0"/>
+                            <Button x:Name="btn_Row_InsertAt" FontSize="20" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
                             <TextBox x:Name="tbRowModify" Width="60" Height="30" Text="1" TextAlignment="Center" LostFocus="PopupChange" GotFocus="PopupChange" PreviewKeyDown="tbModify_PreviewKeyDown"/>
                             <Popup x:Name="popRowModify" Placement="Bottom" PlacementTarget="{Binding ElementName=tbRowModify}" IsOpen="False">
                                 <TextBlock x:Name="tbPopRowModify" Background="AliceBlue" Padding="5">Insert a numeric value.</TextBlock>
                             </Popup>
-                            <Button x:Name="btn_Row_DeleteAt" Foreground="Gray" FontSize="20" Content="-" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0"/>
+                            <Button x:Name="btn_Row_DeleteAt" FontSize="20" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
                         </StackPanel>
                     </Grid>
 
@@ -219,8 +235,8 @@
                         </Grid.RowDefinitions>
                         <Grid.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="White" Offset="0" />
-                                <GradientStop Color="LightGray" Offset="1" />
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
                             </LinearGradientBrush>
                         </Grid.Background>
 
@@ -231,9 +247,9 @@
                            HorizontalContentAlignment="Center"
                            VerticalAlignment="Center"
                            BorderThickness="2"                                         
-                           Foreground="{Binding HeaderFont}"
-                           BorderBrush="LightSlateGray"
-                           Background="White"
+                            Foreground="{Binding HeaderFont}"
+                            BorderBrush="{Binding HeaderSecondary}"
+                            Background="{Binding HeaderPrimary}"
                            Margin="10"
                         />
 
@@ -297,14 +313,15 @@
                     AutoGenerateColumns="False"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    HorizontalGridLinesBrush="Gray"
-                    VerticalGridLinesBrush="Gray"
+                    HorizontalGridLinesBrush="{Binding HeaderSecondary}"
+                    VerticalGridLinesBrush="{Binding HeaderSecondary}"
                     Width="Auto"
                     Height="Auto"
                     SelectionUnit="Cell"
                     Loaded="dgContent_Loaded"
                     SelectedCellsChanged="dgContent_SelectedCellsChanged"
                     PreviewKeyDown="dgContent_PreviewKeyDown"
+                    Background="{Binding DecorationSecondary}"
                     BorderBrush="{Binding ButtonSecondary}"
                     BorderThickness="4"
                     
@@ -344,12 +361,12 @@
                             </Style.Resources>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="AliceBlue"/>
-                                    <Setter Property="Foreground" Value="SteelBlue"/>
-                                    <Setter Property="BorderBrush" Value="#a7c4dd"/>
+                                    <Setter Property="Background" Value="{Binding SelectedCellPrimary}"/>
+                                    <Setter Property="Foreground" Value="{Binding SelectedCellSecondary}"/>
+                                    <Setter Property="BorderBrush" Value="{Binding SelectedCellSecondary}"/>
                                 </Trigger>
                             </Style.Triggers>
-                            <Setter Property="BorderBrush" Value="#c2dfedF0"></Setter>
+                            <Setter Property="BorderBrush" Value="{Binding CellSecondary}"></Setter>
                             <Setter Property="Background" Value="{Binding Color}"></Setter>
                             <Setter Property="BorderThickness" Value="10"></Setter>
                             <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
@@ -368,8 +385,8 @@
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="White" Offset="0.0" />
-                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -380,8 +397,14 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridRowHeader">
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock FontWeight="DemiBold" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding DataContext.HeaderFont, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
@@ -396,8 +419,14 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridColumnHeader" >
-                                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                            <TextBlock Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock FontWeight="DemiBold" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
@@ -405,8 +434,8 @@
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="White" Offset="0.0" />
-                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -428,15 +457,16 @@
                     AutoGeneratingColumn="dgPages_AutoGeneratingColumn"
                     BorderBrush="{Binding ButtonSecondary}"
                     BorderThickness="4"
-                    Background="#88FFFFFF"
+                    Background="{Binding UnderlayPrimary}"
+                    
                           >
                     <DataGrid.RowHeaderStyle>
                         <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="White" Offset="0.0" />
-                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -448,13 +478,18 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="DataGridRowHeader">
-                                        <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="1">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
                                             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                                                 <ContentPresenter Width="30" Height="30"
                                               HorizontalAlignment="Center"
-                                              VerticalAlignment="Center"
+                                              VerticalAlignment="Center" 
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}"/>
                                             </Grid>
@@ -467,14 +502,18 @@
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.ColumnHeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
                             <Setter Property="VerticalContentAlignment" Value="Center" />
                             <Setter Property="Height" Value="30" />
+                            <Setter Property="Padding" Value="5,0,5,0" />
+                            <Setter Property="FontWeight" Value="DemiBold" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.HeaderSecondary, RelativeSource={RelativeSource AncestorType=Window}}" />
                             <Setter Property="Background">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="White" Offset="0.0" />
-                                        <GradientStop Color="LightGray" Offset="1.0" />
+                                        <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
