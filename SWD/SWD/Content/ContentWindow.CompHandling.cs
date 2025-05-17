@@ -51,18 +51,11 @@ namespace SWD.Content
             }
 
             InputDialog inputDialog = new InputDialog();
+            inputDialog.Owner = this;
             if (inputDialog.ShowDialog() == true)
             {
                 string componentName = inputDialog.InputValue;
-                if (components != null && components.ContainsKey(componentName))
-                {
-                    int i = 1;
-                    while (components.ContainsKey(componentName))
-                    {
-                        componentName = $"{componentName}_{i}";
-                        i++;
-                    }
-                }
+                componentName = Names.GetUniqueThemeName(componentName, components.Keys.Select(t => t));
 
                 Debug.WriteLine(componentName);
 

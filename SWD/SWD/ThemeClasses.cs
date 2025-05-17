@@ -12,48 +12,227 @@ using System.Windows.Forms;
 
 namespace SWD
 {
-    public class Theme : ICloneable
+    public class Theme : ICloneable, INotifyPropertyChanged
     {
+        // Name
         public string Name { get; set; }
         public override string ToString()
         {
             return Name;
         }
 
-        public string Font { get; set; } = "#FF000000";
-        public string BackgroundType { get; set; } = "Gradient";
-        public string BackgroundFlat { get; set; } = "#FF97C9EF";
-        public string BackgroundGradStart { get; set; } = "#FF97C9EF";
-        public string BackgroundGradEnd { get; set; } = "#FFF0F8FF"; // AliceBlue
-        public string BackgroundImage { get; set; }
-        public string BackgroundImageAlignX { get; set; } = "Center";
-        public string BackgroundImageAlignY { get; set; } = "Center";
-        public string BackgroundImageStretch { get; set; } = "UniformToFill";
-        public float BackgroundImageOpacity { get; set; } = 1;
-        public string BackgroundImageUnderlay { get; set; } = "None";
 
-        public string ButtonFont { get; set; } = "#FF000000";
-        public string ButtonPrimary { get; set; } = "#FFFFFFFF";
-        public string ButtonSecondary { get; set; } = "#FF458BC0";
-        public string SelectedButtonPrimary { get; set; } = "#FFC2DBFC";
-        public string SelectedButtonSecondary { get; set; } = "#FF458BC0";
+        // Base Font
+        private string FontValue = "#FF000000";
+        public string Font
+        {
+            get => FontValue;
+            set => SetProperty(ref FontValue, value, nameof(Font));
+        }
 
+
+        // Backgrounds
+        public string BackgroundGradStartValue = "#FF97C9EF";
+        public string BackgroundGradStart
+        {
+            get => BackgroundGradStartValue;
+            set => SetProperty(ref BackgroundGradStartValue, value, nameof(BackgroundGradStart));
+        }
+
+        public string BackgroundGradEndValue  = "#FFF0F8FF"; // AliceBlue
+        public string BackgroundGradEnd
+        {
+            get => BackgroundGradEndValue;
+            set => SetProperty(ref BackgroundGradEndValue, value, nameof(BackgroundGradEnd));
+        }
+
+        private bool BackgroundImageOnValue = false;
+        public bool BackgroundImageOn
+        {
+            get => BackgroundImageOnValue;
+            set => SetProperty(ref BackgroundImageOnValue, value, nameof(BackgroundImageOn));
+        }
+
+        private string BackgroundImageValue { get; set; }
+        public string BackgroundImage
+        {
+            get => BackgroundImageValue;
+            set
+            {
+                if (BackgroundImageValue != value)
+                {
+                    BackgroundImageValue = value;
+
+                    string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+                    string configDirectory = Path.Combine(projectDirectory, "Config");
+                    BackgroundImageFullPath = Path.Combine(configDirectory, BackgroundImageValue);
+
+                    OnPropertyChanged(nameof(BackgroundImage));
+                }
+            }
+        }
+
+        private string BackgroundImagePath { get; set; }
+        public string BackgroundImageFullPath
+        {
+            get => BackgroundImagePath;
+            set
+            {
+                if (BackgroundImagePath != value)
+                {
+                    BackgroundImagePath = value;
+                    OnPropertyChanged(nameof(BackgroundImageFullPath));
+                }
+            }
+        }
+        private string BackgroundImageAlignXValue = "Center";
+        public string BackgroundImageAlignX
+        {
+            get => BackgroundImageAlignXValue;
+            set => SetProperty(ref BackgroundImageAlignXValue, value, nameof(BackgroundImageAlignX));
+        }
+
+        private string BackgroundImageAlignYValue = "Center";
+        public string BackgroundImageAlignY
+        {
+            get => BackgroundImageAlignYValue;
+            set => SetProperty(ref BackgroundImageAlignYValue, value, nameof(BackgroundImageAlignY));
+        }
+
+        private string BackgroundImageStretchValue = "UniformToFill";
+        public string BackgroundImageStretch
+        {
+            get => BackgroundImageStretchValue;
+            set => SetProperty(ref BackgroundImageStretchValue, value, nameof(BackgroundImageStretch));
+        }
+
+        private float BackgroundImageOpacityValue = 1;
+        public float BackgroundImageOpacity
+        {
+            get => BackgroundImageOpacityValue;
+            set => SetProperty(ref BackgroundImageOpacityValue, value, nameof(BackgroundImageOpacity));
+        }
+
+        public string BackgroundImageOverlayValue = "#00000000";
+        public string BackgroundImageOverlay
+        {
+            get => BackgroundImageOverlayValue;
+            set => SetProperty(ref BackgroundImageOverlayValue, value, nameof(BackgroundImageOverlay));
+        }
+
+
+        // Buttons
+        private string ButtonFontValue = "#FF000000";
+        public string ButtonFont
+        {
+            get => ButtonFontValue;
+            set => SetProperty(ref ButtonFontValue, value, nameof(ButtonFont));
+        }
+
+        private string ButtonPrimaryValue = "#FFFFFFFF";
+        public string ButtonPrimary
+        {
+            get => ButtonPrimaryValue;
+            set => SetProperty(ref ButtonPrimaryValue, value, nameof(ButtonPrimary));
+        }
+
+        private string ButtonSecondaryValue = "#FF458BC0";
+        public string ButtonSecondary
+        {
+            get => ButtonSecondaryValue;
+            set => SetProperty(ref ButtonSecondaryValue, value, nameof(ButtonSecondary));
+        }
+
+        private string SelectedButtonPrimaryValue = "#FFC2DBFC";
+        public string SelectedButtonPrimary
+        {
+            get => SelectedButtonPrimaryValue;
+            set => SetProperty(ref SelectedButtonPrimaryValue, value, nameof(SelectedButtonPrimary));
+        }
+
+        private string SelectedButtonSecondaryValue = "#FF458BC0";
+        public string SelectedButtonSecondary
+        {
+            get => SelectedButtonSecondaryValue;
+            set => SetProperty(ref SelectedButtonSecondaryValue, value, nameof(SelectedButtonSecondary));
+        }
+
+
+        // Cells
         public string CellPrimary { get; set; } = "#00000000";
         public string CellSecondary { get; set; } = "#C2DFEDF0";
         public string SelectedCellPrimary { get; set; } = "#FFF0F8FF";
         public string SelectedCellSecondary { get; set; } = "#FFA7C4DD";
 
-        public string HeaderFont { get; set; } = "#FF000000";
-        public string HeaderPrimary { get; set; } = "#FFFFFFFF";
-        public string HeaderSecondary { get; set; } = "#FF778899";
 
-        public string AccentColor { get; set; } = "#FF65ACE2";
-        public string DecorationPrimary { get; set; } = "#FFFFFFFF";
-        public string DecorationSecondary { get; set; } = "#FFD3D3D3";
+        // Headers
+        private string HeaderFontValue = "#FF000000";
+        public string HeaderFont
+        {
+            get => HeaderFontValue;
+            set => SetProperty(ref HeaderFontValue, value, nameof(HeaderFont));
+        }
 
-        public string FSFont { get; set; } = "#FF000000";
-        public string UnderlayPrimary { get; set; } = "#44DDDDDD";
-        public string UnderlaySecondary { get; set; } = "#44444444";
+        private string HeaderPrimaryValue = "#FFFFFFFF";
+        public string HeaderPrimary
+        {
+            get => HeaderPrimaryValue;
+            set => SetProperty(ref HeaderPrimaryValue, value, nameof(HeaderPrimary));
+        }
+
+        private string HeaderSecondaryValue = "#FF778899";
+        public string HeaderSecondary
+        {
+            get => HeaderSecondaryValue;
+            set => SetProperty(ref HeaderSecondaryValue, value, nameof(HeaderSecondary));
+        }
+
+
+        // Decorations, Accents, etc.
+        private string FSFontValue = "#FF000000";
+        public string FSFont
+        {
+            get => FSFontValue;
+            set => SetProperty(ref FSFontValue, value, nameof(FSFont));
+        }
+
+        private string AccentColorValue = "#FF65ACE2";
+        public string AccentColor
+        {
+            get => AccentColorValue;
+            set => SetProperty(ref AccentColorValue, value, nameof(AccentColor));
+        }
+
+        private string DecorationPrimaryValue = "#FFFFFFFF";
+        public string DecorationPrimary
+        {
+            get => DecorationPrimaryValue;
+            set => SetProperty(ref DecorationPrimaryValue, value, nameof(DecorationPrimary));
+        }
+
+        private string DecorationSecondaryValue = "#FFD3D3D3";
+        public string DecorationSecondary
+        {
+            get => DecorationSecondaryValue;
+            set => SetProperty(ref DecorationSecondaryValue, value, nameof(DecorationSecondary));
+        }
+
+
+        // Underlays
+        private string UnderlayPrimaryValue = "#44DDDDDD";
+        public string UnderlayPrimary
+        {
+            get => UnderlayPrimaryValue;
+            set => SetProperty(ref UnderlayPrimaryValue, value, nameof(UnderlayPrimary));
+        }
+
+        private string UnderlaySecondaryValue = "#44444444";
+        public string UnderlaySecondary
+        {
+            get => UnderlaySecondaryValue;
+            set => SetProperty(ref UnderlaySecondaryValue, value, nameof(UnderlaySecondary));
+        }
+
 
         public string this[string propertyName]
         {
@@ -77,15 +256,11 @@ namespace SWD
             Name = "Dark";
 
             Font = "#FFFFFFFF";
-            ButtonFont = "#FFFFFFFF";
-            HeaderFont = "#FF000000";
-            FSFont = "#FFFFFFFF";
-
-            BackgroundFlat = "#FF1E1E1E";
             BackgroundGradStart = "#FF2D2D2D";
             BackgroundGradEnd = "#FF454545";
+            BackgroundImageOverlay = "#00000000";
 
-
+            ButtonFont = "#FFFFFFFF";
             ButtonPrimary = "#44AAAAAA";
             ButtonSecondary = "#FFFFFFFF";            
             SelectedButtonPrimary = "#55e3e3e3";
@@ -96,9 +271,11 @@ namespace SWD
             SelectedCellPrimary = "#FFDDDDDD";
             SelectedCellSecondary = "#FF999999";
 
+            HeaderFont = "#FF000000";
             HeaderPrimary = "#FFF0F0F0";
             HeaderSecondary = "#FF999999";
 
+            FSFont = "#FFFFFFFF";
             AccentColor = "#FF5C9EFF";
             DecorationPrimary = "#FFC8C8C8";
             DecorationSecondary = "#FFA0A0A0";
@@ -113,11 +290,11 @@ namespace SWD
             {
                 Name = this.Name,
                 Font = this.Font,
-                BackgroundType = this.BackgroundType,
-                BackgroundFlat = this.BackgroundFlat,
                 BackgroundGradStart = this.BackgroundGradStart,
                 BackgroundGradEnd = this.BackgroundGradEnd,
+                BackgroundImageOn = this.BackgroundImageOn,
                 BackgroundImage = this.BackgroundImage,
+                BackgroundImagePath = this.BackgroundImagePath,
                 ButtonFont = this.ButtonFont,
                 ButtonPrimary = this.ButtonPrimary,
                 ButtonSecondary = this.ButtonSecondary,
@@ -136,6 +313,21 @@ namespace SWD
                 UnderlaySecondary = this.UnderlaySecondary
             };
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        protected bool SetProperty<T>(ref T field, T value, string propertyName)
+        {
+            if (EqualityComparer<T>.Default.Equals(field, value)) return false;
+            field = value;
+            OnPropertyChanged(propertyName);
+            return true;
+        }
+
     }
 
     public class ThemeData : INotifyPropertyChanged, ICloneable

@@ -118,7 +118,7 @@ namespace SWD
                 string fileName = System.IO.Path.GetFileName(selectedPath);
                 string savePath = Path.Combine (configPath, fileName);
 
-                File.Copy(selectedPath, savePath, true);
+                if (selectedPath != savePath) File.Copy(selectedPath, savePath, true);
 
                 tbBackgroundImage.Text = fileName;
                 BindingExpression binding = tbBackgroundImage.GetBindingExpression(TextBox.TextProperty);
@@ -128,47 +128,34 @@ namespace SWD
 
         private void BackgroundTypeSelection()
         {
-            if (!(DataContext is Theme theme) || theme.BackgroundType == null) return;
+            if (!(DataContext is Theme theme)) return;
 
-            switch (theme.BackgroundType)
+            if (theme.BackgroundImageOn)
             {
-                case "Flat":
-                    rdFlat.Height = new GridLength(1, GridUnitType.Auto);
-                    rdGradStart.Height = new GridLength(0);
-                    rdGradEnd.Height = new GridLength(0);
-                    rdImage.Height = new GridLength(0);
-                    rdImageAlignX.Height = new GridLength(0);
-                    rdImageAlignY.Height = new GridLength(0);
-                    rdImageStretch.Height = new GridLength(0);
-                    rdImageOpacity.Height = new GridLength(0);
-                    rdImageUnderlay.Height = new GridLength(0);
-                    break;
-                case "Gradient":
-                    rdFlat.Height = new GridLength(0);
-                    rdGradStart.Height = new GridLength(1, GridUnitType.Auto);
-                    rdGradEnd.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImage.Height = new GridLength(0);
-                    rdImageAlignX.Height = new GridLength(0);
-                    rdImageAlignY.Height = new GridLength(0);
-                    rdImageStretch.Height = new GridLength(0);
-                    rdImageOpacity.Height = new GridLength(0);
-                    rdImageUnderlay.Height = new GridLength(0);
-                    break;
-                case "Image":
-                    rdFlat.Height = new GridLength(0);
-                    rdGradStart.Height = new GridLength(0);
-                    rdGradEnd.Height = new GridLength(0);
-                    rdImage.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImageAlignX.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImageAlignY.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImageStretch.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImageOpacity.Height = new GridLength(1, GridUnitType.Auto);
-                    rdImageUnderlay.Height = new GridLength(1, GridUnitType.Auto);
-                    break;
+                rdImage.Height = new GridLength(1, GridUnitType.Auto);
+                rdImageAlignX.Height = new GridLength(1, GridUnitType.Auto);
+                rdImageAlignY.Height = new GridLength(1, GridUnitType.Auto);
+                rdImageStretch.Height = new GridLength(1, GridUnitType.Auto);
+                rdImageOpacity.Height = new GridLength(1, GridUnitType.Auto);
+                rdImageOverlay.Height = new GridLength(1, GridUnitType.Auto);
+            }
+            else
+            {
+                rdImage.Height = new GridLength(0);
+                rdImageAlignX.Height = new GridLength(0);
+                rdImageAlignY.Height = new GridLength(0);
+                rdImageStretch.Height = new GridLength(0);
+                rdImageOpacity.Height = new GridLength(0);
+                rdImageOverlay.Height = new GridLength(0);
             }
         }
 
-        private void cbBackgroundType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void cbBackgroundImageOn_Checked(object sender, RoutedEventArgs e)
+        {
+            BackgroundTypeSelection();
+        }
+
+        private void cbBackgroundImageOn_Unchecked(object sender, RoutedEventArgs e)
         {
             BackgroundTypeSelection();
         }
@@ -196,7 +183,7 @@ namespace SWD
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             Theme newTheme = (Theme)(this.DataContext as Theme).Clone();
-            newTheme.Name = GetUniqueThemeName(tbName.Text, themes.Values.Select(t => t.Name));
+            newTheme.Name = Names.GetUniqueThemeName(tbName.Text, themes.Values.Select(t => t.Name));
 
             themes[newTheme.Name] = newTheme;
 
@@ -207,28 +194,6 @@ namespace SWD
             cbThemes.SelectedItem = newTheme;
 
             SaveTheme();
-        }
-
-        public static string GetUniqueThemeName(string desiredName, IEnumerable<string> existingNames)
-        {
-            var nameSet = new HashSet<string>(existingNames, StringComparer.OrdinalIgnoreCase);
-
-            Debug.WriteLine(desiredName);
-
-            if (!nameSet.Contains(desiredName))
-                return desiredName;
-
-            int counter = 1;
-            string newName;
-
-            do
-            {
-                newName = $"{desiredName}_{counter}";
-                counter++;
-            } 
-            while (nameSet.Contains(newName));
-
-            return newName;
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -286,22 +251,24 @@ namespace SWD
             string configDirectory = Path.Combine(projectDirectory, "Config");
 
 
-            if (theme.BackgroundType == "Image")
+            if (theme.BackgroundImageOn)
             {
-                string backgroundImageDirectory = Path.Combine(configDirectory, theme.BackgroundImage);
                 if (theme.BackgroundImage == null)
                 {
                     Errors.DisplayMessage("No background image selected!");
                     return;
                 }
-                else if (theme.BackgroundImage != null && !File.Exists(backgroundImageDirectory))
+                string backgroundImageDirectory = Path.Combine(configDirectory, theme.BackgroundImage);
+                if (theme.BackgroundImage != null && !File.Exists(backgroundImageDirectory))
                 {
                     Errors.DisplayMessage("Background image does not exist in the config folder!");
                     return;
                 }
+                theme.BackgroundImageFullPath = Path.Combine(configDirectory, theme.BackgroundImage);
+                themes[theme.Name] = theme;
             }
 
-            if (themes != App.themeData.Themes) App.themeData.Themes = themes;
+            App.themeData.Themes = themes;
             if (currentTheme && tbName.Text != App.themeData.CurrentKey) App.themeData.CurrentKey = tbName.Text;
             if (currentTheme && themes[tbName.Text] != App.themeData.CurrentTheme) App.themeData.CurrentTheme = themes[tbName.Text];
 
@@ -324,7 +291,6 @@ namespace SWD
 
             if (contentWindow == null) return;
 
-            Debug.WriteLine("Modify DataGrid");
             contentWindow.DataContext = App.themeData.CurrentTheme;
             contentWindow.BuildDataGrid(true);
         }

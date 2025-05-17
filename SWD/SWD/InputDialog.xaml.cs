@@ -31,6 +31,14 @@ namespace SWD
                     this.DragMove();
                 }
             };
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
+        }
+
+        private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            //if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+            this.DataContext = App.themeData.CurrentTheme;
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -38,11 +46,11 @@ namespace SWD
             InputValue = InputTextBox.Text;
             if (InputValue == string.Empty)
             {
-                Errors.DisplayMessage("Component's name cannot be empty!");
+                Errors.DisplayMessage("Name cannot be empty!");
             }
             else if (InputValue.Length > 26)
             {
-                Errors.DisplayMessage("Component's name cannot be longer than 26 characters!");
+                Errors.DisplayMessage("Name cannot be longer than 26 characters!");
             }
             else
             {

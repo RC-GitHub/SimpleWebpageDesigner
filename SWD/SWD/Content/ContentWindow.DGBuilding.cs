@@ -47,7 +47,7 @@ namespace SWD.Content
             {
                 if (dg.ActualHeight > 0)
                 {
-                    double availableHeight = dg.ActualHeight - 30 - 2 - 5;
+                    double availableHeight = dg.ActualHeight - 30 - 2 - 5 - 1;
                     if (data.Count <= 12)
                     {
                         dg.RowHeight = availableHeight / data.Count;

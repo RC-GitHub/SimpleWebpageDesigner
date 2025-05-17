@@ -13,18 +13,23 @@
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradStart}"/>
+            <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid x:Name="gdMain">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="{Binding BackgroundGradStart}"/>
-                <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-
+        <Image Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
+        <Rectangle Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" />
+        
         <StackPanel x:Name="spMain" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label x:Name="lblMainTitle" Content="SimpleWebpageDesigner" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="SemiBold"/>
             <Button x:Name="btnNewProject" Content="New project" Click="btnNewProject_Click" Width="350" Height="50"/>
-            <Button x:Name="btnOpenExisting" Content="Open existing" HorizontalAlignment="Center" Width="350" Height="50"/>
+            <Button x:Name="btnOpenExisting" Content="Open existing" HorizontalAlignment="Center" Width="350" Height="50" Click="btnOpenExisting_Click"/>
             <Button x:Name="btnDeleteExisting" Content="Delete existing" Click="btnDeleteExisting_Click" Width="350" Height="50"/>
             <Button x:Name="btnThemeSettings" Content="Theme settings" Click="btnThemeSettings_Click" Width="350" Height="50"/>
         </StackPanel>

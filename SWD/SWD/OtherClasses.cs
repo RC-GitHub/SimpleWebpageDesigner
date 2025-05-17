@@ -18,6 +18,7 @@ namespace SWD
         public string Description { get; set; }
 
     }
+
     internal class Images
     {
         public static BitmapImage NewIcon(string icon = "add.png")
@@ -35,4 +36,28 @@ namespace SWD
         }
     }
 
+    internal class Names
+    {
+        public static string GetUniqueThemeName(string desiredName, IEnumerable<string> existingNames)
+        {
+            var nameSet = new HashSet<string>(existingNames, StringComparer.OrdinalIgnoreCase);
+
+            Debug.WriteLine(desiredName);
+
+            if (!nameSet.Contains(desiredName))
+                return desiredName;
+
+            int counter = 1;
+            string newName;
+
+            do
+            {
+                newName = $"{desiredName} ({counter})";
+                counter++;
+            }
+            while (nameSet.Contains(newName));
+
+            return newName;
+        }
+    }
 }

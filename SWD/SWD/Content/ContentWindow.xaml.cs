@@ -228,6 +228,7 @@ namespace SWD.Content
 
             try
             {
+                ControlFile(jsonPath);
                 string json = File.ReadAllText(jsonPath);
                 var pages = JsonConvert.DeserializeObject<List<PageData>>(json);
 
@@ -238,7 +239,6 @@ namespace SWD.Content
                 }
 
                 PageData page = pages[0]; 
-
 
                 components = new Dictionary<string, Component>(); 
                 components = page.Components;
@@ -265,14 +265,13 @@ namespace SWD.Content
                 }
 
                 dgContent.ItemsSource = data;
-
                 tbRowAmount.Text = rows.ToString();
                 tbColAmount.Text = cols.ToString();
+                lblGridTitle.Content = $"{pageName}.html";
 
                 BuildDataGrid();
                 RefreshFileData();
                 RevertModifyButtons();
-
             }
             catch (Exception ex)
             {
