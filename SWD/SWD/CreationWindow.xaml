@@ -11,13 +11,18 @@
         MinWidth="600" 
         MaxWidth="1000"
         Width="600">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradEnd}"/>
+            <GradientStop Color="{Binding BackgroundGradStart}" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid x:Name="gdCreation">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="{Binding BackgroundGradEnd}"/>
-                <GradientStop Color="{Binding BackgroundGradStart}" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+        <Image Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
+        <Rectangle Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" />
         <Grid Margin="20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />

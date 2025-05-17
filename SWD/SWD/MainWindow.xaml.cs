@@ -38,11 +38,11 @@ namespace SWD
 
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ThemeData.CurrentTheme))
+            //if (e.PropertyName == nameof(ThemeData.CurrentTheme))
                 this.DataContext = App.themeData.CurrentTheme;  
         }
 
-        public MessageBoxResult DisplayPathMessage(bool action)
+        public MessageBoxResult DisplayPathMessage(bool action = false)
         {
             string messageBoxText;
             if (action == false) messageBoxText = "Do you want to choose your own path?";
@@ -69,7 +69,6 @@ namespace SWD
 
                 CreationWindow fillTheData = new CreationWindow(this);
                 fillTheData.Show();
-
             } 
             else
             {
@@ -90,8 +89,24 @@ namespace SWD
         private void btnOpenExisting_Click(object sender, RoutedEventArgs e)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = "C:\\Users";
             dialog.IsFolderPicker = true;
+
+            MessageBoxResult result = DisplayPathMessage();
+            if (result == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                string dir = Environment.CurrentDirectory;
+                dir = Path.Combine(dir, "Projects");
+                dialog.InitialDirectory = dir;
+            }
+            else
+            {
+                dialog.InitialDirectory = "C:\\Users";
+            }
+
             if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 string filePath = dialog.FileName;
@@ -109,6 +124,7 @@ namespace SWD
                 }
 
             }
+
         }
 
         private void btnDeleteExisting_Click(object sender, RoutedEventArgs e)

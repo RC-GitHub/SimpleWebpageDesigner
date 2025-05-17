@@ -15,16 +15,41 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{Binding HeaderFont}" />
             <Setter Property="FontWeight" Value="Normal" />
+        </Style>        
+        <Style x:Key="Heading" TargetType="Label">
+            <Setter Property="Foreground" Value="{Binding HeaderFont}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="{Binding HeaderFont}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0"/>
+                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
         </Style>
-    </Window.Resources>
-
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradStart}"/>
+            <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid x:Name="gdContentAndBar">
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="{Binding BackgroundGradStart}"/>
-                <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+        <Image Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
+        <Rectangle Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" />
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="35" />
@@ -66,15 +91,132 @@
                     <ColumnDefinition Width="12*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="4*" />
-                    <RowDefinition Height="11*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="6*" />
                 </Grid.RowDefinitions>
+
+                <Border BorderBrush="{Binding ButtonSecondary}"
+                    Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
+                    BorderThickness="4"
+                    Background="{Binding UnderlayPrimary}"
+                    Margin="20, 45, 20, 20" Padding="20, 15, 20, 15"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+
+                    <Grid x:Name="spFileBrowserPanel">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="55" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="5" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" VerticalContentAlignment="Center" Margin="0,0,0,10" Foreground="{Binding Font}">
+                            File name
+                        </Label>
+                        <TextBox x:Name="tbFileNameChange"
+                             Grid.Row="0" Grid.Column="1"
+                             Margin="0,0,0,10"
+                             Padding="5,0,0,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center"/>
+
+                        <Label Grid.Row="1" VerticalContentAlignment="Center" Margin="0,0,0,10" Foreground="{Binding Font}">
+                            Parent name
+                        </Label>
+                        <TextBox x:Name="tbFolderNameChange"
+                             Grid.Row="1" Grid.Column="1"
+                             Margin="0,0,0,10"
+                             Padding="5,0,0,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center"/>
+
+
+                        <Button x:Name="btnFileSave" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileSave_Click" Margin="0,0,0,5">Save naming changes</Button>
+
+                        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnMoveFile" Grid.Column="0"     
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Stretch"
+                               Margin="0,0,5,10" Click="btnMoveFile_Click">
+                                Move file
+                            </Button>
+                            <Button x:Name="btnMoveFolder" Grid.Column="1"     
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Stretch"
+                               Margin="5,0,0,10" Click="btnMoveFolder_Click">
+                                Move folder
+                            </Button>
+                        </Grid>
+
+                        <Separator Grid.Row="4" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
+
+                        <Label x:Name="lblFS" 
+                               Grid.Row="5"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Content="Folders inside: -" 
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Center"
+                               BorderThickness="2"
+                               Foreground="{Binding HeaderFont}"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
+                               Margin="0,0,0,0"
+                        />
+
+                        <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="3*" />
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="lbFS" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,0,5,0">
+                            </ListBox>
+                            <Button x:Name="btnInsideFolderAdd" Grid.Column="2" FontSize="20" Width="35" Height="35" Click="btnInsideFolderAdd_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
+                            <Button x:Name="btnInsideFolderDelete" Grid.Column="2" Grid.Row="1" FontSize="20" Width="35" Height="35" Click="btnInsideFolderDelete_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                </Border>
+                <Label x:Name="lblControlTitle" 
+                       Style="{StaticResource Heading}"
+                       Content="File and folder control"
+                       Margin="15,0,15,0">
+                </Label>
 
                 <Rectangle 
                     Grid.Column="1" 
                     Grid.Row="0" 
-                    Grid.RowSpan="3" 
+                    Grid.RowSpan="4" 
                     Margin="5,20,5,5"
                 >
                     <Rectangle.Fill>
@@ -86,23 +228,9 @@
                 </Rectangle>
 
                 <Label x:Name="lblGridTitle" 
+                       Style="{StaticResource Heading}"
                        Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" 
-                       Content="index.html" 
-                       Margin="0,0,0,0" 
-                       FontFamily="Century Gothic" 
-                       FontSize="22" 
-                       FontWeight="DemiBold"
-                       Foreground="{Binding HeaderFont}"
-                       HorizontalAlignment="Stretch" 
-                       VerticalAlignment="Center" 
-                       VerticalContentAlignment="Center" 
-                       HorizontalContentAlignment="Center">
-                    <Label.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
-                            <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
-                        </LinearGradientBrush>
-                    </Label.Background>
+                       Content="index.html" >
                 </Label>
 
                 <Grid x:Name="gdColRow" Grid.Row="1" Grid.Column="1" Margin="20,0" VerticalAlignment="Center" Height="175">
@@ -306,6 +434,7 @@
                     RowHeaderWidth="30"
                     Grid.Column="2" 
                     Grid.Row="2" 
+                          Grid.RowSpan="2"
                     Margin="20" 
                     HeadersVisibility="All"
                     CanUserAddRows="False"
@@ -313,6 +442,7 @@
                     AutoGenerateColumns="False"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+            
                     HorizontalGridLinesBrush="{Binding HeaderSecondary}"
                     VerticalGridLinesBrush="{Binding HeaderSecondary}"
                     Width="Auto"
@@ -447,8 +577,8 @@
                 </Grid>
 
                 <DataGrid x:Name="dgPages" 
-                    Grid.Row="2"
-                    Margin="20,20,20,20"                     
+                    Grid.Row="3"
+                    Margin="20,35,20,20"                     
                     CanUserAddRows="False"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -457,6 +587,7 @@
                     AutoGeneratingColumn="dgPages_AutoGeneratingColumn"
                     BorderBrush="{Binding ButtonSecondary}"
                     BorderThickness="4"
+                         
                     Background="{Binding UnderlayPrimary}"
                     
                           >
@@ -520,7 +651,13 @@
                         </Style>
                     </DataGrid.ColumnHeaderStyle>
                 </DataGrid>
-
+                <Label x:Name="lblFilesTitle" 
+                       Grid.Row="3"
+                       VerticalAlignment="Top"
+                       Style="{StaticResource Heading}" 
+                       Content="Files"
+                       Margin="15,0,15,0">
+                </Label>
             </Grid>
         </Grid>
     </Grid>

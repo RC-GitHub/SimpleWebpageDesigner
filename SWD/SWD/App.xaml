@@ -27,8 +27,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"  
                                 RecognizesAccessKey="True" 
-                                Margin="0"
-                                              
+                                Margin="0"             
                             />
                         </Border>
                         <ControlTemplate.Triggers>
