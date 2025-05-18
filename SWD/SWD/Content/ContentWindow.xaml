@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
         Title="ContentWindow"
-        MinHeight="900" 
+        MinHeight="950" 
         MinWidth="1450" 
         WindowState="Maximized"
         WindowStyle="SingleBorderWindow">
@@ -40,7 +40,7 @@
             </Setter>
         </Style>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
-        </Window.Resources>
+    </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="{Binding BackgroundGradStart}"/>
@@ -58,28 +58,65 @@
 
             <ToolBarTray DockPanel.Dock="Top">
                 <ToolBar>
-                    <Button x:Name="btnNew" ToolTip="Make a new file." Margin="0,0,10,0" Click="btnNew_Click">
+                    <Button x:Name="btnNewContext" Margin="0,0,10,0"        
+                        MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="newContextMenu">
+                                <MenuItem x:Name="miNewProject" Header="New project" Click="miNewProject_Click" ToolTip="Creates a new SWD Project."/>
+                                <Separator />
+                                <MenuItem x:Name="miNewFile" Header="New file" Click="btnNew_Click" ToolTip="Creates a new file inside the current SWD Project."/>
+                                <MenuItem x:Name="miNewFolder" Header="New folder" Click="btnInsideFolderAdd_Click" ToolTip="Creates a new folder inside the current SWD project."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Icons/new-file.png" Width="20" Height="20" Margin="0,0,5,0"/>
                             <TextBlock>New</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button ToolTip="Make a new file." Margin="0,0,10,0">
+                    <Button x:Name="btnOpenContext" Margin="0,0,10,0" MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="openContextMenu">
+                                <MenuItem x:Name="miOpenProject" Header="Open project" Click="miOpenProject_Click" ToolTip="Opens a new window with a different SWD Project."/>
+                                <Separator />
+                                <MenuItem x:Name="miOpenFile" Header="Add file" Click="miOpenFile_Click" ToolTip="Adds an existing JSON file to the current SWD Project."/>
+                                <MenuItem x:Name="miOpenFolder" Header="Add a folder" Click="miOpenFolder_Click" ToolTip="Adds an existing folder to the current SWD Project."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Icons/open-file.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Open</TextBlock>
+                            <TextBlock>Import</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnTheme" ToolTip="Change a theme." Margin="0,0,10,0" Click="btnTheme_Click" >
+                    <Button x:Name="btnTheme" ToolTip="Change a theme." Margin="0,0,10,0" MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="editContextMenu">
+                                <MenuItem x:Name="miEditInitial" Header="Edit initial settings" Click="miEditInitial_Click" ToolTip="Opens initial settings editor."/>
+                                <Separator />
+                                <MenuItem x:Name="miEditTheme" Header="Edit theme" Click="btnTheme_Click" ToolTip="Opens theme editor."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Icons/edit.png" Width="20" Height="20" Margin="0,0,5,0"/>
                             <TextBlock>Edit</TextBlock>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnSave" ToolTip="Make a new file." Margin="0,0,10,0" Click="btnSave_Click" >
+                    <Button x:Name="btnSave" ToolTip="Save current file." Margin="0,0,10,0" Click="btnSave_Click" >
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Icons/save-file.png" Width="20" Height="20" Margin="0,0,5,0"/>
                             <TextBlock>Save</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnClose" ToolTip="Close current project." Margin="0,0,10,0" Click="btnClose_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Icons/close.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Close</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Separator Width="Auto" />
+                    <Button x:Name="btnBuild" ToolTip="Convert project to a webpage!" Margin="0,0,10,0" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Icons/build.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Build</TextBlock>
                         </StackPanel>
                     </Button>
                 </ToolBar>
@@ -101,7 +138,7 @@
                     Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
                     BorderThickness="4"
                     Background="{Binding UnderlayPrimary}"
-                    Margin="20, 45, 20, 20" Padding="20, 15, 20, 15"
+                    Margin="20, 45, 20, 20" Padding="10, 15, 10, 5"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
 
@@ -110,10 +147,11 @@
                             <RowDefinition Height="50" />
                             <RowDefinition Height="50" />
                             <RowDefinition Height="55" />
-                            <RowDefinition Height="50" />
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="4*" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="1.25*" />
+                            <RowDefinition Height="3.25*" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="65" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3.5*" />
@@ -142,10 +180,7 @@
                              VerticalAlignment="Stretch"
                              VerticalContentAlignment="Center"/>
 
-
-                        <Button x:Name="btnFileSave" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileSave_Click" Margin="0,0,0,5">Save naming changes</Button>
-
-                        <Grid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -167,10 +202,10 @@
                             </Button>
                         </Grid>
 
-                        <Separator Grid.Row="4" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
+                        <Separator Grid.Row="3" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
 
                         <Label x:Name="lblFS" 
-                               Grid.Row="5"
+                               Grid.Row="4"
                                Grid.Column="0"
                                Grid.ColumnSpan="2"
                                Content="Folders inside: -" 
@@ -183,8 +218,9 @@
                                Background="{Binding HeaderPrimary}"
                                Margin="0,0,0,0"
                         />
+                        <Image x:Name="imgFolderRefresh" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Source="../Icons/refresh.png" Width="15" Height="15" Margin="15,26,25,0" MouseDown="imgFolderRefresh_MouseDown"/>
 
-                        <Grid Grid.Row="6" Grid.ColumnSpan="2" Margin="5,0">
+                        <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="5,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="5*" />
                                 <ColumnDefinition Width="*" />
@@ -193,17 +229,30 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="3*" />
+                                <RowDefinition Height="1.25*" />
                             </Grid.RowDefinitions>
-                            <ListBox x:Name="lbFS" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,0,5,0">
+                            <ListBox x:Name="lbFS" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,0,5,5">
                             </ListBox>
-                            <Button x:Name="btnInsideFolderAdd" Grid.Column="2" FontSize="20" Width="35" Height="35" Click="btnInsideFolderAdd_Click" FontWeight="ExtraBold" Margin="0">
+                            <Button x:Name="btnInsideFolderAdd" Grid.Column="2" FontSize="20" Width="35" Height="35" Click="btnInsideFolderAdd_Click" FontWeight="ExtraBold" Margin="0,0,0,0">
                                 <TextBlock Text="+" Margin="0,-4,0,0" />
                             </Button>
-                            <Button x:Name="btnInsideFolderDelete" Grid.Column="2" Grid.Row="1" FontSize="20" Width="35" Height="35" Click="btnInsideFolderDelete_Click" FontWeight="ExtraBold" Margin="0">
+                            <Button x:Name="btnInsideFolderDelete" Grid.Column="2" Grid.Row="1" FontSize="20" Width="35" Height="35" Click="btnInsideFolderDelete_Click" FontWeight="ExtraBold"  Margin="0,0,0,0">
                                 <TextBlock Text="-" Margin="0,-4,0,0" />
                             </Button>
                         </Grid>
+
+                        <Separator Grid.Row="6" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
+
+                        <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="5,10,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnFileSave" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileSave_Click" Margin="0,0,5,5">Save names</Button>
+                            <Button x:Name="btnFileDelete" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileDelete_Click" Margin="5,0,0,5">Delete file</Button>
+                        </Grid>
+
                     </Grid>
 
                 </Border>
@@ -434,7 +483,7 @@
                     RowHeaderWidth="30"
                     Grid.Column="2" 
                     Grid.Row="2" 
-                          Grid.RowSpan="2"
+                    Grid.RowSpan="2"
                     Margin="20" 
                     HeadersVisibility="All"
                     CanUserAddRows="False"
@@ -654,10 +703,11 @@
                 <Label x:Name="lblFilesTitle" 
                        Grid.Row="3"
                        VerticalAlignment="Top"
-                       Style="{StaticResource Heading}" 
                        Content="Files"
+                       Style="{StaticResource Heading}" 
                        Margin="15,0,15,0">
                 </Label>
+                <Image x:Name="imgRefresh" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" Source="../Icons/refresh.png" Width="20" Height="20" Margin="15,10,25,0" MouseDown="imgRefresh_MouseDown"/>
             </Grid>
         </Grid>
     </Grid>

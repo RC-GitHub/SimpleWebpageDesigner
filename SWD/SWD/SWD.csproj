@@ -105,6 +105,7 @@
     <Compile Include="Content\ContentWindow.DGSizing.cs" />
     <Compile Include="Content\ContentWindow.FSBuilding.cs" />
     <Compile Include="Content\ContentWindow.FSManaging.cs" />
+    <Compile Include="Content\ContentWindow.Toolbar.cs" />
     <Compile Include="Content\ContentWindowFSControl.cs" />
     <Compile Include="InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
@@ -198,6 +199,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\build.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

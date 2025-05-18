@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,14 @@ namespace SWD.Content
             lblFS.Content = $"Folders inside: {folders[folders.Length - 1]}";
         }
 
+        private void imgFolderRefresh_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string currentDirectory = Path.GetDirectoryName(currentFilePath);
+            string[] insideFolders = Directory.GetDirectories(currentDirectory, "*", SearchOption.TopDirectoryOnly).Select(dir => Path.GetFileName(dir))
+                                .ToArray();
+            lbFS.ItemsSource = insideFolders;
+        }
+
         private void LbFS_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbFolderNameChange.Focus();
@@ -47,15 +56,46 @@ namespace SWD.Content
             tbFolderNameChange.CaretIndex = tbFileNameChange.Text.Length - 1;
         }
 
+        private void btnFileDelete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                File.Delete(currentFilePath);
+            }
+            catch (Exception ex)
+            {
+                Errors.DisplayMessage(ex.Message);
+                return;
+            }
+
+            RefreshFileData();
+            string jsonPath = MakeJsonPath(path);
+            string indexPath = Path.Combine(jsonPath, "index.json");
+            if (dgPages.Items.Count > 0)
+            {
+                var row = (DataRowView)dgPages.Items[0];
+                readyPath = row["Path"].ToString();
+                pageName = row["Filename"].ToString();
+                try
+                {
+                    LoadJsonPage(readyPath);
+                }
+                catch (Exception ex)
+                {
+                    Errors.DisplayMessage(ex.Message);
+                    return;
+                }
+            }
+        }
+
         private void btnFileSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
-
             var folders = currentProjectDir;
             if (folders != null)
             {
                 string oldDirectory = Path.GetDirectoryName(currentFilePath);
-                string currentFolderName = lbFS.Items[lbFS.Items.Count - 1].ToString();
+                string currentFolderName = Path.GetFileName(oldDirectory);
                 string newFolderName = tbFolderNameChange.Text;
                 string newFileName = tbFileNameChange.Text;
 
@@ -96,6 +136,7 @@ namespace SWD.Content
 
         private void btnMoveFile_Click(object sender, RoutedEventArgs e)
         {
+            SaveFile(true);
             using (var folderDialog = new System.Windows.Forms.FolderBrowserDialog())
             {
                 folderDialog.Description = "Select a destination folder";
@@ -135,6 +176,7 @@ namespace SWD.Content
 
         private void btnMoveFolder_Click(object sender, RoutedEventArgs e)
         {
+            SaveFile(true);
             string sourceFolderPath = Path.GetDirectoryName(currentFilePath);
             if (!Directory.Exists(sourceFolderPath))
             {

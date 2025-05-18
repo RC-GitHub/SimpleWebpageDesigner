@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 
 using Newtonsoft.Json;
 using System.IO;
+using SWD.Content;
+using Path = System.IO.Path;
 
 namespace SWD
 {
@@ -27,7 +29,9 @@ namespace SWD
     /// </summary>
     public partial class CreationWindow : Window
     {
+        private bool editmode = false;
         private MainWindow _mainWindow;
+        private ContentWindow _contentWindow;
         public bool projectsFolder = true;
         public string dir = Environment.CurrentDirectory;
         private string tempForProjectTitle = "Insert project title";
@@ -36,7 +40,7 @@ namespace SWD
         private string tempForDescription = "Insert description";
         public Dictionary<string, string> tempMessages = new Dictionary<string, string>();
 
-        public CreationWindow(MainWindow mw)
+        public CreationWindow(MainWindow mw = null)
         {
             _mainWindow = mw;
 
@@ -63,6 +67,28 @@ namespace SWD
             InitializeMessagesArray();
         }
 
+        string projectName;
+        public CreationWindow(string d, Head head, ContentWindow cw)
+        {
+            dir = d;
+            _contentWindow = cw;
+            editmode = true;
+
+            App.themeData.PropertyChanged += ThemeData_PropertyChanged;
+            this.DataContext = App.themeData.CurrentTheme;
+            InitializeComponent();
+            InitializeMessagesArray();
+            
+            projectName = head.ProjectName;
+            tbProjectTitle.Text = head.ProjectName;
+            tbAuthor.Text = head.Author;
+            tbDescription.Text = head.Description;
+            foreach (string keyword in head.Keywords)
+            {
+                lsbKeywords.Items.Add(keyword);
+            }
+        }
+
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ThemeData.CurrentTheme))
@@ -85,22 +111,22 @@ namespace SWD
         {
             if (string.IsNullOrWhiteSpace(tbProjectTitle.Text))
             {
-                tbProjectTitle.Text = "Insert project title";
+                tbProjectTitle.Text = tempForProjectTitle;
                 tbProjectTitle.Foreground = Brushes.Gray;
             }
             if (string.IsNullOrWhiteSpace(tbAuthor.Text))
             {
-                tbAuthor.Text = "Insert author's name";
+                tbAuthor.Text = tempForAuthor;
                 tbAuthor.Foreground = Brushes.Gray;
             }            
             if (string.IsNullOrWhiteSpace(tbKeyword.Text))
             {
-                tbKeyword.Text = "Insert a keyword";
+                tbKeyword.Text = tempForKeyword;
                 tbKeyword.Foreground = Brushes.Gray;
             }
             if (string.IsNullOrWhiteSpace(tbDescription.Text))
             {
-                tbDescription.Text = "Insert description";
+                tbDescription.Text = tempForDescription;
                 tbDescription.Foreground = Brushes.Gray;
             }
         }
@@ -134,6 +160,14 @@ namespace SWD
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            if (!editmode)
+                NormalSubmit();
+            else
+                EditSubmit();
+        }
+
+        private void NormalSubmit()
+        {
             if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty) Errors.DisplayMessage("Project title is required!");
             else
             {
@@ -143,7 +177,7 @@ namespace SWD
 
                 if (Directory.Exists(dir))
                 {
-                    Errors.DisplayMessage("A project with the same name already exists!"); 
+                    Errors.DisplayMessage("A project with the same name already exists!");
                     dir = "";
                 }
                 else
@@ -151,10 +185,10 @@ namespace SWD
 
                     string author;
                     string description;
-                    if (tbAuthor.Text == tempMessages[tbAuthor.Name]) author = ""; 
-                    else author = tbAuthor.Text; 
-                    if (tbDescription.Text == tempMessages[tbDescription.Name]) description = ""; 
-                    else description = tbDescription.Text; 
+                    if (tbAuthor.Text == tempMessages[tbAuthor.Name]) author = "";
+                    else author = tbAuthor.Text;
+                    if (tbDescription.Text == tempMessages[tbDescription.Name]) description = "";
+                    else description = tbDescription.Text;
 
                     List<Head> _data = new List<Head>
                     {
@@ -181,13 +215,60 @@ namespace SWD
                     }
                     finally { }
 
-                    _mainWindow.Close();
+                    if (_mainWindow != null) _mainWindow.Close();
 
                     Content.ContentWindow gd = new Content.ContentWindow(dir, this);
-                    gd.ShowDialog();
+                    gd.Show();
 
                 }
             }
+        }
+
+        private void EditSubmit()
+        {
+            try
+            {
+                if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty)
+                {
+                    Errors.DisplayMessage("Project title is required!");
+                    return;
+                }
+
+                string author;
+                string description;
+                if (tbAuthor.Text == tempMessages[tbAuthor.Name]) author = "";
+                else author = tbAuthor.Text;
+                if (tbDescription.Text == tempMessages[tbDescription.Name]) description = "";
+                else description = tbDescription.Text;
+
+                List<Head> _data = new List<Head>
+                    {
+                        new Head()
+                        {
+                            ProjectName = tbProjectTitle.Text,
+                            Author = author,
+                            Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
+                            Description = description,
+                        }
+                    };
+
+                string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
+                string metadataPath = System.IO.Path.Combine(dir, "metadata.json");
+                File.WriteAllText(metadataPath, json);
+
+                if (projectName != tbProjectTitle.Text)
+                {
+                    string projectsDir = Path.GetDirectoryName(dir);
+                    string newNameDir = Path.Combine(projectsDir, $"SWD-{tbProjectTitle.Text}");
+                    _contentWindow.Close();
+                    ContentWindow.DirectoryCopy(dir, newNameDir, true);
+                    Content.ContentWindow gd = new Content.ContentWindow(newNameDir, this);
+                    gd.Show();
+                    Directory.Delete(dir, true);
+                }
+                Close();
+            }
+            catch (Exception ex) { Errors.DisplayMessage(ex.Message);  }
         }
 
         private void tb_GotFocus(object sender, RoutedEventArgs e)

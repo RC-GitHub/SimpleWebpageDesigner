@@ -42,34 +42,25 @@ namespace SWD
                 this.DataContext = App.themeData.CurrentTheme;  
         }
 
-        public MessageBoxResult DisplayPathMessage(bool action = false)
-        {
-            string messageBoxText;
-            if (action == false) messageBoxText = "Do you want to choose your own path?";
-            else messageBoxText = "Is the path to a project you want to delete in the default directory?";
-
-            string caption = "Select a path";
-            MessageBoxButton button = MessageBoxButton.YesNoCancel;
-            MessageBoxImage icon = MessageBoxImage.Warning;
-            MessageBoxResult result;
-
-            result = System.Windows.MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
-            return result;
-        }
-
         private void btnNewProject_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = DisplayPathMessage(false);
+            MainWindow.NewProject(this);
+        }
+
+        static public void NewProject(MainWindow mw = null)
+        {
+            MessageBoxResult result = Infos.DisplayPathMessage(false);
             if (result == MessageBoxResult.Cancel)
-            {               
+            {
                 Debug.WriteLine(result);
-            } 
-            else if (result == MessageBoxResult.No) {
+            }
+            else if (result == MessageBoxResult.No)
+            {
                 Debug.WriteLine(Environment.CurrentDirectory);
 
-                CreationWindow fillTheData = new CreationWindow(this);
-                fillTheData.Show();
-            } 
+                CreationWindow fillTheData = new CreationWindow(mw);
+                fillTheData.ShowDialog();
+            }
             else
             {
                 Debug.WriteLine(result);
@@ -79,8 +70,8 @@ namespace SWD
                 if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
                 {
                     string filePath = dialog.FileName;
-                    CreationWindow fillTheData = new CreationWindow(filePath, this);
-                    fillTheData.Show();
+                    CreationWindow fillTheData = new CreationWindow(filePath, mw);
+                    fillTheData.ShowDialog();
                 }
 
             }
@@ -88,10 +79,15 @@ namespace SWD
 
         private void btnOpenExisting_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.OpenProject(this);
+        }
+
+        static public void OpenProject(MainWindow mw = null)
+        {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
             dialog.IsFolderPicker = true;
 
-            MessageBoxResult result = DisplayPathMessage();
+            MessageBoxResult result = Infos.DisplayPathMessage();
             if (result == MessageBoxResult.Cancel)
             {
                 return;
@@ -115,8 +111,8 @@ namespace SWD
 
                 if (fileName.StartsWith("SWD-"))
                 {
-                    Content.ContentWindow fillTheData = new Content.ContentWindow(filePath, this);
-                    fillTheData.ShowDialog();
+                    Content.ContentWindow fillTheData = new Content.ContentWindow(filePath, mw);
+                    fillTheData.Show();
                 }
                 else
                 {
@@ -124,12 +120,11 @@ namespace SWD
                 }
 
             }
-
         }
 
         private void btnDeleteExisting_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = DisplayPathMessage(true);
+            MessageBoxResult result = Infos.DisplayPathMessage(true);
             if (result == MessageBoxResult.Cancel)
             {
                 Debug.WriteLine(result);

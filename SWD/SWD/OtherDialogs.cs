@@ -39,6 +39,21 @@ namespace SWD
             result = MessageBox.Show(msgBoxText, caption, button, icon, MessageBoxResult.Yes);
             return result;
         }
+
+        static public MessageBoxResult DisplayPathMessage(bool action = false)
+        {
+            string messageBoxText;
+            if (action == false) messageBoxText = "Do you want to choose your own path?";
+            else messageBoxText = "Is the path to a project you want to delete in the default directory?";
+
+            string caption = "Select a path";
+            MessageBoxButton button = MessageBoxButton.YesNoCancel;
+            MessageBoxImage icon = MessageBoxImage.Warning;
+            MessageBoxResult result;
+
+            result = System.Windows.MessageBox.Show(messageBoxText, caption, button, icon, MessageBoxResult.Yes);
+            return result;
+        }
     }
 
     internal class Colors

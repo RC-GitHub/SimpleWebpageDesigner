@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 
 namespace SWD
 {
-    internal class Head
+    public class Head
     {
         public string ProjectName { get; set; }
         public string Author { get; set; }

@@ -32,6 +32,7 @@ namespace SWD.Content
 
         private bool CanComponentBeInserted()
         {
+            if (components == null) return true;
             foreach (var cell in dgContent.SelectedCells)
             {
                 int rowIndex = dgContent.Items.IndexOf(cell.Item);
@@ -55,7 +56,8 @@ namespace SWD.Content
             if (inputDialog.ShowDialog() == true)
             {
                 string componentName = inputDialog.InputValue;
-                componentName = Names.GetUniqueThemeName(componentName, components.Keys.Select(t => t));
+                if (components != null)
+                    componentName = Names.GetUniqueThemeName(componentName, components.Keys.Select(t => t));
 
                 Debug.WriteLine(componentName);
 
@@ -115,16 +117,30 @@ namespace SWD.Content
 
         private void cellContextMenu_Opened(object sender, RoutedEventArgs e)
         {
+            if (components == null || components.Count == 0)
+            {
+                miDelete.Visibility = Visibility.Collapsed;
+                cmActionSeparator.Visibility = Visibility.Collapsed;
+                return;
+            }
             foreach (var cell in dgContent.SelectedCells)
             {
                 int rowIndex = dgContent.Items.IndexOf(cell.Item);
                 int columnIndex = dgContent.Columns.IndexOf(cell.Column);
-                if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                try
                 {
-                    miDelete.Visibility = Visibility.Visible;
-                    cmActionSeparator.Visibility = Visibility.Visible;
-                    return;
+                    if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
+                    {
+                        miDelete.Visibility = Visibility.Visible;
+                        cmActionSeparator.Visibility = Visibility.Visible;
+                        return;
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Errors.DisplayMessage(ex.Message);
+                }
+
             }
             miDelete.Visibility = Visibility.Collapsed;
             cmActionSeparator.Visibility = Visibility.Collapsed;
