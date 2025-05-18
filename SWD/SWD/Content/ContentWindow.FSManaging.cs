@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Window = System.Windows.Window;
 
 namespace SWD.Content
@@ -86,6 +87,11 @@ namespace SWD.Content
             {
                 Errors.DisplayMessage($"Components haven't been saved.\n\n{ex}");
             }
+        }
+
+        private void imgRefresh_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            RefreshFileData();
         }
     }
 }

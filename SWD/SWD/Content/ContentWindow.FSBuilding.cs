@@ -41,7 +41,7 @@ namespace SWD.Content
                 header.Click += (s, ev) => LoadingRow(s, e, rowIndex);
 
                 row.Header = header;
-                ;
+                
             }
 
         }
@@ -60,7 +60,7 @@ namespace SWD.Content
 
         private void dgPages_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName == "Path")
+            if (e.PropertyName == "Path" || e.PropertyName == "id")
             {
                 e.Cancel = true;
             }

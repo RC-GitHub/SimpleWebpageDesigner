@@ -61,8 +61,12 @@ namespace SWD.Content
         public ContentWindow(string directory, CreationWindow cw, string pagename = "index")
         {
             InitializeComponent();
-            _creationWindow = cw;
-            _creationWindow.Close();
+            if (cw != null)
+            {
+                _creationWindow = cw;
+                _creationWindow.Close();
+            }
+
             wdContent.Title = GetProjectName(directory);
 
             App.themeData.PropertyChanged += ThemeData_PropertyChanged;
@@ -70,6 +74,7 @@ namespace SWD.Content
 
             path = directory;
             pageName = pagename;
+            ControlFile(Path.Combine(MakeJsonPath(path), pageName));
 
             Row obj = new Row()
             {
@@ -86,8 +91,12 @@ namespace SWD.Content
         public ContentWindow(string directory, MainWindow mw)
         {
             InitializeComponent();
-            _mainWindow = mw;
-            _mainWindow.Close();
+            if (mw != null)
+            {
+                _mainWindow = mw;
+                _mainWindow.Close();
+            }
+
             wdContent.Title = GetProjectName(directory);
 
             App.themeData.PropertyChanged += ThemeData_PropertyChanged;
@@ -210,11 +219,17 @@ namespace SWD.Content
                 string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
 
                 Debug.WriteLine(json);
-                File.WriteAllText($"{MakeJsonPath(path)}\\{newFileName}.json", json);
-                Infos.DisplayMessage($"The {newFileName} was created!");
-
-                RefreshFileData();
-
+                try
+                {
+                    File.WriteAllText($"{MakeJsonPath(path)}\\{newFileName}.json", json);
+                    Infos.DisplayMessage($"The {newFileName} was created!");
+                    RefreshFileData();
+                    //LoadJsonPage($"{MakeJsonPath(path)}\\{newFileName}.json");
+                }
+                catch (Exception ex)
+                {
+                    Infos.DisplayMessage(ex.Message);
+                }
             }
         }
 
