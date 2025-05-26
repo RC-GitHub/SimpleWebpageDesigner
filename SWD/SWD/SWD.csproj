@@ -98,6 +98,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\ComponentWindow.xaml.cs">
+      <DependentUpon>ComponentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Converter.cs" />
+    <Compile Include="Components\TextSimple.xaml.cs">
+      <DependentUpon>TextSimple.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Content\ContentWindow.CompModifying.cs" />
     <Compile Include="Content\ContentWindow.DGBuilding.cs" />
     <Compile Include="Content\ContentWindow.CompHandling.cs" />
@@ -114,6 +121,14 @@
     <Compile Include="ThemeWindow.xaml.cs">
       <DependentUpon>ThemeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\ComponentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\TextSimple.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +223,34 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\build.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\bold.png" />
+    <Resource Include="Icons\center.png" />
+    <Resource Include="Icons\font-color.png" />
+    <Resource Include="Icons\copy.png" />
+    <Resource Include="Icons\cut.png" />
+    <Resource Include="Icons\italic.png" />
+    <Resource Include="Icons\justify.png" />
+    <Resource Include="Icons\left.png" />
+    <Resource Include="Icons\paste.png" />
+    <Resource Include="Icons\redo.png" />
+    <Resource Include="Icons\right.png" />
+    <Resource Include="Icons\underline.png" />
+    <Resource Include="Icons\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\font-decrease.png" />
+    <Resource Include="Icons\font-family.png" />
+    <Resource Include="Icons\font-increase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\bottom.png" />
+    <Resource Include="Icons\middle.png" />
+    <Resource Include="Icons\top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

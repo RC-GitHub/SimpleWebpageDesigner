@@ -1,0 +1,161 @@
+﻿<Page x:Class="SWD.Components.TextSimple"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SWD.Components"
+      mc:Ignorable="d" 
+      d:DesignHeight="400" d:DesignWidth="800"
+      Title="TextSimple">
+    <Page.Resources>
+        <Style x:Key="ImageButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="imageBorder"
+                        Background="Transparent">
+                            <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Margin="0"
+                           Width="25" Height="25"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="imageBorder" Property="Background" Value="#20000000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ImageMarginButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="imageBorder"
+                        Background="Transparent">
+                            <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Margin="0"
+                           Width="29" Height="29"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="imageBorder" Property="Background" Value="#20000000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ImageToggleButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="baseBorder" BorderThickness="2"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="Transparent">
+                            <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Margin="0"
+                           Width="25" Height="25"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="baseBorder" Property="Background" Value="#20000000"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ImageToggleMarginButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="marginBorder" BorderThickness="2"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="Transparent">
+                            <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}" Margin="0,1,0,0"
+                           Width="25" Height="25"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="marginBorder" Property="Background" Value="#20000000"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <DockPanel>
+        <!-- Toolbar -->
+        <ToolBar DockPanel.Dock="Top" Background="#EEE" Height="40">
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <Button x:Name="togBtnCut" Style="{StaticResource ImageButtonStyle}" Tag="../Icons/cut.png" Width="25" Height="25" Margin="0,0,5,0" Click="Cut_Click"/>
+                <Button x:Name="togBtnCopy" Style="{StaticResource ImageButtonStyle}" Tag="../Icons/copy.png" Width="25" Height="25" Margin="0,0,5,0" Click="Copy_Click"/>
+                <Button x:Name="togBtnPaste" Style="{StaticResource ImageMarginButtonStyle}" Tag="../Icons/paste.png" Width="28" Height="28" Margin="0,0,0,0" Click="Paste_Click"/>
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <Button x:Name="togBtnUndo" Style="{StaticResource ImageButtonStyle}" Tag="../Icons/undo.png" Width="25" Height="25" Margin="0,0,5,0" Click="Undo_Click"/>
+                <Button x:Name="togBtnRedo" Style="{StaticResource ImageButtonStyle}" Tag="../Icons/redo.png" Width="25" Height="25" Margin="0,0,0,0" Click="Redo_Click"/>
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <ToggleButton x:Name="togBtnBold" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/bold.png" Width="30" Height="30" Margin="0,0,5,0" Click="Bold_Click"/>
+                <ToggleButton x:Name="togBtnItalic" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/italic.png" Width="30" Height="30" Margin="0,0,5,0" Click="Italic_Click"/>
+                <ToggleButton x:Name="togBtnUnderline" Style="{StaticResource ImageToggleMarginButtonStyle}" Tag="../Icons/underline.png" Width="30" Height="30" Margin="0,0,5,0" Click="Underline_Click"/>
+                <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-color.png" Width="25" Height="25" Margin="0,0,5,0" Click="FontColor_Click" />
+                <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-family.png" Width="25" Height="25" Margin="0,0,0,0" Click="FontFamily_Click" />
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <ToggleButton x:Name="togBtnLeft" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/left.png" Width="30" Height="30" Margin="0,0,5,0" Click="Left_Click"/>
+                <ToggleButton x:Name="togBtnCenter" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/center.png" Width="30" Height="30" Margin="0,0,5,0" Click="Center_Click"/>
+                <ToggleButton x:Name="togBtnRight" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/right.png" Width="30" Height="30" Margin="0,0,5,0" Click="Right_Click"/>
+                <ToggleButton x:Name="togBtnJustify" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/justify.png" Width="30" Height="30" Margin="0,0,0,0" Click="Justify_Click"/>
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <ToggleButton x:Name="togBtnTop" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/top.png" Width="30" Height="30" Margin="0,0,5,0" Click="Top_Click"/>
+                <ToggleButton x:Name="togBtnMiddle" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/middle.png" Width="30" Height="30" Margin="0,0,5,0" Click="Middle_Click"/>
+                <ToggleButton x:Name="togBtnBottom" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/bottom.png" Width="30" Height="30" Margin="0,0,0,0" Click="Bottom_Click"/>
+            </StackPanel>
+            <Separator/>
+            <StackPanel Orientation="Horizontal" Margin="5,0">
+                <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-increase.png" Width="25" Height="25" Margin="0,0,5,0" Click="IncreaseFont_Click"/>
+                <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-decrease.png" Width="25" Height="25" Margin="0,0,0,0" Click="DecreaseFont_Click"/>
+            </StackPanel>
+        </ToolBar>
+
+        <!-- Text editor area -->
+        <TextBox x:Name="txtEditor"
+                 AcceptsReturn="True"
+                 AcceptsTab="True"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 FontStyle="{Binding FontStyle}"
+                 TextDecorations="{Binding FontLine}"
+                 FontFamily="{Binding FontFamily}"
+                 FontWeight="{Binding FontWeight}"
+                 FontSize="{Binding FontSize}"
+                 Text="{Binding Text, Mode=TwoWay}"
+                 Foreground="{Binding ForegroundColor}"
+                 HorizontalAlignment="Stretch"
+                 HorizontalContentAlignment="{Binding TextHorizontal}"
+                 VerticalAlignment="Stretch"
+                 VerticalContentAlignment="{Binding TextVertical}"
+                 TextWrapping="Wrap"
+                 Margin="5"
+                 Padding="5"/>
+    </DockPanel>
+</Page>
