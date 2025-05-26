@@ -119,6 +119,7 @@ namespace SWD.Content
         {
             if (components == null || components.Count == 0)
             {
+                miEdit.Visibility = Visibility.Collapsed;
                 miDelete.Visibility = Visibility.Collapsed;
                 cmActionSeparator.Visibility = Visibility.Collapsed;
                 return;
@@ -131,6 +132,7 @@ namespace SWD.Content
                 {
                     if (components.ContainsKey(data[rowIndex].Content[columnIndex].Title))
                     {
+                        miEdit.Visibility = Visibility.Visible;                      
                         miDelete.Visibility = Visibility.Visible;
                         cmActionSeparator.Visibility = Visibility.Visible;
                         return;
@@ -142,8 +144,19 @@ namespace SWD.Content
                 }
 
             }
+            miEdit.Visibility = Visibility.Collapsed;
             miDelete.Visibility = Visibility.Collapsed;
             cmActionSeparator.Visibility = Visibility.Collapsed;
+        }
+
+        private void EditComponent(object sender, RoutedEventArgs e)
+        {
+            Components.ComponentWindow componentWindow = new Components.ComponentWindow(currentComponent);
+            componentWindow.Owner = this;
+            componentWindow.ShowDialog();
+            components[currentComponent.Name] = componentWindow.MyComponent;
+            BuildDataGrid(true);
+            SaveFile(true);
         }
 
         private void DeleteComponent(object sender, RoutedEventArgs e)

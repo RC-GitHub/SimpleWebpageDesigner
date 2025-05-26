@@ -25,10 +25,13 @@ using Application = System.Windows.Application;
 namespace SWD
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Initializes the main window, sets up theme data binding.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -36,17 +39,27 @@ namespace SWD
             this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Handles theme changes and updates the window's data context.
+        /// </summary>
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            //if (e.PropertyName == nameof(ThemeData.CurrentTheme))
-                this.DataContext = App.themeData.CurrentTheme;  
+            // Always update the DataContext to reflect the current theme.
+            this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Handles the "New Project" button click event.
+        /// </summary>
         private void btnNewProject_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.NewProject(this);
         }
 
+        /// <summary>
+        /// Static method to start the new project creation workflow.
+        /// </summary>
+        /// <param name="mw">Reference to the current MainWindow (optional).</param>
         static public void NewProject(MainWindow mw = null)
         {
             MessageBoxResult result = Infos.DisplayPathMessage(false);
@@ -58,12 +71,14 @@ namespace SWD
             {
                 Debug.WriteLine(Environment.CurrentDirectory);
 
+                // Open CreationWindow for new project details.
                 CreationWindow fillTheData = new CreationWindow(mw);
                 fillTheData.ShowDialog();
             }
             else
             {
                 Debug.WriteLine(result);
+                // Let user pick a folder for the new project.
                 CommonOpenFileDialog dialog = new CommonOpenFileDialog();
                 dialog.InitialDirectory = "C:\\Users";
                 dialog.IsFolderPicker = true;
@@ -73,15 +88,21 @@ namespace SWD
                     CreationWindow fillTheData = new CreationWindow(filePath, mw);
                     fillTheData.ShowDialog();
                 }
-
             }
         }
 
+        /// <summary>
+        /// Handles the "Open Existing Project" button click event.
+        /// </summary>
         private void btnOpenExisting_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.OpenProject(this);
         }
 
+        /// <summary>
+        /// Static method to open an existing project, validating its structure.
+        /// </summary>
+        /// <param name="mw">Reference to the current MainWindow (optional).</param>
         static public void OpenProject(MainWindow mw = null)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
@@ -109,6 +130,7 @@ namespace SWD
                 string fileName = Path.GetFileNameWithoutExtension(filePath);
                 Debug.WriteLine(filePath);
 
+                // Only allow folders following the SWD- naming convention.
                 if (fileName.StartsWith("SWD-"))
                 {
                     Content.ContentWindow fillTheData = new Content.ContentWindow(filePath, mw);
@@ -118,10 +140,12 @@ namespace SWD
                 {
                     Errors.DisplayMessage("The project does not adhere to the naming convention (SWD-[Project name])");
                 }
-
             }
         }
 
+        /// <summary>
+        /// Handles the "Delete Existing Project" button click event.
+        /// </summary>
         private void btnDeleteExisting_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = Infos.DisplayPathMessage(true);
@@ -131,24 +155,27 @@ namespace SWD
             }
             else if (result == MessageBoxResult.Yes)
             {
-
+                // Default to Projects folder in current directory.
                 string dir = Environment.CurrentDirectory;
                 dir = System.IO.Path.Combine(dir, "Projects");
                 DeleteDirectory(dir);
-
             }
             else
             {
+                // Default to C:\Users.
                 string dir = "C:\\Users";
                 DeleteDirectory(dir);
-
             }
         }
 
+        /// <summary>
+        /// Prompts the user to select directories and deletes valid SWD projects.
+        /// </summary>
+        /// <param name="path">Initial directory for the dialog.</param>
         public void DeleteDirectory(string path)
         {
             CommonOpenFileDialog dialog = new CommonOpenFileDialog();
-            dialog.InitialDirectory = path; 
+            dialog.InitialDirectory = path;
             dialog.IsFolderPicker = true;
             dialog.Multiselect = true;
 
@@ -160,11 +187,12 @@ namespace SWD
                     string fileName = Path.GetFileName(filePath);
                     string swdCode = fileName.Substring(0, 4);
 
+                    // Only delete directories that start with "SWD-"
                     if (Directory.Exists(filePath) && swdCode == "SWD-")
                     {
                         try
                         {
-                            Directory.Delete(filePath, true); 
+                            Directory.Delete(filePath, true);
                             Debug.WriteLine($"Successfully deleted: {fileName}");
                         }
                         catch (Exception ex)
@@ -190,12 +218,19 @@ namespace SWD
                     Errors.DisplayMessage(errors);
             }
         }
+
+        /// <summary>
+        /// Handles the "Theme Settings" button click event.
+        /// </summary>
         private void btnThemeSettings_Click(object sender, RoutedEventArgs e)
         {
             ThemeWindow themeWindow = new ThemeWindow();
             themeWindow.ShowDialog();
         }
 
+        /// <summary>
+        /// Closes the main window.
+        /// </summary>
         public void CloseMainWindow()
         {
             this.Close();

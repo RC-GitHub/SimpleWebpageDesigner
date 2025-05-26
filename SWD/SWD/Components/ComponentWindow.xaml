@@ -1,0 +1,613 @@
+﻿<Window x:Class="SWD.Components.ComponentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SWD.Components"
+        mc:Ignorable="d"
+        MinHeight="850" MinWidth="1400"
+        Title="ComponentWindow" Height="850" Width="1400">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{Binding Font}" />
+        </Style>
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="Foreground" Value="{Binding Font}" />
+            <Setter Property="Background" Value="{Binding UnderlaySecondary}" />
+        </Style>
+        <Style TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="{Binding Font}" />
+        </Style>
+        <Style x:Key="Heading" TargetType="Label">
+            <Setter Property="Foreground" Value="{Binding HeaderFont}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="{Binding HeaderFont}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0"/>
+                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Width" Value="60" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Stroke" Value="{Binding ButtonSecondary}" />
+            <Setter Property="StrokeThickness" Value="2" />
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <local:CapitalizeConverter x:Key="CapitalizeConverter" />
+        <local:CapitalizeConverter x:Key="LowercaseConverter" ToLower="True" />
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradEnd}" />
+            <GradientStop Color="{Binding BackgroundGradStart}" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="3.5*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
+        <Rectangle Grid.ColumnSpan="2" Grid.RowSpan="2" Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" >
+            <Rectangle.Style>
+                <Style TargetType="Rectangle" />
+            </Rectangle.Style>
+        </Rectangle>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="15" VerticalAlignment="Center" Background="{Binding UnderlayPrimary}">
+            <!-- Component Name -->
+            <Grid Margin="15,20,15,0">
+                <TextBlock Text="Name:" FontWeight="Bold" HorizontalAlignment="Left" Width="90" />
+                <TextBox Name="ComponentNameBox" HorizontalAlignment="Right" Width="200" Text="{Binding MyComponent.Name, RelativeSource={RelativeSource AncestorType=Window}}"/>
+            </Grid>
+
+            <!-- Background and Border Colors with Selected States -->
+            <Grid Margin="15,12.5,15,7.5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Labels -->
+                <TextBlock Text="Colors:" FontWeight="Bold" Grid.Row="0"/>
+                <TextBlock Text="Normal" FontWeight="Bold" Grid.Row="0" Grid.Column="1" Margin="10,0"/>
+                <TextBlock Text="Selected" FontWeight="Bold" Grid.Row="0" Grid.Column="3" Margin="10,0"/>
+
+                <!-- Background Row -->
+                <TextBlock Text="Background:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <Label x:Name="lblBackground" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="5" PreviewMouseDown="LabelSetColor">X</Label>
+                <Rectangle x:Name="rectBackground" Grid.Row="1" Grid.Column="1" Fill="{Binding MyComponent.BackgroundColor, RelativeSource={RelativeSource AncestorType=Window}}" PreviewMouseDown="SetColor">
+                </Rectangle>
+                <Popup x:Name="popBackground"
+                   PlacementTarget="{Binding ElementName=rectBackground}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                    <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                        <Slider x:Name="slidBackground" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                    </Border>
+                </Popup>
+                
+                <TextBlock Text="→" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Label x:Name="lblSelectedBackground" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="5" PreviewMouseDown="LabelSetColor">X</Label>
+                <Rectangle x:Name="rectSelectedBackground" Grid.Row="1" Grid.Column="3" Fill="{Binding MyComponent.SelectedBackgroundColor, RelativeSource={RelativeSource AncestorType=Window}}" PreviewMouseDown="SetColor"/>
+                <Popup x:Name="popSelectedBackground"
+                   PlacementTarget="{Binding ElementName=rectSelectedBackground}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                    <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                        <Slider x:Name="slidSelectedBackground" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                    </Border>
+                </Popup>
+
+                <!-- Border Row -->
+                <TextBlock Text="Border:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                <Label x:Name="lblBorder" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="5" PreviewMouseDown="LabelSetColor">X</Label>
+                <Rectangle x:Name="rectBorder" Grid.Row="2" Grid.Column="1" Fill="{Binding MyComponent.BorderColor, RelativeSource={RelativeSource AncestorType=Window}}" PreviewMouseDown="SetColor"/>
+                <Popup x:Name="popBorder"
+                   PlacementTarget="{Binding ElementName=rectBorder}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                    <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                        <Slider x:Name="slidBorder" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                    </Border>
+                </Popup>
+
+                <TextBlock Text="→" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Label x:Name="lblSelectedBorder" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="5" PreviewMouseDown="LabelSetColor">X</Label>
+                <Rectangle x:Name="rectSelectedBorder" Grid.Row="2" Grid.Column="3" Fill="{Binding MyComponent.SelectedBorderColor, RelativeSource={RelativeSource AncestorType=Window}}" PreviewMouseDown="SetColor"/>
+                <Popup x:Name="popSelectedBorder"
+                   PlacementTarget="{Binding ElementName=rectSelectedBorder}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                   IsOpen="False">
+                    <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                        <Slider x:Name="slidSelectedBorder" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                    </Border>
+                </Popup>
+            </Grid>
+
+            <Button x:Name="btnSave" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="15,0,15,15" Padding="0" Click="btnSave_Click">Save</Button>
+        </StackPanel>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="5,10,10,20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2.5*" />
+                <RowDefinition Height="3.5*" />
+            </Grid.RowDefinitions>
+
+            <!-- Width / Height -->
+            <GroupBox Header="Size" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="10,0" Margin="0,0,10,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.65*"/>
+                        <ColumnDefinition Width="0.55*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.65*"/>
+                        <ColumnDefinition Width="0.55*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <!--<RowDefinition Height="*"/>-->
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Width:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="WidthBox" Grid.Column="1" Grid.Row="0" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.Width, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="WidthComboBox"  Grid.Column="2" Grid.Row="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.WidthUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Height:" FontWeight="Bold" Grid.Column="3" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="HeightBox" Grid.Column="4" Grid.Row="0" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.Height, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="HeightComboBox"  Grid.Column="5" Grid.Row="0" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.HeightUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+
+                    <!-- Min / Max Width -->
+                    <TextBlock Text="Min Width:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="MinWidthBox" Grid.Column="1" Grid.Row="1" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.MinWidth, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="MinWidthComboBox"  Grid.Column="2" Grid.Row="1" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.MinWidthUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Min Height:" FontWeight="Bold" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="MinHeightBox" Grid.Column="4" Grid.Row="1" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.MinHeight, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="MinHeightComboBox"  Grid.Column="5" Grid.Row="1" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.MinHeightUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+
+                    <!-- Min / Max Height -->
+                    <TextBlock Text="Max Width:" FontWeight="Bold" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="MaxWidthBox" Grid.Column="1" Grid.Row="2" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.MaxWidth, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="MaxWidthComboBox"  Grid.Column="2" Grid.Row="2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.MaxWidthUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+
+                    <TextBlock Text="Max Height:" FontWeight="Bold" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" Margin="10,0,10,0"/>
+                    <TextBox Name="MaxHeightBox" Grid.Column="4" Grid.Row="2" Margin="10,10,0,10" Text="{Binding MyComponent.CompStyle.MaxHeight, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    <ComboBox Name="MaxHeightComboBox" Grid.Column="5" Grid.Row="2" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" Margin="0,10,10,10" SelectedValue="{Binding MyComponent.CompStyle.MaxHeightUnit, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="px"/>
+                        <ComboBoxItem Content="em"/>
+                        <ComboBoxItem Content="rem"/>
+                        <ComboBoxItem Content="%"/>
+                        <ComboBoxItem Content="vw"/>
+                        <ComboBoxItem Content="vh"/>
+                    </ComboBox>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Alignment" Grid.Row="1" Grid.Column="1" Padding="10,0" Margin="10,0,10,0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Justify:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10,10,5,5"/>
+                    <ComboBox Name="VerticalAlignComboBox" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Margin="10,10,10,5" SelectedValue="{Binding MyComponent.CompStyle.Justify, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="Center"/>
+                        <ComboBoxItem Content="Start"/>
+                        <ComboBoxItem Content="End"/>
+                    </ComboBox>
+                    
+                    <TextBlock Text="Align Items:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,5,5"/>
+                    <ComboBox Name="HorizontalAlignComboBox" Grid.Column="1" Grid.Row="1"  VerticalContentAlignment="Center" Margin="10,5,10,10" SelectedValue="{Binding MyComponent.CompStyle.AlignItems, RelativeSource={RelativeSource AncestorType=Window}}"         
+                     SelectedValuePath="Content">
+                        <ComboBoxItem Content="Center"/>
+                        <ComboBoxItem Content="Start"/>
+                        <ComboBoxItem Content="End"/>
+                    </ComboBox>
+
+
+                </Grid>
+            </GroupBox>
+
+            <!-- Component Type -->
+            <GroupBox Header="Component Type" Margin="10,0,10,10" Grid.Row="0" Grid.Column="1">
+                <ComboBox Name="ComponentTypeComboBox"  VerticalContentAlignment="Center" Margin="15,10" SelectedValue="{Binding MyComponent.Type, 
+                     RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                    <ComboBoxItem Content="text"/>
+                    <ComboBoxItem Content="button"/>
+                    <ComboBoxItem Content="image"/>
+                    <ComboBoxItem Content="code"/>
+                </ComboBox>
+            </GroupBox>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="10" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,10">
+                <!-- Padding / Margin GroupBox -->
+                <GroupBox Header="Padding / Margin" Margin="10,30,10,10">
+                    <Grid Margin="10,10,10,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/> <!-- Padding main label -->
+                            <RowDefinition Height="Auto"/> <!-- Padding labels -->
+                            <RowDefinition Height="Auto"/> <!-- Padding values -->
+                            <RowDefinition Height="Auto"/> <!-- Margin main label -->
+                            <RowDefinition Height="Auto"/> <!-- Margin labels -->
+                            <RowDefinition Height="Auto"/> <!-- Margin values -->
+                            <RowDefinition Height="Auto"/> <!-- Border main label -->
+                            <RowDefinition Height="Auto"/> <!-- Border Thickness -->
+                            <RowDefinition Height="Auto"/> <!-- Border Radius -->
+                            <RowDefinition Height="Auto"/> <!-- Border Color label -->
+                            <RowDefinition Height="Auto"/> <!-- Border Color value -->
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Padding -->
+                        <TextBlock Text="Padding:" FontWeight="Bold" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,2.5,0,5" VerticalAlignment="Center"/>
+                        <ComboBox Name="PaddingTypeComboBox" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,5" SelectedValue="{Binding MyComponent.CompStyle.PaddingUnit, RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                            <ComboBoxItem Content="px"/>
+                            <ComboBoxItem Content="em"/>
+                            <ComboBoxItem Content="rem"/>
+                            <ComboBoxItem Content="%"/>
+                            <ComboBoxItem Content="vw"/>
+                            <ComboBoxItem Content="vh"/>
+                        </ComboBox>
+                        <TextBlock Text="Left" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <TextBox Name="PaddingLeftBox" Grid.Row="2" Grid.Column="0" Margin="2" Text="{Binding MyComponent.CompStyle.PaddingLeft, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Top" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"/>
+                        <TextBox Name="PaddingTopBox" Grid.Row="2" Grid.Column="1" Margin="2" Text="{Binding MyComponent.CompStyle.PaddingTop, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Right" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center"/>
+                        <TextBox Name="PaddingRightBox" Grid.Row="2" Grid.Column="2" Margin="2" Text="{Binding MyComponent.CompStyle.PaddingRight, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Bottom" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center"/>
+                        <TextBox Name="PaddingBottomBox" Grid.Row="2" Grid.Column="3" Margin="2" Text="{Binding MyComponent.CompStyle.PaddingBottom, RelativeSource={RelativeSource AncestorType=Window}}"/>
+
+                        <!-- Margin -->
+                        <TextBlock Text="Margin:" FontWeight="Bold" Grid.Row="3" Grid.Column="0" Margin="0,15,0,5" VerticalAlignment="Center"/>
+                        <ComboBox Name="MarginTypeComboBox"  Grid.Row="3" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,15,0,5" SelectedValue="{Binding MyComponent.CompStyle.MarginUnit, RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                            <ComboBoxItem Content="px"/>
+                            <ComboBoxItem Content="em"/>
+                            <ComboBoxItem Content="rem"/>
+                            <ComboBoxItem Content="%"/>
+                            <ComboBoxItem Content="vw"/>
+                            <ComboBoxItem Content="vh"/>
+                        </ComboBox>
+                        <TextBlock Text="Left" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center"/>
+                        <TextBox Name="MarginLeftBox" Grid.Row="5" Grid.Column="0" Margin="2" Text="{Binding MyComponent.CompStyle.MarginLeft, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Top" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Center"/>
+                        <TextBox Name="MarginTopBox" Grid.Row="5" Grid.Column="1" Margin="2" Text="{Binding MyComponent.CompStyle.MarginTop, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Right" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Center"/>
+                        <TextBox Name="MarginRightBox" Grid.Row="5" Grid.Column="2" Margin="2" Text="{Binding MyComponent.CompStyle.MarginRight, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <TextBlock Text="Bottom" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center"/>
+                        <TextBox Name="MarginBottomBox" Grid.Row="5" Grid.Column="3" Margin="2" Text="{Binding MyComponent.CompStyle.MarginBottom, RelativeSource={RelativeSource AncestorType=Window}}"/>
+
+                        <!-- Border -->
+                        <TextBlock Text="Border:" FontWeight="Bold" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,15,0,5" />
+
+                        <!-- Border Thickness -->
+                        <TextBlock Text="Thickness:" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,5" VerticalAlignment="Center"/>
+                        <TextBox Name="BorderThicknessBox" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="1" Margin="0,0,5,0" Height="25" Text="{Binding MyComponent.CompStyle.BorderThickness, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <ComboBox Name="BorderThicknessComboBox" Grid.Row="7" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,5,0,5" SelectedValue="{Binding MyComponent.CompStyle.BorderThicknessUnit, RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                            <ComboBoxItem Content="px"/>
+                            <ComboBoxItem Content="em"/>
+                            <ComboBoxItem Content="rem"/>
+                            <ComboBoxItem Content="%"/>
+                            <ComboBoxItem Content="vw"/>
+                            <ComboBoxItem Content="vh"/>
+                        </ComboBox>
+                        
+                        <!-- Border Thickness -->
+                        <TextBlock Text="Radius:" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,5,0,5" VerticalAlignment="Center"/>
+                        <TextBox Name="BorderRadiusBox" Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="1" Margin="0,0,5,0" Height="25" Text="{Binding MyComponent.CompStyle.BorderRadius, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        <ComboBox Name="BorderRadiusComboBox"  Grid.Row="8" Grid.Column="3" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,5,0,5" SelectedValue="{Binding MyComponent.CompStyle.BorderRadiusUnit, RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                            <ComboBoxItem Content="px"/>
+                            <ComboBoxItem Content="em"/>
+                            <ComboBoxItem Content="rem"/>
+                            <ComboBoxItem Content="%"/>
+                            <ComboBoxItem Content="vw"/>
+                            <ComboBoxItem Content="vh"/>
+                        </ComboBox>
+
+                        <!-- Border Color -->
+                        <TextBlock Text="Color:" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"  Margin="0,5,0,15" VerticalAlignment="Center"/>
+                        <Label x:Name="lblBorderColor" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,-5,0,0" PreviewMouseDown="LabelSetColor">X</Label>
+                        <Rectangle x:Name="rectBorderColor" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Width="Auto" HorizontalAlignment="Stretch" Fill="{Binding MyComponent.CompStyle.BorderColor, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,0,0,5" PreviewMouseDown="SetColor"/>
+                        <Popup x:Name="popBorderColor"
+                   PlacementTarget="{Binding ElementName=rectBorderColor}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                            <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                                <Slider x:Name="slidBorderColor" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Background Gradient / Image GroupBox -->
+                <GroupBox Header="Background Gradient / Image" Margin="10,0,10,10">
+                    <StackPanel Margin="10,10,10,15">
+                        <!-- Gradient Type -->
+                        <TextBlock Text="Gradient Type:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Type:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <ComboBox Name="GradientTypeComboBox"  Grid.Column="1" HorizontalAlignment="Stretch"                                 Margin="0,0,0,5" SelectedValue="{Binding MyComponent.CompStyle.GradientType, RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                                <ComboBoxItem Content="Linear"/>
+                                <ComboBoxItem Content="Radial"/>
+                            </ComboBox>
+                        </Grid>
+
+                        <!-- Gradient Stops -->
+                        <TextBlock Text="Gradient Stops:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.25*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.25*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Color 1 -->
+                            <TextBlock Text="Start:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,0,5"/>
+                            <Label x:Name="lblGradientStart" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,-7,0,0" PreviewMouseDown="LabelSetColor">X</Label>
+                            <Rectangle x:Name="rectGradientStart" Grid.Row="0" Grid.Column="1" Width="Auto" Fill="{Binding MyComponent.CompStyle.GradientStart, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0,0,0,5" PreviewMouseDown="SetColor"/>
+                            <Popup x:Name="popGradientStart"
+                   PlacementTarget="{Binding ElementName=rectGradientStart}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                                <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                                    <Slider x:Name="slidGradientStart" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                                </Border>
+                            </Popup>
+                            
+                            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+                                <TextBox Name="Color1Percent" Width="50" Margin="5" HorizontalAlignment="Right" Text="{Binding MyComponent.CompStyle.GradientStartPercent, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                <TextBlock Text="%" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <!-- Color 2 -->
+                            <TextBlock Text="End:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0"/>
+                            <Label x:Name="lblGradientEnd" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Margin="0,0,0,0" PreviewMouseDown="LabelSetColor">X</Label>
+                            <Rectangle x:Name="rectGradientEnd" Grid.Row="1" Grid.Column="1" Width="Auto" Fill="{Binding MyComponent.CompStyle.GradientEnd, RelativeSource={RelativeSource AncestorType=Window}}" Margin="0" PreviewMouseDown="SetColor"/>
+                            <Popup x:Name="popGradientEnd"
+                   PlacementTarget="{Binding ElementName=rectGradientEnd}"
+                   Placement="Bottom"
+                   StaysOpen="True"
+                   AllowsTransparency="True"
+                    IsOpen="False">
+                                <Border Background="{Binding BackgroundGradStart}" Padding="5" CornerRadius="4">
+                                    <Slider x:Name="slidGradientEnd" Minimum="0" Maximum="255" Width="120" ValueChanged="SliderChange" />
+                                </Border>
+                            </Popup>
+                            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0">
+                                <TextBox Name="Color2Percent" Width="50" Margin="5" HorizontalAlignment="Right" Text="{Binding MyComponent.CompStyle.GradientEndPercent, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                <TextBlock Text="%" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Separator Margin="0,5,0,15"/>
+
+                        <!-- Use Background Image -->
+                        <CheckBox Name="UseBackgroundImageCheckBox" FontSize="12" Content="Use Background Image" Margin="0,0,0,10" IsChecked="{Binding MyComponent.CompStyle.UseBackgroundImage, RelativeSource={RelativeSource AncestorType=Window}}" />
+
+                        <!-- Image Path -->
+                        <TextBlock Text="Background Image:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="tbBackgroundImage" Height="30" IsReadOnly="True" Grid.Column="0" Text="{Binding MyComponent.CompStyle.BackgroundImage, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            <Button x:Name="btnBackgroundImage" Margin="5,0,0,0" Height="30" BorderThickness="2" Grid.Column="1" Click="btnBackgroundImage_Click">
+                                <Image Source="../Icons/edit.png" />
+                            </Button>
+                        </Grid>
+
+                        <Grid Margin="0,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Alignment -->
+                            <TextBlock Text="Alignment:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,5" Height="25"/>
+                            <ComboBox x:Name="ImageAlignmentComboBox"
+                                
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="0,0,0,5"
+                                HorizontalAlignment="Stretch"
+                                SelectedValue="{Binding MyComponent.CompStyle.BackgroundImageAlignment, RelativeSource={RelativeSource AncestorType=Window}}"         
+                                SelectedValuePath="Content">
+                                <ComboBoxItem Content="Center"/>
+                                <ComboBoxItem Content="Left"/>
+                                <ComboBoxItem Content="Right"/>
+                                <ComboBoxItem Content="Stretch"/>
+                            </ComboBox>
+
+                            <!-- Stretch -->
+                            <TextBlock Text="Stretch:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <ComboBox Name="ImageStretchComboBox"
+                                SelectedIndex="3"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"       
+                                SelectedValue="{Binding MyComponent.CompStyle.BackgroundImageStretch, RelativeSource={RelativeSource AncestorType=Window}}"                 
+                                SelectedValuePath="Content">
+                                <ComboBoxItem Content="None"/>
+                                <ComboBoxItem Content="Fill"/>
+                                <ComboBoxItem Content="Uniform"/>
+                                <ComboBoxItem Content="UniformToFill"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Visual" Grid.Column="1" Margin="10,0,10,10">
+                    <Grid Margin="0,0,0,7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Row 1: Opacity -->
+                        <TextBlock Text="Opacity:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10,10,5,10"/>
+                        <Slider Name="OpacitySlider" Minimum="0" Maximum="1" SmallChange="0.01" LargeChange="0.1" TickFrequency="0.1" IsSnapToTickEnabled="False" Grid.Column="1" VerticalAlignment="Center" Margin="0,5,10,5" Value="{Binding MyComponent.CompStyle.Opacity, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                        
+
+                        <!-- Row 2: Overflow -->
+                        <TextBlock Text="Overflow:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10,5,10,5"/>
+                        <ComboBox Name="OverflowComboBox" Grid.Column="1" Grid.Row="1"  Margin="0,7,10,7" SelectedValue="{Binding MyComponent.CompStyle.Overflow, RelativeSource={RelativeSource AncestorType=Window}}"         
+SelectedValuePath="Content">
+                            <ComboBoxItem Content="Visible"/>
+                            <ComboBoxItem Content="Hidden"/>
+                            <ComboBoxItem Content="Scroll"/>
+                            <ComboBoxItem Content="Auto"/>
+                        </ComboBox>
+
+                        <!-- Row 3: Z-Index -->
+                        <TextBlock Text="Z-Index:" FontWeight="Bold" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" Margin="10,10,5,10"/>
+                        <TextBox Name="ZIndexBox" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Stretch" Margin="0,7,10,7" Text="{Binding MyComponent.CompStyle.ZIndex, RelativeSource={RelativeSource AncestorType=Window}}"/>
+
+                        <!-- Row 4: Box Shadow -->
+                        <TextBlock Text="Box Shadow:" FontWeight="Bold" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" Margin="10,10,5,10"/>
+                        <TextBox Name="BoxShadowBox" Grid.Column="1" Grid.Row="3" Margin="0,7,10,7" ToolTip="Format: h-offset v-offset blur-radius color" Text="{Binding MyComponent.CompStyle.BoxShadow, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+        <Label
+            Style="{StaticResource Heading}"
+            VerticalAlignment="Top"
+            Margin="10,0"
+            Grid.Row="1" Grid.Column="0" 
+            Content="Styles" >
+        </Label>
+
+        <Frame x:Name="frameHost" Grid.Row="1" Grid.Column="1" DockPanel.Dock="Bottom" Visibility="Visible" Margin="20" />
+
+    </Grid>
+    
+</Window>

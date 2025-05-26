@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Window = System.Windows.Window;
 
@@ -268,6 +269,11 @@ namespace SWD.Content
                 }
                 catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
             }
+        }
+
+        private void btnCompEdit_Click(object sender, RoutedEventArgs e)
+        {
+            EditComponent(sender, e);
         }
     }
 }

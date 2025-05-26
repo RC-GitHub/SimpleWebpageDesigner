@@ -427,8 +427,12 @@
                             Foreground="{Binding HeaderFont}"
                             BorderBrush="{Binding HeaderSecondary}"
                             Background="{Binding HeaderPrimary}"
-                           Margin="10"
+                           Margin="10,10,52,10"
                         />
+                        <Button x:Name="btnCompEdit" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="30" Margin="11,0" Click="btnCompEdit_Click">
+                            <Image x:Name="imgCompEdit" Source="../Icons/edit.png"  />
+                        </Button>
+
 
                         <Label x:Name="lblCompWidth" Grid.Column="0" Grid.Row="1" Content="Width:" HorizontalAlignment="Left" VerticalAlignment="Center"                                Margin="10,0,0,0"/>
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
@@ -522,11 +526,12 @@
                     
                     <DataGrid.ContextMenu>
                         <ContextMenu x:Name="cellContextMenu" Opened="cellContextMenu_Opened">
+                            <MenuItem x:Name="miEdit" Header="Edit" Click="EditComponent" Visibility="Collapsed"/>
+                            <MenuItem x:Name="miDelete" Header="Delete" Click="DeleteComponent" Visibility="Collapsed"/>
+                            <Separator x:Name="cmActionSeparator" Visibility="Collapsed" />
                             <MenuItem x:Name="miText" Header="Text (simple)" Click="AddComponent"/>
                             <MenuItem x:Name="miImage" Header="Image" Click="AddComponent"/>
                             <MenuItem x:Name="miCode" Header="Code" Click="AddComponent"/>
-                            <Separator x:Name="cmActionSeparator" Visibility="Collapsed" />
-                            <MenuItem x:Name="miDelete" Header="Delete" Click="DeleteComponent" Visibility="Collapsed"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     

@@ -11,6 +11,9 @@ using System.Drawing;
 using ColorConverter = System.Windows.Media.ColorConverter;
 using Color = System.Windows.Media.Color;
 using System.ComponentModel;
+using Brush = System.Windows.Media.Brush;
+using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace SWD
 {
@@ -72,19 +75,101 @@ namespace SWD
         public int ColAmount { get; set; }
     }
 
-    internal class Component
+    public class Component : INotifyPropertyChanged
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public ComponentContent Content { get; set; } = new ComponentContent();
+
         public int Rowspan { get; set; }
         public int Colspan { get; set; }        
         public int StartRow { get; set; }
         public int StartColumn { get; set; }
-        public SolidColorBrush BorderColor { get; set; }
-        public SolidColorBrush BackgroundColor { get; set; }
-        public SolidColorBrush SelectedBorderColor { get; set; }
-        public SolidColorBrush SelectedBackgroundColor { get; set; }
+
+        private ComponentStyle _CompStyle { get; set; } = new ComponentStyle();
+        private SolidColorBrush _BorderColor { get; set; }
+        public SolidColorBrush BorderColor
+        {
+            get => _BorderColor;
+            set
+            {
+                if (_BorderColor != value)
+                {
+                    _BorderColor = value;
+                    OnPropertyChanged(nameof(BorderColor));
+                }
+            }
+        }
+        private SolidColorBrush _BackgroundColor { get; set; }
+        public SolidColorBrush BackgroundColor
+        {
+            get => _BackgroundColor;
+            set
+            {
+                if (_BackgroundColor != value)
+                {
+                    _BackgroundColor = value;
+                    OnPropertyChanged(nameof(BackgroundColor));
+                }
+            }
+        }
+        public ComponentStyle CompStyle
+        {
+            get => _CompStyle;
+            set
+            {
+                if (_CompStyle != value)
+                {
+                    _CompStyle = value;
+                    OnPropertyChanged(nameof(ComponentStyle));
+                }
+            }
+        }
+        private SolidColorBrush _SelectedBorderColor { get; set; }
+        public SolidColorBrush SelectedBorderColor
+        {
+            get => _SelectedBorderColor;
+            set
+            {
+                if (_SelectedBorderColor != value)
+                {
+                    _SelectedBorderColor = value;
+                    OnPropertyChanged(nameof(SelectedBorderColor));
+                }
+            }
+        }
+        private SolidColorBrush _SelectedBackgroundColor { get; set; }
+        public SolidColorBrush SelectedBackgroundColor
+        {
+            get => _SelectedBackgroundColor;
+            set
+            {
+                if (_SelectedBackgroundColor != value)
+                {
+                    _SelectedBackgroundColor = value;
+                    OnPropertyChanged(nameof(SelectedBackgroundColor));
+                }
+            }
+        }
         public List<Position> Positions { get; set; }
+        public byte Alpha
+        {
+            get => BackgroundColor.Color.A;
+            set
+            {
+                Color oldColor = BackgroundColor.Color;
+                BackgroundColor = new SolidColorBrush(Color.FromArgb(value, oldColor.R, oldColor.G, oldColor.B));
+                OnPropertyChanged(nameof(Alpha));
+                OnPropertyChanged(nameof(BackgroundColor));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void Spanning()
         {
@@ -150,6 +235,7 @@ namespace SWD
             {
                 Name = Name,
                 Type = Type,
+                CompStyle = CompStyle,
                 Rowspan = Rowspan,
                 Colspan = Colspan,
                 StartRow = StartRow,
@@ -175,7 +261,115 @@ namespace SWD
         }
     }
 
-    internal class Position
+    public class ComponentStyle : INotifyPropertyChanged
+    {
+        public string PaddingUnit { get; set; } = "px";
+        public int PaddingLeft { get; set; }
+        public int PaddingTop { get; set; }
+        public int PaddingRight { get; set; }
+        public int PaddingBottom { get; set; }
+
+        public string MarginUnit { get; set; } = "px";
+        public int MarginLeft { get; set; }
+        public int MarginTop { get; set; }
+        public int MarginRight { get; set; }
+        public int MarginBottom { get; set; }
+
+        public string BorderThicknessUnit { get; set; } = "px";
+        public int BorderThickness { get; set; }
+        public string BorderRadiusUnit { get; set; } = "px";
+        public int BorderRadius { get; set; }
+        private SolidColorBrush _BorderColor { get; set; } = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        public SolidColorBrush BorderColor
+        {
+            get => _BorderColor;
+            set
+            {
+                if (_BorderColor != value)
+                {
+                    _BorderColor = value;
+                    OnPropertyChanged(nameof(BorderColor));
+                }
+            }
+        }
+
+        public string GradientType { get; set; } = "Linear";
+        public SolidColorBrush _GradientStart { get; set; } = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        public SolidColorBrush GradientStart
+        {
+            get => _GradientStart;
+            set
+            {
+                if (_GradientStart != value)
+                {
+                    _GradientStart = value;
+                    OnPropertyChanged(nameof(GradientStart));
+                }
+            }
+        }
+        public int GradientStartPercent { get; set; } = 0;
+        public SolidColorBrush _GradientEnd { get; set; } = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        public SolidColorBrush GradientEnd
+        {
+            get => _GradientEnd;
+            set
+            {
+                if (_GradientEnd != value)
+                {
+                    _GradientEnd = value;
+                    OnPropertyChanged(nameof(GradientEnd));
+                }
+            }
+        }
+        public int GradientEndPercent { get; set; } = 100;
+
+        public bool UseBackgroundImage { get; set; } = false;
+        public string BackgroundImage { get; set; }
+        public string BackgroundImageAlignment { get; set; } = "Center";
+        public string BackgroundImageStretch { get; set; } = "UniformToFill";
+
+        public float Opacity { get; set; } = 1;
+        public string Overflow { get; set; } = "Visible";
+        public string ZIndex { get; set; } = "Auto";
+        public string BoxShadow { get; set; } = "0px 0px 0px #00000000";
+
+        public int Width { get; set; }
+        public int MinWidth { get; set; }
+        public int MaxWidth { get; set; }
+        public string WidthUnit { get; set; } = "px";
+        public string MinWidthUnit { get; set; } = "px";
+        public string MaxWidthUnit { get; set; } = "px";
+
+        public int Height { get; set; }
+        public int MinHeight { get; set; }
+        public int MaxHeight { get; set; }
+        public string HeightUnit { get; set; } = "px";
+        public string MinHeightUnit { get; set; } = "px";
+        public string MaxHeightUnit { get; set; } = "px";
+
+        public string Justify { get; set; } = "Center";
+        public string AlignItems { get; set; } = "Center";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    public class ComponentContent
+    {
+        public string Text { get; set; } = "";
+        public string FontFamily { get; set; } = "Arial";
+        public int FontSize { get; set; } = 12;
+        public string FontWeight { get; set; } = "Normal";
+        public string FontStyle { get; set; } = "Normal";
+        public string FontLine { get; set; } = "None";
+        public SolidColorBrush ForegroundColor { get; set; } = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+        public string TextHorizontal { get; set; } = "Left";
+        public string TextVertical { get; set; } = "Top";
+        public bool IsTextSelectable { get; set; } = true;
+    }
+
+        public class Position
     {
         public int Row { get; set; }
         public int Column { get; set; }
@@ -187,5 +381,4 @@ namespace SWD
         public int RowAmount { get; set; }
         public int ColAmount { get; set; }
     }
-
 }
