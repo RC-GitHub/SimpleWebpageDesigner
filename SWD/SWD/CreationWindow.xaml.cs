@@ -103,6 +103,9 @@ namespace SWD
             {
                 lsbLinks.Items.Add(link);
             }
+            HtmlEditor.Text = head.CodeHTML;
+            CssEditor.Text = head.CodeCSS;
+            JsEditor.Text = head.CodeJS;
         }
 
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -214,7 +217,10 @@ namespace SWD
                             Author = author,
                             Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
                             Description = description,
-                            Layout = baseLayout
+                            Layout = baseLayout,
+                            CodeHTML = HtmlEditor.Text,
+                            CodeCSS = CssEditor.Text,
+                            CodeJS = JsEditor.Text
                         }
                     };
 
@@ -270,7 +276,10 @@ namespace SWD
                             Author = author,
                             Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
                             Description = description,
-                            Layout = baseLayout
+                            Layout = baseLayout,
+                            CodeHTML = HtmlEditor.Text,
+                            CodeCSS = CssEditor.Text,
+                            CodeJS = JsEditor.Text
                         }
                     };
 
@@ -331,6 +340,7 @@ namespace SWD
         private void btnBodyEdit_Click(object sender, RoutedEventArgs e) => popupBody.IsOpen = true;
         private void btnGridEdit_Click(object sender, RoutedEventArgs e) => popupGrid.IsOpen = true;
         private void btnFooterEdit_Click(object sender, RoutedEventArgs e) => popupFooter.IsOpen = true;
+        private void btnCode_Click(object sender, RoutedEventArgs e) => popupCode.IsOpen = true;
 
         private void SetColor(object sender, MouseButtonEventArgs e)
         {

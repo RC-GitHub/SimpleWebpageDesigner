@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
         xmlns:local="clr-namespace:SWD"
         mc:Ignorable="d"
         Title="CreationWindow" 
@@ -42,12 +43,13 @@
                 <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="3*" />
-                <RowDefinition Height="1.25*" />
+                <RowDefinition Height="60*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="110*" />
+                <RowDefinition Height="70*" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50*" />
             </Grid.RowDefinitions>
             <Grid.Resources>
                 <Style TargetType="TextBox">
@@ -59,11 +61,13 @@
                         <Setter.Value>
                             <ControlTemplate TargetType="TextBox">
                                 <Border x:Name="tbContent"
-                        BorderBrush="{Binding ButtonSecondary}"
-                        BorderThickness="2"
-                        Background="White">
-                                    <ScrollViewer x:Name="PART_ContentHost"
-                                  Margin="0" />
+                                    BorderBrush="{Binding ButtonSecondary}"            
+                                    BorderThickness="2"
+                                    Background="White">
+                                    <ScrollViewer 
+                                        x:Name="PART_ContentHost"
+                                        FontSize="12"
+                                        Margin="0" />
                                 </Border>
 
                                 <ControlTemplate.Triggers>
@@ -92,13 +96,13 @@
                 </Style>
             </Grid.Resources>
 
-            <Label Grid.ColumnSpan="2" Grid.Column="0" x:Name="lblFillTheData" Content="Fill with Metadata" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Grid.ColumnSpan="2" Grid.Column="0" x:Name="lblFillTheData" Content="Fill with Metadata" FontFamily="Century Gothic" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
             <Label Grid.Column="0" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5,2" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="16" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
 
             <Label Grid.Column="0" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5,2" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" FontSize="16"/>
 
             <Label Grid.Column="0" Grid.Row="3" x:Name="lblKeywords" Content="Keywords" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Grid x:Name="Griddy" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" >
@@ -111,29 +115,71 @@
                     <RowDefinition Height="4*" />
                 </Grid.RowDefinitions>
 
-                <TextBox Grid.Column="0" Grid.Row="0" x:Name="tbKeyword" Padding="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" LostFocus="tb_LostFocus" GotFocus="tb_GotFocus" PreviewKeyDown="tbKeyword_PreviewKeyDown"/>
-                <Button x:Name="btnAdd" Content="+" Grid.Column="1" Grid.Row="0" Width="40" Height="40" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnAdd_Click" />
+                <TextBox Grid.Column="0" Grid.Row="0" x:Name="tbKeyword" Padding="5,2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AcceptsReturn="True" LostFocus="tb_LostFocus" GotFocus="tb_GotFocus" PreviewKeyDown="tbKeyword_PreviewKeyDown" FontSize="16"/>
+                <Button x:Name="btnAdd" Content="+" Grid.Column="1" Grid.Row="0" Width="32" Height="32" FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnAdd_Click" />
 
-                <ListBox x:Name="lsbKeywords" Grid.Column="0" Grid.Row="1" Padding="5" >
+                <ListBox x:Name="lsbKeywords" Grid.Column="0" Grid.Row="1" Padding="5,2" >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="Height" Value="30"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
                 </ListBox>
-                <Button x:Name="btnRemove" Content="-" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="40" Height="40" Margin="10,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Click="btnRemove_Click"/>
+                <Button x:Name="btnRemove" Content="-" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="32" Height="32" FontSize="18" Margin="10,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top" Click="btnRemove_Click"/>
             </Grid>
 
 
             <Label Grid.Column="0" Grid.Row="4" x:Name="lblDescription" Content="Description" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbDescription" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
 
-            <Button x:Name="btnSubmit" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Content="Submit" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center" Click="btnSubmit_Click" Width="350" Height="50"/>
+
+            <Label Grid.Column="0" Grid.Row="5" x:Name="lblCode" Content="Code Editor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button x:Name="btnCode" Grid.Row="5" Grid.Column="1" Content="Open code editor" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Center" Click="btnCode_Click" Height="40"/>
+            <Popup x:Name="popupCode" Placement="Left" StaysOpen="False" PlacementTarget="{Binding ElementName=btnCode}">
+                <Border Background="{Binding BackgroundGradEnd}" BorderBrush="{Binding DataContext.ButtonSecondary, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="2" Padding="20" MaxHeight="300">
+                    <Grid Width="450" Margin="10">
+                        <TabControl Background="{Binding OverlayPrimary}">
+                            <TabItem Header="HTML">
+                                <avalonedit:TextEditor Name="HtmlEditor"
+                                      ShowLineNumbers="True"
+                                      SyntaxHighlighting="HTML"
+                                      FontFamily="Consolas"
+                                      FontSize="14"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      />
+                            </TabItem>
+                            <TabItem Header="CSS">
+                                <avalonedit:TextEditor Name="CssEditor"
+                                      ShowLineNumbers="True"
+                                      SyntaxHighlighting="CSS"
+                                      FontFamily="Consolas"
+                                      FontSize="14"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      />
+                            </TabItem>
+                            <TabItem Header="JavaScript">
+                                <avalonedit:TextEditor Name="JsEditor"
+                                      ShowLineNumbers="True"
+                                      SyntaxHighlighting="JavaScript"
+                                      FontFamily="Consolas"
+                                      FontSize="14"
+                                      VerticalScrollBarVisibility="Auto"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      />
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </Border>
+            </Popup>
+
+            <Button x:Name="btnSubmit" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="5" Content="Submit" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center" Click="btnSubmit_Click" Width="350" Height="50"/>
 
             <Label Grid.ColumnSpan="2" Grid.Column="3" x:Name="lblSetLayout" Content="Tweak the Base Layout" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-            <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4"
-        BorderBrush="{Binding ButtonSecondary}" BorderThickness="2" CornerRadius="10" Margin="0,0,0,20" Padding="10">
-                <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4">
+            <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5"
+        BorderBrush="{Binding ButtonSecondary}" BorderThickness="2" CornerRadius="10" Padding="10">
+                <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="5">
                     <Border BorderThickness="2" CornerRadius="10" BorderBrush="Transparent">
                         <Grid Background="{Binding baseLayout.BodyColor, RelativeSource={RelativeSource AncestorType=Window}}">
                             <Grid.RowDefinitions>
@@ -197,6 +243,7 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
                                     <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Header Settings" FontWeight="Bold" Margin="0,0,0,10"/>
@@ -226,7 +273,7 @@
                                     <TextBox x:Name="tbLinkTitle" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="" Height="30" VerticalAlignment="Top"/>
                                     <Label Grid.Row="8" Content="Link href" Margin="0,0,0,10" VerticalAlignment="Top"/>
                                     <TextBox x:Name="tbLinkHref" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="" Height="30" VerticalAlignment="Top"/>
-                                    <ListBox x:Name="lsbLinks" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="4" Height="200">
+                                    <ListBox x:Name="lsbLinks" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="4" Height="220">
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="ListBoxItem">
                                                 <Setter Property="Height" Value="30"/>
@@ -241,6 +288,15 @@
                                     <Button Grid.Row="12" Grid.Column="2" x:Name="btnLinkAccept" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="40" Margin="10,0,0,0" Width="40" VerticalAlignment="Top" Click="btnLinkAccept_Click" IsEnabled="False">
                                         <Image Source="Icons/build.png" />
                                     </Button>
+                                    <Label Grid.Row="13" Content="Link style"/>
+                                    <ComboBox Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" SelectedValue="{Binding baseLayout.HeaderLinkStyle, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="Body-Grid"/>
+                                        <ComboBoxItem Content="Body-Footer"/>
+                                        <ComboBoxItem Content="Grid-Body"/>
+                                        <ComboBoxItem Content="Grid-Footer"/>
+                                        <ComboBoxItem Content="Footer-Body"/>
+                                        <ComboBoxItem Content="Footer-Grid"/>
+                                    </ComboBox>
                                 </Grid>
                             </ScrollViewer>
                         </Border>
