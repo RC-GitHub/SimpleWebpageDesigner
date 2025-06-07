@@ -98,7 +98,11 @@ namespace SWD.Components
                     break;
 
                 case "image":
-                    editorPage = (new ImageSimple(MyComponent.Content, projectPath)); // Use your actual image UserControl
+                    editorPage = (new ImageSimple(MyComponent.Content, projectPath)); 
+                    break;
+
+                case "code":
+                    editorPage = new CodeSimple(MyComponent.Content);
                     break;
 
                 default:
@@ -120,6 +124,10 @@ namespace SWD.Components
             {
                 imagePage.NavigationService.Navigated += NavigationService_Navigated;
             }
+            else if (sender is CodeSimple codePage)
+            {
+                codePage.NavigationService.Navigated += NavigationService_Navigated;
+            }
         }
 
         private void NavigationService_Navigated(object sender, NavigationEventArgs e)
@@ -131,6 +139,10 @@ namespace SWD.Components
             else if (e.Content is ImageSimple imagePage)
             {
                 MyComponent.Content = imagePage.ComponentContent;
+            }
+            else if (e.Content is CodeSimple codePage)
+            {
+                MyComponent.Content = codePage.ComponentContent;
             }
 
             frameHost.Visibility = Visibility.Collapsed;
@@ -329,6 +341,9 @@ namespace SWD.Components
                     break;
                 case "image":
                     frameHost.Content = new ImageSimple(MyComponent.Content, projectPath); 
+                    break;
+                case "code":
+                    frameHost.Content = new CodeSimple(MyComponent.Content);
                     break;
                 default:
                     frameHost.Content = null;

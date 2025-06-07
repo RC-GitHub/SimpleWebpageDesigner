@@ -19,6 +19,9 @@ namespace SWD
         public string[] Keywords { get; set; }
         public string Description { get; set; }
         public BaseLayout Layout { get; set; }
+        public string CodeHTML { get; set; } = "";
+        public string CodeCSS { get; set; } = "";
+        public string CodeJS { get; set; } = "";
     }
 
     public class BaseLayout : INotifyPropertyChanged
@@ -69,6 +72,13 @@ namespace SWD
             set => SetProperty(ref _headerLinks, value);
         }
 
+        private string _headerLinkStyle = "Grid-Footer";
+        public string HeaderLinkStyle
+        {
+            get => _headerLinkStyle;
+            set => SetProperty(ref _headerLinkStyle, value);
+        }
+
         private SolidColorBrush _bodyColor;
         public SolidColorBrush BodyColor
         {
@@ -109,6 +119,20 @@ namespace SWD
         {
             get => _gridWidthUnit;
             set => SetProperty(ref _gridWidthUnit, value);
+        }
+
+        private float _gridGap = 10;
+        public float GridGap
+        {
+            get => _gridGap;
+            set => SetProperty(ref _gridGap, value);
+        }
+
+        private string _gridGapUnit = "px";
+        public string GridGapUnit
+        {
+            get => _gridGapUnit;
+            set => SetProperty(ref _gridGapUnit, value);
         }
 
         private float _gridBorderRadius = 0;

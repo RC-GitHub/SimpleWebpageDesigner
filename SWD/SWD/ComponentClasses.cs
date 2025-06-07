@@ -389,6 +389,10 @@ namespace SWD
         public string ImageVAlign { get; set; } = "Center";
         public string ImageStretch { get; set; } = "Uniform";
         public string ImageFilter { get; set; } = "None";
+
+        public string CodeHTML { get; set; } = "";
+        public string CodeCSS { get; set; } = "";
+        public string CodeJS { get; set; } = "";
     }
 
     public class Position

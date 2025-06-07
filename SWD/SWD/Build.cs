@@ -67,71 +67,107 @@ namespace SWD
             var metadata = JsonSerializer.Deserialize<List<Head>>(metadataJson, options)?[0];
 
             var data = JsonSerializer.Deserialize<List<PageData>>(json, options);
-
             if (data == null || data.Count == 0)
                 return "<html><body><p>Invalid or empty layout.</p></body></html>";
 
             var layout = data[0];
             var html = new StringBuilder();
-            var css = new StringBuilder();
 
-            html.AppendLine("<html><head>");
-            html.AppendLine("<meta charset=\"UTF-8\">");
-            html.AppendLine($"<title>{metadata?.ProjectName ?? "Generated Page"}</title>");
-            html.AppendLine($"<meta name=\"author\" content=\"{metadata?.Author}\">");
-            html.AppendLine($"<meta name=\"description\" content=\"{metadata?.Description}\">");
-            html.AppendLine($"<meta name=\"keywords\" content=\"{string.Join(", ", metadata?.Keywords ?? Array.Empty<string>())}\">");
-            // Start <style>
-            html.AppendLine("<style>");
-            html.AppendLine(@"
-                * {
-                    margin: 0;
-                    padding: 0;
-                    box-sizing: border-box;
-                }
-                body {
-                    display: flex;
-                    align-items: " + MapJustifyOrAlign(metadata?.Layout?.GridHAlign) + @";
-                    flex-direction: column;
-                    background-color: " + ToCssColor(metadata?.Layout?.BodyColor) + @";
-                    width: " + metadata?.Layout?.BodyWidth + metadata?.Layout?.BodyWidthUnit + @";
-                    margin: 0 auto;
-                }
-                header {
-                    width: 100vw;
-                    height: 100px;
-                    background-color: " + ToCssColor(metadata?.Layout?.HeaderColor) + @";
-                    padding: " + metadata?.Layout?.HeaderPadding + metadata?.Layout?.HeaderPaddingUnit + @";
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-                footer {
-                    width: 100vw;
-                    height: 300px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    background-color: " + ToCssColor(metadata?.Layout?.FooterColor) + @";
-                    padding: " + metadata?.Layout?.FooterPadding + metadata?.Layout?.FooterPaddingUnit + @";
-                    text-align: center;
-                }
-                .grid-container {
-                    display: grid;
-                    width: " + metadata?.Layout?.GridWidth + metadata?.Layout?.GridWidthUnit + @";
-                    margin: " + metadata?.Layout?.GridMargin + metadata?.Layout?.GridMarginUnit + @";
-                    padding: " + metadata?.Layout?.GridPadding + metadata?.Layout?.GridPaddingUnit + @";
-                    background-color: " + ToCssColor(metadata?.Layout?.GridColor) + @";
-                    border-radius: " + metadata?.Layout?.GridBorderRadius + metadata?.Layout?.GridBorderRadiusUnit + @";
-                }
-                .grid-item {
-                    box-sizing: border-box;
-                    overflow: hidden;
-                }
-            ");
+            // Compose color variables
+            string headerColor = ToCssColor(metadata?.Layout?.HeaderColor);
+            string bodyColor = ToCssColor(metadata?.Layout?.BodyColor);
+            string gridColor = ToCssColor(metadata?.Layout?.GridColor);
+            string footerColor = ToCssColor(metadata?.Layout?.FooterColor);
 
+            string backgroundColor = "transparent";
+            string borderColor = "transparent";
+
+            if (!string.IsNullOrWhiteSpace(metadata.Layout.HeaderLinkStyle) && metadata.Layout.HeaderLinkStyle.Contains("-"))
+            {
+                var parts = metadata.Layout.HeaderLinkStyle.Split('-');
+                string bgKey = parts[0].Trim().ToLower();
+
+                if (bgKey == "body") backgroundColor = bodyColor;
+                else if (bgKey == "grid") backgroundColor = gridColor;
+                else if (bgKey == "footer") backgroundColor = footerColor;
+
+                string borderKey = parts[1].Trim().ToLower();
+                if (borderKey == "body") borderColor = bodyColor;
+                else if (borderKey == "grid") borderColor = gridColor;
+                else if (borderKey == "footer") borderColor = footerColor;
+            }
+
+            // Ensure build folder and main style.css
+            string buildFolder = Path.Combine(projectPath, "build");
+            Directory.CreateDirectory(buildFolder);
+
+            string styleCssPath = Path.Combine(buildFolder, "style.css");
+
+            // Write main static CSS once if not exists
+            if (!File.Exists(styleCssPath))
+            {
+                var mainCss = $@"
+* {{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}}
+body {{
+    display: flex;
+    align-items: {MapJustifyOrAlign(metadata?.Layout?.GridHAlign)};
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: {bodyColor};
+    height: 100vh;
+    width: {metadata?.Layout?.BodyWidth}{metadata?.Layout?.BodyWidthUnit};
+    margin: 0 auto;
+}}
+header {{
+    width: 100vw;
+    height: 100px;
+    background-color: {headerColor};
+    padding: {metadata?.Layout?.HeaderPadding}{metadata?.Layout?.HeaderPaddingUnit};
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}}
+.headerlink {{
+    background-color: {backgroundColor};
+    border: 2px solid {borderColor};
+    color: {borderColor};
+    border-radius: 5px; 
+    padding: 5px;  
+}}       
+footer {{
+    width: 100vw;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: {footerColor};
+    padding: {metadata?.Layout?.FooterPadding}{metadata?.Layout?.FooterPaddingUnit};
+    text-align: center;
+}}
+.grid-container {{
+    display: grid;
+    width: {metadata?.Layout?.GridWidth}{metadata?.Layout?.GridWidthUnit};
+    margin: {metadata?.Layout?.GridMargin}{metadata?.Layout?.GridMarginUnit};
+    padding: {metadata?.Layout?.GridPadding}{metadata?.Layout?.GridPaddingUnit};
+    background-color: {gridColor};
+    border-radius: {metadata?.Layout?.GridBorderRadius}{metadata?.Layout?.GridBorderRadiusUnit};
+}}
+.grid-item {{
+    box-sizing: border-box;
+    overflow: hidden;
+}}
+{metadata?.CodeCSS}
+";
+                File.WriteAllText(styleCssPath, mainCss);
+            }
+
+            // Build dynamic styles string for this page/components inside <style>
+            var dynamicStyles = new StringBuilder();
             int index = 0;
-
             foreach (var componentEntry in layout.Components)
             {
                 var comp = componentEntry.Value;
@@ -141,7 +177,6 @@ namespace SWD
                 styles.Add($"grid-column: {comp.StartColumn + 1} / span {Math.Max(1, comp.Colspan + 1)};");
                 styles.Add($"grid-row: {comp.StartRow + 1} / span {Math.Max(1, comp.Rowspan + 1)};");
 
-                // Gradient background if present
                 var gradient = comp.CompStyle;
                 if (gradient.GradientStart != null && gradient.GradientEnd != null)
                 {
@@ -156,10 +191,7 @@ namespace SWD
                 {
                     var imagePath = Path.Combine(projectPath, "images", comp.CompStyle.BackgroundImage);
                     var imageUri = new Uri(imagePath).AbsoluteUri;
-                    //var safeUri = Uri.EscapeUriString(imageUri);
                     styles.Add($"background-image: url(\"{imageUri}\");");
-
-
                     styles.Add($"background-position:  {comp.CompStyle.BackgroundImageAlignment?.ToLower() ?? "center"};");
 
                     var stretch = comp.CompStyle.BackgroundImageStretch?.ToLower();
@@ -187,23 +219,43 @@ namespace SWD
                     }
                 }
 
-                styles.Add($"border: {comp.CompStyle.BorderThickness}{comp.CompStyle.BorderThicknessUnit} solid {ToCssColor(comp.CompStyle.BorderColor)};"); 
+                styles.Add($"border: {comp.CompStyle.BorderThickness}{comp.CompStyle.BorderThicknessUnit} solid {ToCssColor(comp.CompStyle.BorderColor)};");
                 styles.Add($"border-radius: {comp.CompStyle.BorderRadius}{comp.CompStyle.BorderRadiusUnit};");
                 styles.Add($"padding: {comp.CompStyle.PaddingTop}px {comp.CompStyle.PaddingRight}px {comp.CompStyle.PaddingBottom}px {comp.CompStyle.PaddingLeft}px;");
                 styles.Add($"margin: {comp.CompStyle.MarginTop}px {comp.CompStyle.MarginRight}px {comp.CompStyle.MarginBottom}px {comp.CompStyle.MarginLeft}px;");
                 styles.Add($"opacity: {comp.CompStyle.Opacity.ToString(CultureInfo.InvariantCulture)};");
-
                 styles.Add($"justify-content: {comp.CompStyle.Justify.ToLower()};");
                 styles.Add($"align-items: {comp.CompStyle.AlignItems.ToLower()};");
+                styles.Add($"box-shadow: {comp.CompStyle.BoxShadow};");
+                if (comp.CompStyle.ZIndex != "Auto")
+                {
+                    styles.Add($"z-index: {comp.CompStyle.ZIndex};");
+                }
                 styles.Add($"display: flex;");
 
-                css.AppendLine($".{className} {{ {string.Join(" ", styles)} }}");
+                dynamicStyles.AppendLine($".{className} {{ {string.Join(" ", styles)} }}");
             }
 
-            html.AppendLine(css.ToString());
-            html.AppendLine("</style></head><body>");
+            // Build the HTML
+            html.AppendLine("<!DOCTYPE html>");
+            html.AppendLine("<html><head>");
+            html.AppendLine("<meta charset=\"UTF-8\">");
+            html.AppendLine($"<title>{metadata?.ProjectName ?? "Generated Page"}</title>");
+            html.AppendLine($"<meta name=\"author\" content=\"{metadata?.Author}\">");
+            html.AppendLine($"<meta name=\"description\" content=\"{metadata?.Description}\">");
+            html.AppendLine($"<meta name=\"keywords\" content=\"{string.Join(", ", metadata?.Keywords ?? Array.Empty<string>())}\">");
 
-            // Insert HEADER
+            // Link main external CSS
+            html.AppendLine("<link rel=\"stylesheet\" href=\"style.css\">");
+
+            // Inject dynamic styles inside <style> tag
+            html.AppendLine("<style>");
+            html.AppendLine(dynamicStyles.ToString());
+            html.AppendLine("</style>");
+
+            html.AppendLine("</head><body>");
+
+            // HEADER
             html.AppendLine("<header>");
             if (!string.IsNullOrEmpty(metadata?.Layout?.HeaderLogo))
             {
@@ -216,21 +268,24 @@ namespace SWD
                 html.AppendLine("<nav>");
                 foreach (var link in metadata.Layout.HeaderLinks)
                 {
-                    html.AppendLine($"<a href=\"{link.Value}\" style=\"margin-left:15px;\">{link.Key}</a>");
+                    html.AppendLine($"<a class=\"headerlink\" href=\"{link.Value}\" style=\"margin-left:15px;\">{link.Key}</a>");
                 }
                 html.AppendLine("</nav>");
             }
             html.AppendLine("</header>");
 
-            // Grid
+            if (!string.IsNullOrEmpty(metadata?.CodeHTML))
+                html.AppendLine(metadata.CodeHTML);
+
+            // Grid container with dynamic columns and rows
             html.AppendLine($"<div class=\"grid-container\" style=\"grid-template-columns: repeat({layout.ColAmount}, 1fr); grid-template-rows: repeat({layout.RowAmount}, 1fr);\">");
 
-            // Generate HTML content again with assigned class
-            index = 0;
+            // Generate components HTML
+            int componentIndex = 0;
             foreach (var componentEntry in layout.Components)
             {
                 var comp = componentEntry.Value;
-                var className = $"item-{index++}";
+                var className = $"item-{componentIndex++}";
                 string innerHtml = "";
 
                 if (comp.Type == "text")
@@ -250,15 +305,21 @@ namespace SWD
 
                     innerHtml = $"<img src=\"{imageUri}\" " +
                                 $"style=\"{width} {height} object-fit: {GetCssImageStretch(content.ImageStretch)}; object-position: {content.ImageHAlign.ToLower()} {content.ImageVAlign.ToLower()};\" />";
-
+                }
+                else if (comp.Type == "code")
+                {
+                    var content = comp.Content;
+                    innerHtml = $"{content.CodeHTML}\r\n{content.CodeCSS}\r\n{content.CodeJS}";
                 }
 
                 html.AppendLine($"<div class=\"grid-item {className}\">{innerHtml}</div>");
             }
 
             html.AppendLine("</div>");
+
             html.AppendLine($"<footer>{System.Net.WebUtility.HtmlEncode(metadata?.Layout?.FooterContent ?? "")}</footer>");
             html.AppendLine("</body></html>");
+
             return html.ToString();
         }
 

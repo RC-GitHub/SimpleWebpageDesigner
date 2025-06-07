@@ -74,7 +74,7 @@ namespace SWD.Content
 
             path = directory;
             pageName = pagename;
-            ControlFile(Path.Combine(MakeJsonPath(path), pageName));
+            ControlFile(Path.Combine(MakeJsonPath(path), $"{pageName}.json"));
 
             Row obj = new Row()
             {

@@ -158,6 +158,7 @@ namespace SWD.Content
 
                     // Move the file
                     string fileName = Path.GetFileName(currentFilePath);
+                    Debug.WriteLine($"{fileName}, NAME, {currentFilePath}");
                     string destination = Path.Combine(selectedPath, fileName);
 
                     try

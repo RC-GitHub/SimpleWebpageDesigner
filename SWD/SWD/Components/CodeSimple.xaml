@@ -1,0 +1,46 @@
+﻿<Page x:Class="SWD.Components.CodeSimple"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SWD.Components"
+      xmlns:avalonedit="http://icsharpcode.net/sharpdevelop/avalonedit"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CodeSimple">
+
+    <Grid>
+        <TabControl Background="{Binding OverlayPrimary}">
+            <TabItem Header="HTML">
+                <avalonedit:TextEditor Name="HtmlEditor"
+                                       ShowLineNumbers="True"
+                                       SyntaxHighlighting="HTML"
+                                       FontFamily="Consolas"
+                                       FontSize="14"
+                                       VerticalScrollBarVisibility="Auto"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       TextChanged="HtmlEditor_TextChanged"/>
+            </TabItem>
+            <TabItem Header="CSS">
+                <avalonedit:TextEditor Name="CssEditor"
+                                       ShowLineNumbers="True"
+                                       SyntaxHighlighting="CSS"
+                                       FontFamily="Consolas"
+                                       FontSize="14"
+                                       VerticalScrollBarVisibility="Auto"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       TextChanged="CSSEditor_TextChanged"/>
+            </TabItem>
+            <TabItem Header="JavaScript">
+                <avalonedit:TextEditor Name="JsEditor"
+                                       ShowLineNumbers="True"
+                                       SyntaxHighlighting="JavaScript"
+                                       FontFamily="Consolas"
+                                       FontSize="14"
+                                       VerticalScrollBarVisibility="Auto"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       TextChanged="JSEditor_TextChanged"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Page>
