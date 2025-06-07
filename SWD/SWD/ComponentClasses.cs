@@ -78,7 +78,19 @@ namespace SWD
     public class Component : INotifyPropertyChanged
     {
         public string Name { get; set; }
-        public string Type { get; set; }
+        private string _Type { get; set; }
+        public string Type
+        {
+            get => _Type;
+            set
+            {
+                if (_Type != value)
+                {
+                    _Type = value;
+                    OnPropertyChanged(nameof(Type));
+                }
+            }
+        }
         public ComponentContent Content { get; set; } = new ComponentContent();
 
         public int Rowspan { get; set; }
@@ -236,6 +248,7 @@ namespace SWD
                 Name = Name,
                 Type = Type,
                 CompStyle = CompStyle,
+                Content = Content,
                 Rowspan = Rowspan,
                 Colspan = Colspan,
                 StartRow = StartRow,
@@ -367,9 +380,18 @@ namespace SWD
         public string TextHorizontal { get; set; } = "Left";
         public string TextVertical { get; set; } = "Top";
         public bool IsTextSelectable { get; set; } = true;
+
+
+        public string ImageName { get; set; } = "";
+        public float ImageWidth { get; set; } = 200;
+        public float ImageHeight { get; set; } = 200;
+        public string ImageHAlign { get; set; } = "Center";
+        public string ImageVAlign { get; set; } = "Center";
+        public string ImageStretch { get; set; } = "Uniform";
+        public string ImageFilter { get; set; } = "None";
     }
 
-        public class Position
+    public class Position
     {
         public int Row { get; set; }
         public int Column { get; set; }

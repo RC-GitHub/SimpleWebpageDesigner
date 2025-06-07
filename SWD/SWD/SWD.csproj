@@ -98,10 +98,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Build.cs" />
     <Compile Include="Components\ComponentWindow.xaml.cs">
       <DependentUpon>ComponentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Converter.cs" />
+    <Compile Include="Components\ImageSimple.xaml.cs">
+      <DependentUpon>ImageSimple.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\TextSimple.xaml.cs">
       <DependentUpon>TextSimple.xaml</DependentUpon>
     </Compile>
@@ -122,6 +126,10 @@
       <DependentUpon>ThemeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\ComponentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\ImageSimple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

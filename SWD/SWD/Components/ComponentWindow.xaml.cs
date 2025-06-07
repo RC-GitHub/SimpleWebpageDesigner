@@ -38,16 +38,17 @@ namespace SWD.Components
     /// </summary>
     public partial class ComponentWindow : Window, INotifyPropertyChanged
     {
-
+        public string projectPath;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         public Component MyComponent { get; set; }
-        public ComponentWindow(Component component)
+        public ComponentWindow(Component component, string path)
         {
             InitializeComponent();
+            projectPath = path;
             if (component == null)
             {
                 Errors.DisplayMessage("Component cannot be null. Please provide a valid component.");
@@ -58,7 +59,8 @@ namespace SWD.Components
             App.themeData.PropertyChanged += ThemeData_PropertyChanged;
             this.DataContext = App.themeData.CurrentTheme;
 
-            InitializeTextSimple();
+            MyComponent.PropertyChanged += MyComponent_PropertyChanged;
+            LoadEditor();
             Loaded += (s, e) => InitializeSliders();
 
             AttachHoverPopupHandlers(rectBackground, popBackground);
@@ -75,37 +77,66 @@ namespace SWD.Components
             this.DataContext = App.themeData.CurrentTheme;
         }
 
-        private void InitializeTextSimple()
+        private void MyComponent_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Component.Type))
+            {
+                LoadEditor();
+            }
+        }
+
+        private void LoadEditor()
         {
             frameHost.Visibility = Visibility.Visible;
 
-            var editorPage = new TextSimple(MyComponent.Content);
-            editorPage.Loaded += EditorPage_Loaded;
+            Page editorPage = null;
+
+            switch (MyComponent.Type?.ToLowerInvariant())
+            {
+                case "text":
+                    editorPage = (new TextSimple(MyComponent.Content));
+                    break;
+
+                case "image":
+                    editorPage = (new ImageSimple(MyComponent.Content, projectPath)); // Use your actual image UserControl
+                    break;
+
+                default:
+                    Errors.DisplayMessage("Unknown component type: " + MyComponent.Type);
+                    frameHost.Visibility = Visibility.Collapsed;
+                    return;
+            }
 
             frameHost.Navigate(editorPage);
         }
 
         private void EditorPage_Loaded(object sender, RoutedEventArgs e)
         {
-            if (sender is TextSimple editorPage)
+            if (sender is TextSimple textPage)
             {
-                editorPage.NavigationService.Navigated += NavigationService_Navigated;
+                textPage.NavigationService.Navigated += NavigationService_Navigated;
+            }
+            else if (sender is ImageSimple imagePage)
+            {
+                imagePage.NavigationService.Navigated += NavigationService_Navigated;
             }
         }
 
         private void NavigationService_Navigated(object sender, NavigationEventArgs e)
         {
-            if (e.Content is TextSimple editorPage)
-                return; 
-
-            if (frameHost.Content is TextSimple oldEditor)
+            if (e.Content is TextSimple textPage)
             {
-                MyComponent.Content = oldEditor.ComponentContent;
+                MyComponent.Content = textPage.ComponentContent;
+            }
+            else if (e.Content is ImageSimple imagePage)
+            {
+                MyComponent.Content = imagePage.ComponentContent;
             }
 
             frameHost.Visibility = Visibility.Collapsed;
             frameHost.Content = null;
         }
+
 
         private void InitializeSliders()
         {
@@ -254,8 +285,9 @@ namespace SWD.Components
 
         private void btnBackgroundImage_Click(object sender, RoutedEventArgs e)
         {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
-            string configPath = Path.Combine(projectDirectory, "Images");
+            string configPath = Path.Combine(projectPath, "images");
+            if (!Directory.Exists(configPath))
+                Directory.CreateDirectory(configPath);
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -267,7 +299,7 @@ namespace SWD.Components
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string selectedPath = openFileDialog.FileName;
-                string fileName = System.IO.Path.GetFileName(selectedPath);
+                string fileName = Path.GetFileName(selectedPath);
                 string savePath = Path.Combine(configPath, fileName);
 
                 if (selectedPath != savePath) File.Copy(selectedPath, savePath, true);
@@ -285,6 +317,33 @@ namespace SWD.Components
                 MyComponent.Content = editorPage.ComponentContent;
             }
             this.Close();
+        }
+
+        private void ComponentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selected = (ComponentTypeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
+            switch (selected)
+            {
+                case "text":
+                    frameHost.Content = new TextSimple(MyComponent.Content);
+                    break;
+                case "image":
+                    frameHost.Content = new ImageSimple(MyComponent.Content, projectPath); 
+                    break;
+                default:
+                    frameHost.Content = null;
+                    break;
+            }
+        }
+
+        private void SizeHeader_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popSize.IsOpen = true;
+        }
+
+        private void SizeHeader_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            popSize.IsOpen = false;
         }
     }
 }

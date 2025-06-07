@@ -151,7 +151,7 @@ namespace SWD.Content
 
         private void EditComponent(object sender, RoutedEventArgs e)
         {
-            Components.ComponentWindow componentWindow = new Components.ComponentWindow(currentComponent);
+            Components.ComponentWindow componentWindow = new Components.ComponentWindow(currentComponent, path);
             componentWindow.Owner = this;
             componentWindow.ShowDialog();
             components[currentComponent.Name] = componentWindow.MyComponent;

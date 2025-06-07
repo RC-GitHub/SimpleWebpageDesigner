@@ -183,8 +183,26 @@
                 <RowDefinition Height="3.5*" />
             </Grid.RowDefinitions>
 
+            <Popup x:Name="popSize"
+               Placement="Bottom"
+               StaysOpen="True"
+               AllowsTransparency="True"
+               PlacementTarget="{Binding ElementName=SizeHeader}">
+                <Border Background="{Binding HeaderPrimary}" Padding="5" CornerRadius="4" BorderBrush="{Binding HeaderSecondary}"  BorderThickness="1">
+                    <TextBlock Text="Values of 0 represent default size. If you want to make a component not visible, change its opacity in the styles section." Width="400" TextWrapping="Wrap" Foreground="{Binding HeaderFont}" />
+                </Border>
+            </Popup>
+
             <!-- Width / Height -->
-            <GroupBox Header="Size" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="10,0" Margin="0,0,10,0">
+            <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Padding="10,0" Margin="0,0,10,0">
+                <GroupBox.Header>
+                    <TextBlock x:Name="SizeHeader" FontSize="16" 
+                         MouseEnter="SizeHeader_MouseEnter" 
+                         MouseLeave="SizeHeader_MouseLeave">
+                        <Run Text="Size" />
+                        <Run Text="*" Foreground="Red"/>
+                    </TextBlock>
+                </GroupBox.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -311,7 +329,7 @@
             <!-- Component Type -->
             <GroupBox Header="Component Type" Margin="10,0,10,10" Grid.Row="0" Grid.Column="1">
                 <ComboBox Name="ComponentTypeComboBox"  VerticalContentAlignment="Center" Margin="15,10" SelectedValue="{Binding MyComponent.Type, 
-                     RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content">
+                     RelativeSource={RelativeSource AncestorType=Window}}" SelectedValuePath="Content" SelectionChanged="ComponentTypeComboBox_SelectionChanged">
                     <ComboBoxItem Content="text"/>
                     <ComboBoxItem Content="button"/>
                     <ComboBoxItem Content="image"/>
@@ -497,7 +515,7 @@
                             </StackPanel>
                         </Grid>
 
-                        <Separator Margin="0,5,0,15"/>
+                        <Separator Margin="0,5,0,15" Background="{Binding ButtonSecondary}"/>
 
                         <!-- Use Background Image -->
                         <CheckBox Name="UseBackgroundImageCheckBox" FontSize="12" Content="Use Background Image" Margin="0,0,0,10" IsChecked="{Binding MyComponent.CompStyle.UseBackgroundImage, RelativeSource={RelativeSource AncestorType=Window}}" />
@@ -606,7 +624,14 @@ SelectedValuePath="Content">
             Content="Styles" >
         </Label>
 
-        <Frame x:Name="frameHost" Grid.Row="1" Grid.Column="1" DockPanel.Dock="Bottom" Visibility="Visible" Margin="20" />
+        <Frame x:Name="frameHost" Grid.Row="1" Grid.Column="1" DockPanel.Dock="Bottom" Visibility="Visible" Margin="20" NavigationUIVisibility="Hidden">
+            <Frame.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="{Binding BackgroundGradStart}" />
+                    <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
+                </LinearGradientBrush>
+            </Frame.Background>
+        </Frame>
 
     </Grid>
     

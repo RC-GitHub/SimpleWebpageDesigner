@@ -211,5 +211,10 @@ namespace SWD.Content
         {
             this.Close();
         }
+
+        private void btnBuild_Click(object sender, RoutedEventArgs e)
+        {
+            Build.CreateDirectories(path);
+        }
     }
 }

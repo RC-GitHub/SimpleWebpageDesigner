@@ -226,7 +226,7 @@ namespace SWD
             set => SetProperty(ref UnderlayPrimaryValue, value, nameof(UnderlayPrimary));
         }
 
-        private string UnderlaySecondaryValue = "#44444444";
+        private string UnderlaySecondaryValue = "#11444444";
         public string UnderlaySecondary
         {
             get => UnderlaySecondaryValue;
