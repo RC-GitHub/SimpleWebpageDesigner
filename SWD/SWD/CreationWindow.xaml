@@ -8,11 +8,21 @@
         Title="CreationWindow" 
         MinHeight="800" 
         Height="800" 
-        MinWidth="600" 
-        MaxWidth="1000"
+        MinWidth="1200" 
         Width="600">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="{Binding ButtonPrimary}" />
+            <Setter Property="Foreground" Value="{Binding ButtonSecondary}" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
     </Window.Resources>
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -23,12 +33,13 @@
     <Grid x:Name="gdCreation">
         <Image Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
         <Rectangle Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" />
-        <Grid Margin="20">
+        <Grid Margin="50,20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="4*" />
-                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*" />
@@ -81,16 +92,16 @@
                 </Style>
             </Grid.Resources>
 
-            <Label Grid.ColumnSpan="2" Grid.Column="1" x:Name="lblFillTheData" Content="Fill with data" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label Grid.ColumnSpan="2" Grid.Column="0" x:Name="lblFillTheData" Content="Fill with Metadata" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
 
-            <Label Grid.Column="1" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-            <TextBox Grid.Column="2" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
+            <Label Grid.Column="0" Grid.Row="1" x:Name="lblProjectTitle" Content="Project title" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+            <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbProjectTitle" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
 
-            <Label Grid.Column="1" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Column="2" Grid.Row="2" x:Name="tbAuthor" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
+            <Label Grid.Column="0" Grid.Row="2" x:Name="lblAuthor" Content="Author" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBox Grid.Column="1" Grid.Row="2" x:Name="tbAuthor" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
 
-            <Label Grid.Column="1" Grid.Row="3" x:Name="lblKeywords" Content="Keywords" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <Grid x:Name="Griddy" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Stretch" >
+            <Label Grid.Column="0" Grid.Row="3" x:Name="lblKeywords" Content="Keywords" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Grid x:Name="Griddy" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Stretch" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
@@ -114,11 +125,293 @@
             </Grid>
 
 
-            <Label Grid.Column="1" Grid.Row="4" x:Name="lblDescription" Content="Description" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Column="2" Grid.Row="4" x:Name="tbDescription" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
+            <Label Grid.Column="0" Grid.Row="4" x:Name="lblDescription" Content="Description" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBox Grid.Column="1" Grid.Row="4" x:Name="tbDescription" Padding="5" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Top" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" GotFocus="tb_GotFocus" LostFocus="tb_LostFocus" />
 
-            <Button x:Name="btnSubmit" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Content="Submit" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center" Click="btnSubmit_Click" Width="350" Height="50"/>
+            <Button x:Name="btnSubmit" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Content="Submit" HorizontalAlignment="Center" Padding="5" VerticalAlignment="Center" Click="btnSubmit_Click" Width="350" Height="50"/>
 
+            <Label Grid.ColumnSpan="2" Grid.Column="3" x:Name="lblSetLayout" Content="Tweak the Base Layout" FontFamily="Century Gothic" FontSize="36" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+            <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4"
+        BorderBrush="{Binding ButtonSecondary}" BorderThickness="2" CornerRadius="10" Margin="0,0,0,20" Padding="10">
+                <Grid Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="4">
+                    <Border BorderThickness="2" CornerRadius="10" BorderBrush="Transparent">
+                        <Grid Background="{Binding baseLayout.BodyColor, RelativeSource={RelativeSource AncestorType=Window}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Header -->
+                            <Border Background="{Binding baseLayout.HeaderColor, RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="0" BorderBrush="{Binding ButtonSecondary}" BorderThickness="1">
+                                <Button x:Name="btnHeaderEdit" Content="Header" HorizontalAlignment="Center" Margin="7" Width="150" Click="btnHeaderEdit_Click"/>
+                            </Border>
+                            <TextBlock Grid.Row="0" Text="100 vw" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                            <!-- Grid -->
+                            <Border Background="{Binding baseLayout.GridColor, RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="1" BorderBrush="{Binding ButtonSecondary}" BorderThickness="1" HorizontalAlignment="{Binding baseLayout.GridHAlign, RelativeSource={RelativeSource AncestorType=Window}}" Width="350" Margin="0,50">
+                                <StackPanel VerticalAlignment="Stretch">
+                                    <TextBlock FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Run Text="{Binding baseLayout.GridWidth, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <Run Text="{Binding baseLayout.GridWidthUnit, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    </TextBlock>
+                                    <Button x:Name="btnGridEdit" Content="Grid Content" Width="150" VerticalAlignment="Center" Click="btnGridEdit_Click"/>
+                                </StackPanel>
+
+                            </Border>
+                            <Button x:Name="btnBodyEdit" Grid.Row="1" Content="Body" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="9" Width="150" Click="btnBodyEdit_Click"/>
+                            <TextBlock Grid.Row="1" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <Run Text="{Binding baseLayout.BodyWidth, RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <Run Text="{Binding baseLayout.BodyWidthUnit, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            </TextBlock>
+
+                            <!-- Footer -->
+                            <Border Background="{Binding baseLayout.FooterColor, RelativeSource={RelativeSource AncestorType=Window}}" Grid.Row="2" BorderBrush="{Binding ButtonSecondary}" BorderThickness="1">
+                                <Button x:Name="btnFooterEdit" Content="Footer" Margin="7" Width="150" Click="btnFooterEdit_Click"/>
+                            </Border>
+                            <TextBlock Grid.Row="2" Text="100 vw" FontSize="14" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </Grid>
+                    </Border>
+
+                    <!-- POPUPS -->
+                    <Popup x:Name="popupHeader" Placement="Left" StaysOpen="False" PlacementTarget="{Binding ElementName=btnHeaderEdit}">
+                        <Border Background="{Binding BackgroundGradEnd}" BorderBrush="{Binding DataContext.ButtonSecondary, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="2" Padding="20" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="350">
+                                <Grid Width="450" Margin="10" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.5*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Header Settings" FontWeight="Bold" Margin="0,0,0,10"/>
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="2" Content="Color"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding ButtonSecondary}" HorizontalAlignment="Center">X</Label>
+                                    <Border x:Name="brdPopupHeader" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35" VerticalAlignment="Top" PreviewMouseDown="SetColor" Background="Transparent">
+                                        <Rectangle Fill="{Binding baseLayout.HeaderColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    </Border>
+                                    <Label Grid.Row="3" Content="Padding"/>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding baseLayout.HeaderPadding, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding baseLayout.HeaderPaddingUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Label Grid.Row="4" Content="Logo" Margin="0,0,0,10"/>
+                                    <TextBox x:Name="tbHeaderLogo" Grid.Row="4" Grid.Column="1" Text="{Binding baseLayout.HeaderLogo, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" Height="30" VerticalAlignment="Center"  Margin="0,0,0,20"/>
+                                    <Button x:Name="btnHeaderLogo" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" Height="30" BorderThickness="2" VerticalAlignment="Top" Click="btnHeaderLogo_Click" Margin="0,0,0,20">
+                                        <Image Source="Icons/edit.png" />
+                                    </Button>
+                                    <Separator Grid.Row="6" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="7" Content="Link title" Margin="0,0,0,10" VerticalAlignment="Top" Height="30"/>
+                                    <TextBox x:Name="tbLinkTitle" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Text="" Height="30" VerticalAlignment="Top"/>
+                                    <Label Grid.Row="8" Content="Link href" Margin="0,0,0,10" VerticalAlignment="Top"/>
+                                    <TextBox x:Name="tbLinkHref" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Text="" Height="30" VerticalAlignment="Top"/>
+                                    <ListBox x:Name="lsbLinks" Grid.Row="9" Grid.ColumnSpan="2" Grid.RowSpan="4" Height="200">
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <Setter Property="Height" Value="30"/>
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </ListBox>
+                                    <Button Grid.Row="9" Grid.Column="2" x:Name="btnLinkAdd" Content="+" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="40" Height="40" Margin="10,0,0,0"  VerticalAlignment="Top" Click="btnLinkAdd_Click"/>
+                                    <Button Grid.Row="10" Grid.Column="2" x:Name="btnLinkRemove" Content="-" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="40" Height="40" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btnLinkRemove_Click"/>
+                                    <Button Grid.Row="11" Grid.Column="2" x:Name="btnLinkEdit" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="40" Margin="10,0,0,0" Width="40" VerticalAlignment="Top" Click="btnLinkEdit_Click">
+                                        <Image Source="Icons/edit.png" />
+                                    </Button>
+                                    <Button Grid.Row="12" Grid.Column="2" x:Name="btnLinkAccept" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="40" Margin="10,0,0,0" Width="40" VerticalAlignment="Top" Click="btnLinkAccept_Click" IsEnabled="False">
+                                        <Image Source="Icons/build.png" />
+                                    </Button>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+
+                    <Popup x:Name="popupBody" Placement="Bottom" StaysOpen="False" PlacementTarget="{Binding ElementName=btnBodyEdit}">
+                        <Border Background="{Binding BackgroundGradEnd}" BorderBrush="{Binding DataContext.ButtonSecondary, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="2" Padding="20" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="350">
+                                <Grid Width="450" Margin="10" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Row="0" Content="Body Settings" FontWeight="Bold" Margin="0,0,0,10"/>
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="2" Content="Color"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding ButtonSecondary}" HorizontalAlignment="Center">X</Label>
+                                    <Border x:Name="brdPopupBody" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35" VerticalAlignment="Top" PreviewMouseDown="SetColor" Background="Transparent">
+                                        <Rectangle Fill="{Binding baseLayout.BodyColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    </Border>
+                                    <Label Grid.Row="3" Content="Width"/>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding baseLayout.BodyWidth, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding baseLayout.BodyWidthUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+
+                    <Popup x:Name="popupGrid" Placement="Bottom" StaysOpen="False" PlacementTarget="{Binding ElementName=btnGridEdit}">
+                        <Border Background="{Binding BackgroundGradEnd}" BorderBrush="{Binding DataContext.ButtonSecondary, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="2" Padding="20" MaxHeight="300">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="350">
+                                <Grid Width="350" Margin="10" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Row="0" Content="Grid Settings" FontWeight="Bold" Margin="0,0,0,10"/>
+                                    <Separator Grid.Row="1" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="2" Content="Color"/>
+                                    <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding ButtonSecondary}" HorizontalAlignment="Center">X</Label>
+                                    <Border x:Name="brdPopupGrid" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35" VerticalAlignment="Top" PreviewMouseDown="SetColor" Background="Transparent">
+                                        <Rectangle Fill="{Binding baseLayout.GridColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                    </Border>
+                                    <Label Grid.Row="3" Content="Width"/>
+                                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding baseLayout.GridWidth, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding baseLayout.GridWidthUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Separator Grid.Row="4" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="7" Content="Border Radius"/>
+                                    <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding baseLayout.GridBorderRadius, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="7" Grid.Column="2" SelectedValue="{Binding baseLayout.GridBorderRadiusUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Label Grid.Row="8" Content="Padding"/>
+                                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding baseLayout.GridPadding, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="8" Grid.Column="2" SelectedValue="{Binding baseLayout.GridPaddingUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Label Grid.Row="9" Content="Margin"/>
+                                    <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding baseLayout.GridMargin, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="9" Grid.Column="2" SelectedValue="{Binding baseLayout.GridMarginUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Separator Grid.Row="10" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="11" Content="Alignment"/>
+                                    <ComboBox Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" SelectedValue="{Binding baseLayout.GridHAlign, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="Left"/>
+                                        <ComboBoxItem Content="Center"/>
+                                        <ComboBoxItem Content="Right"/>
+                                    </ComboBox>
+                                </Grid>
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+
+                    <Popup x:Name="popupFooter" Placement="Bottom" StaysOpen="False" PlacementTarget="{Binding ElementName=btnFooterEdit}">
+                        <Border Background="{Binding BackgroundGradEnd}" BorderBrush="{Binding DataContext.ButtonSecondary, RelativeSource={RelativeSource AncestorType=Window}}" BorderThickness="2" Padding="20">
+                            <Grid Width="350">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="3*" />
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Grid.ColumnSpan="3" Content="Footer Settings" FontWeight="Bold" Margin="0,0,0,10"/>
+                                <Separator Grid.Row="1" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                <Label Grid.Row="2" Content="Color"/>
+                                <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="{Binding ButtonSecondary}" HorizontalAlignment="Center">X</Label>
+                                <Border x:Name="brdPopupFooter" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Height="35" VerticalAlignment="Top" PreviewMouseDown="SetColor" Background="Transparent">
+                                    <Rectangle Fill="{Binding baseLayout.FooterColor, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                </Border>
+                                <Label Grid.Row="3" Content="Padding"/>
+                                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding baseLayout.FooterPadding, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                <ComboBox Grid.Row="3" Grid.Column="2" SelectedValue="{Binding baseLayout.FooterPaddingUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" VerticalAlignment="Top" Height="34">
+                                    <ComboBoxItem Content="px"/>
+                                    <ComboBoxItem Content="em"/>
+                                    <ComboBoxItem Content="rem"/>
+                                    <ComboBoxItem Content="%"/>
+                                    <ComboBoxItem Content="vw"/>
+                                    <ComboBoxItem Content="vh"/>
+                                </ComboBox>
+                                <Separator Grid.Row="4" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                <Label Grid.Row="5" Grid.ColumnSpan="2" Content="Footer Text"/>
+                                <TextBox Grid.Row="6" Grid.ColumnSpan="3" Text="{Binding baseLayout.FooterContent, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" AcceptsReturn="True" VerticalAlignment="Stretch" VerticalContentAlignment="Top" Height="150"/>
+                            </Grid>
+                        </Border>
+                    </Popup>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Window>

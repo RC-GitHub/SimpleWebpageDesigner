@@ -21,6 +21,15 @@ using Newtonsoft.Json;
 using System.IO;
 using SWD.Content;
 using Path = System.IO.Path;
+using System.Drawing;
+using System.Xml.Linq;
+using Brushes = System.Windows.Media.Brushes;
+using Rectangle = System.Windows.Shapes.Rectangle;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
+using TextBox = System.Windows.Controls.TextBox;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
+using System.Runtime.CompilerServices;
 
 namespace SWD
 {
@@ -39,6 +48,8 @@ namespace SWD
         private string tempForKeyword = "Insert a keyword";
         private string tempForDescription = "Insert description";
         public Dictionary<string, string> tempMessages = new Dictionary<string, string>();
+        public BaseLayout baseLayout { get; set; } = new BaseLayout();
+
 
         public CreationWindow(MainWindow mw = null)
         {
@@ -86,6 +97,11 @@ namespace SWD
             foreach (string keyword in head.Keywords)
             {
                 lsbKeywords.Items.Add(keyword);
+            }
+            baseLayout = head.Layout;
+            foreach (string link in baseLayout.HeaderLinks.Values)
+            {
+                lsbLinks.Items.Add(link);
             }
         }
 
@@ -198,6 +214,7 @@ namespace SWD
                             Author = author,
                             Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
                             Description = description,
+                            Layout = baseLayout
                         }
                     };
 
@@ -208,6 +225,10 @@ namespace SWD
                         if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
                         Debug.WriteLine(json);
                         File.WriteAllText($"{dir}\\metadata.json", json);
+
+                        string imagesFolder = Path.Combine(dir, "images");
+                        if (!Directory.Exists(imagesFolder)) Directory.CreateDirectory(imagesFolder);
+                        File.WriteAllBytes($"{imagesFolder}\\{baseLayout.HeaderLogo}", headerLogoImageBytes);
                     }
                     catch (Exception err)
                     {
@@ -249,12 +270,20 @@ namespace SWD
                             Author = author,
                             Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
                             Description = description,
+                            Layout = baseLayout
                         }
                     };
 
                 string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
                 string metadataPath = System.IO.Path.Combine(dir, "metadata.json");
                 File.WriteAllText(metadataPath, json);
+
+                if (headerLogoImageBytes != null)
+                {
+                    string imagesFolder = Path.Combine(dir, "images");
+                    if (!Directory.Exists(imagesFolder)) Directory.CreateDirectory(imagesFolder);
+                    File.WriteAllBytes($"{imagesFolder}\\{baseLayout.HeaderLogo}", headerLogoImageBytes);
+                }
 
                 if (projectName != tbProjectTitle.Text)
                 {
@@ -295,6 +324,170 @@ namespace SWD
                 {
                     btnAdd_Click(sender, e);
                 }
+            }
+        }
+
+        private void btnHeaderEdit_Click(object sender, RoutedEventArgs e) => popupHeader.IsOpen = true;
+        private void btnBodyEdit_Click(object sender, RoutedEventArgs e) => popupBody.IsOpen = true;
+        private void btnGridEdit_Click(object sender, RoutedEventArgs e) => popupGrid.IsOpen = true;
+        private void btnFooterEdit_Click(object sender, RoutedEventArgs e) => popupFooter.IsOpen = true;
+
+        private void SetColor(object sender, MouseButtonEventArgs e)
+        {
+            Border border = sender as Border;
+            if (border == null) return;
+
+            SolidColorBrush brush = Colors.BrushColorPicker();
+            if (brush == null) return;
+
+            // Get property name, e.g. "PopupFooter" -> "FooterColor"
+            string namebase = border.Name.Substring(3); // e.g., "PopupFooter"
+            string propertyName = namebase.Replace("Popup", "") + "Color"; // e.g., "FooterColor"
+
+            var window = Window.GetWindow(this);
+
+            baseLayout[propertyName] = brush;
+
+            Debug.WriteLine($"{propertyName}, {baseLayout[propertyName]}, {brush.ToString()}");
+
+            Rectangle rectangle = border.Child as Rectangle;
+
+            BindingExpression binding = rectangle.GetBindingExpression(Rectangle.FillProperty);
+            binding?.UpdateSource();
+
+            // Reopen the popup if needed
+            string popupName = char.ToLower(namebase[0]) + namebase.Substring(1);
+            Popup popup = window.FindName(popupName) as Popup;
+            if (popup != null)
+            {
+                popup.IsOpen = true;
+            }
+            else
+            {
+                Debug.WriteLine($"Popup '{popupName}' not found.");
+            }
+        }
+
+        private byte[] headerLogoImageBytes;
+        private void btnHeaderLogo_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp, *.gif)|*.jpg;*.jpeg;*.png;*.bmp;*.gif",
+                Title = "Select an image",
+            };
+
+            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string selectedPath = openFileDialog.FileName;
+                string fileName = Path.GetFileName(selectedPath);
+
+                // Read image content into byte array
+                headerLogoImageBytes = File.ReadAllBytes(selectedPath);
+
+                // Optionally store filename for UI
+                tbHeaderLogo.Text = fileName;
+
+                // Update binding source
+                BindingExpression binding = tbHeaderLogo.GetBindingExpression(System.Windows.Controls.TextBox.TextProperty);
+                binding?.UpdateSource();
+            }
+        }
+
+        private void btnLinkAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbLinkTitle.Text != "" && tbLinkHref.Text != "")
+            {
+                baseLayout.HeaderLinks.Add(tbLinkTitle.Text, tbLinkHref.Text);
+
+                lsbLinks.Items.Add(tbLinkTitle.Text);
+                tbLinkTitle.Text = "";
+                tbLinkHref.Text = "";
+                tbLinkTitle.Focus();
+            }
+            else
+            {
+                Errors.DisplayMessage("Link title and link href cannot be empty!");
+            }
+        }
+
+        private void btnLinkRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (lsbLinks.SelectedItem != null)
+            {
+                string key = lsbLinks.SelectedItem.ToString();
+                baseLayout.HeaderLinks.Remove(key);
+
+                int index = lsbLinks.SelectedIndex;
+                lsbLinks.Items.RemoveAt(index);
+                lsbLinks.Items.Refresh();
+                if (lsbLinks.Items.Count - 1 >= index)
+                    lsbLinks.SelectedIndex = index;
+                else
+                    lsbLinks.SelectedIndex = lsbLinks.Items.Count - 1;
+            }
+
+        }
+
+        string currentKey = "";
+        private void btnLinkEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (lsbLinks.SelectedItem != null)
+            {
+                currentKey = lsbLinks.SelectedItem.ToString();
+                tbLinkTitle.Text = currentKey;
+                tbLinkHref.Text = baseLayout.HeaderLinks[currentKey];
+
+                tbLinkTitle.Focus();
+                btnLinkAccept.IsEnabled = true;
+            }
+        }
+
+        private void btnLinkAccept_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string newTitle = tbLinkTitle.Text.Trim();
+                string newHref = tbLinkHref.Text.Trim();
+
+                if (string.IsNullOrEmpty(newTitle) || string.IsNullOrEmpty(newHref))
+                {
+                    Errors.DisplayMessage("Link title and link href cannot be empty!");
+                    return;
+                }
+
+                if (baseLayout.HeaderLinks.ContainsKey(newTitle) && newTitle != currentKey)
+                {
+                    Errors.DisplayMessage("This title already exists.");
+                    return;
+                }
+
+                if (newTitle == currentKey)
+                {
+                    baseLayout.HeaderLinks[currentKey] = newHref;
+                }
+                else
+                {
+                    baseLayout.HeaderLinks.Add(newTitle, newHref);
+                    if (baseLayout.HeaderLinks.ContainsKey(currentKey))
+                        baseLayout.HeaderLinks.Remove(currentKey);
+
+                    lsbLinks.Items.Add(newTitle);
+                    lsbLinks.Items.Remove(currentKey);
+                }
+
+                tbLinkTitle.Text = "";
+                tbLinkHref.Text = "";
+                tbLinkTitle.Focus();
+                btnLinkAccept.IsEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                Errors.DisplayMessage(ex.Message);
+            }
+            finally
+            {
+                btnLinkAccept.IsEnabled = false;
             }
         }
     }

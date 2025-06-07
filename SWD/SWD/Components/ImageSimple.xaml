@@ -1,0 +1,132 @@
+﻿<Page x:Class="SWD.Components.ImageSimple"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SWD.Components"
+      mc:Ignorable="d" 
+      d:DesignHeight="500"
+      d:DesignWidth="800"
+      Title="Image">
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradEnd}" />
+            <GradientStop Color="{Binding BackgroundGradStart}" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Background>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Top controls -->
+            <RowDefinition Height="Auto"/>
+            <!-- Second row of controls -->
+            <RowDefinition Height="*"/>
+            <!-- Image preview -->
+        </Grid.RowDefinitions>
+
+        <!-- First Row: Open, Path Input, Width, Height -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.85*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Open Dialog" Click="OpenImage_Click" Grid.Column="0" Margin="0,0,10,0" Height="40" HorizontalAlignment="Stretch"/>
+
+            <TextBox x:Name="PathInputBox" Grid.Column="1" Margin="0,0,10,0" Height="30" IsEnabled="False"/>
+            <Grid Grid.Column="2" VerticalAlignment="Center" Background="{Binding UnderlayPrimary}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Content="Width:" Grid.Column="0" Margin="5" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="WidthBox" Height="30" Grid.Column="1" Margin="5" Text="{Binding Path=ComponentContent.ImageWidth, RelativeSource={RelativeSource AncestorType=Page}}" VerticalContentAlignment="Center"/>
+
+                <Label Content="Height:" Margin="5" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <TextBox x:Name="HeightBox" Height="30" Margin="5" Grid.Column="3" Text="{Binding Path=ComponentContent.ImageHeight, RelativeSource={RelativeSource AncestorType=Page}}" VerticalContentAlignment="Center"/>
+            </Grid>
+        </Grid>
+
+        <!-- Second Row: Alignments, Stretch, Filters -->
+        <Grid Grid.Row="1" Margin="0,0,0,10" Background="{Binding UnderlayPrimary}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="H Align:" Margin="5" VerticalAlignment="Center" Grid.Column="0"/>
+            <ComboBox x:Name="HAlignBox" Grid.Column="1" Margin="5,0" Height="30" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ImageHAlign, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
+                <ComboBoxItem Content="Left"/>
+                <ComboBoxItem Content="Center"/>
+                <ComboBoxItem Content="Right"/>
+                <ComboBoxItem Content="Stretch"/>
+            </ComboBox>
+
+            <Label Content="V Align:" Margin="5" VerticalAlignment="Center" Grid.Column="2"/>
+            <ComboBox x:Name="VAlignBox" Grid.Column="3" Margin="5,0" Height="30" SelectedValue="{Binding Path=ComponentContent.ImageVAlign, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
+                <ComboBoxItem Content="Top"/>
+                <ComboBoxItem Content="Center"/>
+                <ComboBoxItem Content="Bottom"/>
+                <ComboBoxItem Content="Stretch"/>
+            </ComboBox>
+            <Separator Grid.Column="4" Margin="5">
+                <Separator.LayoutTransform>
+                    <RotateTransform Angle="90" />
+                </Separator.LayoutTransform>
+            </Separator>
+
+            <Label Content="Stretch:" Margin="5" VerticalAlignment="Center" Grid.Column="5"/>
+            <ComboBox x:Name="StretchModeBox" Grid.Column="6" Margin="5,0" Height="30" SelectedValue="{Binding Path=ComponentContent.ImageStretch, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
+                <ComboBoxItem Content="Uniform"/>
+                <ComboBoxItem Content="UniformToFill"/>
+                <ComboBoxItem Content="Fill"/>
+                <ComboBoxItem Content="None"/>
+            </ComboBox>
+
+            <Label Content="Filter:" Margin="5" VerticalAlignment="Center" Grid.Column="7"/>
+            <ComboBox x:Name="FilterBox" Grid.Column="8" Margin="5,0" Height="30" SelectedValue="{Binding Path=ComponentContent.ImageFilter, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
+                <ComboBoxItem Content="None"/>
+                <ComboBoxItem Content="Blur"/>
+                <ComboBoxItem Content="Shadow"/>
+                <ComboBoxItem Content="Grayscale"/>
+            </ComboBox>
+        </Grid>
+
+        <!-- Image Display -->
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1"
+                                    Background="{Binding UnderlayPrimary}">
+
+            <Grid>
+                <TextBlock x:Name="NoImage" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="90">No image</TextBlock>
+                <Image x:Name="ImageViewer" 
+                       Width="{Binding Path=ComponentContent.ImageWidth, RelativeSource={RelativeSource AncestorType=Page}}"
+                       Height="{Binding Path=ComponentContent.ImageHeight, RelativeSource={RelativeSource AncestorType=Page}}"
+                       Stretch="{Binding Path=ComponentContent.ImageStretch, RelativeSource={RelativeSource AncestorType=Page}}"
+                       HorizontalAlignment="{Binding Path=ComponentContent.ImageHAlign, RelativeSource={RelativeSource AncestorType=Page}}"
+                       VerticalAlignment="{Binding Path=ComponentContent.ImageVAlign, RelativeSource={RelativeSource AncestorType=Page}}"
+                       
+                       />
+                <Button Content="Apply Settings"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="10"
+                        Padding="10,2"
+                        Width="200"
+                        Height="45"
+                        Click="ApplySettings_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
