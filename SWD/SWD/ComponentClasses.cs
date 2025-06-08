@@ -393,6 +393,30 @@ namespace SWD
         public string CodeHTML { get; set; } = "";
         public string CodeCSS { get; set; } = "";
         public string CodeJS { get; set; } = "";
+
+        public string ButtonText { get; set; } = "Button";
+        public string ButtonLink { get; set; } = "";
+        public string ButtonStyle { get; set; } = "Custom";
+        public float ButtonWidth { get; set; } = 100;
+        public string ButtonWidthUnit { get; set; } = "%";
+        public float ButtonHeight { get; set; } = 100;
+        public string ButtonHeightUnit { get; set; } = "%";
+        public float ButtonFontSize { get; set; } = 12;
+        public string ButtonFontSizeUnit { get; set; } = "px";
+        public SolidColorBrush ButtonFontColor { get; set; } = new SolidColorBrush(Color.FromArgb(255, 255, 255, 255));
+        public SolidColorBrush ButtonBackgroundColor { get; set; } = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
+        public string ButtonBackgroundImage { get; set; } = "";
+        public float ButtonBorder { get; set; } = 0;
+        public string ButtonBorderUnit { get; set; } = "px";
+        public SolidColorBrush ButtonBorderColor { get; set; } = new SolidColorBrush(Color.FromArgb(0, 0, 0, 0));
+        public float ButtonBorderRadius { get; set; } = 0;
+        public string ButtonBorderRadiusUnit { get; set; } = "px";
+        public float ButtonPadding { get; set; } = 0;
+        public string ButtonPaddingUnit { get; set; } = "px";
+        public float ButtonMargin { get; set; } = 0;
+        public string ButtonMarginUnit { get; set; } = "px";
+        public string ButtonHAlign { get; set; } = "Center";
+        public string ButtonVAlign { get; set; } = "Center";
     }
 
     public class Position

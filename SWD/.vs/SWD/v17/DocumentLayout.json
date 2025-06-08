@@ -3,36 +3,64 @@
   "WorkspaceRootPath": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\build.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\build.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\componentclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\componentclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\components\\buttonsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\buttonsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\componentwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\componentwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\components\\codesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\codesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\otherclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\otherclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\components\\codesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\textsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\textsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\textsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\textsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\imagesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\imagesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\components\\buttonsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\buttonsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\codesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\codesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\imagesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\imagesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|c:\\users\\dell\\desktop\\\u0027homework\u0027\\[10] personal apps\\simplewebpagedesigner\\swd\\swd\\build.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\build.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\creationwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\codesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\codesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\componentclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\componentclasses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\content\\contentwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -53,18 +81,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\content\\contentwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\content\\contentwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\componentwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\componentwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\imagesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\imagesimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\imagesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\imagesimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\content\\contentwindow.compmodifying.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -93,14 +109,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\content\\contentwindow.comphandling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\content\\contentwindow.comphandling.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\textsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\textsimple.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\textsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|solutionrelative:swd\\components\\textsimple.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4919A27-2167-4693-B919-8F557F6A9CBE}|SWD\\SWD.csproj|C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\swd\\components\\converter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -167,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "CreationWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\CreationWindow.xaml",
               "RelativeDocumentMoniker": "SWD\\CreationWindow.xaml",
@@ -179,20 +187,193 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "ButtonSimple.xaml",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ButtonSimple.xaml",
+              "RelativeDocumentMoniker": "SWD\\Components\\ButtonSimple.xaml",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ButtonSimple.xaml",
+              "RelativeToolTip": "SWD\\Components\\ButtonSimple.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-08T16:52:06.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ComponentClasses.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ComponentClasses.cs",
+              "RelativeDocumentMoniker": "SWD\\ComponentClasses.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ComponentClasses.cs",
+              "RelativeToolTip": "SWD\\ComponentClasses.cs",
+              "ViewState": "AgIAAIoBAAAAAAAAAAAzwJABAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T09:21:20.785Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ComponentWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\Components\\ComponentWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml.cs",
+              "RelativeToolTip": "SWD\\Components\\ComponentWindow.xaml.cs",
+              "ViewState": "AgIAAEUBAAAAAAAAAAAkwGIBAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-25T19:14:00.883Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OtherClasses.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherClasses.cs",
+              "RelativeDocumentMoniker": "SWD\\OtherClasses.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherClasses.cs",
+              "RelativeToolTip": "SWD\\OtherClasses.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAgwCcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T14:07:18.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TextSimple.xaml",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml",
+              "RelativeDocumentMoniker": "SWD\\Components\\TextSimple.xaml",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml",
+              "RelativeToolTip": "SWD\\Components\\TextSimple.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-26T13:46:24.486Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TextSimple.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\Components\\TextSimple.xaml.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml.cs",
+              "RelativeToolTip": "SWD\\Components\\TextSimple.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwC4AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-26T13:47:25.434Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ImageSimple.xaml",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml",
+              "RelativeDocumentMoniker": "SWD\\Components\\ImageSimple.xaml",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml",
+              "RelativeToolTip": "SWD\\Components\\ImageSimple.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-06-04T10:20:46.79Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ComponentWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml",
+              "RelativeDocumentMoniker": "SWD\\Components\\ComponentWindow.xaml",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml",
+              "RelativeToolTip": "SWD\\Components\\ComponentWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-05-21T10:53:09.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "ThemeClasses.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeClasses.cs",
+              "RelativeDocumentMoniker": "SWD\\ThemeClasses.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeClasses.cs",
+              "RelativeToolTip": "SWD\\ThemeClasses.cs",
+              "ViewState": "AgIAAOUAAAAAAAAAAEBUwPoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T15:07:14.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OtherDialogs.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherDialogs.cs",
+              "RelativeDocumentMoniker": "SWD\\OtherDialogs.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherDialogs.cs",
+              "RelativeToolTip": "SWD\\OtherDialogs.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAiwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T08:16:05.89Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "ContentWindow.FSManaging.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSManaging.cs",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.FSManaging.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSManaging.cs",
+              "RelativeToolTip": "SWD\\Content\\ContentWindow.FSManaging.cs",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAQwF0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T08:40:06.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "ContentWindow.CompHandling.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.CompHandling.cs",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.CompHandling.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.CompHandling.cs",
+              "RelativeToolTip": "SWD\\Content\\ContentWindow.CompHandling.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAD4v5cAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T09:21:28.881Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ButtonSimple.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ButtonSimple.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\Components\\ButtonSimple.xaml.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ButtonSimple.xaml.cs",
+              "RelativeToolTip": "SWD\\Components\\ButtonSimple.xaml.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAmwCsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-08T17:07:11.642Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ImageSimple.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml.cs",
+              "RelativeDocumentMoniker": "SWD\\Components\\ImageSimple.xaml.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml.cs",
+              "RelativeToolTip": "SWD\\Components\\ImageSimple.xaml.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAUwFAAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-04T10:42:33.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "CodeSimple.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\CodeSimple.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\Components\\CodeSimple.xaml.cs",
               "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\CodeSimple.xaml.cs",
               "RelativeToolTip": "SWD\\Components\\CodeSimple.xaml.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAwwEAAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAqwCEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-07T15:49:37.375Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
               "Title": "Build.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Build.cs",
               "RelativeDocumentMoniker": "SWD\\Build.cs",
@@ -205,7 +386,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 12,
               "Title": "CreationWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\CreationWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\CreationWindow.xaml.cs",
@@ -213,37 +394,69 @@
               "RelativeToolTip": "SWD\\CreationWindow.xaml.cs",
               "ViewState": "AgIAAGsAAAAAAAAAAAAswPUBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:05:09.878Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T08:05:09.878Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "OtherClasses.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherClasses.cs",
-              "RelativeDocumentMoniker": "SWD\\OtherClasses.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherClasses.cs",
-              "RelativeToolTip": "SWD\\OtherClasses.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAIwCcAAAAtAAAAAAAAAA==",
+              "DocumentIndex": 16,
+              "Title": "ContentWindow.Toolbar.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.Toolbar.cs",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.Toolbar.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.Toolbar.cs",
+              "RelativeToolTip": "SWD\\Content\\ContentWindow.Toolbar.cs",
+              "ViewState": "AgIAAE4AAAAAAAAAAAAewF4AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-09T14:07:18.965Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-18T08:11:26.624Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 17,
+              "Title": "ContentWindowFSControl.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindowFSControl.cs",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindowFSControl.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindowFSControl.cs",
+              "RelativeToolTip": "SWD\\Content\\ContentWindowFSControl.cs",
+              "ViewState": "AgIAAMkAAAAAAAAAAAAewNoAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-17T12:47:36.824Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ContentWindow.FSBuilding.cs",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSBuilding.cs",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.FSBuilding.cs",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSBuilding.cs",
+              "RelativeToolTip": "SWD\\Content\\ContentWindow.FSBuilding.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAqwDgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-08T08:25:54.543Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ContentWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.xaml",
+              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.xaml",
+              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.xaml",
+              "RelativeToolTip": "SWD\\Content\\ContentWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-03-19T09:13:06.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "CodeSimple.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\CodeSimple.xaml",
               "RelativeDocumentMoniker": "SWD\\Components\\CodeSimple.xaml",
               "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\CodeSimple.xaml",
               "RelativeToolTip": "SWD\\Components\\CodeSimple.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-07T15:42:29.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-07T15:42:29.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 14,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\App.xaml",
               "RelativeDocumentMoniker": "SWD\\App.xaml",
@@ -255,20 +468,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ComponentClasses.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ComponentClasses.cs",
-              "RelativeDocumentMoniker": "SWD\\ComponentClasses.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ComponentClasses.cs",
-              "RelativeToolTip": "SWD\\ComponentClasses.cs",
-              "ViewState": "AgIAAGkBAAAAAAAAAAAowIgBAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T09:21:20.785Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 15,
               "Title": "ContentWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.xaml.cs",
@@ -276,101 +476,11 @@
               "RelativeToolTip": "SWD\\Content\\ContentWindow.xaml.cs",
               "ViewState": "AgIAAF0AAAAAAAAAAAAewGwAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:26:02.765Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T08:26:02.765Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ContentWindow.Toolbar.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.Toolbar.cs",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.Toolbar.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.Toolbar.cs",
-              "RelativeToolTip": "SWD\\Content\\ContentWindow.Toolbar.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAewF4AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-18T08:11:26.624Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ContentWindowFSControl.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindowFSControl.cs",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindowFSControl.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindowFSControl.cs",
-              "RelativeToolTip": "SWD\\Content\\ContentWindowFSControl.cs",
-              "ViewState": "AgIAAMkAAAAAAAAAAAAewNoAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-17T12:47:36.824Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ContentWindow.FSBuilding.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSBuilding.cs",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.FSBuilding.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSBuilding.cs",
-              "RelativeToolTip": "SWD\\Content\\ContentWindow.FSBuilding.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAqwDgAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:25:54.543Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ContentWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.xaml",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.xaml",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.xaml",
-              "RelativeToolTip": "SWD\\Content\\ContentWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-03-19T09:13:06.347Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "ComponentWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml.cs",
-              "RelativeDocumentMoniker": "SWD\\Components\\ComponentWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml.cs",
-              "RelativeToolTip": "SWD\\Components\\ComponentWindow.xaml.cs",
-              "ViewState": "AgIAAEcBAAAAAAAAAAAAAGABAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T19:14:00.883Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ImageSimple.xaml",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml",
-              "RelativeDocumentMoniker": "SWD\\Components\\ImageSimple.xaml",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml",
-              "RelativeToolTip": "SWD\\Components\\ImageSimple.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-06-04T10:20:46.79Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "ImageSimple.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml.cs",
-              "RelativeDocumentMoniker": "SWD\\Components\\ImageSimple.xaml.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ImageSimple.xaml.cs",
-              "RelativeToolTip": "SWD\\Components\\ImageSimple.xaml.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAiwF0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-04T10:42:33.104Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 20,
               "Title": "ContentWindow.CompModifying.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.CompModifying.cs",
               "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.CompModifying.cs",
@@ -378,25 +488,11 @@
               "RelativeToolTip": "SWD\\Content\\ContentWindow.CompModifying.cs",
               "ViewState": "AgIAAFAAAAAAAAAAAAAqwGcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T12:56:31.806Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T12:56:31.806Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "TextSimple.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml.cs",
-              "RelativeDocumentMoniker": "SWD\\Components\\TextSimple.xaml.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml.cs",
-              "RelativeToolTip": "SWD\\Components\\TextSimple.xaml.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAgwC4AAAAiAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-26T13:47:25.434Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "Converter.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\Converter.cs",
               "RelativeDocumentMoniker": "SWD\\Components\\Converter.cs",
@@ -404,12 +500,11 @@
               "RelativeToolTip": "SWD\\Components\\Converter.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAowAkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-25T23:43:50.51Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-25T23:43:50.51Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "ContentWindow.DGModifying.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.DGModifying.cs",
               "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.DGModifying.cs",
@@ -417,12 +512,11 @@
               "RelativeToolTip": "SWD\\Content\\ContentWindow.DGModifying.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAiwBcAAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T09:21:52.012Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T09:21:52.012Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\MainWindow.xaml.cs",
@@ -430,24 +524,22 @@
               "RelativeToolTip": "SWD\\MainWindow.xaml.cs",
               "ViewState": "AgIAABcAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:06:51.296Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T08:06:51.296Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 21,
               "Title": "ThemeWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeWindow.xaml",
               "RelativeDocumentMoniker": "SWD\\ThemeWindow.xaml",
               "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeWindow.xaml",
               "RelativeToolTip": "SWD\\ThemeWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T16:37:24.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T16:37:24.717Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 22,
               "Title": "ThemeWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeWindow.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\ThemeWindow.xaml.cs",
@@ -455,100 +547,22 @@
               "RelativeToolTip": "SWD\\ThemeWindow.xaml.cs",
               "ViewState": "AgIAAGcAAAAAAAAAAAAQwGAAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T16:46:30.972Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T16:46:30.972Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "ComponentWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml",
-              "RelativeDocumentMoniker": "SWD\\Components\\ComponentWindow.xaml",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\ComponentWindow.xaml",
-              "RelativeToolTip": "SWD\\Components\\ComponentWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-21T10:53:09.084Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "ThemeClasses.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeClasses.cs",
-              "RelativeDocumentMoniker": "SWD\\ThemeClasses.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\ThemeClasses.cs",
-              "RelativeToolTip": "SWD\\ThemeClasses.cs",
-              "ViewState": "AgIAAOUAAAAAAAAAAEBUwPoAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:07:14.851Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "OtherDialogs.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherDialogs.cs",
-              "RelativeDocumentMoniker": "SWD\\OtherDialogs.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\OtherDialogs.cs",
-              "RelativeToolTip": "SWD\\OtherDialogs.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAiwCkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:16:05.89Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "ContentWindow.FSManaging.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSManaging.cs",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.FSManaging.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.FSManaging.cs",
-              "RelativeToolTip": "SWD\\Content\\ContentWindow.FSManaging.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAQwF0AAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T08:40:06.646Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "ContentWindow.CompHandling.cs",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.CompHandling.cs",
-              "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.CompHandling.cs",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.CompHandling.cs",
-              "RelativeToolTip": "SWD\\Content\\ContentWindow.CompHandling.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAD4v5cAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T09:21:28.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "TextSimple.xaml",
-              "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml",
-              "RelativeDocumentMoniker": "SWD\\Components\\TextSimple.xaml",
-              "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Components\\TextSimple.xaml",
-              "RelativeToolTip": "SWD\\Components\\TextSimple.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-26T13:46:24.486Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 36,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml",
               "RelativeDocumentMoniker": "SWD\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\MainWindow.xaml",
               "RelativeToolTip": "SWD\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-08T08:06:47.101Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T08:06:47.101Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "DependencyObject.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\546399cc19f4f5508fa5587b924a31b0739e07c70af9c0d3565cd81263a2de15\\DependencyObject.cs",
@@ -560,7 +574,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "ContentWindow.DGSizing.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.DGSizing.cs",
               "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.DGSizing.cs",
@@ -568,12 +582,11 @@
               "RelativeToolTip": "SWD\\Content\\ContentWindow.DGSizing.cs",
               "ViewState": "AgIAADEAAAAAAAAAAAAgwL4AAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T12:30:50.339Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T12:30:50.339Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "ContentWindow.DGBuilding.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\Content\\ContentWindow.DGBuilding.cs",
               "RelativeDocumentMoniker": "SWD\\Content\\ContentWindow.DGBuilding.cs",
@@ -581,24 +594,22 @@
               "RelativeToolTip": "SWD\\Content\\ContentWindow.DGBuilding.cs",
               "ViewState": "AgIAAFQAAAAAAAAAAAAuwDEAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T09:21:42.033Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-08T09:21:42.033Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 35,
               "Title": "InputDialog.xaml",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\InputDialog.xaml",
               "RelativeDocumentMoniker": "SWD\\InputDialog.xaml",
               "ToolTip": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\InputDialog.xaml",
               "RelativeToolTip": "SWD\\InputDialog.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-10T12:45:36.314Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T12:45:36.314Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 34,
               "Title": "InputDialog.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\InputDialog.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\InputDialog.xaml.cs",
@@ -606,12 +617,11 @@
               "RelativeToolTip": "SWD\\InputDialog.xaml.cs",
               "ViewState": "AgIAAB8AAAAAAAAAAAAowDIAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-10T12:45:40.036Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-10T12:45:40.036Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 37,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\Desktop\\\u0027Homework\u0027\\[10] Personal Apps\\SimpleWebpageDesigner\\SWD\\SWD\\App.xaml.cs",
               "RelativeDocumentMoniker": "SWD\\App.xaml.cs",
@@ -619,12 +629,11 @@
               "RelativeToolTip": "SWD\\App.xaml.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAIBJwBYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-12T15:12:30.623Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-12T15:12:30.623Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 39,
               "Title": "ControlTemplate.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\AppData\\Local\\Temp\\.vsdbgsrc\\15949dceb7b558663453b25b2f291c54c602e64f06e37fade871ba4c963fe4ec\\ControlTemplate.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\15949dceb7b558663453b25b2f291c54c602e64f06e37fade871ba4c963fe4ec\\ControlTemplate.cs",
@@ -636,7 +645,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 38,
               "Title": "StyleHelper.cs",
               "DocumentMoniker": "C:\\Users\\Dell\\AppData\\Local\\Temp\\.vsdbgsrc\\eb7a6f5bd13f1a2c73d6509a5908751c0f4f8899779c90207523603e4d8fcc91\\StyleHelper.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\eb7a6f5bd13f1a2c73d6509a5908751c0f4f8899779c90207523603e4d8fcc91\\StyleHelper.cs",
