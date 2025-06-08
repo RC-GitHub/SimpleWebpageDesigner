@@ -15,12 +15,20 @@ using System.Windows.Shapes;
 namespace SWD
 {
     /// <summary>
-    /// Interaction logic for InputDialog.xaml
+    /// Interaction logic for InputDialog.xaml.
+    /// Provides a dialog window for user text input with validation and theming support.
     /// </summary>
     public partial class InputDialog : Window
     {
+        /// <summary>
+        /// Gets the value entered by the user.
+        /// </summary>
         public string InputValue { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InputDialog"/> class.
+        /// Sets up theming and drag-move support.
+        /// </summary>
         public InputDialog()
         {
             InitializeComponent();
@@ -35,12 +43,18 @@ namespace SWD
             this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Handles theme changes and updates the DataContext.
+        /// </summary>
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             //if (e.PropertyName == nameof(ThemeData.CurrentTheme))
             this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Handles the OK button click event, validates input, and closes the dialog if valid.
+        /// </summary>
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             InputValue = InputTextBox.Text;
@@ -59,6 +73,9 @@ namespace SWD
             }
         }
 
+        /// <summary>
+        /// Handles the Cancel button click event and closes the dialog.
+        /// </summary>
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;

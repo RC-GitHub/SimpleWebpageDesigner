@@ -38,8 +38,17 @@ using Window = System.Windows.Window;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for building and updating the DataGrid
+    /// that visually represents the layout and state of components in the content grid.
+    /// </summary>
     public partial class ContentWindow : Window
     {
+        /// <summary>
+        /// Handles the DataGrid Loaded event, setting row heights dynamically based on available space and row count.
+        /// </summary>
+        /// <param name="sender">The DataGrid being loaded.</param>
+        /// <param name="e">Event arguments.</param>
         private void dgContent_Loaded(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.DataGrid dg = (System.Windows.Controls.DataGrid)sender;
@@ -60,6 +69,12 @@ namespace SWD.Content
                 }
             }), System.Windows.Threading.DispatcherPriority.Loaded);
         }
+
+        /// <summary>
+        /// Builds or rebuilds the DataGrid, synchronizing it with the current component and cell data.
+        /// This includes clearing and repopulating cells, setting up columns, cell templates, and styles.
+        /// </summary>
+        /// <param name="changeAll">If true, clears all cell data before rebuilding.</param>
         public void BuildDataGrid(bool changeAll = false)
         {
             if (components != null)

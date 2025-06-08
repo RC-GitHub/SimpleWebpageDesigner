@@ -12,8 +12,18 @@ using Window = System.Windows.Window;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for modifying DataGrid content,
+    /// such as handling selection changes, keyboard shortcuts, and popup toggling.
+    /// </summary>
     public partial class ContentWindow : Window
     {
+        /// <summary>
+        /// Handles the event when the selected cells in the DataGrid change.
+        /// Selects the corresponding component if a single cell is selected, or deselects if not.
+        /// </summary>
+        /// <param name="sender">The DataGrid control.</param>
+        /// <param name="e">Event arguments for selected cells change.</param>
         private void dgContent_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             if (components == null) return;
@@ -55,6 +65,12 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event for the DataGrid.
+        /// Clears selection if Ctrl is pressed.
+        /// </summary>
+        /// <param name="sender">The DataGrid control.</param>
+        /// <param name="e">Key event arguments.</param>
         private void dgContent_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl))
@@ -63,6 +79,12 @@ namespace SWD.Content
                 e.Handled = true;
             }
         }
+
+        /// <summary>
+        /// Handles the event to toggle popups for column, row, and component property editing.
+        /// </summary>
+        /// <param name="sender">The TextBox that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void PopupChange(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.TextBox tb = (System.Windows.Controls.TextBox)sender;

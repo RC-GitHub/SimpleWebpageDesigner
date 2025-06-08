@@ -277,5 +277,8 @@
     <Resource Include="Icons\middle.png" />
     <Resource Include="Icons\top.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\button.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

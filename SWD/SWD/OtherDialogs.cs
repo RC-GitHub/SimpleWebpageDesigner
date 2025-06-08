@@ -11,10 +11,19 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace SWD
 {
+    /// <summary>
+    /// Provides static methods for displaying error dialogs.
+    /// </summary>
     internal class Errors
     {
-        public Errors() {}
-        static public MessageBoxResult DisplayMessage(string msgBoxText)
+        public Errors() { }
+
+        /// <summary>
+        /// Displays an error message dialog with the specified text.
+        /// </summary>
+        /// <param name="msgBoxText">The message to display.</param>
+        /// <returns>The result of the message box.</returns>
+        public static MessageBoxResult DisplayMessage(string msgBoxText)
         {
             string caption = "Error!";
             MessageBoxButton button = MessageBoxButton.OK;
@@ -26,10 +35,19 @@ namespace SWD
         }
     }
 
+    /// <summary>
+    /// Provides static methods for displaying informational dialogs.
+    /// </summary>
     internal class Infos
     {
         public Infos() { }
-        static public MessageBoxResult DisplayMessage(string msgBoxText)
+
+        /// <summary>
+        /// Displays an informational message dialog with the specified text.
+        /// </summary>
+        /// <param name="msgBoxText">The message to display.</param>
+        /// <returns>The result of the message box.</returns>
+        public static MessageBoxResult DisplayMessage(string msgBoxText)
         {
             string caption = "Result";
             MessageBoxButton button = MessageBoxButton.OK;
@@ -40,7 +58,12 @@ namespace SWD
             return result;
         }
 
-        static public MessageBoxResult DisplayPathMessage(bool action = false)
+        /// <summary>
+        /// Displays a dialog asking the user to select or confirm a path.
+        /// </summary>
+        /// <param name="action">If true, asks about deleting a project; otherwise, asks about choosing a path.</param>
+        /// <returns>The result of the message box.</returns>
+        public static MessageBoxResult DisplayPathMessage(bool action = false)
         {
             string messageBoxText;
             if (action == false) messageBoxText = "Do you want to choose your own path?";
@@ -56,10 +79,18 @@ namespace SWD
         }
     }
 
+    /// <summary>
+    /// Provides static methods for color selection and manipulation dialogs.
+    /// </summary>
     internal class Colors
     {
-        public Colors() {}
-        static public SolidColorBrush BrushColorPicker()
+        public Colors() { }
+
+        /// <summary>
+        /// Opens a color picker dialog and returns the selected color as a SolidColorBrush.
+        /// </summary>
+        /// <returns>The selected SolidColorBrush, or null if canceled.</returns>
+        public static SolidColorBrush BrushColorPicker()
         {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowHelp = true;
@@ -73,7 +104,11 @@ namespace SWD
             return null;
         }
 
-        static public string StringColorPicker()
+        /// <summary>
+        /// Opens a color picker dialog and returns the selected color as a string.
+        /// </summary>
+        /// <returns>The selected color as a string, or null if canceled.</returns>
+        public static string StringColorPicker()
         {
             ColorDialog colorDialog = new ColorDialog();
             colorDialog.ShowHelp = true;
@@ -87,7 +122,14 @@ namespace SWD
             return null;
         }
 
-        static public SolidColorBrush CreateASelectedColor(SolidColorBrush brush1, SolidColorBrush brush2, double ratio)
+        /// <summary>
+        /// Creates a new SolidColorBrush by blending two brushes with a given ratio.
+        /// </summary>
+        /// <param name="brush1">The first brush.</param>
+        /// <param name="brush2">The second brush.</param>
+        /// <param name="ratio">The blend ratio (0 to 1).</param>
+        /// <returns>The blended SolidColorBrush.</returns>
+        public static SolidColorBrush CreateASelectedColor(SolidColorBrush brush1, SolidColorBrush brush2, double ratio)
         {
             Color color1 = brush1.Color;
             Color color2 = brush2.Color;

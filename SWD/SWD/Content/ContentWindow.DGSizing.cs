@@ -10,8 +10,17 @@ using Window = System.Windows.Window;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for resizing the DataGrid,
+    /// including adding, removing, and modifying rows and columns.
+    /// </summary>
     public partial class ContentWindow : Window
     {
+        /// <summary>
+        /// Handles the click event to increase the number of columns or rows in the DataGrid.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void Increase_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
@@ -69,6 +78,11 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the click event to decrease the number of columns or rows in the DataGrid.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void Decrease_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
@@ -126,6 +140,12 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event for the column amount TextBox.
+        /// Adjusts the number of columns in the DataGrid when Enter is pressed.
+        /// </summary>
+        /// <param name="sender">The TextBox control.</param>
+        /// <param name="e">Key event arguments.</param>
         private void tbColAmount_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -181,6 +201,12 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event for the row amount TextBox.
+        /// Adjusts the number of rows in the DataGrid when Enter is pressed.
+        /// </summary>
+        /// <param name="sender">The TextBox control.</param>
+        /// <param name="e">Key event arguments.</param>
         private void tbRowAmount_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -235,6 +261,11 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the click event to insert a new column or row at a specified position in the DataGrid.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void Insert_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
@@ -248,8 +279,8 @@ namespace SWD.Content
             {
                 if (information[1] == "Col")
                 {
-                    int column = Int32.Parse(tb.Text)-1;
-                    if (column+1 > data[0].Content.Count)
+                    int column = Int32.Parse(tb.Text) - 1;
+                    if (column + 1 > data[0].Content.Count)
                     {
                         tb.Text = data[0].Content.Count.ToString(); return;
                     }
@@ -257,11 +288,11 @@ namespace SWD.Content
                     {
                         tb.Text = "1"; return;
                     }
-                    else if (column+1 >= 12)
+                    else if (column + 1 >= 12)
                     {
                         tb.Text = "12"; return;
                     }
-                    else if (column+1 == data[0].Content.Count)
+                    else if (column + 1 == data[0].Content.Count)
                     {
                         Increase_Click(btn_Col_Increase, null);
                         return;
@@ -277,16 +308,16 @@ namespace SWD.Content
                             if (components.ContainsKey(data[i].Content[column].Title) && data[i].Content[column].ImageSource != Images.NewIcon())
                             {
                                 newCell.SetCell(components[data[i].Content[column].Title]);
-                            } 
-                            data[i].Content.Insert(column+1, newCell);
+                            }
+                            data[i].Content.Insert(column + 1, newCell);
                         }
                     }
                     ChangingComponentHandling(information[1], "add", column);
                 }
                 else
                 {
-                    int row = Int32.Parse(tb.Text)-1;
-                    if (row+1 > data.Count)
+                    int row = Int32.Parse(tb.Text) - 1;
+                    if (row + 1 > data.Count)
                     {
                         tb.Text = data.Count.ToString(); return;
                     }
@@ -294,7 +325,7 @@ namespace SWD.Content
                     {
                         tb.Text = "1"; return;
                     }
-                    else if (row+1 == data.Count)
+                    else if (row + 1 == data.Count)
                     {
                         Increase_Click(btn_Row_Increase, null);
                         return;
@@ -321,7 +352,7 @@ namespace SWD.Content
                             Title = (row + 1).ToString(),
                             Content = l
                         };
-                        data.Insert(row+1, r);
+                        data.Insert(row + 1, r);
                         for (int i = 0; i < data.Count; i++)
                         {
                             data[i].Title = (i + 1).ToString();
@@ -340,6 +371,11 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the click event to delete a column or row at a specified position in the DataGrid.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Controls.Button btn = (System.Windows.Controls.Button)sender;
@@ -433,6 +469,12 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the PreviewKeyDown event for the column/row modify TextBox.
+        /// Validates and adjusts the position value when Enter is pressed.
+        /// </summary>
+        /// <param name="sender">The TextBox control.</param>
+        /// <param name="e">Key event arguments.</param>
         private void tbModify_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -479,6 +521,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles enabling and disabling of buttons based on the current state of columns and rows.
+        /// </summary>
         private void ButtonHandling()
         {
             int cols, rows, colsModify, rowsModify;

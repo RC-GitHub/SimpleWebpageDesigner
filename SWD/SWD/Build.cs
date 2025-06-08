@@ -13,8 +13,17 @@ using Path = System.IO.Path;
 
 namespace SWD
 {
+    /// <summary>
+    /// Provides static methods for building and exporting project files,
+    /// including generating HTML and CSS from project JSON data.
+    /// </summary>
     public class Build
     {
+        /// <summary>
+        /// Creates the build directory for the project, converts all JSON files to HTML,
+        /// and writes the generated HTML and CSS files.
+        /// </summary>
+        /// <param name="projectPath">The root path of the project.</param>
         public static void CreateDirectories(string projectPath)
         {
             if (string.IsNullOrEmpty(projectPath))
@@ -46,6 +55,12 @@ namespace SWD
             Infos.DisplayMessage("Build complete!");
         }
 
+        /// <summary>
+        /// Returns the relative path from a base directory to a full file path.
+        /// </summary>
+        /// <param name="basePath">The base directory path.</param>
+        /// <param name="fullPath">The full file path.</param>
+        /// <returns>The relative path from basePath to fullPath.</returns>
         private static string GetRelativePath(string basePath, string fullPath)
         {
             Uri baseUri = new Uri(basePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ? basePath : basePath + Path.DirectorySeparatorChar);
@@ -53,9 +68,15 @@ namespace SWD
             return Uri.UnescapeDataString(baseUri.MakeRelativeUri(fullUri).ToString().Replace('/', Path.DirectorySeparatorChar));
         }
 
+        /// <summary>
+        /// Generates HTML content from a JSON string and project path.
+        /// Handles CSS generation, component rendering, and layout.
+        /// </summary>
+        /// <param name="json">The JSON string representing the page data.</param>
+        /// <param name="projectPath">The root path of the project.</param>
+        /// <returns>The generated HTML as a string.</returns>
         private static string GenerateHtmlFromJson(string json, string projectPath)
         {
-
             var options = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
@@ -107,134 +128,188 @@ namespace SWD
             if (!File.Exists(styleCssPath))
             {
                 var mainCss = $@"
-* {{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}}
-body {{
-    display: flex;
-    align-items: {MapJustifyOrAlign(metadata?.Layout?.GridHAlign)};
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: {bodyColor};
-    height: 100vh;
-    width: {metadata?.Layout?.BodyWidth}{metadata?.Layout?.BodyWidthUnit};
-    margin: 0 auto;
-}}
-header {{
-    width: 100vw;
-    height: 100px;
-    background-color: {headerColor};
-    padding: {metadata?.Layout?.HeaderPadding}{metadata?.Layout?.HeaderPaddingUnit};
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}}
-.headerlink {{
-    background-color: {backgroundColor};
-    border: 2px solid {borderColor};
-    color: {borderColor};
-    border-radius: 5px; 
-    padding: 5px;  
-}}       
-footer {{
-    width: 100vw;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: {footerColor};
-    padding: {metadata?.Layout?.FooterPadding}{metadata?.Layout?.FooterPaddingUnit};
-    text-align: center;
-}}
-.grid-container {{
-    display: grid;
-    width: {metadata?.Layout?.GridWidth}{metadata?.Layout?.GridWidthUnit};
-    margin: {metadata?.Layout?.GridMargin}{metadata?.Layout?.GridMarginUnit};
-    padding: {metadata?.Layout?.GridPadding}{metadata?.Layout?.GridPaddingUnit};
-    background-color: {gridColor};
-    border-radius: {metadata?.Layout?.GridBorderRadius}{metadata?.Layout?.GridBorderRadiusUnit};
-}}
-.grid-item {{
-    box-sizing: border-box;
-    overflow: hidden;
-}}
-{metadata?.CodeCSS}
-";
+    * {{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }}
+    body {{
+        display: flex;
+        align-items: {MapJustifyOrAlign(metadata?.Layout?.GridHAlign)};
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: {bodyColor};
+        height: 100vh;
+        width: {metadata?.Layout?.BodyWidth}{metadata?.Layout?.BodyWidthUnit};
+        margin: 0 auto;
+    }}
+    header {{
+        width: 100vw;
+        height: 100px;
+        background-color: {headerColor};
+        padding: {metadata?.Layout?.HeaderPadding}{metadata?.Layout?.HeaderPaddingUnit};
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }}
+    .headerlink {{
+        background-color: {backgroundColor};
+        border: 2px solid {borderColor};
+        color: {borderColor};
+        border-radius: 5px; 
+        padding: 5px;  
+    }}       
+    footer {{
+        width: 100vw;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: {footerColor};
+        padding: {metadata?.Layout?.FooterPadding}{metadata?.Layout?.FooterPaddingUnit};
+        text-align: center;
+    }}
+    .grid-container {{
+        display: grid;
+        width: {metadata?.Layout?.GridWidth}{metadata?.Layout?.GridWidthUnit};
+        margin: {metadata?.Layout?.GridMargin}{metadata?.Layout?.GridMarginUnit};
+        gap: {metadata?.Layout?.GridGap}{metadata?.Layout?.GridGapUnit};
+        padding: {metadata?.Layout?.GridPadding}{metadata?.Layout?.GridPaddingUnit};
+        background-color: {gridColor};
+        border-radius: {metadata?.Layout?.GridBorderRadius}{metadata?.Layout?.GridBorderRadiusUnit};
+    }}
+    .grid-item {{
+        box-sizing: border-box;
+        overflow: hidden;
+    }}
+    .button {{
+        text-decoration: none;
+        transition: 0.35s ease-in-out;
+    }}
+    .button:hover {{
+        transform: scale(1.05);
+        transition: 0.4s ease-in-out;
+    }}
+
+    @media (max-width: 600px) {{
+        .grid-container {{
+            width: 100vw !important;
+            grid-template-columns: 1fr !important;
+            grid-template-rows: none !important;
+        }}
+        .grid-container > * {{
+            grid-column: auto !important;
+            grid-row: auto !important;
+        }}
+      }}
+    }}
+    {metadata?.CodeCSS}
+    ";
                 File.WriteAllText(styleCssPath, mainCss);
             }
 
             // Build dynamic styles string for this page/components inside <style>
             var dynamicStyles = new StringBuilder();
             int index = 0;
-            foreach (var componentEntry in layout.Components)
+            try
             {
-                var comp = componentEntry.Value;
-                var className = $"item-{index++}";
-                var styles = new List<string>();
-
-                styles.Add($"grid-column: {comp.StartColumn + 1} / span {Math.Max(1, comp.Colspan + 1)};");
-                styles.Add($"grid-row: {comp.StartRow + 1} / span {Math.Max(1, comp.Rowspan + 1)};");
-
-                var gradient = comp.CompStyle;
-                if (gradient.GradientStart != null && gradient.GradientEnd != null)
+                foreach (var componentEntry in layout.Components)
                 {
-                    styles.Add($"background: linear-gradient(to bottom, {ToCssColor(gradient.GradientStart)} {gradient.GradientStartPercent}%, {ToCssColor(gradient.GradientEnd)} {gradient.GradientEndPercent}%);");
-                }
-                else
-                {
-                    styles.Add($"background-color: {ToCssColor(comp.BackgroundColor)};");
-                }
+                    if (componentEntry.Value == null) continue;
 
-                if (comp.CompStyle.UseBackgroundImage)
-                {
-                    var imagePath = Path.Combine(projectPath, "images", comp.CompStyle.BackgroundImage);
-                    var imageUri = new Uri(imagePath).AbsoluteUri;
-                    styles.Add($"background-image: url(\"{imageUri}\");");
-                    styles.Add($"background-position:  {comp.CompStyle.BackgroundImageAlignment?.ToLower() ?? "center"};");
+                    var comp = componentEntry.Value;
+                    var className = $"item-{index++}";
+                    var styles = new List<string>();
 
-                    var stretch = comp.CompStyle.BackgroundImageStretch?.ToLower();
-                    switch (stretch)
+                    styles.Add($"grid-column: {comp.StartColumn + 1} / span {Math.Max(1, comp.Colspan + 1)};");
+                    styles.Add($"grid-row: {comp.StartRow + 1} / span {Math.Max(1, comp.Rowspan + 1)};");
+
+                    var gradient = comp.CompStyle;
+                    if (gradient.GradientStart != null && gradient.GradientEnd != null)
                     {
-                        case "fill":
-                            styles.Add("background-size: 100% 100%;");
-                            styles.Add("background-repeat: no-repeat;");
-                            break;
-                        case "uniform":
-                            styles.Add("background-size: contain;");
-                            styles.Add("background-repeat: no-repeat;");
-                            break;
-                        case "uniformtofill":
-                            styles.Add("background-size: cover;");
-                            styles.Add("background-repeat: no-repeat;");
-                            break;
-                        case "none":
-                            styles.Add("background-size: auto;");
-                            break;
-                        default:
-                            styles.Add("background-size: contain;");
-                            styles.Add("background-repeat: no-repeat;");
-                            break;
+                        styles.Add($"background: linear-gradient(to bottom, {ToCssColor(gradient.GradientStart)} {gradient.GradientStartPercent}%, {ToCssColor(gradient.GradientEnd)} {gradient.GradientEndPercent}%);");
                     }
-                }
+                    else
+                    {
+                        styles.Add($"background-color: {ToCssColor(comp.BackgroundColor)};");
+                    }
 
-                styles.Add($"border: {comp.CompStyle.BorderThickness}{comp.CompStyle.BorderThicknessUnit} solid {ToCssColor(comp.CompStyle.BorderColor)};");
-                styles.Add($"border-radius: {comp.CompStyle.BorderRadius}{comp.CompStyle.BorderRadiusUnit};");
-                styles.Add($"padding: {comp.CompStyle.PaddingTop}px {comp.CompStyle.PaddingRight}px {comp.CompStyle.PaddingBottom}px {comp.CompStyle.PaddingLeft}px;");
-                styles.Add($"margin: {comp.CompStyle.MarginTop}px {comp.CompStyle.MarginRight}px {comp.CompStyle.MarginBottom}px {comp.CompStyle.MarginLeft}px;");
-                styles.Add($"opacity: {comp.CompStyle.Opacity.ToString(CultureInfo.InvariantCulture)};");
-                styles.Add($"justify-content: {comp.CompStyle.Justify.ToLower()};");
-                styles.Add($"align-items: {comp.CompStyle.AlignItems.ToLower()};");
-                styles.Add($"box-shadow: {comp.CompStyle.BoxShadow};");
-                if (comp.CompStyle.ZIndex != "Auto")
-                {
-                    styles.Add($"z-index: {comp.CompStyle.ZIndex};");
-                }
-                styles.Add($"display: flex;");
+                    if (comp.CompStyle.UseBackgroundImage)
+                    {
+                        var imagePath = Path.Combine(projectPath, "images", comp.CompStyle.BackgroundImage);
+                        var imageUri = new Uri(imagePath).AbsoluteUri;
+                        styles.Add($"background-image: url(\"{imageUri}\");");
+                        styles.Add($"background-position:  {comp.CompStyle.BackgroundImageAlignment?.ToLower() ?? "center"};");
 
-                dynamicStyles.AppendLine($".{className} {{ {string.Join(" ", styles)} }}");
+                        var stretch = comp.CompStyle.BackgroundImageStretch?.ToLower();
+                        switch (stretch)
+                        {
+                            case "fill":
+                                styles.Add("background-size: 100% 100%;");
+                                styles.Add("background-repeat: no-repeat;");
+                                break;
+                            case "uniform":
+                                styles.Add("background-size: contain;");
+                                styles.Add("background-repeat: no-repeat;");
+                                break;
+                            case "uniformtofill":
+                                styles.Add("background-size: cover;");
+                                styles.Add("background-repeat: no-repeat;");
+                                break;
+                            case "none":
+                                styles.Add("background-size: auto;");
+                                break;
+                            default:
+                                styles.Add("background-size: contain;");
+                                styles.Add("background-repeat: no-repeat;");
+                                break;
+                        }
+                    }
+
+                    float compWidth = comp.CompStyle.Width;
+                    float compMinWidth = comp.CompStyle.MinWidth;
+                    float compMaxWidth = comp.CompStyle.MaxWidth;
+                    float compHeight = comp.CompStyle.Height;
+                    float compMinHeight = comp.CompStyle.MinHeight;
+                    float compMaxHeight = comp.CompStyle.MaxHeight;
+
+                    if (compWidth > 0)
+                        styles.Add($"width: {compWidth}{comp.CompStyle.WidthUnit};");
+
+                    if (compMinWidth > 0)
+                        styles.Add($"min-width: {compMinWidth}{comp.CompStyle.MinWidthUnit};");
+
+                    if (compMaxWidth > 0)
+                        styles.Add($"max-width: {compMaxWidth}{comp.CompStyle.MaxWidthUnit};");
+
+                    if (compHeight > 0)
+                        styles.Add($"height: {compHeight}{comp.CompStyle.HeightUnit};");
+
+                    if (compMinHeight > 0)
+                        styles.Add($"min-height: {compMinHeight}{comp.CompStyle.MinHeightUnit};");
+
+                    if (compMaxHeight > 0)
+                        styles.Add($"max-height: {compMaxHeight}{comp.CompStyle.MaxHeightUnit};");
+
+                    styles.Add($"border: {comp.CompStyle.BorderThickness}{comp.CompStyle.BorderThicknessUnit} solid {ToCssColor(comp.CompStyle.BorderColor)};");
+                    styles.Add($"border-radius: {comp.CompStyle.BorderRadius}{comp.CompStyle.BorderRadiusUnit};");
+                    styles.Add($"padding: {comp.CompStyle.PaddingTop}{comp.CompStyle.PaddingUnit} {comp.CompStyle.PaddingRight}{comp.CompStyle.PaddingUnit} {comp.CompStyle.PaddingBottom}{comp.CompStyle.PaddingUnit} {comp.CompStyle.PaddingLeft}{comp.CompStyle.PaddingUnit};");
+                    styles.Add($"margin: {comp.CompStyle.MarginTop}{comp.CompStyle.MarginUnit} {comp.CompStyle.MarginRight}{comp.CompStyle.MarginUnit} {comp.CompStyle.MarginBottom}{comp.CompStyle.MarginUnit} {comp.CompStyle.MarginLeft}{comp.CompStyle.MarginUnit};");
+                    styles.Add($"opacity: {comp.CompStyle.Opacity.ToString(CultureInfo.InvariantCulture)};");
+                    styles.Add($"justify-content: {comp.CompStyle.Justify.ToLower()};");
+                    styles.Add($"align-items: {comp.CompStyle.AlignItems.ToLower()};");
+                    styles.Add($"box-shadow: {comp.CompStyle.BoxShadow};");
+                    styles.Add($"overflow: {comp.CompStyle.Overflow.ToLower()};");
+                    if (comp.CompStyle.ZIndex != "Auto")
+                    {
+                        styles.Add($"z-index: {comp.CompStyle.ZIndex};");
+                    }
+                    styles.Add($"display: flex;");
+
+                    dynamicStyles.AppendLine($".{className} {{ {string.Join(" ", styles)} }}");
+                }
             }
+            catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
 
             // Build the HTML
             html.AppendLine("<!DOCTYPE html>");
@@ -247,6 +322,14 @@ footer {{
 
             // Link main external CSS
             html.AppendLine("<link rel=\"stylesheet\" href=\"style.css\">");
+
+            // Write metadata.CodeJS to script.js
+            if (!string.IsNullOrWhiteSpace(metadata?.CodeJS))
+            {
+                var scriptPath = Path.Combine(buildFolder, "script.js");
+                File.WriteAllText(scriptPath, metadata.CodeJS);
+            }
+            html.AppendLine("<script src=\"script.js\" defer></script>");
 
             // Inject dynamic styles inside <style> tag
             html.AppendLine("<style>");
@@ -278,42 +361,70 @@ footer {{
                 html.AppendLine(metadata.CodeHTML);
 
             // Grid container with dynamic columns and rows
-            html.AppendLine($"<div class=\"grid-container\" style=\"grid-template-columns: repeat({layout.ColAmount}, 1fr); grid-template-rows: repeat({layout.RowAmount}, 1fr);\">");
+            html.AppendLine($"<div class=\"grid-container\" style=\"grid-template-columns: repeat({layout.ColAmount}, minmax(100px, 1fr)); grid-template-rows: repeat({layout.RowAmount}, auto);\">");
 
             // Generate components HTML
             int componentIndex = 0;
-            foreach (var componentEntry in layout.Components)
+            try
             {
-                var comp = componentEntry.Value;
-                var className = $"item-{componentIndex++}";
-                string innerHtml = "";
-
-                if (comp.Type == "text")
+                foreach (var componentEntry in layout.Components)
                 {
-                    var content = comp.Content;
-                    innerHtml = $"<p style=\"margin: 0; font-family: {content.FontFamily}; font-size: {content.FontSize}px; font-weight: {content.FontWeight.ToLower()}; font-style: {content.FontStyle.ToLower()}; color: {ToCssColor(content.ForegroundColor)}; text-align: {content.TextHorizontal.ToLower()};\">" +
-                                $"{System.Net.WebUtility.HtmlEncode(content.Text)}</p>";
-                }
-                else if (comp.Type == "image")
-                {
-                    var content = comp.Content;
-                    string width = content.ImageWidth > 0 ? $"width: {content.ImageWidth}px;" : "";
-                    string height = content.ImageHeight > 0 ? $"height: {content.ImageHeight}px;" : "";
+                    var comp = componentEntry.Value;
+                    var className = $"item-{componentIndex++}";
+                    string innerHtml = "";
 
-                    var imagePath = Path.Combine(projectPath, "images", content.ImageName);
-                    var imageUri = new Uri(imagePath).AbsoluteUri;
+                    if (comp.Type == "text")
+                    {
+                        var content = comp.Content;
+                        innerHtml = $"<p style=\"margin: 0; font-family: {content.FontFamily}; font-size: {content.FontSize}px; font-weight: {content.FontWeight.ToLower()}; font-style: {content.FontStyle.ToLower()}; color: {ToCssColor(content.ForegroundColor)}; text-align: {content.TextHorizontal.ToLower()};\">" +
+                                    $"{System.Net.WebUtility.HtmlEncode(content.Text)}</p>";
+                    }
+                    else if (comp.Type == "image")
+                    {
+                        var content = comp.Content;
+                        string width = content.ImageWidth > 0 ? $"width: {content.ImageWidth}px;" : "";
+                        string height = content.ImageHeight > 0 ? $"height: {content.ImageHeight}px;" : "";
 
-                    innerHtml = $"<img src=\"{imageUri}\" " +
-                                $"style=\"{width} {height} object-fit: {GetCssImageStretch(content.ImageStretch)}; object-position: {content.ImageHAlign.ToLower()} {content.ImageVAlign.ToLower()};\" />";
-                }
-                else if (comp.Type == "code")
-                {
-                    var content = comp.Content;
-                    innerHtml = $"{content.CodeHTML}\r\n{content.CodeCSS}\r\n{content.CodeJS}";
-                }
+                        var imagePath = Path.Combine(projectPath, "images", content.ImageName);
+                        var imageUri = new Uri(imagePath).AbsoluteUri;
 
-                html.AppendLine($"<div class=\"grid-item {className}\">{innerHtml}</div>");
+                        innerHtml = $"<img src=\"{imageUri}\" " +
+                                    $"style=\"{width} {height} object-fit: {GetCssImageStretch(content.ImageStretch)}; object-position: {content.ImageHAlign.ToLower()} {content.ImageVAlign.ToLower()};\" />";
+                    }
+                    else if (comp.Type == "code")
+                    {
+                        var content = comp.Content;
+                        innerHtml = $"{content.CodeHTML}\r\n{content.CodeCSS}\r\n{content.CodeJS}";
+                    }
+                    else if (comp.Type == "button")
+                    {
+                        var content = comp.Content;
+
+                        string width = content.ButtonWidth > 0 ? $"width: {content.ButtonWidth}{content.ButtonWidthUnit};" : "";
+                        string height = content.ButtonHeight > 0 ? $"height: {content.ButtonHeight}{content.ButtonHeightUnit};" : "";
+
+                        string bgStyle = $"background-color: {ToCssColor(content.ButtonBackgroundColor)};";
+
+                        string border = $"border: {content.ButtonBorder}{content.ButtonBorderUnit} solid {ToCssColor(content.ButtonBorderColor)};";
+                        string borderRadius = $"border-radius: {content.ButtonBorderRadius}{content.ButtonBorderRadiusUnit};";
+                        string padding = $"padding: {content.ButtonPadding}{content.ButtonPaddingUnit};";
+                        string margin = $"margin: {content.ButtonMargin}{content.ButtonMarginUnit};";
+                        string font = $"font-size: {content.ButtonFontSize}{content.ButtonFontSizeUnit}; color: {ToCssColor(content.ButtonFontColor)};";
+
+                        string style = $"{width} {height} {bgStyle} {border} {borderRadius} {padding} {margin} {font}";
+                        string onclick = "";
+                        if (content.ButtonFunc != "") onclick = $" onclick=\"{content.ButtonFunc}()\"";
+
+                        string linkStart = string.IsNullOrEmpty(content.ButtonLink) ? "" : $"<a href=\"{content.ButtonLink}\" style=\"text-decoration: none; {width} {height}\">";
+                        string linkEnd = string.IsNullOrEmpty(content.ButtonLink) ? "" : "</a>";
+
+                        innerHtml = $"{linkStart}<button type=\"button\" class=\"button\" style=\"{style}\"{onclick}>{System.Net.WebUtility.HtmlEncode(content.ButtonText)}</button>{linkEnd}";
+                    }
+
+                    html.AppendLine($"<div class=\"grid-item {className}\">{innerHtml}</div>");
+                }
             }
+            catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
 
             html.AppendLine("</div>");
 
@@ -323,7 +434,11 @@ footer {{
             return html.ToString();
         }
 
-
+        /// <summary>
+        /// Maps a WPF image stretch value to a CSS object-fit value.
+        /// </summary>
+        /// <param name="stretch">The WPF stretch value as a string.</param>
+        /// <returns>The corresponding CSS object-fit value.</returns>
         private static string GetCssImageStretch(string stretch)
         {
             switch (stretch)
@@ -341,6 +456,11 @@ footer {{
             }
         }
 
+        /// <summary>
+        /// Converts a SolidColorBrush to a CSS color string.
+        /// </summary>
+        /// <param name="brush">The SolidColorBrush to convert.</param>
+        /// <returns>A CSS color string.</returns>
         private static string ToCssColor(SolidColorBrush brush)
         {
             if (brush == null) return "transparent";
@@ -356,7 +476,11 @@ footer {{
                 return $"rgba({c.R}, {c.G}, {c.B}, {alphaStr})";
         }
 
-
+        /// <summary>
+        /// Maps a justification or alignment string to a CSS flexbox value.
+        /// </summary>
+        /// <param name="val">The alignment value.</param>
+        /// <returns>The corresponding CSS value.</returns>
         public static string MapJustifyOrAlign(string val)
         {
             val = val.ToLower();
@@ -367,8 +491,14 @@ footer {{
             return "center";
         }
 
+        /// <summary>
+        /// JSON converter for SolidColorBrush, used during deserialization of project data.
+        /// </summary>
         public class SolidColorBrushConverter : JsonConverter<SolidColorBrush>
         {
+            /// <summary>
+            /// Reads a SolidColorBrush from a JSON string.
+            /// </summary>
             public override SolidColorBrush Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
             {
                 var colorString = reader.GetString();
@@ -378,6 +508,9 @@ footer {{
                 return new SolidColorBrush(color);
             }
 
+            /// <summary>
+            /// Writes a SolidColorBrush as a JSON string.
+            /// </summary>
             public override void Write(Utf8JsonWriter writer, SolidColorBrush value, JsonSerializerOptions options)
             {
                 var color = value.Color;
@@ -385,7 +518,5 @@ footer {{
                 writer.WriteStringValue(colorString);
             }
         }
-
-
     }
 }

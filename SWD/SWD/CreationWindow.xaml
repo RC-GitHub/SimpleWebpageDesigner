@@ -413,7 +413,7 @@
                                         <ComboBoxItem Content="vw"/>
                                         <ComboBoxItem Content="vh"/>
                                     </ComboBox>
-                                    <Label Grid.Row="8" Content="Component Gaps"/>
+                                    <Label Grid.Row="8" Content="Comp. Gaps"/>
                                     <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding baseLayout.GridGap, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
                                     <ComboBox Grid.Row="8" Grid.Column="2" SelectedValue="{Binding baseLayout.GridGapUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
                                         <ComboBoxItem Content="px"/>

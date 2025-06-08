@@ -306,7 +306,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="Justify:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10,10,5,5"/>
+                    <TextBlock Text="H Align:" FontWeight="Bold" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="10,10,5,5"/>
                     <ComboBox Name="VerticalAlignComboBox" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" VerticalContentAlignment="Center" Margin="10,10,10,5" SelectedValue="{Binding MyComponent.CompStyle.Justify, RelativeSource={RelativeSource AncestorType=Window}}"         
                      SelectedValuePath="Content">
                         <ComboBoxItem Content="Center"/>
@@ -314,7 +314,7 @@
                         <ComboBoxItem Content="End"/>
                     </ComboBox>
                     
-                    <TextBlock Text="Align Items:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,5,5"/>
+                    <TextBlock Text="V Align:" FontWeight="Bold" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="10,0,5,5"/>
                     <ComboBox Name="HorizontalAlignComboBox" Grid.Column="1" Grid.Row="1"  VerticalContentAlignment="Center" Margin="10,5,10,10" SelectedValue="{Binding MyComponent.CompStyle.AlignItems, RelativeSource={RelativeSource AncestorType=Window}}"         
                      SelectedValuePath="Content">
                         <ComboBoxItem Content="Center"/>

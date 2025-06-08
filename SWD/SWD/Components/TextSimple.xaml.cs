@@ -18,11 +18,16 @@ using System.Windows.Shapes;
 namespace SWD.Components
 {
     /// <summary>
-    /// Interaction logic for TextSimple.xaml
+    /// Interaction logic and data binding for the TextSimple component editor.
+    /// Allows users to edit text content and related properties for a component.
     /// </summary>
     public partial class TextSimple : Page, INotifyPropertyChanged
     {
         private ComponentContent _componentContent;
+
+        /// <summary>
+        /// Gets or sets the component content (text properties) being edited.
+        /// </summary>
         public ComponentContent ComponentContent
         {
             get => _componentContent;
@@ -36,12 +41,24 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Notifies listeners that a property value has changed.
+        /// </summary>
+        /// <param name="name">The name of the property that changed.</param>
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextSimple"/> class.
+        /// </summary>
+        /// <param name="compcont">The component content to edit.</param>
         public TextSimple(ComponentContent compcont)
         {
             InitializeComponent();
@@ -50,9 +67,12 @@ namespace SWD.Components
             InitializeActivation();
         }
 
+        /// <summary>
+        /// Initializes the toggle button states based on the current <see cref="ComponentContent"/> values.
+        /// </summary>
         private void InitializeActivation()
         {
-            if (ComponentContent.FontWeight == "Bold") 
+            if (ComponentContent.FontWeight == "Bold")
                 togBtnBold.IsChecked = true;
             if (ComponentContent.FontStyle == "Italic")
                 togBtnItalic.IsChecked = true;
@@ -72,33 +92,51 @@ namespace SWD.Components
                 togBtnMiddle.IsChecked = true;
             if (ComponentContent.TextVertical == "Bottom")
                 togBtnBottom.IsChecked = true;
-        } 
+        }
 
+        /// <summary>
+        /// Cuts the selected text in the editor.
+        /// </summary>
         private void Cut_Click(object sender, RoutedEventArgs e)
         {
             txtEditor.Cut();
         }
 
+        /// <summary>
+        /// Copies the selected text in the editor.
+        /// </summary>
         private void Copy_Click(object sender, RoutedEventArgs e)
         {
             txtEditor.Copy();
         }
 
+        /// <summary>
+        /// Pastes text from the clipboard into the editor.
+        /// </summary>
         private void Paste_Click(object sender, RoutedEventArgs e)
         {
             txtEditor.Paste();
         }
 
+        /// <summary>
+        /// Undoes the last action in the editor.
+        /// </summary>
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
             if (txtEditor.CanUndo) txtEditor.Undo();
         }
 
+        /// <summary>
+        /// Redoes the last undone action in the editor.
+        /// </summary>
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
             if (txtEditor.CanRedo) txtEditor.Redo();
         }
 
+        /// <summary>
+        /// Toggles bold formatting for the selected text.
+        /// </summary>
         private void Bold_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -116,6 +154,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Toggles italic formatting for the selected text.
+        /// </summary>
         private void Italic_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -133,6 +174,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Toggles underline formatting for the selected text.
+        /// </summary>
         private void Underline_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -150,6 +194,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Opens a color picker and sets the font color.
+        /// </summary>
         private void FontColor_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -163,10 +210,16 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles font family selection (not implemented).
+        /// </summary>
         private void FontFamily_Click(object sender, RoutedEventArgs e)
         {
         }
 
+        /// <summary>
+        /// Sets horizontal alignment to left.
+        /// </summary>
         private void Left_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -184,6 +237,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets horizontal alignment to center.
+        /// </summary>
         private void Center_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -201,6 +257,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets horizontal alignment to right.
+        /// </summary>
         private void Right_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -218,6 +277,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets horizontal alignment to justify.
+        /// </summary>
         private void Justify_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -235,6 +297,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets vertical alignment to top.
+        /// </summary>
         private void Top_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -251,6 +316,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets vertical alignment to center.
+        /// </summary>
         private void Middle_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -267,6 +335,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Sets vertical alignment to bottom.
+        /// </summary>
         private void Bottom_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -283,6 +354,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Increases the font size of the text.
+        /// </summary>
         private void IncreaseFont_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)
@@ -292,6 +366,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Decreases the font size of the text.
+        /// </summary>
         private void DecreaseFont_Click(object sender, RoutedEventArgs e)
         {
             if (DataContext is ComponentContent content)

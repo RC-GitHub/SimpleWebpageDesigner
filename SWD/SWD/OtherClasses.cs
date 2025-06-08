@@ -12,22 +12,56 @@ using System.Windows.Media.Imaging;
 
 namespace SWD
 {
+    /// <summary>
+    /// Represents the metadata and layout information for a project.
+    /// </summary>
     public class Head
     {
+        /// <summary>
+        /// Gets or sets the project name.
+        /// </summary>
         public string ProjectName { get; set; }
+        /// <summary>
+        /// Gets or sets the author of the project.
+        /// </summary>
         public string Author { get; set; }
+        /// <summary>
+        /// Gets or sets the keywords associated with the project.
+        /// </summary>
         public string[] Keywords { get; set; }
+        /// <summary>
+        /// Gets or sets the project description.
+        /// </summary>
         public string Description { get; set; }
+        /// <summary>
+        /// Gets or sets the base layout for the project.
+        /// </summary>
         public BaseLayout Layout { get; set; }
+        /// <summary>
+        /// Gets or sets the custom HTML code for the project.
+        /// </summary>
         public string CodeHTML { get; set; } = "";
+        /// <summary>
+        /// Gets or sets the custom CSS code for the project.
+        /// </summary>
         public string CodeCSS { get; set; } = "";
+        /// <summary>
+        /// Gets or sets the custom JavaScript code for the project.
+        /// </summary>
         public string CodeJS { get; set; } = "";
     }
 
+    /// <summary>
+    /// Represents the base layout and style properties for a project.
+    /// </summary>
     public class BaseLayout : INotifyPropertyChanged
     {
+        /// <inheritdoc/>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Sets the property value and raises the PropertyChanged event if the value changes.
+        /// </summary>
         protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string name = null)
         {
             if (!Equals(field, value))
@@ -38,6 +72,9 @@ namespace SWD
         }
 
         private SolidColorBrush _headerColor;
+        /// <summary>
+        /// Gets or sets the header color.
+        /// </summary>
         public SolidColorBrush HeaderColor
         {
             get => _headerColor;
@@ -45,6 +82,9 @@ namespace SWD
         }
 
         private float _headerPadding = 10;
+        /// <summary>
+        /// Gets or sets the header padding.
+        /// </summary>
         public float HeaderPadding
         {
             get => _headerPadding;
@@ -52,6 +92,9 @@ namespace SWD
         }
 
         private string _headerPaddingUnit = "px";
+        /// <summary>
+        /// Gets or sets the header padding unit.
+        /// </summary>
         public string HeaderPaddingUnit
         {
             get => _headerPaddingUnit;
@@ -59,6 +102,9 @@ namespace SWD
         }
 
         private string _headerLogo;
+        /// <summary>
+        /// Gets or sets the header logo filename.
+        /// </summary>
         public string HeaderLogo
         {
             get => _headerLogo;
@@ -66,6 +112,9 @@ namespace SWD
         }
 
         private Dictionary<string, string> _headerLinks = new Dictionary<string, string>();
+        /// <summary>
+        /// Gets or sets the header links (title and href).
+        /// </summary>
         public Dictionary<string, string> HeaderLinks
         {
             get => _headerLinks;
@@ -73,6 +122,9 @@ namespace SWD
         }
 
         private string _headerLinkStyle = "Grid-Footer";
+        /// <summary>
+        /// Gets or sets the header link style.
+        /// </summary>
         public string HeaderLinkStyle
         {
             get => _headerLinkStyle;
@@ -80,6 +132,9 @@ namespace SWD
         }
 
         private SolidColorBrush _bodyColor;
+        /// <summary>
+        /// Gets or sets the body color.
+        /// </summary>
         public SolidColorBrush BodyColor
         {
             get => _bodyColor;
@@ -87,6 +142,9 @@ namespace SWD
         }
 
         private float _bodyWidth = 100;
+        /// <summary>
+        /// Gets or sets the body width.
+        /// </summary>
         public float BodyWidth
         {
             get => _bodyWidth;
@@ -94,6 +152,9 @@ namespace SWD
         }
 
         private string _bodyWidthUnit = "vw";
+        /// <summary>
+        /// Gets or sets the body width unit.
+        /// </summary>
         public string BodyWidthUnit
         {
             get => _bodyWidthUnit;
@@ -101,6 +162,9 @@ namespace SWD
         }
 
         private SolidColorBrush _gridColor;
+        /// <summary>
+        /// Gets or sets the grid color.
+        /// </summary>
         public SolidColorBrush GridColor
         {
             get => _gridColor;
@@ -108,6 +172,9 @@ namespace SWD
         }
 
         private float _gridWidth = 1140;
+        /// <summary>
+        /// Gets or sets the grid width.
+        /// </summary>
         public float GridWidth
         {
             get => _gridWidth;
@@ -115,6 +182,9 @@ namespace SWD
         }
 
         private string _gridWidthUnit = "px";
+        /// <summary>
+        /// Gets or sets the grid width unit.
+        /// </summary>
         public string GridWidthUnit
         {
             get => _gridWidthUnit;
@@ -122,6 +192,9 @@ namespace SWD
         }
 
         private float _gridGap = 10;
+        /// <summary>
+        /// Gets or sets the grid gap.
+        /// </summary>
         public float GridGap
         {
             get => _gridGap;
@@ -129,6 +202,9 @@ namespace SWD
         }
 
         private string _gridGapUnit = "px";
+        /// <summary>
+        /// Gets or sets the grid gap unit.
+        /// </summary>
         public string GridGapUnit
         {
             get => _gridGapUnit;
@@ -136,6 +212,9 @@ namespace SWD
         }
 
         private float _gridBorderRadius = 0;
+        /// <summary>
+        /// Gets or sets the grid border radius.
+        /// </summary>
         public float GridBorderRadius
         {
             get => _gridBorderRadius;
@@ -143,6 +222,9 @@ namespace SWD
         }
 
         private string _gridBorderRadiusUnit = "px";
+        /// <summary>
+        /// Gets or sets the grid border radius unit.
+        /// </summary>
         public string GridBorderRadiusUnit
         {
             get => _gridBorderRadiusUnit;
@@ -150,6 +232,9 @@ namespace SWD
         }
 
         private float _gridPadding = 10;
+        /// <summary>
+        /// Gets or sets the grid padding.
+        /// </summary>
         public float GridPadding
         {
             get => _gridPadding;
@@ -157,6 +242,9 @@ namespace SWD
         }
 
         private string _gridPaddingUnit = "px";
+        /// <summary>
+        /// Gets or sets the grid padding unit.
+        /// </summary>
         public string GridPaddingUnit
         {
             get => _gridPaddingUnit;
@@ -164,6 +252,9 @@ namespace SWD
         }
 
         private float _gridMargin = 20;
+        /// <summary>
+        /// Gets or sets the grid margin.
+        /// </summary>
         public float GridMargin
         {
             get => _gridMargin;
@@ -171,6 +262,9 @@ namespace SWD
         }
 
         private string _gridMarginUnit = "px";
+        /// <summary>
+        /// Gets or sets the grid margin unit.
+        /// </summary>
         public string GridMarginUnit
         {
             get => _gridMarginUnit;
@@ -178,6 +272,9 @@ namespace SWD
         }
 
         private string _gridHAlign = "Center";
+        /// <summary>
+        /// Gets or sets the grid horizontal alignment.
+        /// </summary>
         public string GridHAlign
         {
             get => _gridHAlign;
@@ -185,6 +282,9 @@ namespace SWD
         }
 
         private SolidColorBrush _footerColor;
+        /// <summary>
+        /// Gets or sets the footer color.
+        /// </summary>
         public SolidColorBrush FooterColor
         {
             get => _footerColor;
@@ -192,6 +292,9 @@ namespace SWD
         }
 
         private float _footerPadding = 10;
+        /// <summary>
+        /// Gets or sets the footer padding.
+        /// </summary>
         public float FooterPadding
         {
             get => _footerPadding;
@@ -199,6 +302,9 @@ namespace SWD
         }
 
         private string _footerPaddingUnit = "px";
+        /// <summary>
+        /// Gets or sets the footer padding unit.
+        /// </summary>
         public string FooterPaddingUnit
         {
             get => _footerPaddingUnit;
@@ -206,15 +312,24 @@ namespace SWD
         }
 
         private string _footerContent;
+        /// <summary>
+        /// Gets or sets the footer content.
+        /// </summary>
         public string FooterContent
         {
             get => _footerContent;
             set => SetProperty(ref _footerContent, value);
         }
 
+        /// <summary>
+        /// Raises the PropertyChanged event for a property.
+        /// </summary>
         public void OnPropertyChanged(string propertyName) =>
-    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        /// <summary>
+        /// Gets or sets a property value by name using reflection.
+        /// </summary>
         public object this[string propertyName]
         {
             get
@@ -232,12 +347,18 @@ namespace SWD
                 }
             }
         }
-
-
     }
 
+    /// <summary>
+    /// Provides utility methods for loading icons from the project directory.
+    /// </summary>
     internal class Images
     {
+        /// <summary>
+        /// Loads a new icon as a BitmapImage from the Icons directory.
+        /// </summary>
+        /// <param name="icon">The icon filename (default: "add.png").</param>
+        /// <returns>A BitmapImage of the icon.</returns>
         public static BitmapImage NewIcon(string icon = "add.png")
         {
             string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
@@ -253,8 +374,17 @@ namespace SWD
         }
     }
 
+    /// <summary>
+    /// Provides utility methods for generating unique names.
+    /// </summary>
     internal class Names
     {
+        /// <summary>
+        /// Returns a unique name based on the desired name and a collection of existing names.
+        /// </summary>
+        /// <param name="desiredName">The desired name.</param>
+        /// <param name="existingNames">A collection of existing names.</param>
+        /// <returns>A unique name not present in existingNames.</returns>
         public static string GetUniqueThemeName(string desiredName, IEnumerable<string> existingNames)
         {
             var nameSet = new HashSet<string>(existingNames, StringComparer.OrdinalIgnoreCase);
