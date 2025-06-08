@@ -105,6 +105,10 @@ namespace SWD.Components
                     editorPage = new CodeSimple(MyComponent.Content);
                     break;
 
+                case "button":
+                    editorPage = new ButtonSimple(MyComponent.Content);
+                    break;
+
                 default:
                     Errors.DisplayMessage("Unknown component type: " + MyComponent.Type);
                     frameHost.Visibility = Visibility.Collapsed;
@@ -128,6 +132,10 @@ namespace SWD.Components
             {
                 codePage.NavigationService.Navigated += NavigationService_Navigated;
             }
+            else if (sender is ButtonSimple buttonPage)
+            {
+                buttonPage.NavigationService.Navigated += NavigationService_Navigated;
+            }
         }
 
         private void NavigationService_Navigated(object sender, NavigationEventArgs e)
@@ -143,6 +151,10 @@ namespace SWD.Components
             else if (e.Content is CodeSimple codePage)
             {
                 MyComponent.Content = codePage.ComponentContent;
+            }
+            else if (e.Content is ButtonSimple buttonPage)
+            {
+                MyComponent.Content = buttonPage.ComponentContent;
             }
 
             frameHost.Visibility = Visibility.Collapsed;
@@ -344,6 +356,9 @@ namespace SWD.Components
                     break;
                 case "code":
                     frameHost.Content = new CodeSimple(MyComponent.Content);
+                    break;
+                case "button":
+                    frameHost.Content = new ButtonSimple(MyComponent.Content);
                     break;
                 default:
                     frameHost.Content = null;

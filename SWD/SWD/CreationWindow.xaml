@@ -383,6 +383,26 @@
                                         <ComboBoxItem Content="vh"/>
                                     </ComboBox>
                                     <Separator Grid.Row="4" Grid.ColumnSpan="3" Foreground="{Binding ButtonSecodnary}" Margin="0,0,0,20" />
+                                    <Label Grid.Row="5" Content="Padding"/>
+                                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding baseLayout.GridPadding, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="5" Grid.Column="2" SelectedValue="{Binding baseLayout.GridPaddingUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
+                                    <Label Grid.Row="6" Content="Margin"/>
+                                    <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding baseLayout.GridMargin, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="6" Grid.Column="2" SelectedValue="{Binding baseLayout.GridMarginUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                        <ComboBoxItem Content="px"/>
+                                        <ComboBoxItem Content="em"/>
+                                        <ComboBoxItem Content="rem"/>
+                                        <ComboBoxItem Content="%"/>
+                                        <ComboBoxItem Content="vw"/>
+                                        <ComboBoxItem Content="vh"/>
+                                    </ComboBox>
                                     <Label Grid.Row="7" Content="Border Radius"/>
                                     <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding baseLayout.GridBorderRadius, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
                                     <ComboBox Grid.Row="7" Grid.Column="2" SelectedValue="{Binding baseLayout.GridBorderRadiusUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
@@ -393,19 +413,9 @@
                                         <ComboBoxItem Content="vw"/>
                                         <ComboBoxItem Content="vh"/>
                                     </ComboBox>
-                                    <Label Grid.Row="8" Content="Padding"/>
-                                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding baseLayout.GridPadding, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
-                                    <ComboBox Grid.Row="8" Grid.Column="2" SelectedValue="{Binding baseLayout.GridPaddingUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
-                                        <ComboBoxItem Content="px"/>
-                                        <ComboBoxItem Content="em"/>
-                                        <ComboBoxItem Content="rem"/>
-                                        <ComboBoxItem Content="%"/>
-                                        <ComboBoxItem Content="vw"/>
-                                        <ComboBoxItem Content="vh"/>
-                                    </ComboBox>
-                                    <Label Grid.Row="9" Content="Margin"/>
-                                    <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding baseLayout.GridMargin, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
-                                    <ComboBox Grid.Row="9" Grid.Column="2" SelectedValue="{Binding baseLayout.GridMarginUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
+                                    <Label Grid.Row="8" Content="Component Gaps"/>
+                                    <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding baseLayout.GridGap, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}"/>
+                                    <ComboBox Grid.Row="8" Grid.Column="2" SelectedValue="{Binding baseLayout.GridGapUnit, RelativeSource={RelativeSource AncestorType=Window}, Mode=TwoWay}" SelectedValuePath="Content" Height="34" VerticalAlignment="Top">
                                         <ComboBoxItem Content="px"/>
                                         <ComboBoxItem Content="em"/>
                                         <ComboBoxItem Content="rem"/>

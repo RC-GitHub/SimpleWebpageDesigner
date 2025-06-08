@@ -108,3 +108,5 @@ C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SW
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.pdb
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.baml

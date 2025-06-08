@@ -102,6 +102,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Build.cs" />
+    <Compile Include="Components\ButtonSimple.xaml.cs">
+      <DependentUpon>ButtonSimple.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\CodeSimple.xaml.cs">
       <DependentUpon>CodeSimple.xaml</DependentUpon>
     </Compile>
@@ -131,6 +134,10 @@
     <Compile Include="ThemeWindow.xaml.cs">
       <DependentUpon>ThemeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\ButtonSimple.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\CodeSimple.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
