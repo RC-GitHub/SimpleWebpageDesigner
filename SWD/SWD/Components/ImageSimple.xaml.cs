@@ -25,7 +25,9 @@ using Path = System.IO.Path;
 namespace SWD.Components
 {
     /// <summary>
-    /// Interaction logic for Image.xaml
+    /// Interaction logic and data binding for the ImageSimple component editor.
+    /// Allows users to select, display, and configure an image for a component,
+    /// including alignment, size, stretch, and visual effects.
     /// </summary>
     public partial class ImageSimple : Page, INotifyPropertyChanged
     {
@@ -33,6 +35,9 @@ namespace SWD.Components
         private ComponentContent _componentContent;
         private BitmapImage originalImage;
 
+        /// <summary>
+        /// Gets or sets the component content (image properties) being edited.
+        /// </summary>
         public ComponentContent ComponentContent
         {
             get => _componentContent;
@@ -46,12 +51,25 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Notifies listeners that a property value has changed.
+        /// </summary>
+        /// <param name="name">The name of the property that changed.</param>
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageSimple"/> class.
+        /// </summary>
+        /// <param name="compcont">The component content to edit.</param>
+        /// <param name="path">The project path for image lookup and storage.</param>
         public ImageSimple(ComponentContent compcont, string path)
         {
             InitializeComponent();
@@ -87,11 +105,18 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles theme changes and updates the DataContext.
+        /// </summary>
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Loads the image from the images directory based on the current <see cref="ComponentContent.ImageName"/>.
+        /// </summary>
+        /// <param name="imageDir">The directory containing images.</param>
         private void LoadImage(string imageDir)
         {
             string imagePath = Path.Combine(imageDir, ComponentContent.ImageName);
@@ -108,6 +133,10 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles the Open Image button click, allowing the user to select an image file.
+        /// Copies the selected image to the project images directory if needed.
+        /// </summary>
         private void OpenImage_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog
@@ -127,6 +156,10 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Loads an image from the specified file path and displays it in the UI.
+        /// </summary>
+        /// <param name="path">The full file path to the image.</param>
         private void LoadImageFromPath(string path)
         {
             try
@@ -148,6 +181,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Applies the current settings (size, alignment, stretch, filter) to the displayed image.
+        /// </summary>
         private void ApplySettings_Click(object sender, RoutedEventArgs e)
         {
             // Size
@@ -202,6 +238,10 @@ namespace SWD.Components
             ApplyFilter(filter);
         }
 
+        /// <summary>
+        /// Applies a visual filter (blur, shadow, grayscale, or none) to the displayed image.
+        /// </summary>
+        /// <param name="filter">The filter name to apply.</param>
         private void ApplyFilter(string filter)
         {
             if (ImageViewer.Source == null) return;

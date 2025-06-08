@@ -15,10 +15,20 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for file and folder management
+    /// in the file selector panel, including renaming, moving, deleting, and refreshing.
+    /// </summary>
     public partial class ContentWindow : Window
     {
         string[] currentProjectDir;
         string currentFilePath = string.Empty;
+
+        /// <summary>
+        /// Sets up the file and folder context for the current JSON file,
+        /// updates UI fields and folder list.
+        /// </summary>
+        /// <param name="jsonPath">The path to the JSON file.</param>
         public void ControlFile(string jsonPath)
         {
             currentFilePath = jsonPath;
@@ -41,7 +51,10 @@ namespace SWD.Content
             lblFS.Content = $"Folders inside: {folders[folders.Length - 1]}";
         }
 
-        private void imgFolderRefresh_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Refreshes the folder list in the file selector panel.
+        /// </summary>
+        private void btnFolderRefresh_Click(object sender, RoutedEventArgs e)
         {
             string currentDirectory = Path.GetDirectoryName(currentFilePath);
             string[] insideFolders = Directory.GetDirectories(currentDirectory, "*", SearchOption.TopDirectoryOnly).Select(dir => Path.GetFileName(dir))
@@ -49,6 +62,9 @@ namespace SWD.Content
             lbFS.ItemsSource = insideFolders;
         }
 
+        /// <summary>
+        /// Handles selection change in the folder list, updates the folder name textbox.
+        /// </summary>
         private void LbFS_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tbFolderNameChange.Focus();
@@ -56,6 +72,9 @@ namespace SWD.Content
             tbFolderNameChange.CaretIndex = tbFileNameChange.Text.Length - 1;
         }
 
+        /// <summary>
+        /// Deletes the current file and loads the next available file if present.
+        /// </summary>
         private void btnFileDelete_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -88,6 +107,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Saves the file and applies any folder or file renaming as needed.
+        /// </summary>
         private void btnFileSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -116,8 +138,12 @@ namespace SWD.Content
                 {
                     if (!File.Exists(newFilePath))
                     {
-                        File.Move(Path.Combine(newFolderPath, $"{pageName}.json"), newFilePath);
-                        pageName = newFileName;
+                        try
+                        {
+                            File.Move(Path.Combine(newFolderPath, $"{pageName}.json"), newFilePath);
+                            pageName = newFileName;
+                        }
+                        catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
                     }
                     else
                     {
@@ -134,6 +160,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Moves the current file to a new folder selected by the user.
+        /// </summary>
         private void btnMoveFile_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -175,6 +204,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Moves the current folder to a new location selected by the user.
+        /// </summary>
         private void btnMoveFolder_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -228,6 +260,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Adds a new folder inside the current directory, using a unique name.
+        /// </summary>
         private void btnInsideFolderAdd_Click(object sender, RoutedEventArgs e)
         {
             InputDialog inputDialog = new InputDialog();
@@ -253,6 +288,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Deletes the selected folder from the current directory, with confirmation if not empty.
+        /// </summary>
         private void btnInsideFolderDelete_Click(object sender, RoutedEventArgs e)
         {
             if (lbFS.SelectedItem != null)
@@ -288,7 +326,7 @@ namespace SWD.Content
                         }
                         else
                         {
-                            Directory.Delete(pathToDelete); 
+                            Directory.Delete(pathToDelete);
                         }
                         lbFS.ItemsSource = Directory.GetDirectories(currentDir)
                         .Select(d => Path.GetFileName(d))

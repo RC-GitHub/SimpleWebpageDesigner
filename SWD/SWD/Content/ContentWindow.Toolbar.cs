@@ -17,9 +17,19 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for toolbar and menu actions,
+    /// such as opening projects, files, folders, and handling build and close operations.
+    /// </summary>
     public partial class ContentWindow : Window
     {
         private bool menuOpeningInProgress = false;
+
+        /// <summary>
+        /// Opens the context menu for a toolbar button, ensuring only one menu opens at a time.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void OpenContextMenu(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -36,15 +46,32 @@ namespace SWD.Content
             // Reset after small delay
             Dispatcher.InvokeAsync(() => menuOpeningInProgress = false, DispatcherPriority.Background);
         }
+
+        /// <summary>
+        /// Handles the menu item click to create a new project.
+        /// </summary>
+        /// <param name="sender">The menu item.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void miNewProject_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.NewProject();
         }
 
+        /// <summary>
+        /// Handles the menu item click to open an existing project.
+        /// </summary>
+        /// <param name="sender">The menu item.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void miOpenProject_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.OpenProject();
         }
+
+        /// <summary>
+        /// Handles the menu item click to open a JSON file, copying it to the current directory if needed.
+        /// </summary>
+        /// <param name="sender">The menu item.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void miOpenFile_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -107,6 +134,12 @@ namespace SWD.Content
                 Errors.DisplayMessage(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Handles the menu item click to open a folder, copying it to the current directory if needed.
+        /// </summary>
+        /// <param name="sender">The menu item.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void miOpenFolder_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -148,7 +181,7 @@ namespace SWD.Content
                         else
                         {
                             // POSSIBLE FUNCTIONALITY TO ADD: MERGING CONTENTS
-                            Errors.DisplayMessage("Folder of the same name already exists in the current directory!"); 
+                            Errors.DisplayMessage("Folder of the same name already exists in the current directory!");
                         }
                     }
                     catch (Exception ex)
@@ -159,6 +192,12 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Recursively copies a directory and its contents to a new location.
+        /// </summary>
+        /// <param name="sourceDir">The source directory path.</param>
+        /// <param name="destDir">The destination directory path.</param>
+        /// <param name="copySubDirs">Whether to copy subdirectories.</param>
         public static void DirectoryCopy(string sourceDir, string destDir, bool copySubDirs)
         {
             DirectoryInfo dir = new DirectoryInfo(sourceDir);
@@ -187,6 +226,11 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the menu item click to edit the initial project metadata.
+        /// </summary>
+        /// <param name="sender">The menu item.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void miEditInitial_Click(object sender, RoutedEventArgs e)
         {
             SaveFile(true);
@@ -207,11 +251,21 @@ namespace SWD.Content
 
         }
 
+        /// <summary>
+        /// Handles the click event to close the ContentWindow.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Handles the click event to build the project by creating necessary directories.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event.</param>
+        /// <param name="e">Routed event arguments.</param>
         private void btnBuild_Click(object sender, RoutedEventArgs e)
         {
             Build.CreateDirectories(path);

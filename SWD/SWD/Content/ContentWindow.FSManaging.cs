@@ -11,8 +11,17 @@ using Window = System.Windows.Window;
 
 namespace SWD.Content
 {
+    /// <summary>
+    /// Partial class for ContentWindow, containing logic for managing file selector data,
+    /// including building the DataTable for files and refreshing file data from disk.
+    /// </summary>
     public partial class ContentWindow : Window
     {
+        /// <summary>
+        /// Creates and returns a DataTable structure for storing file information,
+        /// including columns for id, folder structure, filename, and path.
+        /// </summary>
+        /// <returns>A DataTable configured for file selector usage.</returns>
         public static DataTable MakeDataTable()
         {
             DataTable dataTable = new DataTable("Files");
@@ -48,6 +57,10 @@ namespace SWD.Content
             return dataTable;
         }
 
+        /// <summary>
+        /// Refreshes the file data by scanning the file system for files in the JSON directory,
+        /// populating the DataTable, and updating the DataGrid's ItemsSource.
+        /// </summary>
         public void RefreshFileData()
         {
             dataTable = MakeDataTable();
@@ -89,6 +102,11 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles the MouseDown event for the refresh image, triggering a refresh of the file data.
+        /// </summary>
+        /// <param name="sender">The image control that was clicked.</param>
+        /// <param name="e">Mouse button event arguments.</param>
         private void imgRefresh_MouseDown(object sender, MouseButtonEventArgs e)
         {
             RefreshFileData();

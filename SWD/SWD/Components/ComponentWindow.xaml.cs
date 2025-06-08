@@ -34,17 +34,38 @@ namespace SWD.Components
 {
 
     /// <summary>
-    /// Interaction logic for ComponentWindow.xaml
+    /// Interaction logic and data binding for the ComponentWindow editor.
+    /// Allows editing of various component types (text, image, code, button) and their styles.
     /// </summary>
     public partial class ComponentWindow : Window, INotifyPropertyChanged
     {
+        /// <summary>
+        /// The path to the current project.
+        /// </summary>
         public string projectPath;
+
+        /// <summary>
+        /// Occurs when a property value changes.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Notifies listeners that a property value has changed.
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed.</param>
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
+        /// <summary>
+        /// The component being edited.
+        /// </summary>
         public Component MyComponent { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ComponentWindow"/> class.
+        /// </summary>
+        /// <param name="component">The component to edit.</param>
+        /// <param name="path">The project path for resource lookup.</param>
         public ComponentWindow(Component component, string path)
         {
             InitializeComponent();
@@ -70,13 +91,19 @@ namespace SWD.Components
             AttachHoverPopupHandlers(rectBorderColor, popBorderColor);
             AttachHoverPopupHandlers(rectGradientStart, popGradientStart);
             AttachHoverPopupHandlers(rectGradientEnd, popGradientEnd);
-
         }
+
+        /// <summary>
+        /// Handles theme changes and updates the DataContext.
+        /// </summary>
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             this.DataContext = App.themeData.CurrentTheme;
         }
 
+        /// <summary>
+        /// Handles changes to the component's type and reloads the editor page.
+        /// </summary>
         private void MyComponent_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(Component.Type))
@@ -85,6 +112,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Loads the appropriate editor page based on the component type.
+        /// </summary>
         private void LoadEditor()
         {
             frameHost.Visibility = Visibility.Visible;
@@ -96,19 +126,15 @@ namespace SWD.Components
                 case "text":
                     editorPage = (new TextSimple(MyComponent.Content));
                     break;
-
                 case "image":
-                    editorPage = (new ImageSimple(MyComponent.Content, projectPath)); 
+                    editorPage = (new ImageSimple(MyComponent.Content, projectPath));
                     break;
-
                 case "code":
                     editorPage = new CodeSimple(MyComponent.Content);
                     break;
-
                 case "button":
-                    editorPage = new ButtonSimple(MyComponent.Content);
+                    editorPage = new ButtonSimple(MyComponent.Content, projectPath);
                     break;
-
                 default:
                     Errors.DisplayMessage("Unknown component type: " + MyComponent.Type);
                     frameHost.Visibility = Visibility.Collapsed;
@@ -118,6 +144,9 @@ namespace SWD.Components
             frameHost.Navigate(editorPage);
         }
 
+        /// <summary>
+        /// Handles the Loaded event for editor pages and attaches navigation event handlers.
+        /// </summary>
         private void EditorPage_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is TextSimple textPage)
@@ -138,6 +167,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles navigation events and updates the component's content from the editor page.
+        /// </summary>
         private void NavigationService_Navigated(object sender, NavigationEventArgs e)
         {
             if (e.Content is TextSimple textPage)
@@ -161,7 +193,9 @@ namespace SWD.Components
             frameHost.Content = null;
         }
 
-
+        /// <summary>
+        /// Initializes the alpha sliders for color rectangles based on their current color values.
+        /// </summary>
         private void InitializeSliders()
         {
             Debug.WriteLine("HELP");
@@ -203,6 +237,11 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Attaches hover event handlers to show and hide popups for color rectangles.
+        /// </summary>
+        /// <param name="trigger">The UI element that triggers the popup.</param>
+        /// <param name="popup">The popup to show/hide.</param>
         private void AttachHoverPopupHandlers(FrameworkElement trigger, Popup popup)
         {
             DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
@@ -225,6 +264,9 @@ namespace SWD.Components
             popup.MouseLeave += (s, e) => timer.Start();
         }
 
+        /// <summary>
+        /// Handles mouse click on a color rectangle and opens the color picker dialog.
+        /// </summary>
         private void SetColor(object sender, MouseButtonEventArgs e)
         {
             if (sender is Rectangle rect)
@@ -233,6 +275,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles mouse click on a label associated with a color rectangle and opens the color picker dialog.
+        /// </summary>
         private void LabelSetColor(object sender, MouseButtonEventArgs e)
         {
             Debug.WriteLine("this hap");
@@ -245,9 +290,13 @@ namespace SWD.Components
         }
 
         string[] compStyle = new string[] { "BorderColor", "GradientStart", "GradientEnd" };
+
+        /// <summary>
+        /// Applies a selected color to the specified rectangle and updates the corresponding property.
+        /// </summary>
+        /// <param name="rectangle">The rectangle to update.</param>
         private void ApplyColor(Rectangle rectangle)
         {
-
             if (rectangle == null) return;
 
             string rectangleName = rectangle.Name.Substring(4);
@@ -290,6 +339,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles slider value changes to update the alpha channel of the associated color rectangle.
+        /// </summary>
         private void SliderChange(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Slider slider = sender as Slider;
@@ -307,6 +359,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles the background image browse button click, allowing the user to select and copy an image to the project.
+        /// </summary>
         private void btnBackgroundImage_Click(object sender, RoutedEventArgs e)
         {
             string configPath = Path.Combine(projectPath, "images");
@@ -334,6 +389,9 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Handles the Save button click, updates the component content from the editor, and closes the window.
+        /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (frameHost.Content is TextSimple editorPage)
@@ -343,6 +401,9 @@ namespace SWD.Components
             this.Close();
         }
 
+        /// <summary>
+        /// Handles changes to the component type ComboBox and loads the corresponding editor page.
+        /// </summary>
         private void ComponentTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = (ComponentTypeComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString();
@@ -352,13 +413,13 @@ namespace SWD.Components
                     frameHost.Content = new TextSimple(MyComponent.Content);
                     break;
                 case "image":
-                    frameHost.Content = new ImageSimple(MyComponent.Content, projectPath); 
+                    frameHost.Content = new ImageSimple(MyComponent.Content, projectPath);
                     break;
                 case "code":
                     frameHost.Content = new CodeSimple(MyComponent.Content);
                     break;
                 case "button":
-                    frameHost.Content = new ButtonSimple(MyComponent.Content);
+                    frameHost.Content = new ButtonSimple(MyComponent.Content, projectPath);
                     break;
                 default:
                     frameHost.Content = null;
@@ -366,11 +427,17 @@ namespace SWD.Components
             }
         }
 
+        /// <summary>
+        /// Shows the size popup when the mouse enters the size header.
+        /// </summary>
         private void SizeHeader_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             popSize.IsOpen = true;
         }
 
+        /// <summary>
+        /// Hides the size popup when the mouse leaves the size header.
+        /// </summary>
         private void SizeHeader_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             popSize.IsOpen = false;

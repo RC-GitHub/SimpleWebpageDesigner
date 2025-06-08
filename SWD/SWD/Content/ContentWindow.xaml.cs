@@ -38,7 +38,8 @@ using Window = System.Windows.Window;
 namespace SWD.Content
 {
     /// <summary>
-    /// Logika interakcji dla klasy CreationWindow.xaml
+    /// Main window for editing and managing SWD project content.
+    /// Handles project loading, saving, theming, and DataGrid operations.
     /// </summary>
     public partial class ContentWindow : Window
     {
@@ -57,7 +58,13 @@ namespace SWD.Content
         string readyPath = "";
         public DataTable dataTable = MakeDataTable();
 
-        // Constructor used when a new project is created.
+        /// <summary>
+        /// Constructor used when a new project is created.
+        /// Initializes the window, closes the creation window, sets up theme and DataGrid.
+        /// </summary>
+        /// <param name="directory">Project directory path.</param>
+        /// <param name="cw">Reference to the CreationWindow to close.</param>
+        /// <param name="pagename">Initial page name (default: "index").</param>
         public ContentWindow(string directory, CreationWindow cw, string pagename = "index")
         {
             InitializeComponent();
@@ -87,7 +94,12 @@ namespace SWD.Content
             SaveFile(true);
         }
 
-        // Constructor used when an existing project is opened.
+        /// <summary>
+        /// Constructor used when an existing project is opened.
+        /// Initializes the window, closes the main window, loads or creates the index page.
+        /// </summary>
+        /// <param name="directory">Project directory path.</param>
+        /// <param name="mw">Reference to the MainWindow to close.</param>
         public ContentWindow(string directory, MainWindow mw)
         {
             InitializeComponent();
@@ -134,6 +146,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Handles theme changes and updates the DataContext and DataGrid.
+        /// </summary>
         private void ThemeData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             Debug.WriteLine("it changed");
@@ -141,23 +156,32 @@ namespace SWD.Content
             BuildDataGrid(true);
         }
 
+        /// <summary>
+        /// Gets the project name from the directory path for window title display.
+        /// </summary>
+        /// <param name="directory">The project directory path.</param>
+        /// <returns>The formatted project name.</returns>
         private string GetProjectName(string directory)
         {
             string lastFolderName = Path.GetFileName(directory.TrimEnd(Path.DirectorySeparatorChar));
             return $"SWD Project: {lastFolderName.Substring(4)}";
         }
 
+        /// <summary>
+        /// Saves the current project state to a JSON file.
+        /// </summary>
+        /// <param name="noMessage">If true, suppresses the save confirmation message.</param>
         private void SaveFile(bool noMessage = false)
         {
             List<ContentStructure> _data = new List<ContentStructure>
-            {
-                new ContentStructure()
                 {
-                    Components = components,
-                    RowAmount = data.Count,
-                    ColAmount = data[0].Content.Count
-                }
-            };
+                    new ContentStructure()
+                    {
+                        Components = components,
+                        RowAmount = data.Count,
+                        ColAmount = data[0].Content.Count
+                    }
+                };
 
             string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
 
@@ -183,23 +207,38 @@ namespace SWD.Content
             finally { }
         }
 
+        /// <summary>
+        /// Returns the path to the JSON directory for the project, creating it if necessary.
+        /// </summary>
+        /// <param name="path">The project root path.</param>
+        /// <returns>The JSON directory path.</returns>
         private string MakeJsonPath(string path)
         {
             string newPath = System.IO.Path.Combine(path, $"json");
             if (!Directory.Exists(newPath)) Directory.CreateDirectory(newPath);
             return newPath;
         }
+
+        /// <summary>
+        /// Handles the Save button click event, saving the current project.
+        /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFile();
         }
 
+        /// <summary>
+        /// Handles the Theme button click event, opening the theme editor window.
+        /// </summary>
         private void btnTheme_Click(object sender, RoutedEventArgs e)
         {
             ThemeWindow tw = new ThemeWindow(this);
             tw.Show();
         }
 
+        /// <summary>
+        /// Handles the New button click event, creating a new page file.
+        /// </summary>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             InputDialog inputDialog = new InputDialog();
@@ -207,14 +246,14 @@ namespace SWD.Content
             {
                 string newFileName = inputDialog.InputValue;
                 List<ContentStructure> _data = new List<ContentStructure>
-                {
-                    new ContentStructure()
                     {
-                        Components = {},
-                        RowAmount = 1,
-                        ColAmount = 1
-                    }
-                };
+                        new ContentStructure()
+                        {
+                            Components = {},
+                            RowAmount = 1,
+                            ColAmount = 1
+                        }
+                    };
 
                 string json = JsonConvert.SerializeObject(_data, Newtonsoft.Json.Formatting.Indented);
 
@@ -233,6 +272,10 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Loads a JSON page file, updates the DataGrid and UI with its content.
+        /// </summary>
+        /// <param name="jsonPath">The path to the JSON file.</param>
         public void LoadJsonPage(string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -253,9 +296,9 @@ namespace SWD.Content
                     return;
                 }
 
-                PageData page = pages[0]; 
+                PageData page = pages[0];
 
-                components = new Dictionary<string, Component>(); 
+                components = new Dictionary<string, Component>();
                 components = page.Components;
 
                 int rows = page.RowAmount;
@@ -294,6 +337,9 @@ namespace SWD.Content
             }
         }
 
+        /// <summary>
+        /// Resets the modify buttons and component property fields to their default state.
+        /// </summary>
         public void RevertModifyButtons()
         {
             tbColModify.Text = "1";

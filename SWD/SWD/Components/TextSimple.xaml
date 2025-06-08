@@ -96,7 +96,7 @@
         </Style>
     </Page.Resources>
 
-    <DockPanel>
+    <DockPanel Margin="10">
         <!-- Toolbar -->
         <ToolBar DockPanel.Dock="Top" Background="#EEE" Height="40">
             <StackPanel Orientation="Horizontal" Margin="5,0">
@@ -115,7 +115,7 @@
                 <ToggleButton x:Name="togBtnItalic" Style="{StaticResource ImageToggleButtonStyle}" Tag="../Icons/italic.png" Width="30" Height="30" Margin="0,0,5,0" Click="Italic_Click"/>
                 <ToggleButton x:Name="togBtnUnderline" Style="{StaticResource ImageToggleMarginButtonStyle}" Tag="../Icons/underline.png" Width="30" Height="30" Margin="0,0,5,0" Click="Underline_Click"/>
                 <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-color.png" Width="25" Height="25" Margin="0,0,5,0" Click="FontColor_Click" />
-                <Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-family.png" Width="25" Height="25" Margin="0,0,0,0" Click="FontFamily_Click" />
+                <!--<Button Style="{StaticResource ImageButtonStyle}" Tag="../Icons/font-family.png" Width="25" Height="25" Margin="0,0,0,0" Click="FontFamily_Click" />-->
             </StackPanel>
             <Separator/>
             <StackPanel Orientation="Horizontal" Margin="5,0">

@@ -23,18 +23,27 @@ using Path = System.IO.Path;
 namespace SWD
 {
     /// <summary>
-    /// Interaction logic for ThemeWindow.xaml
+    /// Interaction logic for ThemeWindow.xaml.
+    /// Provides a UI for creating, editing, and managing application themes.
     /// </summary>
     public partial class ThemeWindow : Window
     {
         private ContentWindow contentWindow = null;
         private Dictionary<string, Theme> themes = new Dictionary<string, Theme>();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThemeWindow"/> class for standalone theme editing.
+        /// </summary>
         public ThemeWindow()
         {
             InitializeComponent();
             LoadThemes();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ThemeWindow"/> class for editing themes in the context of a content window.
+        /// </summary>
+        /// <param name="cw">The parent <see cref="ContentWindow"/>.</param>
         public ThemeWindow(ContentWindow cw)
         {
             contentWindow = cw;
@@ -42,6 +51,9 @@ namespace SWD
             LoadThemes();
         }
 
+        /// <summary>
+        /// Loads themes from the application data and sets up the UI.
+        /// </summary>
         private void LoadThemes()
         {
             themes = ((ThemeData)App.themeData.Clone()).Themes;
@@ -63,6 +75,9 @@ namespace SWD
             GetThemesNames();
         }
 
+        /// <summary>
+        /// Returns a list of all theme names.
+        /// </summary>
         private List<string> GetThemesNames()
         {
             List<string> list = new List<string>();
@@ -73,6 +88,10 @@ namespace SWD
             return list;
         }
 
+        /// <summary>
+        /// Handles the selection change event for the theme ComboBox.
+        /// Updates the DataContext and name field.
+        /// </summary>
         private void cbThemes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbThemes.SelectedItem is Theme selectedTheme)
@@ -80,9 +99,11 @@ namespace SWD
                 this.DataContext = selectedTheme;
                 tbName.Text = selectedTheme.Name;
             }
-
         }
 
+        /// <summary>
+        /// Handles the color selection for a theme property using a color picker dialog.
+        /// </summary>
         private void SetColor(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
@@ -100,6 +121,9 @@ namespace SWD
             binding?.UpdateSource();
         }
 
+        /// <summary>
+        /// Handles the image selection for the background image property.
+        /// </summary>
         private void SetImage(object sender, RoutedEventArgs e)
         {
             string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
@@ -116,7 +140,7 @@ namespace SWD
             {
                 string selectedPath = openFileDialog.FileName;
                 string fileName = System.IO.Path.GetFileName(selectedPath);
-                string savePath = Path.Combine (configPath, fileName);
+                string savePath = Path.Combine(configPath, fileName);
 
                 if (selectedPath != savePath) File.Copy(selectedPath, savePath, true);
 
@@ -126,6 +150,9 @@ namespace SWD
             }
         }
 
+        /// <summary>
+        /// Updates the visibility of background image-related controls based on the theme settings.
+        /// </summary>
         private void BackgroundTypeSelection()
         {
             if (!(DataContext is Theme theme)) return;
@@ -150,36 +177,57 @@ namespace SWD
             }
         }
 
+        /// <summary>
+        /// Handles the Checked event for the background image toggle.
+        /// </summary>
         private void cbBackgroundImageOn_Checked(object sender, RoutedEventArgs e)
         {
             BackgroundTypeSelection();
         }
 
+        /// <summary>
+        /// Handles the Unchecked event for the background image toggle.
+        /// </summary>
         private void cbBackgroundImageOn_Unchecked(object sender, RoutedEventArgs e)
         {
             BackgroundTypeSelection();
         }
 
+        /// <summary>
+        /// Shows the trivia popup when the title label is hovered.
+        /// </summary>
         private void lblTitle_MouseEnter(object sender, MouseEventArgs e)
         {
             popTrivia.IsOpen = true;
         }
 
+        /// <summary>
+        /// Hides the trivia popup when the title label is no longer hovered.
+        /// </summary>
         private void lblTitle_MouseLeave(object sender, MouseEventArgs e)
         {
             popTrivia.IsOpen = false;
         }
 
+        /// <summary>
+        /// Shows the star popup when the star textbox is hovered.
+        /// </summary>
         private void tbStar_MouseEnter(object sender, MouseEventArgs e)
         {
             popStar.IsOpen = true;
         }
 
+        /// <summary>
+        /// Hides the star popup when the star textbox is no longer hovered.
+        /// </summary>
         private void tbStar_MouseLeave(object sender, MouseEventArgs e)
         {
             popStar.IsOpen = false;
         }
 
+        /// <summary>
+        /// Handles the click event to create a new theme based on the current one.
+        /// </summary>
         private void btnNew_Click(object sender, RoutedEventArgs e)
         {
             Theme newTheme = (Theme)(this.DataContext as Theme).Clone();
@@ -196,13 +244,16 @@ namespace SWD
             SaveTheme();
         }
 
+        /// <summary>
+        /// Handles the click event to delete the currently selected theme.
+        /// </summary>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             int index = cbThemes.SelectedIndex;
             Theme theme = this.DataContext as Theme;
             themes.Remove(theme.Name);
             cbThemes.Items.Refresh();
-            if (cbThemes.Items.Count-1 >= index)
+            if (cbThemes.Items.Count - 1 >= index)
             {
                 cbThemes.SelectedIndex = index;
             }
@@ -213,6 +264,10 @@ namespace SWD
             Infos.DisplayMessage("Theme deleted successfully.");
         }
 
+        /// <summary>
+        /// Saves the current theme to the configuration file and updates the application theme data.
+        /// </summary>
+        /// <param name="currentTheme">If true, sets the saved theme as the current theme.</param>
         public void SaveTheme(bool currentTheme = false)
         {
             Theme theme = this.DataContext as Theme;
@@ -249,7 +304,6 @@ namespace SWD
 
             string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
             string configDirectory = Path.Combine(projectDirectory, "Config");
-
 
             if (theme.BackgroundImageOn)
             {
@@ -295,11 +349,17 @@ namespace SWD
             contentWindow.BuildDataGrid(true);
         }
 
+        /// <summary>
+        /// Handles the click event to save the current theme.
+        /// </summary>
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             SaveTheme();
         }
 
+        /// <summary>
+        /// Handles the click event to set the current theme and close the window.
+        /// </summary>
         private void btnSet_Click(object sender, RoutedEventArgs e)
         {
             SaveTheme(true);

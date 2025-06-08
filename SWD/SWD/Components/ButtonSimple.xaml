@@ -26,7 +26,10 @@
         </LinearGradientBrush>
     </Page.Background>
 
-    <Grid Margin="10">
+    <StackPanel VerticalAlignment="Center">
+        <Separator Background="{Binding ButtonSecondary}" Margin="15,0"/>
+        
+        <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
@@ -56,7 +59,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Width:" Margin="5" />
-            <TextBox Grid.Row="0" Grid.Column="1" Margin="5"  Text="{Binding ComponentContent.ButtonWidth, RelativeSource={RelativeSource AncestorType=Page}}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonWidth, RelativeSource={RelativeSource AncestorType=Page}}" />
             <ComboBox Grid.Row="0" Grid.Column="2" Margin="5" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonWidthUnit, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
                 <ComboBoxItem Content="px"/>
                 <ComboBoxItem Content="em"/>
@@ -88,21 +91,21 @@
                 <ComboBoxItem Content="vh"/>
             </ComboBox>
 
-            <TextBlock Grid.Row="3" Text="Background Color:" Margin="5" />
-            <TextBox Grid.Row="3" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBackgroundColor, RelativeSource={RelativeSource AncestorType=Page}}" />
-            <Button Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5">
-                <Image Source="../Icons/edit.png" />
-            </Button>
+                <TextBlock Grid.Row="3" Text="Font Color:" Margin="5" />
+                <TextBox x:Name="tbFontColor" Grid.Row="3" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonFontColor, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}" IsEnabled="True"/>
+                <Button x:Name="btnFontColor" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5" Click="btnFontColor_Click" IsEnabled="True">
+                    <Image Source="../Icons/edit.png" />
+                </Button>
 
-            <TextBlock Grid.Row="4" Text="Background Image:" Margin="5" />
-            <TextBox Grid.Row="4" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBackgroundImage, RelativeSource={RelativeSource AncestorType=Page}}" />
-            <Button Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5">
+                <TextBlock Grid.Row="4" Text="Background Color:" Margin="5" />
+            <TextBox x:Name="tbBackgroundColor" Grid.Row="4" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBackgroundColor, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}" IsEnabled="True"/>
+            <Button x:Name="btnBackgroundColor" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5" Click="btnBackgroundColor_Click" IsEnabled="True">
                 <Image Source="../Icons/edit.png" />
             </Button>
 
             <TextBlock Grid.Row="5" Text="Border:" Margin="5" />
-            <TextBox Grid.Row="5" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBorder, RelativeSource={RelativeSource AncestorType=Page}}" />
-            <ComboBox Grid.Row="5" Grid.Column="2" Margin="5" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonBorderhUnit, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBorder, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}" />
+            <ComboBox Grid.Row="5" Grid.Column="2" Margin="5" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonBorderUnit, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
                 <ComboBoxItem Content="px"/>
                 <ComboBoxItem Content="em"/>
                 <ComboBoxItem Content="rem"/>
@@ -112,8 +115,8 @@
             </ComboBox>
 
             <TextBlock Grid.Row="6" Text="Border Color:" Margin="5" />
-            <TextBox Grid.Row="6" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBorderColor, RelativeSource={RelativeSource AncestorType=Page}}" />
-            <Button Grid.Row="6" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5">
+            <TextBox x:Name="tbBorderColor" Grid.Row="6" Grid.Column="1" Margin="5,5,0,5" Text="{Binding ComponentContent.ButtonBorderColor, RelativeSource={RelativeSource AncestorType=Page}, Mode=TwoWay}" IsEnabled="True"/>
+            <Button x:Name="btnBorderColor" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Stretch" BorderThickness="2" Height="30" Margin="5" Click="btnBorderColor_Click" IsEnabled="True">
                 <Image Source="../Icons/edit.png" />
             </Button>
 
@@ -149,21 +152,6 @@
                 <ComboBoxItem Content="vw"/>
                 <ComboBoxItem Content="vh"/>
             </ComboBox>
-
-            <TextBlock Grid.Row="10" Text="H Align:" Margin="5" />
-            <ComboBox x:Name="HAlignBox" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonHAlign, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
-                <ComboBoxItem Content="Left"/>
-                <ComboBoxItem Content="Center"/>
-                <ComboBoxItem Content="Right"/>
-            </ComboBox>
-
-            <TextBlock Grid.Row="11" Text="V Align:" Margin="5" />
-            <ComboBox x:Name="VAlignBox" Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonVAlign, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" >
-                <ComboBoxItem Content="Left"/>
-                <ComboBoxItem Content="Center"/>
-                <ComboBoxItem Content="Right"/>
-            </ComboBox>
-
         </Grid>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="20">
@@ -172,8 +160,8 @@
                     BorderBrush="{Binding ComponentContent.ButtonBorderColor, RelativeSource={RelativeSource AncestorType=Page}}"
                     BorderThickness="{Binding ComponentContent.ButtonBorder, RelativeSource={RelativeSource AncestorType=Page}}"
                     CornerRadius="{Binding ComponentContent.ButtonBorderRadius, RelativeSource={RelativeSource AncestorType=Page}}"
-                    HorizontalAlignment="{Binding ComponentContent.ButtonHAlign, RelativeSource={RelativeSource AncestorType=Page}}"
-                    VerticalAlignment="{Binding ComponentContent.ButtonVAlign, RelativeSource={RelativeSource AncestorType=Page}}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
                     Padding="{Binding ComponentContent.ButtonPadding, RelativeSource={RelativeSource AncestorType=Page}}"
                     Margin="0,0,0,10"
                     Width="225"
@@ -191,16 +179,28 @@
             <TextBlock Text="Link:" FontWeight="Bold" Margin="0,0,0,5"/>
             <TextBox Text="{Binding ComponentContent.ButtonLink, RelativeSource={RelativeSource AncestorType=Page}}" Margin="5,5,5,10" />
 
-            <TextBlock Text="Predefined Style:" FontWeight="Bold" Margin="0,0,0,5"/>
-            <ComboBox VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonStyle, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" Margin="5,5,5,10">
+            <TextBlock Text="Function Name:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <TextBox Text="{Binding ComponentContent.ButtonFunc, RelativeSource={RelativeSource AncestorType=Page}}" Margin="5,5,5,10" />
+
+            <TextBlock Text="Predefined Color Style:" FontWeight="Bold" Margin="0,0,0,5"/>
+            <ComboBox x:Name="cbPredefinedStyle" VerticalContentAlignment="Center" SelectedValue="{Binding Path=ComponentContent.ButtonStyle, RelativeSource={RelativeSource AncestorType=Page}}" SelectedValuePath="Content" Margin="5,5,5,10" SelectionChanged="cbPredefinedStyle_SelectionChanged">
                 <ComboBoxItem Content="Custom"/>
+                <ComboBoxItem Content="Header-Body"/>
+                <ComboBoxItem Content="Header-Grid"/>
+                <ComboBoxItem Content="Header-Footer"/>
+                <ComboBoxItem Content="Body-Header"/>
                 <ComboBoxItem Content="Body-Grid"/>
                 <ComboBoxItem Content="Body-Footer"/>
+                <ComboBoxItem Content="Grid-Header"/>
                 <ComboBoxItem Content="Grid-Body"/>
                 <ComboBoxItem Content="Grid-Footer"/>
+                <ComboBoxItem Content="Footer-Header"/>
                 <ComboBoxItem Content="Footer-Body"/>
                 <ComboBoxItem Content="Footer-Grid"/>
             </ComboBox>
         </StackPanel>
     </Grid>
+
+        <Separator Background="{Binding ButtonSecondary}" Margin="15,0" />
+    </StackPanel>
 </Page>
