@@ -682,7 +682,7 @@ namespace SWD
         /// <summary>
         /// Gets or sets the dictionary of components.
         /// </summary>
-        public Dictionary<string, Component> Components { get; set; }
+        public Dictionary<string, Component> Components { get; set; } = new Dictionary<string, Component>();
         /// <summary>
         /// Gets or sets the number of rows.
         /// </summary>

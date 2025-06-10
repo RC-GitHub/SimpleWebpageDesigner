@@ -1,0 +1,729 @@
+﻿<Window x:Name="wdContent" x:Class="SWD.ContentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib" 
+        xmlns:local="clr-namespace:SWD"
+        mc:Ignorable="d"
+        Title="ContentWindow"
+        MinHeight="950" 
+        MinWidth="1450" 
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="{Binding HeaderFont}" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+        <Style x:Key="Heading" TargetType="Label">
+            <Setter Property="Foreground" Value="{Binding HeaderFont}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Margin" Value="0,0,0,0"/>
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="Foreground" Value="{Binding HeaderFont}"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0"/>
+                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="{Binding BackgroundGradStart}"/>
+            <GradientStop Color="{Binding BackgroundGradEnd}" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid x:Name="gdContentAndBar">
+        <Image Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="{Binding BackgroundImageAlignX}" VerticalAlignment="{Binding BackgroundImageAlignY}" Opacity="{Binding BackgroundImageOpacity}" Stretch="{Binding BackgroundImageStretch}" Source="{Binding BackgroundImageFullPath}"/>
+        <Rectangle Visibility="{Binding BackgroundImageOn, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{Binding BackgroundImageOverlay}" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <ToolBarTray DockPanel.Dock="Top">
+                <ToolBar>
+                    <Button x:Name="btnNewContext" Margin="0,0,10,0"        
+                        MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="newContextMenu">
+                                <MenuItem x:Name="miNewProject" Header="New project" Click="miNewProject_Click" ToolTip="Creates a new SWD Project."/>
+                                <Separator />
+                                <MenuItem x:Name="miNewFile" Header="New file" Click="btnNew_Click" ToolTip="Creates a new file inside the current SWD Project."/>
+                                <MenuItem x:Name="miNewFolder" Header="New folder" Click="btnInsideFolderAdd_Click" ToolTip="Creates a new folder inside the current SWD project."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgNew" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>New</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnOpenContext" Margin="0,0,10,0" MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="openContextMenu">
+                                <MenuItem x:Name="miOpenProject" Header="Open project" Click="miOpenProject_Click" ToolTip="Opens a new window with a different SWD Project."/>
+                                <Separator />
+                                <MenuItem x:Name="miOpenFile" Header="Add file" Click="miOpenFile_Click" ToolTip="Adds an existing JSON file to the current SWD Project."/>
+                                <MenuItem x:Name="miOpenFolder" Header="Add a folder" Click="miOpenFolder_Click" ToolTip="Adds an existing folder to the current SWD Project."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgImport" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Import</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnTheme" ToolTip="Change a theme." Margin="0,0,10,0" MouseEnter="OpenContextMenu">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="editContextMenu">
+                                <MenuItem x:Name="miEditInitial" Header="Edit initial settings" Click="miEditInitial_Click" ToolTip="Opens initial settings editor."/>
+                                <Separator />
+                                <MenuItem x:Name="miEditTheme" Header="Edit theme" Click="btnTheme_Click" ToolTip="Opens theme editor."/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgEdit" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Edit</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnSave" ToolTip="Save current file." Margin="0,0,10,0" Click="btnSave_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgSave" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Save</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnClose" ToolTip="Close current project." Margin="0,0,10,0" Click="btnClose_Click" >
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgClose" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Close</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Separator Width="Auto" />
+                    <Button x:Name="btnBuild" ToolTip="Convert project to a webpage!" Margin="0,0,10,0" HorizontalAlignment="Right" Click="btnBuild_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgBuild" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Build</TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnReveal" ToolTip="Open current file in browser!" Margin="0,0,10,0" HorizontalAlignment="Right" Click="btnReveal_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <Image x:Name="imgReveal" Width="20" Height="20" Margin="0,0,5,0"/>
+                            <TextBlock>Reveal</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+
+            <Grid x:Name="gdContent" Margin="20" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="12*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="5*" />
+                    <RowDefinition Height="6*" />
+                </Grid.RowDefinitions>
+
+                <Border BorderBrush="{Binding ButtonSecondary}"
+                    Grid.Row="0" Grid.Column="0" Grid.RowSpan="3"
+                    BorderThickness="4"
+                    Background="{Binding UnderlayPrimary}"
+                    Margin="20, 45, 20, 20" Padding="10, 15, 10, 5"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+
+                    <Grid x:Name="spFileBrowserPanel">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="50" />
+                            <RowDefinition Height="55" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="1.25*" />
+                            <RowDefinition Height="3.25*" />
+                            <RowDefinition Height="15" />
+                            <RowDefinition Height="65" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3.5*" />
+                            <ColumnDefinition Width="4*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" VerticalContentAlignment="Center" Margin="0,0,0,10" Foreground="{Binding Font}">
+                            File name
+                        </Label>
+                        <TextBox x:Name="tbFileNameChange"
+                             Grid.Row="0" Grid.Column="1"
+                             Margin="0,0,0,10"
+                             Padding="5,0,0,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center"/>
+
+                        <Label Grid.Row="1" VerticalContentAlignment="Center" Margin="0,0,0,10" Foreground="{Binding Font}">
+                            Parent name
+                        </Label>
+                        <TextBox x:Name="tbFolderNameChange"
+                             Grid.Row="1" Grid.Column="1"
+                             Margin="0,0,0,10"
+                             Padding="5,0,0,0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             VerticalContentAlignment="Center"/>
+
+                        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnMoveFile" Grid.Column="0"     
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Stretch"
+                               Margin="0,0,5,10" Click="btnMoveFile_Click">
+                                Move file
+                            </Button>
+                            <Button x:Name="btnMoveFolder" Grid.Column="1"     
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Stretch"
+                               Margin="5,0,0,10" Click="btnMoveFolder_Click">
+                                Move folder
+                            </Button>
+                        </Grid>
+
+                        <Separator Grid.Row="3" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
+
+                        <Label x:Name="lblFS" 
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Content="Folders inside: -" 
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Center"
+                               BorderThickness="2"
+                               Foreground="{Binding HeaderFont}"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
+                               Margin="0,0,0,0"
+                        />
+
+
+                        <Grid Grid.Row="5" Grid.ColumnSpan="2" Margin="5,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="1.25*" />
+                            </Grid.RowDefinitions>
+                            <ListBox x:Name="lbFS" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="0,0,5,5">
+                            </ListBox>
+                            <Button x:Name="btnInsideFolderAdd" Grid.Column="2" FontSize="20" Width="35" Height="35" Click="btnInsideFolderAdd_Click" FontWeight="ExtraBold" Margin="0,0,0,0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
+                            <Button x:Name="btnInsideFolderDelete" Grid.Column="2" Grid.Row="1" FontSize="20" Width="35" Height="35" Click="btnInsideFolderDelete_Click" FontWeight="ExtraBold"  Margin="0,0,0,0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
+                            <Button x:Name="btnFolderRefresh" Grid.Column="2" Grid.Row="2" FontSize="20" Width="35" Height="35" Click="btnFolderRefresh_Click" FontWeight="ExtraBold"  Margin="0,0,0,0">
+                                <Image x:Name="imgFolderRefresh" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/refresh.png" Width="20" Height="20"/>
+                            </Button>
+                        </Grid>
+
+                        <Separator Grid.Row="6" Grid.ColumnSpan="2" Background="{Binding ButtonSecondary}"/>
+
+                        <Grid Grid.Row="7" Grid.ColumnSpan="2" Margin="5,10,0,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button x:Name="btnFileSave" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileSave_Click" Margin="0,0,5,5">Save names</Button>
+                            <Button x:Name="btnFileDelete" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="45" Click="btnFileDelete_Click" Margin="5,0,0,5">Delete file</Button>
+                        </Grid>
+
+                    </Grid>
+
+                </Border>
+                <Label x:Name="lblControlTitle" 
+                       Style="{StaticResource Heading}"
+                       Content="File and folder control"
+                       Margin="15,0,15,0">
+                </Label>
+
+                <Rectangle 
+                    Grid.Column="1" 
+                    Grid.Row="0" 
+                    Grid.RowSpan="4" 
+                    Margin="5,20,5,5"
+                >
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="{Binding UnderlayPrimary}" Offset="0.5" />
+                            <GradientStop Color="{Binding UnderlaySecondary}" Offset="1" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Label x:Name="lblGridTitle" 
+                       Style="{StaticResource Heading}"
+                       Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" 
+                       Content="index.html" >
+                </Label>
+
+                <Grid x:Name="gdColRow" Grid.Row="1" Grid.Column="1" Margin="20,0" VerticalAlignment="Center" Height="175">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.5*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid x:Name="gdCol" Grid.Row="0" Grid.Column="0" Margin="0,0,20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.25*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Label x:Name="lblCols" 
+                               Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" 
+                               Content="Columns" 
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Center"
+                               BorderThickness="2"
+                               Foreground="{Binding HeaderFont}"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
+                               Margin="10"
+                        />
+
+                        <Label x:Name="lblColsAmount" Grid.Column="0" Grid.Row="1" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Center"                                Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <Button x:Name="btn_Col_Increase" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" Margin="0" />
+                            <TextBox x:Name="tbColAmount" Width="60" Height="30" Text="1" TextAlignment="Center" VerticalAlignment="Center" PreviewKeyDown="tbColAmount_PreviewKeyDown" GotFocus="PopupChange" LostFocus="PopupChange" />
+                            <Popup x:Name="popCol" Placement="Top" PlacementTarget="{Binding ElementName=tbColAmount}" IsOpen="False">
+                                <TextBlock x:Name="tbColPop" Background="AliceBlue" Padding="5">Insert value from 1 to 12 and hit enter.</TextBlock>
+                            </Popup>
+                            <Button x:Name="btn_Col_Decrease" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" Margin="0"/>
+                        </StackPanel>
+                        <Label x:Name="lblColsModify" Grid.Column="0" Grid.Row="2" Content="Modify at:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <Button x:Name="btn_Col_InsertAt" FontSize="20" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
+                            <TextBox x:Name="tbColModify" Width="60" Height="30" Text="1" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbModify_PreviewKeyDown" />
+                            <Popup x:Name="popColModify" Placement="Bottom" PlacementTarget="{Binding ElementName=tbColModify}" IsOpen="False">
+                                <TextBlock x:Name="tbPopColModify" Background="AliceBlue" Padding="5">Insert value from 1 to 12.</TextBlock>
+                            </Popup>
+                            <Button x:Name="btn_Col_DeleteAt" FontSize="20" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="gdRows" Grid.Column="1" Margin="10,0,10,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.25*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Label x:Name="lblRows" 
+                               Content="Rows" 
+                               Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                               HorizontalAlignment="Stretch"
+                               HorizontalContentAlignment="Center"
+                               VerticalAlignment="Center"
+                               BorderThickness="2"
+                               Foreground="{Binding HeaderFont}"
+                               BorderBrush="{Binding HeaderSecondary}"
+                               Background="{Binding HeaderPrimary}"
+                               Margin="10"></Label>
+
+                        <Label x:Name="lblRowAmount" Content="Amount:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Margin="10,0,0,0"></Label>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Right" Width="Auto" Margin="0,0,10,0">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="btn_Row_Increase" FontSize="12" Content="▲" Width="30" Height="30" Click="Increase_Click" HorizontalAlignment="Right" Margin="0"/>
+                                <TextBox x:Name="tbRowAmount" Width="60" Height="30" Text="1" TextAlignment="Center" LostFocus="PopupChange" GotFocus="PopupChange" PreviewKeyDown="tbRowAmount_PreviewKeyDown" HorizontalAlignment="Right"/>
+                                <Popup x:Name="popRow" Placement="Top" PlacementTarget="{Binding ElementName=tbRowAmount}" IsOpen="False">
+                                    <TextBlock x:Name="tbRowPop" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
+                                </Popup>
+                                <Button x:Name="btn_Row_Decrease" FontSize="12" Content="▼" Width="30" Height="30" Click="Decrease_Click" HorizontalAlignment="Right" Margin="0"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Label x:Name="lblRowsModify" Content="Modify at:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"></Label>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <Button x:Name="btn_Row_InsertAt" FontSize="20" Width="30" Height="30" Click="Insert_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="+" Margin="0,-4,0,0" />
+                            </Button>
+                            <TextBox x:Name="tbRowModify" Width="60" Height="30" Text="1" TextAlignment="Center" LostFocus="PopupChange" GotFocus="PopupChange" PreviewKeyDown="tbModify_PreviewKeyDown"/>
+                            <Popup x:Name="popRowModify" Placement="Bottom" PlacementTarget="{Binding ElementName=tbRowModify}" IsOpen="False">
+                                <TextBlock x:Name="tbPopRowModify" Background="AliceBlue" Padding="5">Insert a numeric value.</TextBlock>
+                            </Popup>
+                            <Button x:Name="btn_Row_DeleteAt" FontSize="20" Width="30" Height="30" Click="Delete_Click" FontWeight="ExtraBold" Margin="0">
+                                <TextBlock Text="-" Margin="0,-4,0,0" />
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid x:Name="gdComp" Grid.Row="0" Grid.Column="2" Margin="20,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.5*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="1.25*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="{Binding DecorationPrimary}" Offset="0" />
+                                <GradientStop Color="{Binding DecorationSecondary}" Offset="1" />
+                            </LinearGradientBrush>
+                        </Grid.Background>
+
+                        <Label x:Name="lblComps" 
+                           Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" 
+                           Content="Component: -" 
+                           HorizontalAlignment="Stretch"
+                           HorizontalContentAlignment="Center"
+                           VerticalAlignment="Center"
+                           BorderThickness="2"                                         
+                            Foreground="{Binding HeaderFont}"
+                            BorderBrush="{Binding HeaderSecondary}"
+                            Background="{Binding HeaderPrimary}"
+                           Margin="10,10,52,10"
+                        />
+                        <Button x:Name="btnCompEdit" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="30" Margin="11,0" Click="btnCompEdit_Click">
+                            <Image x:Name="imgCompEdit" Source="Icons/edit.png"  />
+                        </Button>
+
+
+                        <Label x:Name="lblCompWidth" Grid.Column="0" Grid.Row="1" Content="Width:" HorizontalAlignment="Left" VerticalAlignment="Center"                                Margin="10,0,0,0"/>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBox x:Name="tbCompWidth" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompWidth_PreviewKeyDown"  />
+                            <Popup x:Name="popCompWidth" Placement="Top" PlacementTarget="{Binding ElementName=tbCompWidth}" IsOpen="False">
+                                <TextBlock x:Name="tbPopCompWidth" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
+                            </Popup>
+                        </StackPanel>
+
+                        <Label x:Name="lblCompHeight" 
+                               Grid.Column="2" Grid.Row="1" 
+                               Content="Height:" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center" 
+                               Margin="10,0,0,0"
+                        />
+                        <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBox x:Name="tbCompHeight" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompHeight_PreviewKeyDown" />
+                            <Popup x:Name="popCompHeight" Placement="Bottom" PlacementTarget="{Binding ElementName=tbCompHeight}" IsOpen="False">
+                                <TextBlock x:Name="tbPopCompHeight" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
+                            </Popup>
+                        </StackPanel>
+
+                        <Label x:Name="lblCompCol" 
+                           Grid.Column="0" Grid.Row="2" 
+                           Content="Start column:" 
+                           HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Margin="10,0,0,0"
+                        />
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBox x:Name="tbCompCol" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompCol_PreviewKeyDown" />
+                            <Popup x:Name="popCompCol" Placement="Bottom" PlacementTarget="{Binding ElementName=tbCompCol}" IsOpen="False">
+                                <TextBlock x:Name="tbPopCompCol" Background="AliceBlue" Padding="5">Insert value from 1 to 12 and hit enter.</TextBlock>
+                            </Popup>
+                        </StackPanel>
+
+                        <Label x:Name="lblCompRow" 
+                               Grid.Column="2" Grid.Row="2" 
+                               Content="Start row:" 
+                               HorizontalAlignment="Left" VerticalAlignment="Center"                                
+                               Margin="10,0,0,0"
+                        />
+                        <StackPanel Orientation="Horizontal" Grid.Column="3" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
+                            <TextBox x:Name="tbCompRow" Width="50" Height="30" Text="-" TextAlignment="Center" GotFocus="PopupChange" LostFocus="PopupChange" PreviewKeyDown="tbCompRow_PreviewKeyDown" />
+                            <Popup x:Name="popCompRow" Placement="Top" PlacementTarget="{Binding ElementName=tbCompRow}" IsOpen="False">
+                                <TextBlock x:Name="tbPopCompRow" Background="AliceBlue" Padding="5">Insert a numeric value and hit enter.</TextBlock>
+                            </Popup>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <DataGrid x:Name="dgContent" 
+                    RowHeaderWidth="30"
+                    Grid.Column="2" 
+                    Grid.Row="2" 
+                    Grid.RowSpan="2"
+                    Margin="20" 
+                    HeadersVisibility="All"
+                    CanUserAddRows="False"
+                    CanUserSortColumns="False"
+                    AutoGenerateColumns="False"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+            
+                    HorizontalGridLinesBrush="{Binding HeaderSecondary}"
+                    VerticalGridLinesBrush="{Binding HeaderSecondary}"
+                    Width="Auto"
+                    Height="Auto"
+                    SelectionUnit="Cell"
+                    Loaded="dgContent_Loaded"
+                    SelectedCellsChanged="dgContent_SelectedCellsChanged"
+                    PreviewKeyDown="dgContent_PreviewKeyDown"
+                    Background="{Binding DecorationSecondary}"
+                    BorderBrush="{Binding ButtonSecondary}"
+                    BorderThickness="4"
+                    
+                    EnableRowVirtualization="True" 
+                    EnableColumnVirtualization="True"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling"
+                          
+                    >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="{Binding Title}">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Content}" Stretch="Uniform" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu x:Name="cellContextMenu" Opened="cellContextMenu_Opened">
+                            <MenuItem x:Name="miEdit" Header="Edit" Click="EditComponent" Visibility="Collapsed"/>
+                            <MenuItem x:Name="miDelete" Header="Delete" Click="DeleteComponent" Visibility="Collapsed"/>
+                            <Separator x:Name="cmActionSeparator" Visibility="Collapsed" />
+                            <MenuItem x:Name="miText" Header="Text (simple)" Click="AddComponent"/>
+                            <MenuItem x:Name="miButton" Header="Button" Click="AddComponent"/>
+                            <MenuItem x:Name="miImage" Header="Image" Click="AddComponent"/>
+                            <MenuItem x:Name="miCode" Header="Code" Click="AddComponent"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+
+                    <DataGrid.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Style.Resources>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </Style.Resources>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{Binding SelectedCellPrimary}"/>
+                                    <Setter Property="Foreground" Value="{Binding SelectedCellSecondary}"/>
+                                    <Setter Property="BorderBrush" Value="{Binding SelectedCellSecondary}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                            <Setter Property="BorderBrush" Value="{Binding CellSecondary}"></Setter>
+                            <Setter Property="Background" Value="{Binding Color}"></Setter>
+                            <Setter Property="BorderThickness" Value="10"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Stretch"></Setter>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </DataGrid.CellStyle>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="Height" Value="{x:Static sys:Double.NaN}"/>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.RowHeaderStyle>
+                        <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+                            <Setter Property="Content" Value="{Binding Title}" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridRowHeader">
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock FontWeight="DemiBold" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding DataContext.HeaderFont, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.RowHeaderStyle>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Height" Value="30" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeader" >
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <TextBlock FontWeight="DemiBold" Text="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <Grid x:Name="Overlay" Background="#AAFFFFFF" Visibility="Collapsed">
+                    <TextBlock Text="Loading..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                </Grid>
+
+                <DataGrid x:Name="dgPages" 
+                    Grid.Row="3"
+                    Margin="20,35,20,20"                     
+                    CanUserAddRows="False"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    SelectionUnit="Cell" 
+                    LoadingRow="dgPages_LoadingRow"
+                    AutoGeneratingColumn="dgPages_AutoGeneratingColumn"
+                    BorderBrush="{Binding ButtonSecondary}"
+                    BorderThickness="4"
+                         
+                    Background="{Binding UnderlayPrimary}"
+                    
+                          >
+                    <DataGrid.RowHeaderStyle>
+                        <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{Binding DecorationPrimary}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DecorationSecondary}" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="VerticalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridRowHeader">
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1">
+                                            <Border.Background>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                    <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                                    <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <ContentPresenter Width="30" Height="30"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" 
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                            </Grid>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </DataGrid.RowHeaderStyle>
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="VerticalContentAlignment" Value="Center" />
+                            <Setter Property="Height" Value="30" />
+                            <Setter Property="Padding" Value="5,0,5,0" />
+                            <Setter Property="FontWeight" Value="DemiBold" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="BorderBrush" Value="{Binding DataContext.HeaderSecondary, RelativeSource={RelativeSource AncestorType=Window}}" />
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Color="{Binding DataContext.DecorationPrimary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="0.0" />
+                                        <GradientStop Color="{Binding DataContext.DecorationSecondary, RelativeSource={RelativeSource AncestorType=Window}}" Offset="1.0" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+                </DataGrid>
+                <Label x:Name="lblFilesTitle" 
+                       Grid.Row="3"
+                       VerticalAlignment="Top"
+                       Content="Files"
+                       Style="{StaticResource Heading}" 
+                       Margin="15,0,15,0">
+                </Label>
+                <Image x:Name="imgRefresh" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top" Source="Icons/refresh.png" Width="20" Height="20" Margin="15,10,25,0" MouseDown="imgRefresh_MouseDown"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

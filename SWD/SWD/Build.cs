@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -47,7 +48,7 @@ namespace SWD
                     Directory.CreateDirectory(targetFileDir);
 
                 string jsonContent = File.ReadAllText(filePath);
-                string htmlContent = GenerateHtmlFromJson(jsonContent, projectPath);
+                string htmlContent = GenerateHtmlFromJson(jsonContent, projectPath, targetFilePath);
 
                 File.WriteAllText(targetFilePath, htmlContent);
             }
@@ -56,17 +57,45 @@ namespace SWD
         }
 
         /// <summary>
-        /// Returns the relative path from a base directory to a full file path.
+        /// Returns the relative path from one directory or file to another.
+        /// Handles different URI schemes and ensures correct path separators.
         /// </summary>
-        /// <param name="basePath">The base directory path.</param>
-        /// <param name="fullPath">The full file path.</param>
-        /// <returns>The relative path from basePath to fullPath.</returns>
-        private static string GetRelativePath(string basePath, string fullPath)
+        /// <param name="fromPath">The base directory or file path.</param>
+        /// <param name="toPath">The target directory or file path.</param>
+        /// <returns>The relative path from <paramref name="fromPath"/> to <paramref name="toPath"/>.</returns>
+        public static string GetRelativePath(string fromPath, string toPath)
         {
-            Uri baseUri = new Uri(basePath.EndsWith(Path.DirectorySeparatorChar.ToString()) ? basePath : basePath + Path.DirectorySeparatorChar);
-            Uri fullUri = new Uri(fullPath);
-            return Uri.UnescapeDataString(baseUri.MakeRelativeUri(fullUri).ToString().Replace('/', Path.DirectorySeparatorChar));
+            Uri fromUri = new Uri(AppendDirectorySeparatorChar(fromPath));
+            Uri toUri = new Uri(AppendDirectorySeparatorChar(toPath));
+
+            if (fromUri.Scheme != toUri.Scheme)
+            {
+                // Paths are not compatible (e.g., file:// vs http://)
+                return toPath;
+            }
+
+            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+            string relativePath = Uri.UnescapeDataString(relativeUri.ToString());
+
+            return relativePath.Replace('/', Path.DirectorySeparatorChar);
         }
+
+        /// <summary>
+        /// Ensures that a directory path ends with a directory separator character,
+        /// unless it is a file path. This helps treat folders as directories in URI operations.
+        /// </summary>
+        /// <param name="path">The path to check and modify if necessary.</param>
+        /// <returns>The path with a directory separator character appended if needed.</returns>
+        private static string AppendDirectorySeparatorChar(string path)
+        {
+            // Ensures folders are treated as directories
+            if (!Path.HasExtension(path) && !path.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                return path + Path.DirectorySeparatorChar;
+            }
+            return path;
+        }
+
 
         /// <summary>
         /// Generates HTML content from a JSON string and project path.
@@ -75,7 +104,7 @@ namespace SWD
         /// <param name="json">The JSON string representing the page data.</param>
         /// <param name="projectPath">The root path of the project.</param>
         /// <returns>The generated HTML as a string.</returns>
-        private static string GenerateHtmlFromJson(string json, string projectPath)
+        private static string GenerateHtmlFromJson(string json, string projectPath, string targetFilePath)
         {
             var options = new JsonSerializerOptions
             {
@@ -88,7 +117,7 @@ namespace SWD
             var metadata = JsonSerializer.Deserialize<List<Head>>(metadataJson, options)?[0];
 
             var data = JsonSerializer.Deserialize<List<PageData>>(json, options);
-            if (data == null || data.Count == 0)
+            if (data == null || data.Count == 0 || data[0]?.Components == null)
                 return "<html><body><p>Invalid or empty layout.</p></body></html>";
 
             var layout = data[0];
@@ -118,13 +147,15 @@ namespace SWD
                 else if (borderKey == "footer") borderColor = footerColor;
             }
 
-            // Ensure build folder and main style.css
             string buildFolder = Path.Combine(projectPath, "build");
             Directory.CreateDirectory(buildFolder);
 
-            string styleCssPath = Path.Combine(buildFolder, "style.css");
+            string assetsDir = Path.Combine(projectPath, "Assets");
+            if (!Directory.Exists(assetsDir))
+                Directory.CreateDirectory(assetsDir);
+            string styleCssPath = Path.Combine(assetsDir, "style.css");
+            string relativeCssPath = GetRelativePath(Path.GetDirectoryName(targetFilePath), styleCssPath).Replace("\\", "/");
 
-            // Write main static CSS once if not exists
             if (!File.Exists(styleCssPath))
             {
                 var mainCss = $@"
@@ -309,7 +340,7 @@ namespace SWD
                     dynamicStyles.AppendLine($".{className} {{ {string.Join(" ", styles)} }}");
                 }
             }
-            catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
+            catch (Exception ex) { Errors.DisplayMessage("Styling error," + ex.Message); }
 
             // Build the HTML
             html.AppendLine("<!DOCTYPE html>");
@@ -321,15 +352,17 @@ namespace SWD
             html.AppendLine($"<meta name=\"keywords\" content=\"{string.Join(", ", metadata?.Keywords ?? Array.Empty<string>())}\">");
 
             // Link main external CSS
-            html.AppendLine("<link rel=\"stylesheet\" href=\"style.css\">");
+            html.AppendLine($"<link rel=\"stylesheet\" href=\"{relativeCssPath}\">");
 
             // Write metadata.CodeJS to script.js
             if (!string.IsNullOrWhiteSpace(metadata?.CodeJS))
             {
-                var scriptPath = Path.Combine(buildFolder, "script.js");
+                string scriptPath = Path.Combine(assetsDir, "script.js");
+                string relativeJsPath = GetRelativePath(Path.GetDirectoryName(targetFilePath), scriptPath).Replace("\\", "/");
                 File.WriteAllText(scriptPath, metadata.CodeJS);
+                html.AppendLine($"<script src=\"{scriptPath}\" defer></script>");
             }
-            html.AppendLine("<script src=\"script.js\" defer></script>");
+
 
             // Inject dynamic styles inside <style> tag
             html.AppendLine("<style>");
@@ -424,7 +457,7 @@ namespace SWD
                     html.AppendLine($"<div class=\"grid-item {className}\">{innerHtml}</div>");
                 }
             }
-            catch (Exception ex) { Errors.DisplayMessage(ex.Message); }
+            catch (Exception ex) { Errors.DisplayMessage("Generation error," + ex.Message); }
 
             html.AppendLine("</div>");
 

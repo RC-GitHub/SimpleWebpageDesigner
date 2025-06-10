@@ -69,7 +69,6 @@ namespace SWD
             }
             else if (result == MessageBoxResult.No)
             {
-                Debug.WriteLine(Environment.CurrentDirectory);
 
                 // Open CreationWindow for new project details.
                 CreationWindow fillTheData = new CreationWindow(mw);
@@ -115,9 +114,12 @@ namespace SWD
             }
             else if (result == MessageBoxResult.No)
             {
-                string dir = Environment.CurrentDirectory;
-                dir = Path.Combine(dir, "Projects");
-                dialog.InitialDirectory = dir;
+                string projectsPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Projects"
+                );
+
+                dialog.InitialDirectory = projectsPath;
             }
             else
             {
@@ -133,7 +135,7 @@ namespace SWD
                 // Only allow folders following the SWD- naming convention.
                 if (fileName.StartsWith("SWD-"))
                 {
-                    Content.ContentWindow fillTheData = new Content.ContentWindow(filePath, mw);
+                    ContentWindow fillTheData = new ContentWindow(filePath, mw);
                     fillTheData.Show();
                 }
                 else
@@ -156,9 +158,11 @@ namespace SWD
             else if (result == MessageBoxResult.Yes)
             {
                 // Default to Projects folder in current directory.
-                string dir = Environment.CurrentDirectory;
-                dir = System.IO.Path.Combine(dir, "Projects");
-                DeleteDirectory(dir);
+                string projectsPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Projects"
+                );
+                DeleteDirectory(projectsPath);
             }
             else
             {

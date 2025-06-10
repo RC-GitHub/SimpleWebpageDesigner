@@ -1,6 +1,5 @@
 ﻿using Microsoft.Win32;
 using Newtonsoft.Json;
-using SWD.Content;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -126,7 +125,7 @@ namespace SWD
         /// </summary>
         private void SetImage(object sender, RoutedEventArgs e)
         {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string configPath = Path.Combine(projectDirectory, "Config");
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
@@ -302,7 +301,7 @@ namespace SWD
                 }
             }
 
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string configDirectory = Path.Combine(projectDirectory, "Config");
 
             if (theme.BackgroundImageOn)

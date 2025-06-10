@@ -506,8 +506,7 @@ namespace SWD
         /// <returns>A <see cref="ThemeData"/> instance with loaded or default themes.</returns>
         public static ThemeData LoadData()
         {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
-            string configPath = Path.Combine(projectDirectory, "Config", "themes.json");
+            string configPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "themes.json");
 
             if (!File.Exists(configPath))
             {
