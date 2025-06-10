@@ -1,51 +1,33 @@
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe.config
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.pdb
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.AssemblyReference.cache
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.cache
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.lref
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.baml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.g.resources
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.Properties.Resources.resources
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.GenerateResource.cache
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.CoreCompileInputs.cache
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.pdb
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.baml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Buffers.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.IO.Pipelines.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Memory.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Numerics.Vectors.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Text.Encodings.Web.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Text.Json.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.ValueTuple.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Buffers.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.IO.Pipelines.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Memory.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Text.Encodings.Web.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Text.Json.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.ValueTuple.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Newtonsoft.Json.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Newtonsoft.Json.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.baml
-C:\Users\r_cupal\Desktop\swd\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.AssemblyReference.cache
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\CodeSimple.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ComponentWindow.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ImageSimple.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\TextSimple.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.cache
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.lref
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\CodeSimple.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ComponentWindow.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ImageSimple.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\TextSimple.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.g.resources
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.Properties.Resources.resources
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.GenerateResource.cache
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.pdb
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe.config
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.pdb
@@ -77,36 +59,44 @@ C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SW
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Text.Json.xml
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\System.ValueTuple.xml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.AssemblyReference.cache
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\CodeSimple.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ComponentWindow.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ImageSimple.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\TextSimple.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Content\ContentWindow.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.cache
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_MarkupCompile.lref
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\App.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\CodeSimple.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ComponentWindow.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ImageSimple.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\TextSimple.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\CreationWindow.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Content\ContentWindow.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\InputDialog.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\MainWindow.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ThemeWindow.baml
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.g.resources
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.Properties.Resources.resources
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.GenerateResource.cache
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.CoreCompileInputs.cache
 C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.csproj.Up2Date
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.pdb
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.g.cs
-C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\Components\ButtonSimple.baml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.TrustInfo.xml
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.exe.manifest
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\SWD.application
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.exe.manifest
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD.application
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\new-file.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\open-file.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\save-file.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\add.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\image.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\text.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\edit.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\code.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\refresh.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\close.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\build.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\bold.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\center.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\font-color.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\copy.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\cut.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\italic.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\justify.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\left.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\paste.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\redo.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\right.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\underline.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\undo.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\font-decrease.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\font-family.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\font-increase.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\bottom.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\middle.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\top.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\button.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\bin\Debug\Icons\reveal.png
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\SWD_Content.g.cs
+C:\Users\Dell\Desktop\'Homework'\[10] Personal Apps\SimpleWebpageDesigner\SWD\SWD\obj\Debug\ContentWindow.baml

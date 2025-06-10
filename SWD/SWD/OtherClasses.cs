@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -361,7 +362,8 @@ namespace SWD
         /// <returns>A BitmapImage of the icon.</returns>
         public static BitmapImage NewIcon(string icon = "add.png")
         {
-            string projectDirectory = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\.."));
+            //string projectDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string iconPath = Path.Combine(projectDirectory, "Icons", icon);
             if (!File.Exists(iconPath))
             {

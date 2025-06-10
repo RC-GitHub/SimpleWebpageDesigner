@@ -81,7 +81,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                </Style>                
+                </Style>
                 <Style TargetType="ListBox">
                     <Setter Property="Margin" Value="0,0,0,20"/>
                     <Setter Property="BorderBrush" Value="{Binding ButtonSecondary}"/>

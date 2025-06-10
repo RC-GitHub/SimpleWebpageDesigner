@@ -19,7 +19,6 @@ using System.Windows.Shapes;
 
 using Newtonsoft.Json;
 using System.IO;
-using SWD.Content;
 using Path = System.IO.Path;
 using System.Drawing;
 using System.Xml.Linq;
@@ -39,11 +38,12 @@ namespace SWD
     /// </summary>
     public partial class CreationWindow : Window
     {
+ // Ensure this namespace is included at the top of the file
         private bool editmode = false;
         private MainWindow _mainWindow;
         private ContentWindow _contentWindow;
         public bool projectsFolder = true;
-        public string dir = Environment.CurrentDirectory;
+        public string dir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
         private string tempForProjectTitle = "Insert project title";
         private string tempForAuthor = "Insert author's name";
         private string tempForKeyword = "Insert a keyword";
@@ -223,7 +223,10 @@ namespace SWD
             if (tbProjectTitle.Text == tempMessages[tbProjectTitle.Name] || tbProjectTitle.Text == string.Empty) Errors.DisplayMessage("Project title is required!");
             else
             {
-                if (projectsFolder == true) dir = System.IO.Path.Combine(dir, $"Projects");
+                if (projectsFolder == true) dir = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    "Projects"
+                );
                 dir = System.IO.Path.Combine(dir, $"SWD-{tbProjectTitle.Text}");
                 Debug.WriteLine(dir);
 
@@ -274,10 +277,11 @@ namespace SWD
                     }
                     finally { }
 
-                    if (_mainWindow != null) _mainWindow.Close();
-
-                    Content.ContentWindow gd = new Content.ContentWindow(dir, this);
+                    ContentWindow gd = new ContentWindow(dir, this);
+                    System.Windows.Application.Current.MainWindow = gd;
                     gd.Show();
+
+                    if (_mainWindow != null) _mainWindow.Hide();
                 }
             }
         }
@@ -303,19 +307,19 @@ namespace SWD
                 else description = tbDescription.Text;
 
                 List<Head> _data = new List<Head>
-                        {
-                            new Head()
-                            {
-                                ProjectName = tbProjectTitle.Text,
-                                Author = author,
-                                Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
-                                Description = description,
-                                Layout = baseLayout,
-                                CodeHTML = HtmlEditor.Text,
-                                CodeCSS = CssEditor.Text,
-                                CodeJS = JsEditor.Text
-                            }
-                        };
+                {
+                    new Head()
+                    {
+                        ProjectName = tbProjectTitle.Text,
+                        Author = author,
+                        Keywords = lsbKeywords.Items.OfType<string>().ToArray(),
+                        Description = description,
+                        Layout = baseLayout,
+                        CodeHTML = HtmlEditor.Text,
+                        CodeCSS = CssEditor.Text,
+                        CodeJS = JsEditor.Text
+                    }
+                };
 
                 string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
                 string metadataPath = System.IO.Path.Combine(dir, "metadata.json");
@@ -334,7 +338,7 @@ namespace SWD
                     string newNameDir = Path.Combine(projectsDir, $"SWD-{tbProjectTitle.Text}");
                     _contentWindow.Close();
                     ContentWindow.DirectoryCopy(dir, newNameDir, true);
-                    Content.ContentWindow gd = new Content.ContentWindow(newNameDir, this);
+                    ContentWindow gd = new ContentWindow(newNameDir, this);
                     gd.Show();
                     Directory.Delete(dir, true);
                 }
