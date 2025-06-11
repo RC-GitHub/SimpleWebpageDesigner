@@ -34,6 +34,8 @@ namespace SWD
 
             string sourceDir = Path.Combine(projectPath, "json");
             string targetDir = Path.Combine(projectPath, "build");
+            string cssDir = Path.Combine(projectPath, "Assets", "style.css");
+            if (File.Exists(cssDir)) File.Delete(cssDir);
 
             if (Directory.Exists(targetDir))
                 Directory.Delete(targetDir, true);
