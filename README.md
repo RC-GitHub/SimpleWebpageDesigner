@@ -1,10 +1,11 @@
 # SimpleWebpageDesigner
-is a relatively simple Windows application made in C# + WPF in which one can design their own webpage. 
+is a relatively simple **Windows** application made in C# + WPF in which one can design their own webpage. 
 
 The styles specified by the user are saved and preserved in JSON files and later converted into HTML, CSS and JS files.
 
 ## Download and Installation Instructions
 
+### Windows:
 To install the application, please follow these steps:
 
 1. **Download the Application**: Click the link below to download the application:
