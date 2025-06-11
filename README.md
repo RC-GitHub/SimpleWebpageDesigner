@@ -1,6 +1,7 @@
 # SimpleWebpageDesigner
-Ideally I want to make a relatively simple application in C# + WPF in which one can design their own webpage. It will then convert into HTML/CSS and/or JS files (or at least I hope so).
-^^
+is a relatively simple Windows application made in C# + WPF in which one can design their own webpage. 
+
+The styles specified by the user are saved and preserved in JSON files and later converted into HTML, CSS and JS files.
 
 ## Download and Installation Instructions
 
@@ -9,7 +10,7 @@ To install the application, please follow these steps:
 1. **Download the Application**: Click the link below to download the application:
    - [Download Application](https://github.com/RC-GitHub/SimpleWebpageDesigner/releases)
 
-2. **Run the Application**: Locate the downloaded `SWD.application` file and double-click it to start the installation.
+2. **Run the Application**: Locate the `SWD.application` file and double-click it to start the installation. Once the application is installed it should open instantly.
 
 3. **Handling Errors**: If you encounter an error while trying to run the application, you may need to unblock the file. To do this, follow these steps:
 
