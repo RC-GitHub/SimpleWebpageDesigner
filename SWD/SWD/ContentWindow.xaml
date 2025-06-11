@@ -16,6 +16,9 @@
             <Setter Property="Foreground" Value="{Binding HeaderFont}" />
             <Setter Property="FontWeight" Value="Normal" />
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
         <Style x:Key="Heading" TargetType="Label">
             <Setter Property="Foreground" Value="{Binding HeaderFont}" />
             <Setter Property="FontWeight" Value="Normal" />
@@ -70,7 +73,7 @@
                         </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgNew" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>New</TextBlock>
+                            <TextBlock VerticalAlignment="Center">New</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnOpenContext" Margin="0,0,10,0" MouseEnter="OpenContextMenu">
@@ -84,7 +87,7 @@
                         </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgImport" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Import</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Import</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnTheme" ToolTip="Change a theme." Margin="0,0,10,0" MouseEnter="OpenContextMenu">
@@ -97,32 +100,32 @@
                         </Button.ContextMenu>
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgEdit" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Edit</TextBlock>
+                            <TextBlock  VerticalAlignment="Center">Edit</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnSave" ToolTip="Save current file." Margin="0,0,10,0" Click="btnSave_Click" >
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgSave" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Save</TextBlock>
+                            <TextBlock  VerticalAlignment="Center">Save</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnClose" ToolTip="Close current project." Margin="0,0,10,0" Click="btnClose_Click" >
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgClose" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Close</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Close</TextBlock>
                         </StackPanel>
                     </Button>
                     <Separator Width="Auto" />
                     <Button x:Name="btnBuild" ToolTip="Convert project to a webpage!" Margin="0,0,10,0" HorizontalAlignment="Right" Click="btnBuild_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgBuild" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Build</TextBlock>
+                            <TextBlock  VerticalAlignment="Center">Build</TextBlock>
                         </StackPanel>
                     </Button>
                     <Button x:Name="btnReveal" ToolTip="Open current file in browser!" Margin="0,0,10,0" HorizontalAlignment="Right" Click="btnReveal_Click">
                         <StackPanel Orientation="Horizontal">
                             <Image x:Name="imgReveal" Width="20" Height="20" Margin="0,0,5,0"/>
-                            <TextBlock>Reveal</TextBlock>
+                            <TextBlock VerticalAlignment="Center">Reveal</TextBlock>
                         </StackPanel>
                     </Button>
                 </ToolBar>
