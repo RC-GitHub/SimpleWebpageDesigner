@@ -14,10 +14,10 @@ To install the application, please follow these steps:
 3. **Handling Errors**: If you encounter an error while trying to run the application, you may need to unblock the file. To do this, follow these steps:
 
    - Open PowerShell as an administrator.
-   - Run the following command, replacing `"path"` with the actual path to the directory where the `SWD.application` file is located:
+   - Run the following command, replacing `[path]` with the actual path to the directory where the `SWD.application` file is located:
 
      ```powershell
-     Get-ChildItem -Recurse "path" | Unblock-File
+     Get-ChildItem -Recurse "[path]" | Unblock-File
      ```
 
    - After running the command, try running the `SWD.application` file again.
