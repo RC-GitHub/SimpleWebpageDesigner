@@ -28,9 +28,25 @@ To install the application, please follow these steps:
 * After the SWD App is installed, you should be greeted by the MainWindow.
 ![MainWindow](https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c)
 * The MainWindow's buttons allow for:
-  1. **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. ![MessageBox Dialog](https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8) After that they are taken into the CreationWindow.
-  2. **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the ContentWindow.
-  3. **Delete existing:** Deletion of an existing project(s). The user is asked about the directory of their project. All folders with the correct naming schene of `SWD-[Project name]` will then be deleted.
-  4. **Theme settings:** Change of the SWD app's theme. ThemeWindow is opened.
+   1.  **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the CreationWindow.
+       ![MessageBox Dialog](https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8)
+   
+   2.  **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the ContentWindow;
+   
+   3.  **Delete existing:** Deletion of an existing project(s). The user is asked about the directory of their project. All folders with the correct naming scheme of `SWD-[Project name]` will then be deleted;
+   
+   4.  **Theme settings:** Change of the SWD app's theme. ThemeWindow is opened.
+
 
 ### CreationWindow:
+* Inside of the CreationWindow the user can: 
+
+   1. Set the metadata of his website; ![The CreationWindow](https://github.com/user-attachments/assets/d2ff1634-f8db-44a2-b473-a2f1d3510ad2)
+
+   2. Add HTML Code before `<div class="grid-container">`'s contents, insert their own CSS styles and add their own JavaScript; ![CreationWindow's code-adding capabilities](https://github.com/user-attachments/assets/22088062-0c64-4dfb-9e99-e2258057e4d5)
+
+   3. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`. ![CW styling 1](https://github.com/user-attachments/assets/e8a11e09-1ada-4a62-a938-0bd50edb4a7a) ![CW styling 2](https://github.com/user-attachments/assets/4cce73ab-a791-4d4a-9d3a-56f334e2afaf) ![CW styling 3](https://github.com/user-attachments/assets/9bcde89c-d677-41ab-b1ce-c32d19796bac)
+
+
+
+
