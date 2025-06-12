@@ -25,45 +25,45 @@ To install the application, please follow these steps:
 
 ## Inner Workings of an App
 ### MainWindow:
-* After the SWD App is installed, you should be greeted by the MainWindow.
+* After the SWD App is installed, you should be greeted by the _MainWindow_.
       <img src="https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c" alt="MainWindow" style="width: 500px;"/> 
-* The MainWindow's buttons allow for:
-   1. **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the CreationWindow. 
+* The _MainWindow_'s buttons allow for:
+   1. **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the _CreationWindow_. 
       <img src="https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8" alt="MessageBox Dialog" style="width: 500px;"/> 
    
-   2. **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the ContentWindow;
+   2. **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the _ContentWindow_;
    
    3. **Delete existing:** Deletion of an existing project(s). The user is asked about the directory of their project. All folders with the correct naming scheme of `SWD-[Project name]` will then be deleted;
    
-   4. **Theme settings:** Change of the SWD app's theme. ThemeWindow is opened.
+   4. **Theme settings:** Change of the SWD app's theme. _ThemeWindow_ is opened.
 
 ### CreationWindow:
-* The CreationWindow is the place where the user can set the primary settings of the SWD Project.
+* The _CreationWindow_ is the place where the user can set the primary settings of the SWD Project.
 * Mainly: 
 
-   1. Set the metadata of his website; 
+   1. Set the metadata of their website (Author's name, Keywords, Description) as well as the name of the Project; 
       <img src="https://github.com/user-attachments/assets/d2ff1634-f8db-44a2-b473-a2f1d3510ad2" alt="The CreationWindow" style="width: 500px;"/>
 
-   2. Add HTML Code before `<div class="grid-container">`'s contents, insert their own CSS styles and add their own JavaScript; 
+   3. Add HTML Code before `<div class="grid-container">`'s contents, insert their own CSS styles and add their own JavaScript; 
       <img src="https://github.com/user-attachments/assets/22088062-0c64-4dfb-9e99-e2258057e4d5" alt="CreationWindow's code-adding capabilities" style="width: 500px;"/>
 
-   3. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`. 
+   4. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`. 
       <img src="https://github.com/user-attachments/assets/e8a11e09-1ada-4a62-a938-0bd50edb4a7a" alt="CW styling 1" style="width: 300px;"/>
       <img src="https://github.com/user-attachments/assets/4cce73ab-a791-4d4a-9d3a-56f334e2afaf" alt="CW styling 2" style="width: 300px;"/>
       <img src="https://github.com/user-attachments/assets/9bcde89c-d677-41ab-b1ce-c32d19796bac" alt="CW styling 3" style="width: 300px;"/>
       
-* After the Submit button is clicked, the ContentWindow will be opened while the MainWindow and CreationWindow will close.
+* After the "Submit" button is clicked, the _ContentWindow_ will be opened while the _MainWindow_ and _CreationWindow_ will close.
 
 ### ContentWindow:
-* The ContentWindow is the place where the user can design their own [grid layout](https://www.w3schools.com/css/css_grid.asp) which later on will be represented on a page.
-   <img src="https://github.com/user-attachments/assets/d349a746-4024-469f-9833-135290a5d9dc" alt="The ContentWindow" style="width: 500px;"/>
+* The _ContentWindow_ is the place where the user can design their own [grid layout](https://www.w3schools.com/css/css_grid.asp) which later on will be represented on a page.
+   <img src="https://github.com/user-attachments/assets/d349a746-4024-469f-9833-135290a5d9dc" alt="The ContentWindow" style="width: 600px;"/>
 
-* Inside of the ContentWindow the user can:
+* Inside of the _ContentWindow_ the user can:
    1. Add rows and (a max of 12) columns via the Row and Column modification sections.
       <img src="https://github.com/user-attachments/assets/256fdd28-4b2a-469b-9969-d2468c72d773" alt="Row and Column modification" style="width: 500px;"/>
 
-   2. Create their own Component. The user has to select a group of DataGrid cells and then right-click to display a context menu. After choosing one of 4 built-in Component types, the InputDialog will open asking for a name of the Component. After that the user has to choose a color for their Component in order to differentiate them on the DataGrid.
-      <img src="https://github.com/user-attachments/assets/64291c35-3779-4249-9441-e190192ce9c1" alt="Component creation step 1" style="width: 250px;"/>
+   2. Create their own Component. The user has to select a group of DataGrid cells and then right-click to display a context menu. After choosing one of 4 built-in Component types, the _InputDialog_ will open asking for a name of the Component. After that the user has to choose a color for their Component in order to differentiate them on the DataGrid.
+      <img src="https://github.com/user-attachments/assets/64291c35-3779-4249-9441-e190192ce9c1" alt="Component creation step 1" style="width: 500px;"/>
       <img src="https://github.com/user-attachments/assets/f65d517a-b9f6-4a3c-8b64-e87d722dff18" alt="Component creation step 2" style="width: 250px;"/>
       <img src="https://github.com/user-attachments/assets/94b9e65e-7374-40e2-ae39-3665f6bc13ab" alt="Component creation step 3" style="width: 250px;"/>
       <img src="https://github.com/user-attachments/assets/5435a914-6d01-4deb-b87c-0782e4288362" alt="Component creation step 4" style="width: 250px;"/>
@@ -81,17 +81,17 @@ To install the application, please follow these steps:
       <img src="https://github.com/user-attachments/assets/14b5dee2-10c8-48e4-94bb-620a64d3980a" alt="Edit file step 1" style="width: 300px;"/>
 
    5. Edit a different file with the "Files" section.
-      <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 300px;"/>
+      <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 500px;"/>
       <img src="https://github.com/user-attachments/assets/a8250530-e25f-4f00-942c-42fea561f05b" alt="Edit file step 2" style="width: 300px;"/>
 
-   6. Modify or delete a component with the "Edit" and "Delete" buttons inside of the context menu available after right-clicking the selected Component. Clicking the "Edit" button will open the ComponentWindow
+   6. Modify or delete a component with the "Edit" and "Delete" buttons inside of the context menu available after right-clicking the selected Component. Clicking the "Edit" button will open the _ComponentWindow_.
       <img src="https://github.com/user-attachments/assets/dedc3ff5-9d55-486f-b428-c21b8e7a76af" alt="Modify or delete component" style="width: 500px;"/>
 
    7. Create a new SWD Project or add subfolders and files with the "New" toolbar context menu.
 
    8. Import (add) files and folders from different SWD Projects into the current one with the "Import" toolbar context menu.
 
-   9. Open the CreationWindow or ThemeWindow with the "Edit" toolbar context menu to tweak the current settings.
+   9. Open the _CreationWindow_ or _ThemeWindow_ with the "Edit" toolbar context menu to tweak the current settings.
 
    10. Save a file (turn the selected styles and settings into a JSON file) with the "Save" button inside of the toolbar.
       <img src="https://github.com/user-attachments/assets/f54f6d72-940b-4bce-8913-2b4a723b04e5" alt="Save file" style="width: 500px;"/>
@@ -99,13 +99,13 @@ To install the application, please follow these steps:
    11. Close a current project with the "Close" button inside of the toolbar.
 
    12. Recreate the folder structure and convert the JSON files into the HTML, CSS, and JS files with the "Build" button inside of the toolbar.
-      <img src="https://github.com/user-attachments/assets/eb818972-732f-454d-81d4-4bda575d9803" alt="Build files" style="width: 500px;"/>
+      <img src="https://github.com/user-attachments/assets/eb818972-732f-454d-81d4-4bda575d9803" alt="Build files" style="width: 600px;"/>
 
    13. Open the currently edited file inside of the browser (if the projects is built) with the "Reveal" button inside of the toolbar.
-       <img src="https://github.com/user-attachments/assets/5ca34eb3-52e9-44c1-8368-9aab4aa2a184" alt="Reveal file" style="width: 500px;"/>
+       <img src="https://github.com/user-attachments/assets/5ca34eb3-52e9-44c1-8368-9aab4aa2a184" alt="Reveal file" style="width: 700px;"/>
  
 ### ComponentWindow and Component Pages:
-* The ComponentWindow is the place where the user can set the primary settings and stylings for their Component (both for the purposes of the SWD application and for the purposes of the website).
+* The _ComponentWindow_ is the place where the user can set the primary settings and stylings for their Component (both for the purposes of the SWD application and for the purposes of the website).
 * Four pages can be accessed via the Component Type ComboBox!
    ![Zrzut ekranu 2025-06-12 155537](https://github.com/user-attachments/assets/29802e21-430a-4327-97a6-d2c46b0fce10)
 
@@ -122,8 +122,8 @@ To install the application, please follow these steps:
      ![Zrzut ekranu 2025-06-12 155556](https://github.com/user-attachments/assets/8318ebd4-caa3-4f09-81de-6f714c41d2fe)
 
 ### ThemeWindow:
-* The ThemeWindow is the place where the user can change the colors, alignment or add images to make the SWD application more pleasing to the eye.
-* The application has two themes built in.
+* The _ThemeWindow_ is the place where the user can change the colors, alignment or add images to make the SWD application more pleasing to the eye.
+* The application has two themes built in, which will regenerate once they're deleted.
    1. Light Theme:
       ![Zrzut ekranu 2025-06-12 155704](https://github.com/user-attachments/assets/f54afc2a-35ac-4f77-b63b-19fcf3d491e9)
    2. Dark Theme:
