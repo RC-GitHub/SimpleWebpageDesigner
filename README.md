@@ -25,8 +25,7 @@ To install the application, please follow these steps:
 
 ## Inner Workings of an App
 ### MainWindow:
-* After the SWD App is installed, you should be greeted by the MainWindow.
-<img src="https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c" alt="MainWindow" style="width: 500px;"/> 
+* After the SWD App is installed, you should be greeted by the MainWindow. <img src="https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c" alt="MainWindow" style="width: 500px;"/> 
 * The MainWindow's buttons allow for:
    1.  **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the CreationWindow. <img src="https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8" alt="MessageBox Dialog" style="width: 500px;"/> 
    
