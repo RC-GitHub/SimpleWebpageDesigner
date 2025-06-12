@@ -41,13 +41,13 @@ To install the application, please follow these steps:
 * The _CreationWindow_ is the place where the user can set the primary settings of the SWD Project.
 * Mainly: 
 
-   1. Set the metadata of their website (Author's name, Keywords, Description) as well as the name of the Project; 
+   1. Set the metadata of their website (Author's name, Keywords, Description) as well as the name of the Project.
       <img src="https://github.com/user-attachments/assets/d2ff1634-f8db-44a2-b473-a2f1d3510ad2" alt="The CreationWindow" style="width: 500px;"/>
 
-   3. Add HTML Code before `<div class="grid-container">`'s contents, insert their own CSS styles and add their own JavaScript; 
+   3. Add HTML Code before `<div class="grid-container">`'s contents, insert their own CSS styles and add their own JavaScript.<br>  
       <img src="https://github.com/user-attachments/assets/22088062-0c64-4dfb-9e99-e2258057e4d5" alt="CreationWindow's code-adding capabilities" style="width: 500px;"/>
 
-   4. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`. 
+   4. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`.<br>  
       <img src="https://github.com/user-attachments/assets/e8a11e09-1ada-4a62-a938-0bd50edb4a7a" alt="CW styling 1" style="width: 300px;"/>
       <img src="https://github.com/user-attachments/assets/4cce73ab-a791-4d4a-9d3a-56f334e2afaf" alt="CW styling 2" style="width: 300px;"/>
       <img src="https://github.com/user-attachments/assets/9bcde89c-d677-41ab-b1ce-c32d19796bac" alt="CW styling 3" style="width: 300px;"/>
@@ -59,11 +59,11 @@ To install the application, please follow these steps:
    <img src="https://github.com/user-attachments/assets/d349a746-4024-469f-9833-135290a5d9dc" alt="The ContentWindow" style="width: 600px;"/>
 
 * Inside of the _ContentWindow_ the user can:
-   1. Add rows and (a max of 12) columns via the Row and Column modification sections.
+   1. Add rows and (a max of 12) columns via the Row and Column modification sections.<br> 
       <img src="https://github.com/user-attachments/assets/256fdd28-4b2a-469b-9969-d2468c72d773" alt="Row and Column modification" style="width: 500px;"/>
 
-   2. Create their own Component. The user has to select a group of DataGrid cells and then right-click to display a context menu. After choosing one of 4 built-in Component types, the _InputDialog_ will open asking for a name of the Component. After that the user has to choose a color for their Component in order to differentiate them on the DataGrid.
-      <img src="https://github.com/user-attachments/assets/64291c35-3779-4249-9441-e190192ce9c1" alt="Component creation step 1" style="width: 500px;"/>
+   2. Create their own Component. The user has to select a group of DataGrid cells and then right-click to display a context menu. After choosing one of 4 built-in Component types, the _InputDialog_ will open asking for a name of the Component. After that the user has to choose a color for their Component in order to differentiate them on the DataGrid.<br> 
+      <img src="https://github.com/user-attachments/assets/64291c35-3779-4249-9441-e190192ce9c1" alt="Component creation step 1" style="width: 500px;"/><br> 
       <img src="https://github.com/user-attachments/assets/f65d517a-b9f6-4a3c-8b64-e87d722dff18" alt="Component creation step 2" style="width: 250px;"/>
       <img src="https://github.com/user-attachments/assets/94b9e65e-7374-40e2-ae39-3665f6bc13ab" alt="Component creation step 3" style="width: 250px;"/>
       <img src="https://github.com/user-attachments/assets/5435a914-6d01-4deb-b87c-0782e4288362" alt="Component creation step 4" style="width: 250px;"/>
@@ -71,20 +71,20 @@ To install the application, please follow these steps:
       <img src="https://github.com/user-attachments/assets/fa89f8e4-57bf-4f8d-b0fa-59df83fa6a9f" alt="Component creation step 6" style="width: 250px;"/>
       <img src="https://github.com/user-attachments/assets/7a24754d-f230-460a-b9cf-a62276b0910f" alt="Component creation step 7" style="width: 250px;"/>
 
-   3. Resize and change the position of a Component via the Component modification section.
+   3. Resize and change the position of a Component via the Component modification section.<br> 
       <img src="https://github.com/user-attachments/assets/7742c24c-9005-40d1-b773-39dd38d07fe6" alt="Component modification step 1" style="width: 400px;"/>
       <img src="https://github.com/user-attachments/assets/5afc9292-47d4-4456-ba75-c1d66030e0e5" alt="Component modification step 2" style="width: 400px;"/>
 
-   4. Add and move subfolders via the "File and folder control" section.
+   4. Add and move subfolders via the "File and folder control" section.<br> 
       <img src="https://github.com/user-attachments/assets/461f57e5-0d31-4d7e-89dd-73a5a8f05a02" alt="File and folder control step 2" style="width: 500px;"/>
-      <img src="https://github.com/user-attachments/assets/c38fcf00-8688-42fb-8f16-10fe1fc4fee9" alt="File and folder control step 1" style="width: 300px;"/>
+      <img src="https://github.com/user-attachments/assets/c38fcf00-8688-42fb-8f16-10fe1fc4fee9" alt="File and folder control step 1" style="width: 300px;"/><br> 
       <img src="https://github.com/user-attachments/assets/14b5dee2-10c8-48e4-94bb-620a64d3980a" alt="Edit file step 1" style="width: 300px;"/>
 
-   5. Edit a different file with the "Files" section.
-      <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 500px;"/>
+   5. Edit a different file with the "Files" section.<br> 
+      <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 500px;"/><br> 
       <img src="https://github.com/user-attachments/assets/a8250530-e25f-4f00-942c-42fea561f05b" alt="Edit file step 2" style="width: 300px;"/>
 
-   6. Modify or delete a component with the "Edit" and "Delete" buttons inside of the context menu available after right-clicking the selected Component. Clicking the "Edit" button will open the _ComponentWindow_.
+   6. Modify or delete a component with the "Edit" and "Delete" buttons inside of the context menu available after right-clicking the selected Component. Clicking the "Edit" button will open the _ComponentWindow_.<br> 
       <img src="https://github.com/user-attachments/assets/dedc3ff5-9d55-486f-b428-c21b8e7a76af" alt="Modify or delete component" style="width: 500px;"/>
 
    7. Create a new SWD Project or add subfolders and files with the "New" toolbar context menu.
@@ -93,43 +93,43 @@ To install the application, please follow these steps:
 
    9. Open the _CreationWindow_ or _ThemeWindow_ with the "Edit" toolbar context menu to tweak the current settings.
 
-   10. Save a file (turn the selected styles and settings into a JSON file) with the "Save" button inside of the toolbar.
+   10. Save a file (turn the selected styles and settings into a JSON file) with the "Save" button inside of the toolbar.<br> 
       <img src="https://github.com/user-attachments/assets/f54f6d72-940b-4bce-8913-2b4a723b04e5" alt="Save file" style="width: 500px;"/>
 
    11. Close a current project with the "Close" button inside of the toolbar.
 
-   12. Recreate the folder structure and convert the JSON files into the HTML, CSS, and JS files with the "Build" button inside of the toolbar.
+   12. Recreate the folder structure and convert the JSON files into the HTML, CSS, and JS files with the "Build" button inside of the toolbar.<br> 
       <img src="https://github.com/user-attachments/assets/eb818972-732f-454d-81d4-4bda575d9803" alt="Build files" style="width: 600px;"/>
 
-   13. Open the currently edited file inside of the browser (if the projects is built) with the "Reveal" button inside of the toolbar.
+   13. Open the currently edited file inside of the browser (if the projects is built) with the "Reveal" button inside of the toolbar.<br> 
        <img src="https://github.com/user-attachments/assets/5ca34eb3-52e9-44c1-8368-9aab4aa2a184" alt="Reveal file" style="width: 700px;"/>
  
 ### ComponentWindow and Component Pages:
 * The _ComponentWindow_ is the place where the user can set the primary settings and stylings for their Component (both for the purposes of the SWD application and for the purposes of the website).
-* Four pages can be accessed via the Component Type ComboBox!
-   ![Zrzut ekranu 2025-06-12 155537](https://github.com/user-attachments/assets/29802e21-430a-4327-97a6-d2c46b0fce10)
+* Four pages can be accessed via the Component Type ComboBox!<br> 
+   ![ComponentWindow](https://github.com/user-attachments/assets/29802e21-430a-4327-97a6-d2c46b0fce10)
 
   1. TextSimple Page:
-     ![Zrzut ekranu 2025-06-12 155525](https://github.com/user-attachments/assets/9aba9d1a-5d5d-4c27-a86c-c498eac46e63)
+     ![TextSimple](https://github.com/user-attachments/assets/9aba9d1a-5d5d-4c27-a86c-c498eac46e63)
 
   2. ImageSimple Page:
-     ![Zrzut ekranu 2025-06-12 155551](https://github.com/user-attachments/assets/fc1b1dc4-d96c-4477-a08d-14f22dd8f48e)
+     ![ImageSimple](https://github.com/user-attachments/assets/fc1b1dc4-d96c-4477-a08d-14f22dd8f48e)
 
   3. ButtonSimple Page:
-     ![Zrzut ekranu 2025-06-12 155546](https://github.com/user-attachments/assets/f66153f0-e6dd-48e4-9f92-c3ad93706f59)
+     ![ButtonSimple](https://github.com/user-attachments/assets/f66153f0-e6dd-48e4-9f92-c3ad93706f59)
 
   4. CodeSimple Page:
-     ![Zrzut ekranu 2025-06-12 155556](https://github.com/user-attachments/assets/8318ebd4-caa3-4f09-81de-6f714c41d2fe)
+     ![CodeSimple](https://github.com/user-attachments/assets/8318ebd4-caa3-4f09-81de-6f714c41d2fe)
 
 ### ThemeWindow:
 * The _ThemeWindow_ is the place where the user can change the colors, alignment or add images to make the SWD application more pleasing to the eye.
 * The application has two themes built in, which will regenerate once they're deleted.
-   1. Light Theme:
-      ![Zrzut ekranu 2025-06-12 155704](https://github.com/user-attachments/assets/f54afc2a-35ac-4f77-b63b-19fcf3d491e9)
-   2. Dark Theme:
-      ![Zrzut ekranu 2025-06-12 155741](https://github.com/user-attachments/assets/fa275b7f-e484-497c-9178-a8c39cb74732)
+   1. Light Theme:<br> 
+      ![Light Theme](https://github.com/user-attachments/assets/f54afc2a-35ac-4f77-b63b-19fcf3d491e9)
+   2. Dark Theme:<br> 
+      ![Dark Theme](https://github.com/user-attachments/assets/fa275b7f-e484-497c-9178-a8c39cb74732)
       
-   ![Zrzut ekranu 2025-06-12 155759](https://github.com/user-attachments/assets/44d05924-eff7-4f57-9f99-5fae9ee86e38)
+   ![Theme Change](https://github.com/user-attachments/assets/44d05924-eff7-4f57-9f99-5fae9ee86e38)
 
 
 
