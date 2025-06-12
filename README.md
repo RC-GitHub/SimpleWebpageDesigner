@@ -26,16 +26,15 @@ To install the application, please follow these steps:
 ## Inner Workings of an App
 ### MainWindow:
 * After the SWD App is installed, you should be greeted by the MainWindow.
-![MainWindow](https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c)
+<img src="[https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8](https://github.com/user-attachments/assets/32d3d2df-ce9d-4729-b24d-ddc4e985808c)" alt="MainWindow" style="width: 500px;"/> 
 * The MainWindow's buttons allow for:
-   1.  **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the CreationWindow.
-       ![MessageBox Dialog](https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8)
+   1.  **New project:** Creation of a new project. The user is asked whether they want the project to be saved in the default directory or in a specified place. After that, they are taken into the CreationWindow. <img src="https://github.com/user-attachments/assets/f81d1538-7597-4bfb-8544-dbce16be67b8" alt="MessageBox Dialog" style="width: 500px;"/> 
    
-   2.  **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the ContentWindow;
+   3.  **Open project:** Opening of an existing project. The user is asked about the directory of their project. Once the folder with a correct naming scheme of `SWD-[Project name]` is selected, the user is taken into the ContentWindow;
    
-   3.  **Delete existing:** Deletion of an existing project(s). The user is asked about the directory of their project. All folders with the correct naming scheme of `SWD-[Project name]` will then be deleted;
+   4.  **Delete existing:** Deletion of an existing project(s). The user is asked about the directory of their project. All folders with the correct naming scheme of `SWD-[Project name]` will then be deleted;
    
-   4.  **Theme settings:** Change of the SWD app's theme. ThemeWindow is opened.
+   5.  **Theme settings:** Change of the SWD app's theme. ThemeWindow is opened.
 
 
 ### CreationWindow:
