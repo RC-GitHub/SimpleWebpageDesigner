@@ -73,13 +73,12 @@ To install the application, please follow these steps:
    <img src="https://github.com/user-attachments/assets/5afc9292-47d4-4456-ba75-c1d66030e0e5" alt="Component modification step 2" style="width: 400px;"/>
 
    4. Add and move subfolders via the "File and folder control" section or add subfolders and files with the "New" toolbar context menu.
-   <img src="https://github.com/user-attachments/assets/c38fcf00-8688-42fb-8f16-10fe1fc4fee9" alt="File and folder control step 1" style="width: 300px;"/>
    <img src="https://github.com/user-attachments/assets/461f57e5-0d31-4d7e-89dd-73a5a8f05a02" alt="File and folder control step 2" style="width: 300px;"/>
-   <img src="https://github.com/user-attachments/assets/17b4b7f1-57c9-4397-8e97-929a1929d4d9" alt="New file step 1" style="width: 300px;"/>
-
-   5. Edit a different file with the "Files" section.
-   <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 300px;"/>
+   <img src="https://github.com/user-attachments/assets/c38fcf00-8688-42fb-8f16-10fe1fc4fee9" alt="File and folder control step 1" style="width: 300px;"/>
    <img src="https://github.com/user-attachments/assets/14b5dee2-10c8-48e4-94bb-620a64d3980a" alt="Edit file step 1" style="width: 300px;"/>
+
+   6. Edit a different file with the "Files" section.
+   <img src="https://github.com/user-attachments/assets/f2eda915-a094-41cf-b537-645c1f4bbfc1" alt="New file step 2" style="width: 300px;"/>
    <img src="https://github.com/user-attachments/assets/a8250530-e25f-4f00-942c-42fea561f05b" alt="Edit file step 2" style="width: 300px;"/>
 
    6. Modify or delete a component with the "Edit" and "Delete" buttons inside of the context menu available after right-clicking the selected Component.
