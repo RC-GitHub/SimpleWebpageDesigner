@@ -45,9 +45,9 @@ To install the application, please follow these steps:
    <img src="https://github.com/user-attachments/assets/22088062-0c64-4dfb-9e99-e2258057e4d5" alt="CreationWindow's code-adding capabilities" style="width: 500px;"/>
 
    3. As well as set certain styles for `<header>`, `<body>`, `<div class="grid-container">` and `<footer>`. 
-   <img src="https://github.com/user-attachments/assets/e8a11e09-1ada-4a62-a938-0bd50edb4a7a" alt="CW styling 1" style="width: 500px;"/>
-   <img src="https://github.com/user-attachments/assets/4cce73ab-a791-4d4a-9d3a-56f334e2afaf" alt="CW styling 2" style="width: 500px;"/>
-   <img src="https://github.com/user-attachments/assets/9bcde89c-d677-41ab-b1ce-c32d19796bac" alt="CW styling 3" style="width: 500px;"/>
+   <img src="https://github.com/user-attachments/assets/e8a11e09-1ada-4a62-a938-0bd50edb4a7a" alt="CW styling 1" style="width: 300px;"/>
+   <img src="https://github.com/user-attachments/assets/4cce73ab-a791-4d4a-9d3a-56f334e2afaf" alt="CW styling 2" style="width: 300px;"/>
+   <img src="https://github.com/user-attachments/assets/9bcde89c-d677-41ab-b1ce-c32d19796bac" alt="CW styling 3" style="width: 300px;"/>
    
 * After the Submit button is clicked, the ContentWindow will be opened.
 
@@ -69,8 +69,8 @@ To install the application, please follow these steps:
    <img src="https://github.com/user-attachments/assets/7a24754d-f230-460a-b9cf-a62276b0910f" alt="Component creation step 7" style="width: 250px;"/>
 
    3. Resize and change the position of a Component via the Component modification section.
-   <img src="https://github.com/user-attachments/assets/7742c24c-9005-40d1-b773-39dd38d07fe6" alt="Component modification step 1" style="width: 500px;"/>
-   <img src="https://github.com/user-attachments/assets/5afc9292-47d4-4456-ba75-c1d66030e0e5" alt="Component modification step 2" style="width: 500px;"/>
+   <img src="https://github.com/user-attachments/assets/7742c24c-9005-40d1-b773-39dd38d07fe6" alt="Component modification step 1" style="width: 400px;"/>
+   <img src="https://github.com/user-attachments/assets/5afc9292-47d4-4456-ba75-c1d66030e0e5" alt="Component modification step 2" style="width: 400px;"/>
 
    4. Add and move subfolders via the "File and folder control" section or add subfolders and files with the "New" toolbar context menu.
    <img src="https://github.com/user-attachments/assets/c38fcf00-8688-42fb-8f16-10fe1fc4fee9" alt="File and folder control step 1" style="width: 300px;"/>
