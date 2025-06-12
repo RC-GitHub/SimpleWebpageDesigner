@@ -55,7 +55,7 @@ To install the application, please follow these steps:
 * After the "Submit" button is clicked, the _ContentWindow_ will be opened while the _MainWindow_ and _CreationWindow_ will close.
 
 ### ContentWindow:
-* The _ContentWindow_ is the place where the user can design their own [grid layout](https://www.w3schools.com/css/css_grid.asp) which later on will be represented on a page.
+* The _ContentWindow_ is the place where the user can design their own [grid layout](https://www.w3schools.com/css/css_grid.asp) which later on will be represented on a page.<br>
    <img src="https://github.com/user-attachments/assets/d349a746-4024-469f-9833-135290a5d9dc" alt="The ContentWindow" style="width: 600px;"/>
 
 * Inside of the _ContentWindow_ the user can:
