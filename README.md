@@ -5,6 +5,7 @@ The styles specified by the user are saved and preserved in JSON files and later
 
 ## License
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+
 This project is licensed under the [Creative Commons Attribution–NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/) license.
 You are free to use, modify, and share this work for non-commercial purposes, as long as you credit the author.
 Use it, remix it, share it — just don’t sell it.
